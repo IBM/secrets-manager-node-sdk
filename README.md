@@ -1,2 +1,2 @@
-# security-nodejs-sdk
-Node.js SDK for IBM Cloud Security Services offerings
+# secrets-manager-nodejs-sdk
+Node.js SDK for the IBM Cloud Secrets Manager service.
