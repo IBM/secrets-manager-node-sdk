@@ -44,12 +44,12 @@ IBM Cloud Secrets Manager uses token-based Identity and Access Management (IAM) 
 IAM authentication uses a service API key to get an access token that is passed with the call.
 Access tokens are valid for a limited amount of time and must be regenerated.
 
-Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `@security-services/ibm-compliance/auth`.
+Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `@ibm-cloud/secrets-manager/auth`.
 
 ### Examples
 #### Programmatic credentials
 ```js
-import { IamAuthenticator } from '@security-services/ibm-compliance/auth';
+import { IamAuthenticator } from '@ibm-cloud/secrets-manager/auth';
 
 const authenticator = new IamAuthenticator({
   apikey: '{apikey}',
@@ -58,7 +58,7 @@ const authenticator = new IamAuthenticator({
 
 #### External configuration
 ```js
-import { getAuthenticatorFromEnvironment } from '@security-services/ibm-compliance/auth';
+import { getAuthenticatorFromEnvironment } from '@ibm-cloud/secrets-manager/auth';
 
 // env vars
 // SECRETS_MANAGER_API_AUTH_TYPE=iam
@@ -66,7 +66,7 @@ import { getAuthenticatorFromEnvironment } from '@security-services/ibm-complian
 const iamAuthenticator = getAuthenticatorFromEnvironment('SECRETS_MANAGER_API');
 ```
 
-To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
+To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](#).
 
 ## Using the SDK
 ### Basic Usage
@@ -74,8 +74,8 @@ To learn more about the Authenticators and how to use them with your services, s
 All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
 
 ```js
-const IbmCloudSecretsManagerApiV1 =  require('@security-services/ibm-secrets-manager/ibm-cloud-secrets-manager-api/v1');
-const { IamAuthenticator } = require('@security-services/ibm-compliance/auth');
+const IbmCloudSecretsManagerApiV1 =  require('@ibm-cloud/secrets-manager/ibm-cloud-secrets-manager-api/v1');
+const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
 
 
 async function secretsManagerSdkExample() {
