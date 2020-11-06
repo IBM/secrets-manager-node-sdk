@@ -1,10 +1,10 @@
 {
-  "name": "@ibm-cloud/secrets-manager-nodejs",
-  "version": "0.0.18",
+  "name": "@ibm-cloud/secrets-manager",
+  "version": "0.0.1",
   "description": "Client library to use the IBM Cloud Secrets Manager",
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/security-services/secrets-manager-sdk-nodejs"
+    "url": "https://github.com/IBM/secrets-manager-nodejs-sdk"
   },
   "keywords": [
     "ibm",
