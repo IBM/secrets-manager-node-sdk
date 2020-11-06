@@ -1,8 +1,6 @@
-# IBM Cloud Compliance Node.js SDK
+# IBM Cloud Secrets Manager Node.js SDK
 
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-
-Node JS client library to use the IBM Secrets Manager APIs.
+A Node.js client library to use the IBM Secrets Manager APIs.
 
 <details>
 <summary>Table of Contents</summary>
@@ -26,17 +24,17 @@ Node JS client library to use the IBM Secrets Manager APIs.
 
 ## Overview
 
-The IBM Cloud Secrets Manager Node SDK allows developers to programmatically interact with the IBM Cloud Secrets Manager.
+The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with the IBM Cloud Secrets Manager.
 
 ## Prerequisites
-- You need an [IBM Cloud][ibm-cloud-onboarding] account.
+- You need an IBM Cloud account.
 
 - **Node >=10**: This SDK is tested with Node versions 10 and up. It may work on previous versions but this is not officially supported.
 
 ## Installation
 
 ```sh
-npm install @security-services/ibm-secrets-manager
+npm install @ibm-cloud/secrets-manager
 ```
 
 ## Authentication
