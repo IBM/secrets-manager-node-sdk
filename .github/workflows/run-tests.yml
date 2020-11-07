@@ -1,19 +1,15 @@
 name: run-tests
 
 on:  
-  push:
   pull_request:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -24,3 +20,5 @@ jobs:
     - run: npm test
       #env:
       #  CI: true
+      #  apikey: {secrets.apikey}
+      #  instanceCrn: crn:v1:bluemix:public:secrets-manager:us-south:a/22018f3c34ff4ff193698d15ca316946:9476d663-dc80-4132-aff6-4585ebbdfb2d::
