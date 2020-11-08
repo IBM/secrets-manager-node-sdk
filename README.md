@@ -10,15 +10,7 @@ A Node.js client library to use the IBM Secrets Manager APIs.
 * [Installation](#installation)
 * [Authentication](#authentication)
 * [Using the SDK](#using-the-sdk)
-  * [Basic Usage](#basic-usage)
-  * [Setting the Service URL](#setting-the-service-url)
-  * [Sending request headers](#sending-request-headers)
-* [Configuring the HTTPS Agent](#configuring-the-https-agent)
-  * [Use behind a corporate proxy](#use-behind-a-corporate-proxy)
-  * [Sending custom certificates](#sending-custom-certificates)
-  * [Disabling SSL Verification](#disabling-ssl-verification---discouraged)
 * [Documentation](#documentation)
-* [Debug](#debug)
 * [Tests](#tests)
 </details>
 
@@ -66,13 +58,18 @@ import { getAuthenticatorFromEnvironment } from '@ibm-cloud/secrets-manager/auth
 const iamAuthenticator = getAuthenticatorFromEnvironment('SECRETS_MANAGER_API');
 ```
 
-To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](#).
+To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
 
 ## Using the SDK
-### Basic Usage
+### Basic Usage and Examples
 
-All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
+- All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
+If using async/await, use try/catch for handling errors.
 
+- Use the `serviceUrl` parameter to pass the URL of your Secrets Manager to `IbmCloudSecretsManagerApiV1`.
+
+#### Example
+Creating an instance of the Secrets Manager API and then using it to create and retrieve a secret.
 ```js
 const IbmCloudSecretsManagerApiV1 =  require('@ibm-cloud/secrets-manager/ibm-cloud-secrets-manager-api/v1');
 const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
@@ -110,7 +107,7 @@ async function secretsManagerSdkExample() {
     ],
   });
 
-  console.log('Secret created\n' + JSON.stringify(res.result.resources[0], null, 2));
+  console.log('Secret created:\n' + JSON.stringify(res.result.resources[0], null, 2));
 
   // Get the ID of the newly created secret
   const secretId = res.result.resources[0].id;
@@ -121,21 +118,97 @@ async function secretsManagerSdkExample() {
     id: secretId,
   });
 
-  console.log('\n\nGet Secret\n\n', JSON.stringify(res.result.resources, null, 2));
+  console.log('Get Secret:\n', JSON.stringify(res.result.resources, null, 2));
 }
 
 secretsManagerSdkExample();
 
 ```
 
+To delete a secret, specify the `secretType` and its `id`.
+```js
+  res = await secretsManagerApi.deleteSecret({
+    secretType: 'username_password',
+    id: secretId,
+  });
+
+  console.log('Secret deleted.');
+
+```
+
+Create a Secret Group, and then add a new secret to this group.
+```js
+ // Create a secret group
+    const createGroupParams = {
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret.group+json',
+        collection_total: 1,
+      },
+      resources: [{ name: 'Test Group', description: 'Group my test secrets' }],
+    };
+
+    let res = await ibmCloudSecretsManagerApiService.createSecretGroup(createGroupParams);
+    const secretGroupId = res.result.resources[0].id;
+
+    // Create a secrete and associate it with our secret group
+    res = await ibmCloudSecretsManagerApiService.createSecret({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      },
+      secretType: 'username_password',
+      resources: [
+        {
+          secret_group_id: secretGroupId,
+          name: "Test secret",
+          description: 'Secret used for testing',
+          username: 'test_user',
+          password: 'test_password',
+          labels: ['label1'],
+          expiration_date: '2030-04-01T09:30:00Z',
+        },
+      ],
+    });
+```
+
+Create a rotation policy of one month for a secret.
+```js
+    let res = await ibmCloudSecretsManagerApiService.putPolicy({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
+        collection_total: 1,
+      },
+      secretType: 'username_password',
+      id: secretId,
+      resources: [
+        {
+          type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
+          rotation: {
+            interval: 1,
+            unit: 'month',
+          },
+        },
+      ],
+    });
+```
+
+## Documentation
+
+For more info about the Secrets Manager please refer to the [Secrets Manager Documentation](https://cloud.ibm.com/docs/secrets-manager) and [Secrets Manager API Docs](https://cloud.ibm.com/apidocs/secrets-manager). 
+
 ## Tests
+
+This project includes unit tests `test/unit` and integration tests `test/integration`.
+
+The integration test are running against an actual instance of a Secrets Manager and require the following environment variables to be set:
+```
+SECRETS_MANAGER_API_AUTH_TYPE=iam;
+SECRETS_MANAGER_API_APIKEY=<api key>
+SERVICE_URL=<url to a secrets manager instance>
+```
+
 Running all the tests:
 ```sh
 npm test
-```
-
-Running a specific test:
-```sh
-npm run jest -- '<path to test>'
 ```
 
