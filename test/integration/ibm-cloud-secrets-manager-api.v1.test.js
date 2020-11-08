@@ -165,4 +165,59 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     });
     expect(res.status).toBe(204);
   });
+
+  test('Creating a secret with the same name should result in a conflict', async () => {
+    const secretName = 'conflict_integration_test_secret';
+
+    // Create a new arbitrary secret
+    let res = await ibmCloudSecretsManagerApiService.createSecret({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      },
+      secretType: 'arbitrary',
+      resources: [
+        {
+          name: secretName,
+          description: 'Integration test generated',
+          payload: 'secret-data',
+          labels: ['label1', 'label2'],
+          expiration_date: '2030-04-01T09:30:00Z',
+        },
+      ],
+    });
+    expect(res.status).toBe(200);
+    const secretId = res.result.resources[0].id;
+
+    // Now reuse the same secret name under the same secret type, should result in a conflict error.
+    try {
+      res = await ibmCloudSecretsManagerApiService.createSecret({
+        metadata: {
+          collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+          collection_total: 1,
+        },
+        secretType: 'arbitrary',
+        resources: [
+          {
+            name: secretName,
+            description: 'Integration test generated',
+            payload: 'secret-data',
+            labels: ['label1', 'label2'],
+            expiration_date: '2030-04-01T09:30:00Z',
+          },
+        ],
+      });
+      throw Error('Should not reach this point');
+    } catch (errorResponse) {
+      expect(errorResponse.name).toBe('Conflict');
+      expect(errorResponse.status).toBe(409);
+    }
+
+    // Delete the secret.
+    res = await ibmCloudSecretsManagerApiService.deleteSecret({
+      secretType: 'arbitrary',
+      id: secretId,
+    });
+    expect(res.status).toBe(204);
+  });
 });
