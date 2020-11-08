@@ -19,5 +19,6 @@ jobs:
     - run: npm install
     - run: npm test
       env:
+        SECRETS_MANAGER_API_AUTH_TYPE: iam
         SECRETS_MANAGER_API_APIKEY: ${{ secrets.SECRETS_MANAGER_API_APIKEY }}
         SERVICE_URL: https://9476d663-dc80-4132-aff6-4585ebbdfb2d.us-south.secrets-manager.appdomain.cloud
