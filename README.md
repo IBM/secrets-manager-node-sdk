@@ -1,5 +1,3 @@
-![workflow status](https://github.com/actions/hello-world/workflows/.github/workflows/run-tests.yml/badge.svg)
-
 # IBM Cloud Secrets Manager Node.js SDK
 
 A Node.js client library to use the IBM Secrets Manager APIs.
