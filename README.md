@@ -29,7 +29,7 @@ The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically 
 ## Prerequisites
 - You need an IBM Cloud account.
 
-- **Node >=10**: This SDK is tested with Node versions 10 and up. It may work on previous versions but this is not officially supported.
+- **Node >=12**: This SDK is tested with Node versions 12 and up. It may work on previous versions but this is not officially supported.
 
 ## Installation
 
