@@ -1348,7 +1348,7 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  the string representation of a duration (eg. “120m”, “24h”). This parameter is only relevant for IAM-credentials
      *  secrets.
      */
-    ttl?: string;
+    ttl?: any;
     /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
@@ -1422,7 +1422,7 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  long each generated API key will live. The value can be either an integer specifying the number of seconds, or
      *  the string representation of a duration (eg. "120m", “12h”).
      */
-    ttl?: string;
+    ttl?: any;
     /** The IAM access groups that define the capabilities of the IAM credentials generated for an IAM secret. This
      *  field is relevant only for IAM secrets.
      */
