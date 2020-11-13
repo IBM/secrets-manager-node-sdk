@@ -1,6 +1,6 @@
 # IBM Cloud Secrets Manager Node.js SDK
 
-A Node.js client library to use the IBM Secrets Manager APIs.
+A Node.js client library to use the IBM Cloud® Secrets Manager APIs.
 
 <details>
 <summary>Table of Contents</summary>
@@ -16,10 +16,10 @@ A Node.js client library to use the IBM Secrets Manager APIs.
 
 ## Overview
 
-The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with the IBM Cloud Secrets Manager.
+The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with IBM Cloud Secrets Manager.
 
 ## Prerequisites
-- You need an IBM Cloud account.
+- You need an [IBM Cloud account](https://cloud.ibm.com/registration).
 
 - **Node >=12**: This SDK is tested with Node versions 12 and up. It may work on previous versions but this is not officially supported.
 
@@ -61,34 +61,34 @@ const iamAuthenticator = getAuthenticatorFromEnvironment('SECRETS_MANAGER_API');
 To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
 
 ## Using the SDK
-### Basic Usage and Examples
+### Basic usage
 
 - All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
 If using async/await, use try/catch for handling errors.
 
 - Use the `serviceUrl` parameter to pass the URL of your Secrets Manager to `IbmCloudSecretsManagerApiV1`.
 
-#### Example
-Creating an instance of the Secrets Manager API and then using it to create and retrieve a secret.
+#### Examples
+Create an instance of the Secrets Manager API and then use it to create and retrieve a secret.
 ```js
 const IbmCloudSecretsManagerApiV1 =  require('@ibm-cloud/secrets-manager/ibm-cloud-secrets-manager-api/v1');
 const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
 
 
 async function secretsManagerSdkExample() {
-  // Authenticate with IAM using your IBM Cloud IAM Api Key.
+  // Authenticate with IAM using your IBM Cloud API key
   const authenticator = new IamAuthenticator({
     apikey: process.env.SECRETS_MANAGER_API_APIKEY,
   });
 
-  // Create an instance of the SDK, providing with authentication mechanism and your Secrets Manager instance URL.
+  // Create an instance of the SDK by providing an authentication mechanism and your Secrets Manager instance URL
   const secretsManagerApi = new IbmCloudSecretsManagerApiV1({
     authenticator,
     serviceUrl:
       'https://example-instance.us-south.secrets-manager.appdomain.cloud',
   });
 
-  // Use Secrets Manager API to create a secret.
+  // Use the Secrets Manager API to create a secret
   let res = await secretsManagerApi.createSecret({
     secretType: 'username_password',
     'metadata': {
@@ -112,7 +112,7 @@ async function secretsManagerSdkExample() {
   // Get the ID of the newly created secret
   const secretId = res.result.resources[0].id;
 
-  // Use Secrets Manager API to get the secret using the secretId
+  // Use the Secrets Manager API to get the secret using the secret ID
   res = await secretsManagerApi.getSecret({
     secretType: 'username_password',
     id: secretId,
@@ -136,7 +136,7 @@ To delete a secret, specify the `secretType` and its `id`.
 
 ```
 
-Create a Secret Group, and then add a new secret to this group.
+Create a secret group, and then add a new secret to this group.
 ```js
  // Create a secret group
     const createGroupParams = {
@@ -150,7 +150,7 @@ Create a Secret Group, and then add a new secret to this group.
     let res = await ibmCloudSecretsManagerApiService.createSecretGroup(createGroupParams);
     const secretGroupId = res.result.resources[0].id;
 
-    // Create a secrete and associate it with our secret group
+    // Create a secret and associate it with your secret group
     res = await ibmCloudSecretsManagerApiService.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
@@ -194,7 +194,7 @@ Create a rotation policy of one month for a secret.
 
 ## Documentation
 
-For more info about the Secrets Manager please refer to the [Secrets Manager Documentation](https://cloud.ibm.com/docs/secrets-manager) and [Secrets Manager API Docs](https://cloud.ibm.com/apidocs/secrets-manager). 
+For more information about Secrets Manager, check out the [Secrets Manager documentation](https://cloud.ibm.com/docs/secrets-manager) and [API reference](https://cloud.ibm.com/apidocs/secrets-manager). 
 
 ## Tests
 
