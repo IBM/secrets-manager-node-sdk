@@ -16,14 +16,19 @@ jobs:
         node-version: 12
     - name: Publish if version has been updated
       uses: pascalgn/npm-publish-action@1.3.4
-      with: # All of theses inputs are optional
-        tag_name: "v%s"
-        tag_message: "v%s"
-        commit_pattern: "^Release (\\S+)"
-        workspace: "."
+     # with: # All of theses inputs are optional
+      #  tag_name: "v%s"
+     #   tag_message: "v%s"
+     #   commit_pattern: "^Release (\\S+)"
+   #     workspace: "."
 #        publish_command: "npm publish"
-        publish_args: "--non-interactive"
+    #    publish_args: "--non-interactive"
       env: # More info about the environment variables in the README
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
         PUBLISH_COMMAND: "npm publish"
+        tag_name: "v%s"
+        tag_message: "v%s"
+        commit_pattern: "^Release (\\S+)"
+        workspace: "."
+        publish_args: "--non-interactive"
