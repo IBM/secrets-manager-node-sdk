@@ -1,3 +1,5 @@
+![tests](https://github.com/IBM/secrets-manager-nodejs-sdk/workflows/run-tests/badge.svg)
+
 # IBM Cloud Secrets Manager Node.js SDK
 
 A Node.js client library to use the IBM Cloud® Secrets Manager APIs.
