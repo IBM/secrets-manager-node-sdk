@@ -1,9 +1,11 @@
 name: publish-release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["create-release"]
+    branches: [main]
+    types: 
+      - completed
 
 jobs:
   publish:
