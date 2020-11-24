@@ -1,6 +1,9 @@
 name: publish-release
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
@@ -11,7 +14,6 @@ jobs:
         with:
           node-version: 10
       - run: npm install
-      - run: npm test
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
