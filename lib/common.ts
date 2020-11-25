@@ -17,7 +17,7 @@
 import os = require('os');
 
 // tslint:disable-next-line:no-var-requires
-const pkg = require('../../package.json');
+const pkg = require('../package.json');
 
 export type SdkHeaders = {
   'User-Agent': string;
