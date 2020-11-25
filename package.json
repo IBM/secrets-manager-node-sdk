@@ -1,14 +1,13 @@
 {
   "name": "@ibm-cloud/secrets-manager",
-  "version": "0.0.1",
-  "description": "Client library to use the IBM Cloud Secrets Manager",
+  "version": "0.0.3",
+  "description": "Client library for IBM Cloud Secrets Manager",
   "repository": {
     "type": "git",
     "url": "https://github.com/IBM/secrets-manager-nodejs-sdk"
   },
   "keywords": [
     "ibm",
-    "secrets",
     "secrets-manager"
   ],
   "author": "IBM Corp.",
@@ -19,22 +18,20 @@
     "tslint:check": "tslint -p . -c ./tslint.json",
     "lint": "npm run eslint:check && npm run tslint:check",
     "lint-fix": "npm run eslint:fix && npm run tslint:fix",
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "postversion": "tsc-publish --no-checks --dry-run",
     "jest": "jest",
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest test/unit/",
     "test-integration": "npm run build && jest test/integration",
-    "test-unit-travis": "jest --runInBand test/unit/",
-    "test-integration-travis": "jest --runInBand --no-colors --testNamePattern='^((?!@slow).)*$' --json test/integration > test-output.log",
     "report-coverage": "codecov",
     "check-packages": "installed-check -e -d -v",
-    "publishDist": "cp package.json dist/ && cd dist && npm publish"
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "postversion": "tsc-publish --no-checks --dry-run",
+    "publishDist": "cp package.json dist/ && cd dist && npm publish --access public"
   },
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "dependencies": {
     "@types/node": "^12.0.8",

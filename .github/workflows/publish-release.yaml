@@ -3,8 +3,8 @@ name: publish-release
 on:
   workflow_run:
     workflows: ["create-release"]
-    branches: [main]
-    types: 
+    branches: [main-disabled]
+    types:
       - completed
 
 jobs:
