@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/secrets-manager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Client library for IBM Cloud Secrets Manager",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "postversion": "tsc-publish --no-checks --dry-run",
-    "publishDist": "cp package.json dist/ && cd dist && npm publish --access public"
+    "publishDist": "cp {package.json,readme.md} dist/ && cd dist && npm publish --access public"
   },
   "license": "Apache-2.0",
   "engines": {
