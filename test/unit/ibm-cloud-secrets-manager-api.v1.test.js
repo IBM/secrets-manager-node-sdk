@@ -109,18 +109,18 @@ describe('IbmCloudSecretsManagerApiV1', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // SetEngineConfigOneOfSetIAMSecretEngineRootConfig
-      const setEngineConfigOneOfModel = {
-        api_key: 'testString',
+      // EngineConfigOneOfIAMSecretEngineRootConfig
+      const engineConfigOneOfModel = {
+        api_key: 'API_KEY',
       };
 
       test('should pass the right params to createRequest', () => {
         // Construct the params object for operation putConfig
         const secretType = 'iam_credentials';
-        const setEngineConfigOneOf = setEngineConfigOneOfModel;
+        const engineConfigOneOf = engineConfigOneOfModel;
         const params = {
           secretType: secretType,
-          setEngineConfigOneOf: setEngineConfigOneOf,
+          engineConfigOneOf: engineConfigOneOf,
         };
 
         const putConfigResult = ibmCloudSecretsManagerApiService.putConfig(params);
@@ -137,19 +137,19 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         const expectedAccept = undefined;
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body).toEqual(setEngineConfigOneOf);
+        expect(options.body).toEqual(engineConfigOneOf);
         expect(options.path['secret_type']).toEqual(secretType);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
         const secretType = 'iam_credentials';
-        const setEngineConfigOneOf = setEngineConfigOneOfModel;
+        const engineConfigOneOf = engineConfigOneOfModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
           secretType,
-          setEngineConfigOneOf,
+          engineConfigOneOf,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -448,7 +448,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       // SecretGroupResource
       const secretGroupResourceModel = {
         name: 'my-secret-group',
-        description: 'my secret group',
+        description: 'Extended description for this group.',
         foo: 'testString',
       };
 
@@ -647,8 +647,8 @@ describe('IbmCloudSecretsManagerApiV1', () => {
 
       // SecretGroupMetadataUpdatable
       const secretGroupMetadataUpdatableModel = {
-        name: 'my-new-secret-group',
-        description: 'my new secret group',
+        name: 'updated-secret-group-name',
+        description: 'Updated description for this group.',
       };
 
       test('should pass the right params to createRequest', () => {
@@ -1347,8 +1347,8 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       // SecretMetadata
       const secretMetadataModel = {
         labels: ['testString'],
-        name: 'my-secret',
-        description: 'text describing the secret',
+        name: 'example-secret',
+        description: 'Extended description for this secret.',
         expiration_date: '2019-01-01T12:00:00',
         ttl: '24h',
       };
