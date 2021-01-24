@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.21.0-a45d89ef-20201207-220514
+ * IBM OpenAPI SDK Code Generator Version: 3.25.0-2b3f843a-20210115-164628
  */
 
 
@@ -26,8 +26,8 @@ import { getSdkHeaders } from '../lib/common';
 
 /**
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
- * services or your custom-built applications. Secrets are stored in a dedicated instance of open source HashiCorp
- * Vault, built on IBM Cloud.
+ * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, backed by
+ * open source HashiCorp Vault.
  */
 
 class IbmCloudSecretsManagerApiV1 extends BaseService {
@@ -184,7 +184,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
   /**
    * Set secret policies.
    *
-   * Creates or updates one or more policies for the specified secret.
+   * Creates or updates one or more policies, such as an [automatic rotation
+   * policy](http://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-rotate-secrets#auto-rotate-secret),  for
+   * the specified secret.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -297,8 +299,8 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * Creates a secret group that you can use to organize secrets and control who on your team has access to them.
    *
-   * A successful `POST /api/v1/secret_groups` request returns the ID value of the secret group, along with other
-   * metadata. To learn more about secret groups, check out the
+   * A successful request returns the ID value of the secret group, along with other metadata. To learn more about
+   * secret groups, check out the
    * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-groups).
    *
    * @param {Object} params - The parameters to send to the service.
@@ -471,9 +473,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>>}
+   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>>}
    */
-  public deleteSecretGroup(params: IbmCloudSecretsManagerApiV1.DeleteSecretGroupParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>> {
+  public deleteSecretGroup(params: IbmCloudSecretsManagerApiV1.DeleteSecretGroupParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['id'];
 
@@ -496,7 +498,6 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
         }, _params.headers),
       }),
     };
@@ -513,8 +514,8 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * Creates a secret that you can use to access or authenticate to a protected resource.
    *
-   * A successful `POST /api/v1/secrets` request stores the secret in your dedicated instance based on the secret type
-   * and data that you specify. The response returns the ID value of the secret, along with other metadata.
+   * A successful request stores the secret in your dedicated instance based on the secret type and data that you
+   * specify. The response returns the ID value of the secret, along with other metadata.
    *
    * To learn more about the types of secrets that you can create with Secrets Manager, check out the
    * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-basics).
@@ -571,14 +572,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
-   * @param {number} [params.limit] - The number of secrets to retrieve. By default, `GET /secrets/{secret-type}`
-   * returns the first 200 secrets. To retrieve a different set of secrets, use `limit` with `offset` to page through
-   * your available resources. The maximum value for `limit` is 5000.
+   * @param {number} [params.limit] - The number of secrets to retrieve. By default, list operations return the first
+   * 200 items. To retrieve a different set of items, use `limit` with `offset` to page through your available
+   * resources.
    *
    * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
    * `../secrets/{secret-type}?limit=5`.
    * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
-   * secrets that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+   * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
    * `../secrets/{secret-type}?offset=25&limit=25`.
@@ -628,14 +629,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * Retrieves a list of all secrets in your Secrets Manager instance.
    *
    * @param {Object} [params] - The parameters to send to the service.
-   * @param {number} [params.limit] - The number of secrets to retrieve. By default, `GET /secrets/{secret-type}`
-   * returns the first 200 secrets. To retrieve a different set of secrets, use `limit` with `offset` to page through
-   * your available resources. The maximum value for `limit` is 5000.
+   * @param {number} [params.limit] - The number of secrets to retrieve. By default, list operations return the first
+   * 200 items. To retrieve a different set of items, use `limit` with `offset` to page through your available
+   * resources.
    *
    * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
    * `../secrets/{secret-type}?limit=5`.
    * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
-   * secrets that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+   * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
    * `../secrets/{secret-type}?offset=25&limit=25`.
@@ -673,11 +674,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * Retrieves a secret and its details by specifying the ID of the secret.
    *
-   * A successful `GET /api/v1/secrets/{secret_type}/{id}` returns the secret data that is associated with your secret,
-   * along with other metadata.
-   *
-   * **Tip:** If you need to view only the details of a specified secret without retrieving its value, use
-   * [`GET /api/v1/secrets/{secret_type}/{id}/metadata`](#get-secret-metadata).
+   * A successful request returns the secret data that is associated with your secret, along with other metadata. To
+   * view only the details of a specified secret without retrieving its value, use the [Get secret
+   * metadata](#get-secret-metadata)  method.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -820,8 +819,8 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * Retrieves the details of a secret by specifying the ID.
    *
-   * A successful `GET /api/v1/secrets/{secret_type}/{id}/metadata` request returns only metadata about the secret, such
-   * as its name and creation date. To retrieve the value of a secret, use the [Get a secret](#get-secret) method.
+   * A successful request returns only metadata about the secret, such as its name and creation date. To retrieve the
+   * value of a secret, use the [Get a secret](#get-secret) method.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -1092,15 +1091,14 @@ namespace IbmCloudSecretsManagerApiV1 {
   export interface ListSecretsParams {
     /** The secret type. */
     secretType: ListSecretsConstants.SecretType | string;
-    /** The number of secrets to retrieve. By default, `GET /secrets/{secret-type}` returns the first 200 secrets.
-     *  To retrieve a different set of secrets, use `limit` with `offset` to page through your available resources. The
-     *  maximum value for `limit` is 5000.
+    /** The number of secrets to retrieve. By default, list operations return the first 200 items. To retrieve a
+     *  different set of items, use `limit` with `offset` to page through your available resources.
      *
      *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
      *  `../secrets/{secret-type}?limit=5`.
      */
     limit?: number;
-    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of secrets that starts with the
+    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
      *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
@@ -1122,15 +1120,14 @@ namespace IbmCloudSecretsManagerApiV1 {
 
   /** Parameters for the `listAllSecrets` operation. */
   export interface ListAllSecretsParams {
-    /** The number of secrets to retrieve. By default, `GET /secrets/{secret-type}` returns the first 200 secrets.
-     *  To retrieve a different set of secrets, use `limit` with `offset` to page through your available resources. The
-     *  maximum value for `limit` is 5000.
+    /** The number of secrets to retrieve. By default, list operations return the first 200 items. To retrieve a
+     *  different set of items, use `limit` with `offset` to page through your available resources.
      *
      *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
      *  `../secrets/{secret-type}?limit=5`.
      */
     limit?: number;
-    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of secrets that starts with the
+    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
      *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
@@ -1286,7 +1283,7 @@ namespace IbmCloudSecretsManagerApiV1 {
 
   /** Properties that are associated with a rotation policy. */
   export interface GetSecretPoliciesOneOfGetSecretPolicyRotationResourcesItem {
-    /** The v4 UUID used to uniquely identify the policy resource, as specified by RFC 4122. */
+    /** The v4 UUID that uniquely identifies the policy. */
     id: string;
     /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
     crn?: string;
@@ -1298,7 +1295,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     last_update_date?: string;
     /** The unique identifier for the entity that updated the policy. */
     updated_by?: string;
-    /** Specifies the MIME type that represents the policy resource. Currently, only the default is supported. */
+    /** The MIME type that represents the policy. Currently, only the default is supported. */
     type: string;
     /** The secret rotation time interval. */
     rotation: SecretPolicyRotationRotation;
@@ -1332,7 +1329,7 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  group.
      */
     name?: string;
-    /** A text field that is used to provide a more detailed description of the secret group.
+    /** An extended description of your secret group.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
      *  secret group.
@@ -1342,21 +1339,25 @@ namespace IbmCloudSecretsManagerApiV1 {
 
   /** Properties that describe a secret group. */
   export interface SecretGroupResource {
-    /** The v4 UUID used to uniquely identify the resource, as specified by RFC 4122. */
+    /** The v4 UUID that uniquely identifies the secret group. */
     id?: string;
-    /** A human-readable name to assign to your secret group. To protect your privacy, do not use personal data,
-     *  such as your name or location, as a name for your secret group.
+    /** A human-readable name to assign to your secret group.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret
+     *  group.
      */
     name?: string;
-    /** A text field that is used to provide a more detailed description of the secret group. To protect your
-     *  privacy, do not use personal data, such as your name or location, as a description for your secret group.
+    /** An extended description of your secret group.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
      */
     description?: string;
-    /** The date the secret-group was created. The date format follows RFC 3339. */
+    /** The date the secret group was created. The date format follows RFC 3339. */
     creation_date?: string;
-    /** Updates when the metadata of the secret-group is modified. The date format follows RFC 3339. */
+    /** Updates when the metadata of the secret group is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** Specifies the MIME type that represents the secret-group resource. */
+    /** The MIME type that represents the secret group. */
     type?: string;
     /** SecretGroupResource accepts additional properties. */
     [propName: string]: any;
@@ -1379,7 +1380,7 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
      */
     name: string;
-    /** A text field that is used to provide a more detailed description of the secret.
+    /** An extended description of your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
      *  secret.
@@ -1411,7 +1412,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     /** The time-to-live (TTL) or lease duration to assign to generated credentials.
      *
      *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration,  such as
+     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
      *  `120m` or `24h`.
      */
     ttl?: any;
@@ -1435,7 +1436,7 @@ namespace IbmCloudSecretsManagerApiV1 {
 
   /** Properties that are associated with a rotation policy. */
   export interface SecretPolicyRotation {
-    /** Specifies the MIME type that represents the policy resource. Currently, only the default is supported. */
+    /** The MIME type that represents the policy. Currently, only the default is supported. */
     type: string;
     /** The secret rotation time interval. */
     rotation: SecretPolicyRotationRotation;
@@ -1449,80 +1450,8 @@ namespace IbmCloudSecretsManagerApiV1 {
     unit: string;
   }
 
-  /** Properties that describe a secret. */
+  /** SecretResource. */
   export interface SecretResource {
-    /** Specifies the MIME type that represents the secret resource. */
-    type?: string;
-    /** The v4 UUID used to uniquely identify the resource, as specified by RFC 4122. */
-    id?: string;
-    /** A human-readable alias to assign to your secret.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
-     */
-    name: string;
-    /** A text field that is used to provide a more detailed description of the secret.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
-     *  secret.
-     */
-    description?: string;
-    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
-     *
-     *  If you omit this parameter, your secret is assigned to the `default` secret group.
-     */
-    secret_group_id?: string;
-    /** Labels that you can use to filter for secrets in your instance.
-     *
-     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
-     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
-     */
-    labels?: string[];
-    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
-     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
-     */
-    state?: number;
-    /** The date the secret material expires. The date format follows RFC 3339.
-     *
-     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
-     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
-     *  following secret types:
-     *
-     *  - `arbitrary`
-     *  - `username_password`.
-     */
-    expiration_date?: string;
-    /** The time-to-live (TTL) or lease duration to assign to generated credentials.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration,  such as
-     *  `120m` or `24h`.
-     */
-    ttl?: any;
-    /** The access groups that define the capabilities of the service ID and API key that are generated for an
-     *  `iam_credentials` secret.
-     *
-     *  **Tip:** To find the ID of an access group, go to **Manage > Access (IAM) > Access groups** in the IBM Cloud
-     *  console. Select the access group to inspect, and click **Details** to view its ID.
-     */
-    access_groups?: string[];
-    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
-    crn?: string;
-    /** The date the secret was created. The date format follows RFC 3339. */
-    creation_date?: string;
-    /** The unique identifier for the entity that created the secret. */
-    created_by?: string;
-    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
-    last_update_date?: string;
-    /** The date the next rotation of the secret will be performed at. This field exists only for secrets that can
-     *  be auto-rotated.
-     */
-    next_rotation_date?: string;
-    /** An array that contains metadata for each secret version. */
-    versions?: SecretVersion[];
-    /** SecretResource accepts additional properties. */
-    [propName: string]: any;
   }
 
   /** Properties that are associated with a specific secret version. */
@@ -1533,7 +1462,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret. */
     created_by?: string;
-    /** Indicates if the version of the secret was created by auto-rotation. */
+    /** Indicates whether the version of the secret was created by automatic rotation. */
     auto_rotated?: boolean;
   }
 
@@ -1574,6 +1503,210 @@ namespace IbmCloudSecretsManagerApiV1 {
   export interface SecretActionOneOfRotateUsernamePasswordSecretBody extends SecretActionOneOf {
     /** The new password to assign to a `username_password` secret. */
     password: string;
+  }
+
+  /** The base schema for secrets. */
+  export interface SecretResourceArbitrarySecretResource extends SecretResource {
+    /** The MIME type that represents the secret. */
+    type?: string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** An array that contains metadata for each secret version. */
+    versions?: SecretVersion[];
+    /** The date the secret material expires. The date format follows RFC 3339.
+     *
+     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
+     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
+     *  following secret types:
+     *
+     *  - `arbitrary`
+     *  - `username_password`.
+     */
+    expiration_date?: string;
+    /** The new secret data to assign to an `arbitrary` secret. */
+    payload?: string;
+    secret_data?: JsonObject;
+  }
+
+  /** The base schema for secrets. */
+  export interface SecretResourceIAMSecretResource extends SecretResource {
+    /** The MIME type that represents the secret. */
+    type?: string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** An array that contains metadata for each secret version. */
+    versions?: SecretVersion[];
+    /** The time-to-live (TTL) or lease duration to assign to generated credentials.
+     *
+     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
+     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
+     *  `120m` or `24h`.
+     */
+    ttl?: any;
+    /** The access groups that define the capabilities of the service ID and API key that are generated for an
+     *  `iam_credentials` secret.
+     *
+     *  **Tip:** To find the ID of an access group, go to **Manage > Access (IAM) > Access groups** in the IBM Cloud
+     *  console. Select the access group to inspect, and click **Details** to view its ID.
+     */
+    access_groups?: string[];
+    /** The IAM API key of this IAM secret. */
+    api_key?: string;
+    /** The IAM ServiceID under which the IAM API key (see the api_key field) was created. This ServiceID is
+     *  assigned to the access_groups defined for this IAM secret.
+     */
+    service_id?: string;
+  }
+
+  /** The base schema for secrets. */
+  export interface SecretResourceUsernamePasswordSecretResource extends SecretResource {
+    /** The MIME type that represents the secret. */
+    type?: string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** An array that contains metadata for each secret version. */
+    versions?: SecretVersion[];
+    /** The username assigend to the username-password secret. */
+    username?: string;
+    /** The password assigend to the username-password secret. */
+    password?: string;
+    secret_data?: JsonObject;
+    /** The date the secret material expires. The date format follows RFC 3339.
+     *
+     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
+     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
+     *  following secret types:
+     *
+     *  - `arbitrary`
+     *  - `username_password`.
+     */
+    expiration_date?: string;
+    /** The date that the secret is scheduled for automatic rotation.
+     *
+     *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
+     *  for secrets that can be auto-rotated and have an existing rotation policy.
+     */
+    next_rotation_date?: string;
   }
 
 }
