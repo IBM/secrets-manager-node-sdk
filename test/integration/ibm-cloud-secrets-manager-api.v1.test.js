@@ -110,7 +110,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
     // Delete the secret group
     res = await ibmCloudSecretsManagerApiService.deleteSecretGroup({ id: secretGroupId });
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(204);
   });
 
   test('Should be able to set a rotation policy for a secret', async () => {

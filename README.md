@@ -2,7 +2,7 @@
 
 # IBM Cloud Secrets Manager Node.js SDK
 
-A Node.js client library to use the IBM Cloud® Secrets Manager APIs.
+A Node.js client library to interact with the [IBM Cloud® Secrets Manager APIs](https://cloud.ibm.com/apidocs/secrets-manager).
 
 <details>
 <summary>Table of Contents</summary>
@@ -12,18 +12,29 @@ A Node.js client library to use the IBM Cloud® Secrets Manager APIs.
 * [Installation](#installation)
 * [Authentication](#authentication)
 * [Using the SDK](#using-the-sdk)
-* [Documentation](#documentation)
 * [Tests](#tests)
+* [Questions](#questions)
+* [Issues](#issues)
+* [Contributing](#contributing)
+* [License](#license)
 </details>
 
 ## Overview
 
-The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with IBM Cloud Secrets Manager.
+The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with the following IBM Cloud services:
+
+Service name | Import path
+--- | ---
+[Secrets Manager](https://cloud.ibm.com/apidocs/secrets-manager) | @ibm-cloud/secrets-manager/ibm-cloud-secrets-manager-api/v1
 
 ## Prerequisites
-- You need an [IBM Cloud account](https://cloud.ibm.com/registration).
 
-- **Node >=12**: This SDK is tested with Node versions 12 and up. It may work on previous versions but this is not officially supported.
+- An [IBM Cloud account](https://cloud.ibm.com/registration).
+- A [Secrets Manager service instance](https://cloud.ibm.com/catalog/services/secrets-manager).
+- An [IBM Cloud API key](https://cloud.ibm.com/iam/apikeys) that allows the SDK to access your account. 
+- Node.js version 12 or above. 
+  
+  This SDK is tested with Node versions 12 and up. The SDK may work on previous versions, but this is not supported officially.
 
 ## Installation
 
@@ -33,15 +44,16 @@ npm install @ibm-cloud/secrets-manager
 
 ## Authentication
 
-IBM Cloud Secrets Manager uses token-based Identity and Access Management (IAM) authentication.
+Secrets Manager uses token-based Identity and Access Management (IAM) authentication.
 
-IAM authentication uses a service API key to get an access token that is passed with the call.
-Access tokens are valid for a limited amount of time and must be regenerated.
+With IAM authentication, you supply an API key that is used to generate an access token. Then, the access token is included in each API request to Secrets Manager. Access tokens are valid for a limited amount of time and must be regenerated.
 
-Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `@ibm-cloud/secrets-manager/auth`.
+Authentication for this SDK is accomplished by using [IAM authenticators](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#authentication). Import authenticators from `@ibm-cloud/secrets-manager/auth`.
 
 ### Examples
+
 #### Programmatic credentials
+
 ```js
 import { IamAuthenticator } from '@ibm-cloud/secrets-manager/auth';
 
@@ -51,6 +63,7 @@ const authenticator = new IamAuthenticator({
 ```
 
 #### External configuration
+
 ```js
 import { getAuthenticatorFromEnvironment } from '@ibm-cloud/secrets-manager/auth';
 
@@ -60,18 +73,19 @@ import { getAuthenticatorFromEnvironment } from '@ibm-cloud/secrets-manager/auth
 const iamAuthenticator = getAuthenticatorFromEnvironment('SECRETS_MANAGER_API');
 ```
 
-To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
+To learn more about IAM authenticators and how to use them in your Node.js application, see the [IBM Node.js SDK Core documentation](https://github.com/IBM/node-sdk-core/blob/master/Authentication.md).
 
 ## Using the SDK
+
 ### Basic usage
 
-- All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
-If using async/await, use try/catch for handling errors.
-
-- Use the `serviceUrl` parameter to pass the URL of your Secrets Manager to `IbmCloudSecretsManagerApiV1`.
+- All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text. If using async/await, use try/catch for handling errors.
+- Use the `serviceUrl` parameter to set the endpoint URL that is specific to your Secrets Manager service instance. To find your endpoint URL, you can copy it from the **Endpoints** page in the Secrets Manager UI.
 
 #### Examples
-Create an instance of the Secrets Manager API and then use it to create and retrieve a secret.
+
+Construct a service client and use it to create and retrieve a secret from your Secrets Manager instance.
+
 ```js
 const IbmCloudSecretsManagerApiV1 =  require('@ibm-cloud/secrets-manager/ibm-cloud-secrets-manager-api/v1');
 const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
@@ -100,7 +114,7 @@ async function secretsManagerSdkExample() {
     'resources': [
       {
         'name': 'example-username-password-secret',
-        'description': 'text describing the secret',
+        'description': 'Extended description for this secret.',
         'username': 'user123',
         'password': '123456789',
         'labels': ['label1', 'label2'],
@@ -120,7 +134,7 @@ async function secretsManagerSdkExample() {
     id: secretId,
   });
 
-  console.log('Get Secret:\n', JSON.stringify(res.result.resources, null, 2));
+  console.log('Get secret:\n', JSON.stringify(res.result.resources, null, 2));
 }
 
 secretsManagerSdkExample();
@@ -163,7 +177,7 @@ Create a secret group, and then add a new secret to this group.
         {
           secret_group_id: secretGroupId,
           name: "Test secret",
-          description: 'Secret used for testing',
+          description: 'Secret used for testing.',
           username: 'test_user',
           password: 'test_password',
           labels: ['label1'],
@@ -194,23 +208,39 @@ Create a rotation policy of one month for a secret.
     });
 ```
 
-## Documentation
-
-For more information about Secrets Manager, check out the [Secrets Manager documentation](https://cloud.ibm.com/docs/secrets-manager) and [API reference](https://cloud.ibm.com/apidocs/secrets-manager). 
+For more information and IBM Cloud SDK usage examples for Node.js, see the [IBM Cloud SDK Common documentation](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
 
 ## Tests
 
 This project includes unit tests `test/unit` and integration tests `test/integration`.
 
-The integration test are running against an actual instance of a Secrets Manager and require the following environment variables to be set:
+The integration tests are run against an actual Secrets Manager instance and require the following environment variables to be set:
+
 ```
 SECRETS_MANAGER_API_AUTH_TYPE=iam;
-SECRETS_MANAGER_API_APIKEY=<api key>
-SERVICE_URL=<url to a secrets manager instance>
+SECRETS_MANAGER_API_APIKEY=<API_KEY>
+SERVICE_URL=<SECRETS_MANAGER_ENDPOINT_URL>
 ```
 
-Running all the tests:
+To run the tests:
 ```sh
 npm test
 ```
 
+## Questions
+
+If you're having difficulties using this SDK, you can ask questions about this project by using [Stack Overflow](https://stackoverflow.com/questions/tagged/ibm-cloud+secrets-manager). Be sure to include the `ibm-cloud` and `secrets-manager` tags.
+
+You can also check out the [Secrets Manager documentation](https://cloud.ibm.com/docs/secrets-manager) and [API reference](https://cloud.ibm.com/apidocs/secrets-manager) for more information about the service.
+
+## Issues
+
+If you encounter an issue with the project, you're welcome to submit a [bug report](https://github.com/IBM/secrets-manager-nodejs-sdk/issues) to help us improve.
+
+## Contributing
+
+For general contribution guidelines, see [CONTRIBUTING](CONTRIBUTING.md).
+
+## License
+
+This SDK project is released under the Apache 2.0 license. The license's full text can be found in [LICENSE](LICENSE).

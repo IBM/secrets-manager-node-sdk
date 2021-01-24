@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -749,7 +749,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         const options = getOptions(createRequestMock);
 
         checkUrlAndMethod(options, '/api/v1/secret_groups/{id}', 'DELETE');
-        const expectedAccept = 'application/json';
+        const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(options.path['id']).toEqual(id);
@@ -810,18 +810,16 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       // SecretVersion
       const secretVersionModel = {};
 
-      // SecretResource
+      // SecretResourceArbitrarySecretResource
       const secretResourceModel = {
         type: 'testString',
         name: 'testString',
         description: 'testString',
         secret_group_id: 'testString',
         labels: ['testString'],
-        expiration_date: '2019-01-01T12:00:00',
-        ttl: '24h',
-        access_groups: ['testString'],
         versions: [secretVersionModel],
-        foo: 'testString',
+        expiration_date: '2019-01-01T12:00:00',
+        payload: 'testString',
       };
 
       test('should pass the right params to createRequest', () => {
