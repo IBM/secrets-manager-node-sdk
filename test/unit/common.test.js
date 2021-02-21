@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 'use strict';
 
-const testingHeaders = {};
+const common = require('../../dist/lib/common');
+const { getSdkHeaders } = common;
 
-module.exports = {
-  'compliance-management-service-api': {
-    url: 'https://compliance-management-service-api',
-    apikey: 'abc-123-fakeapikey',
-    headers: testingHeaders,
-  },
-};
+describe('Tests of Common Library', () => {
+  describe('getSdkHeaders', () => {
+    test('should return correct User-Agent header', () => {
+      const headers = getSdkHeaders('service1', 'v1', 'operation1');
+      expect(headers).not.toEqual(null);
+      expect(headers['User-Agent']).toMatch(/^secrets-manager-sdk\/.*/);
+    });
+  });
+});

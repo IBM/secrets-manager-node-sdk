@@ -21,7 +21,13 @@
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
+import {
+  Authenticator,
+  BaseService,
+  getAuthenticatorFromEnvironment,
+  getMissingParams,
+  UserOptions
+} from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -124,13 +130,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/config/{secret_type}',
         method: 'PUT',
         body,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -165,13 +171,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/config/{secret_type}',
         method: 'GET',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -228,14 +234,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         method: 'PUT',
         body,
         qs: query,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -278,13 +284,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}/{id}/policies',
         method: 'GET',
         qs: query,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -329,14 +335,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups',
         method: 'POST',
-        body,
+        body
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -359,13 +365,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
     const parameters = {
       options: {
         url: '/api/v1/secret_groups',
-        method: 'GET',
+        method: 'GET'
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -400,13 +406,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups/{id}',
         method: 'GET',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -449,14 +455,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/secret_groups/{id}',
         method: 'PUT',
         body,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -494,12 +500,11 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups/{id}',
         method: 'DELETE',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-        }, _params.headers),
-      }),
+        headers: extend(true, sdkHeaders, {}, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -552,14 +557,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}',
         method: 'POST',
         body,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -611,13 +616,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}',
         method: 'GET',
         qs: query,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -668,13 +673,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secrets',
         method: 'GET',
-        qs: query,
+        qs: query
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -715,13 +720,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}',
         method: 'GET',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -770,14 +775,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         method: 'POST',
         body,
         qs: query,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -814,12 +819,11 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}',
         method: 'DELETE',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-        }, _params.headers),
-      }),
+        headers: extend(true, sdkHeaders, {}, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -859,13 +863,13 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}/metadata',
         method: 'GET',
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
-      }),
+          'Accept': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -913,14 +917,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}/{id}/metadata',
         method: 'PUT',
         body,
-        path,
+        path
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
-      }),
+          'Content-Type': 'application/json'
+        }, _params.headers)
+      })
     };
 
     return this.createRequest(parameters);
@@ -935,7 +939,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
 namespace IbmCloudSecretsManagerApiV1 {
 
   /** An operation response. */
-  export interface Response<T = any>  {
+  export interface Response<T = any> {
     result: T;
     status: number;
     statusText: string;
@@ -946,7 +950,8 @@ namespace IbmCloudSecretsManagerApiV1 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty { }
+  export interface Empty {
+  }
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -1009,6 +1014,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
+
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1032,6 +1038,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
+
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1213,6 +1220,7 @@ namespace IbmCloudSecretsManagerApiV1 {
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
     }
+
     /** The action to perform on the specified secret. */
     export enum Action {
       ROTATE = 'rotate',
@@ -1395,6 +1403,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     last_update_date?: string;
     /** The MIME type that represents the secret group. */
     type?: string;
+
     /** SecretGroupResource accepts additional properties. */
     [propName: string]: any;
   }

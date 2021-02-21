@@ -56,8 +56,12 @@ describe('IbmCloudSecretsManagerApiV1', () => {
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME);
-      expect(testInstance.baseOptions.serviceUrl).toBe(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL);
+      expect(testInstance.baseOptions.serviceName).toBe(
+        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME
+      );
+      expect(testInstance.baseOptions.serviceUrl).toBe(
+        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL
+      );
       expect(testInstance).toBeInstanceOf(IbmCloudSecretsManagerApiV1);
     });
 
@@ -96,7 +100,9 @@ describe('IbmCloudSecretsManagerApiV1', () => {
 
       const testInstance = new IbmCloudSecretsManagerApiV1(options);
 
-      expect(testInstance.baseOptions.serviceUrl).toBe(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL);
+      expect(testInstance.baseOptions.serviceUrl).toBe(
+        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL
+      );
     });
   });
   describe('putConfig', () => {
@@ -656,7 +662,9 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const updateSecretGroupMetadataResult = ibmCloudSecretsManagerApiService.updateSecretGroupMetadata(params);
+        const updateSecretGroupMetadataResult = ibmCloudSecretsManagerApiService.updateSecretGroupMetadata(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateSecretGroupMetadataResult);
@@ -1358,7 +1366,9 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const updateSecretMetadataResult = ibmCloudSecretsManagerApiService.updateSecretMetadata(params);
+        const updateSecretMetadataResult = ibmCloudSecretsManagerApiService.updateSecretMetadata(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateSecretMetadataResult);

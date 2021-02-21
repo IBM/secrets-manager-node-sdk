@@ -5,9 +5,6 @@ auth/*.js
 **/*.d.ts
 **/*.js.map
 
-# service-specific tsc outputs (js files)
-findings-api/*.js
-
 # file holding service credentials
 test/resources/auth.js
 
@@ -48,7 +45,6 @@ typings/
 
 # Optional npm cache directory
 .npm
-.npmrc
 
 # Optional eslint cache
 .eslintcache
@@ -63,7 +59,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+*.env
 
 # next.js build output
 .next
@@ -74,3 +70,12 @@ typings/
 # IDE files
 .idea
 .vscode/
+
+# secrets.tar produced by scripts/update-auth-file.sh
+secrets.tar
+
+.project
+.classpath
+
+# SDK generator
+.openapi-generator*
