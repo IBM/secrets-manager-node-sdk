@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.25.0-2b3f843a-20210115-164628
+ * IBM OpenAPI SDK Code Generator Version: 3.28.0-55613c9e-20210220-164656
  */
 
 
@@ -26,7 +26,7 @@ import { getSdkHeaders } from '../lib/common';
 
 /**
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
- * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, backed by
+ * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, built on
  * open source HashiCorp Vault.
  */
 
@@ -185,8 +185,8 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * Set secret policies.
    *
    * Creates or updates one or more policies, such as an [automatic rotation
-   * policy](http://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-rotate-secrets#auto-rotate-secret),  for
-   * the specified secret.
+   * policy](http://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-rotate-secrets#auto-rotate-secret), for the
+   * specified secret.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -640,6 +640,15 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
    * `../secrets/{secret-type}?offset=25&limit=25`.
+   * @param {string} [params.search] - Filters for secrets that contain the string that you specify. The fields that are
+   * searched include: id, name, description, labels, secret_type.
+   *
+   * **Usage:** If you want to list only the secrets that contain the string "text", use
+   * `../secrets/{secret-type}?search=text`.
+   * @param {string} [params.sortBy] - Sorts a list of secrets by the field that you specify.
+   *
+   * **Usage:** To sort a list of secrets by their creation date, use
+   * `../secrets/{secret-type}?sort_by=creation_date`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.ListSecrets>>}
    */
@@ -648,7 +657,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
 
     const query = {
       'limit': _params.limit,
-      'offset': _params.offset
+      'offset': _params.offset,
+      'search': _params.search,
+      'sort_by': _params.sortBy
     };
 
     const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
@@ -676,7 +687,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * A successful request returns the secret data that is associated with your secret, along with other metadata. To
    * view only the details of a specified secret without retrieving its value, use the [Get secret
-   * metadata](#get-secret-metadata)  method.
+   * metadata](#get-secret-metadata) method.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -1134,7 +1145,32 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  `../secrets/{secret-type}?offset=25&limit=25`.
      */
     offset?: number;
+    /** Filters for secrets that contain the string that you specify. The fields that are searched include: id,
+     *  name, description, labels, secret_type.
+     *
+     *  **Usage:** If you want to list only the secrets that contain the string "text", use
+     *  `../secrets/{secret-type}?search=text`.
+     */
+    search?: string;
+    /** Sorts a list of secrets by the field that you specify.
+     *
+     *  **Usage:** To sort a list of secrets by their creation date, use
+     *  `../secrets/{secret-type}?sort_by=creation_date`.
+     */
+    sortBy?: ListAllSecretsConstants.SortBy | string;
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `listAllSecrets` operation. */
+  export namespace ListAllSecretsConstants {
+    /** Sorts a list of secrets by the field that you specify. **Usage:** To sort a list of secrets by their creation date, use `../secrets/{secret-type}?sort_by=creation_date`. */
+    export enum SortBy {
+      ID = 'id',
+      CREATION_DATE = 'creation_date',
+      EXPIRATION_DATE = 'expiration_date',
+      SECRET_TYPE = 'secret_type',
+      NAME = 'name',
+    }
   }
 
   /** Parameters for the `getSecret` operation. */
@@ -1543,7 +1579,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     state_description?: string;
     /** The secret type. */
     secret_type?: string;
-    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
     creation_date?: string;
@@ -1606,7 +1642,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     state_description?: string;
     /** The secret type. */
     secret_type?: string;
-    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
     creation_date?: string;
@@ -1630,10 +1666,13 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  console. Select the access group to inspect, and click **Details** to view its ID.
      */
     access_groups?: string[];
-    /** The IAM API key of this IAM secret. */
+    /** The API key that is generated for this secret.
+     *
+     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is revoked automatically.
+     */
     api_key?: string;
-    /** The IAM ServiceID under which the IAM API key (see the api_key field) was created. This ServiceID is
-     *  assigned to the access_groups defined for this IAM secret.
+    /** The service ID under which the API key (see the `api_key` field) is created. This service ID is added to the
+     *  access groups that you assign for this secret.
      */
     service_id?: string;
   }
@@ -1676,7 +1715,7 @@ namespace IbmCloudSecretsManagerApiV1 {
     state_description?: string;
     /** The secret type. */
     secret_type?: string;
-    /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
+    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
     creation_date?: string;
@@ -1686,9 +1725,9 @@ namespace IbmCloudSecretsManagerApiV1 {
     last_update_date?: string;
     /** An array that contains metadata for each secret version. */
     versions?: SecretVersion[];
-    /** The username assigend to the username-password secret. */
+    /** The username to assign to this secret. */
     username?: string;
-    /** The password assigend to the username-password secret. */
+    /** The password to assign to this secret. */
     password?: string;
     secret_data?: JsonObject;
     /** The date the secret material expires. The date format follows RFC 3339.
