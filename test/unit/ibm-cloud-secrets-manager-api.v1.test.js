@@ -807,9 +807,6 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         collection_total: 1,
       };
 
-      // SecretVersion
-      const secretVersionModel = {};
-
       // SecretResourceArbitrarySecretResource
       const secretResourceModel = {
         type: 'testString',
@@ -817,8 +814,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         description: 'testString',
         secret_group_id: 'testString',
         labels: ['testString'],
-        versions: [secretVersionModel],
-        expiration_date: '2019-01-01T12:00:00',
+        expiration_date: '2030-04-01T09:30:00.000Z',
         payload: 'testString',
       };
 
@@ -978,9 +974,13 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         // Construct the params object for operation listAllSecrets
         const limit = 1;
         const offset = 0;
+        const search = 'testString';
+        const sortBy = 'id';
         const params = {
           limit: limit,
           offset: offset,
+          search: search,
+          sortBy: sortBy,
         };
 
         const listAllSecretsResult = ibmCloudSecretsManagerApiService.listAllSecrets(params);
@@ -999,6 +999,8 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(options.qs['limit']).toEqual(limit);
         expect(options.qs['offset']).toEqual(offset);
+        expect(options.qs['search']).toEqual(search);
+        expect(options.qs['sort_by']).toEqual(sortBy);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1344,10 +1346,10 @@ describe('IbmCloudSecretsManagerApiV1', () => {
 
       // SecretMetadata
       const secretMetadataModel = {
-        labels: ['testString'],
+        labels: ['dev', 'us-south'],
         name: 'example-secret',
         description: 'Extended description for this secret.',
-        expiration_date: '2019-01-01T12:00:00',
+        expiration_date: '2030-04-01T09:30:00.000Z',
         ttl: '24h',
       };
 

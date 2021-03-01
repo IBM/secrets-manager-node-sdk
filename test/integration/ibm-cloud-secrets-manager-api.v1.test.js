@@ -30,7 +30,10 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
   jest.setTimeout(timeout);
 
   const ibmCloudSecretsManagerApiService = new IbmCloudSecretsManagerApiV1({
-    authenticator: new IamAuthenticator({ apikey: process.env.SECRETS_MANAGER_API_APIKEY }),
+    authenticator: new IamAuthenticator({
+      apikey: process.env.SECRETS_MANAGER_API_APIKEY,
+      url: process.env.AUTH_URL,
+    }),
     serviceUrl: process.env.SERVICE_URL,
   });
 
@@ -56,7 +59,13 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     });
     expect(res.status).toBe(200);
     const secretId = res.result.resources[0].id;
-
+    // get arbitrary secret
+    res = await ibmCloudSecretsManagerApiService.getSecret({
+      secretType: 'arbitrary',
+      id: secretId,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].secret_data.payload).toEqual('secret-data');
     // Delete the secret.
     res = await ibmCloudSecretsManagerApiService.deleteSecret({
       secretType: 'arbitrary',
@@ -157,7 +166,14 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
     expect(res.status).toBe(200);
     expect(res.result.resources[0].rotation.interval).toBe(testInterval);
-
+    // get username_password secret
+    res = await ibmCloudSecretsManagerApiService.getSecret({
+      secretType: 'username_password',
+      id: secretId,
+    });
+    expect(res.result.resources[0].secret_data.username).toEqual('test_user');
+    expect(res.result.resources[0].secret_data.password).toEqual('test_password');
+    expect(res.result.resources[0].next_rotation_date).not.toBeNull();
     // Delete the secret secret.
     res = await ibmCloudSecretsManagerApiService.deleteSecret({
       secretType: 'username_password',
