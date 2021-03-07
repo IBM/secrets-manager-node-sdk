@@ -16,7 +16,7 @@
  */
 
 'use strict';
-const IbmCloudSecretsManagerApiV1 = require('../../dist/ibm-cloud-secrets-manager-api/v1');
+const SecretsManager = require('../../dist/secrets-manager/v1');
 const IamAuthenticator = require('../../dist/auth').IamAuthenticator;
 
 // testcase timeout value (200s).
@@ -29,7 +29,7 @@ function generateName() {
 describe('IbmCloudSecretsManagerApiV1_integration', () => {
   jest.setTimeout(timeout);
 
-  const ibmCloudSecretsManagerApiService = new IbmCloudSecretsManagerApiV1({
+  const secretsManager = new SecretsManager({
     authenticator: new IamAuthenticator({
       apikey: process.env.SECRETS_MANAGER_API_APIKEY,
       url: process.env.AUTH_URL,
@@ -37,11 +37,11 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     serviceUrl: process.env.SERVICE_URL,
   });
 
-  expect(ibmCloudSecretsManagerApiService).not.toBeNull();
+  expect(secretsManager).not.toBeNull();
 
   test('Should create an arbitrary secret', async () => {
     // Create a new arbitrary secret
-    let res = await ibmCloudSecretsManagerApiService.createSecret({
+    let res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
@@ -60,14 +60,14 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     expect(res.status).toBe(200);
     const secretId = res.result.resources[0].id;
     // get arbitrary secret
-    res = await ibmCloudSecretsManagerApiService.getSecret({
+    res = await secretsManager.getSecret({
       secretType: 'arbitrary',
       id: secretId,
     });
     expect(res.status).toBe(200);
     expect(res.result.resources[0].secret_data.payload).toEqual('secret-data');
     // Delete the secret.
-    res = await ibmCloudSecretsManagerApiService.deleteSecret({
+    res = await secretsManager.deleteSecret({
       secretType: 'arbitrary',
       id: secretId,
     });
@@ -84,12 +84,12 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       resources: [{ name: generateName(), description: 'Integration test generated' }],
     };
 
-    let res = await ibmCloudSecretsManagerApiService.createSecretGroup(createGroupParams);
+    let res = await secretsManager.createSecretGroup(createGroupParams);
     expect(res.status).toBe(200);
     const secretGroupId = res.result.resources[0].id;
 
     // Create a secrete and associate it with our secret group
-    res = await ibmCloudSecretsManagerApiService.createSecret({
+    res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
@@ -111,19 +111,19 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     const secretId = res.result.resources[0].id;
 
     // Delete the secret secret.
-    res = await ibmCloudSecretsManagerApiService.deleteSecret({
+    res = await secretsManager.deleteSecret({
       secretType: 'username_password',
       id: secretId,
     });
     expect(res.status).toBe(204);
 
     // Delete the secret group
-    res = await ibmCloudSecretsManagerApiService.deleteSecretGroup({ id: secretGroupId });
+    res = await secretsManager.deleteSecretGroup({ id: secretGroupId });
     expect(res.status).toBe(204);
   });
 
   test('Should be able to set a rotation policy for a secret', async () => {
-    let res = await ibmCloudSecretsManagerApiService.createSecret({
+    let res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
@@ -146,7 +146,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     // Create a rotation policy for the username_password secret type we have just created.
     const testInterval = 1;
 
-    res = await ibmCloudSecretsManagerApiService.putPolicy({
+    res = await secretsManager.putPolicy({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
         collection_total: 1,
@@ -167,7 +167,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result.resources[0].rotation.interval).toBe(testInterval);
     // get username_password secret
-    res = await ibmCloudSecretsManagerApiService.getSecret({
+    res = await secretsManager.getSecret({
       secretType: 'username_password',
       id: secretId,
     });
@@ -175,7 +175,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     expect(res.result.resources[0].secret_data.password).toEqual('test_password');
     expect(res.result.resources[0].next_rotation_date).not.toBeNull();
     // Delete the secret secret.
-    res = await ibmCloudSecretsManagerApiService.deleteSecret({
+    res = await secretsManager.deleteSecret({
       secretType: 'username_password',
       id: secretId,
     });
@@ -186,7 +186,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     const secretName = 'conflict_integration_test_secret';
 
     // Create a new arbitrary secret
-    let res = await ibmCloudSecretsManagerApiService.createSecret({
+    let res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
@@ -207,7 +207,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
     // Now reuse the same secret name under the same secret type, should result in a conflict error.
     try {
-      res = await ibmCloudSecretsManagerApiService.createSecret({
+      res = await secretsManager.createSecret({
         metadata: {
           collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
           collection_total: 1,
@@ -230,7 +230,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     }
 
     // Delete the secret.
-    res = await ibmCloudSecretsManagerApiService.deleteSecret({
+    res = await secretsManager.deleteSecret({
       secretType: 'arbitrary',
       id: secretId,
     });

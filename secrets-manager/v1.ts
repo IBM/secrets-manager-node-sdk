@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.28.0-55613c9e-20210220-164656
+ * IBM OpenAPI SDK Code Generator Version: 3.29.0-cd9ba74f-20210305-183535
  */
 
 
@@ -36,26 +36,26 @@ import { getSdkHeaders } from '../lib/common';
  * open source HashiCorp Vault.
  */
 
-class IbmCloudSecretsManagerApiV1 extends BaseService {
+class SecretsManagerV1 extends BaseService {
 
-  static DEFAULT_SERVICE_URL: string = 'https://ibm-cloud-secrets-manager-api.cloud.ibm.com';
-  static DEFAULT_SERVICE_NAME: string = 'ibm_cloud_secrets_manager_api';
+  static DEFAULT_SERVICE_URL: string = 'https://secrets-manager.cloud.ibm.com';
+  static DEFAULT_SERVICE_NAME: string = 'secrets_manager';
 
   /*************************
    * Factory method
    ************************/
 
   /**
-   * Constructs an instance of IbmCloudSecretsManagerApiV1 with passed in options and external configuration.
+   * Constructs an instance of SecretsManagerV1 with passed in options and external configuration.
    *
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
    * @param {string} [options.serviceUrl] - The URL for the service
-   * @returns {IbmCloudSecretsManagerApiV1}
+   * @returns {SecretsManagerV1}
    */
 
-  public static newInstance(options: UserOptions): IbmCloudSecretsManagerApiV1 {
+  public static newInstance(options: UserOptions): SecretsManagerV1 {
     options = options || {};
 
     if (!options.serviceName) {
@@ -64,7 +64,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
     if (!options.authenticator) {
       options.authenticator = getAuthenticatorFromEnvironment(options.serviceName);
     }
-    const service = new IbmCloudSecretsManagerApiV1(options);
+    const service = new SecretsManagerV1(options);
     service.configureService(options.serviceName);
     if (options.serviceUrl) {
       service.setServiceUrl(options.serviceUrl);
@@ -74,14 +74,14 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
 
 
   /**
-   * Construct a IbmCloudSecretsManagerApiV1 object.
+   * Construct a SecretsManagerV1 object.
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
-   * @returns {IbmCloudSecretsManagerApiV1}
+   * @returns {SecretsManagerV1}
    */
   constructor(options: UserOptions) {
     options = options || {};
@@ -90,7 +90,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
     if (options.serviceUrl) {
       this.setServiceUrl(options.serviceUrl);
     } else {
-      this.setServiceUrl(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL);
+      this.setServiceUrl(SecretsManagerV1.DEFAULT_SERVICE_URL);
     }
   }
 
@@ -105,11 +105,11 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
-   * @param {EngineConfigOneOf} params.engineConfigOneOf -
+   * @param {EngineConfigOneOf} params.engineConfigOneOf - The base request for setting secret engine configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public putConfig(params: IbmCloudSecretsManagerApiV1.PutConfigParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>> {
+  public putConfig(params: SecretsManagerV1.PutConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'engineConfigOneOf'];
 
@@ -123,7 +123,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'secret_type': _params.secretType
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'putConfig');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putConfig');
 
     const parameters = {
       options: {
@@ -150,9 +150,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.EngineConfigOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EngineConfigOneOf>>}
    */
-  public getConfig(params: IbmCloudSecretsManagerApiV1.GetConfigParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.EngineConfigOneOf>> {
+  public getConfig(params: SecretsManagerV1.GetConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.EngineConfigOneOf>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType'];
 
@@ -165,7 +165,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'secret_type': _params.secretType
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'getConfig');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getConfig');
 
     const parameters = {
       options: {
@@ -201,9 +201,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {SecretPolicyRotation[]} params.resources - A collection of resources.
    * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecretPoliciesOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>>}
    */
-  public putPolicy(params: IbmCloudSecretsManagerApiV1.PutPolicyParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecretPoliciesOneOf>> {
+  public putPolicy(params: SecretsManagerV1.PutPolicyParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
 
@@ -226,7 +226,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'putPolicy');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putPolicy');
 
     const parameters = {
       options: {
@@ -257,9 +257,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecretPoliciesOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>>}
    */
-  public getPolicy(params: IbmCloudSecretsManagerApiV1.GetPolicyParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecretPoliciesOneOf>> {
+  public getPolicy(params: SecretsManagerV1.GetPolicyParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id'];
 
@@ -277,7 +277,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'getPolicy');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getPolicy');
 
     const parameters = {
       options: {
@@ -313,9 +313,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
    * @param {SecretGroupResource[]} params.resources - A collection of resources.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public createSecretGroup(params: IbmCloudSecretsManagerApiV1.CreateSecretGroupParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>> {
+  public createSecretGroup(params: SecretsManagerV1.CreateSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['metadata', 'resources'];
 
@@ -329,7 +329,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'resources': _params.resources
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecretGroup');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecretGroup');
 
     const parameters = {
       options: {
@@ -355,12 +355,12 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * @param {Object} [params] - The parameters to send to the service.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public listSecretGroups(params?: IbmCloudSecretsManagerApiV1.ListSecretGroupsParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>> {
+  public listSecretGroups(params?: SecretsManagerV1.ListSecretGroupsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
     const _params = Object.assign({}, params);
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecretGroups');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecretGroups');
 
     const parameters = {
       options: {
@@ -385,9 +385,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public getSecretGroup(params: IbmCloudSecretsManagerApiV1.GetSecretGroupParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>> {
+  public getSecretGroup(params: SecretsManagerV1.GetSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['id'];
 
@@ -400,7 +400,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretGroup');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretGroup');
 
     const parameters = {
       options: {
@@ -428,9 +428,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
    * @param {SecretGroupMetadataUpdatable[]} params.resources - A collection of resources.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public updateSecretGroupMetadata(params: IbmCloudSecretsManagerApiV1.UpdateSecretGroupMetadataParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretGroupDef>> {
+  public updateSecretGroupMetadata(params: SecretsManagerV1.UpdateSecretGroupMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['id', 'metadata', 'resources'];
 
@@ -448,7 +448,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretGroupMetadata');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretGroupMetadata');
 
     const parameters = {
       options: {
@@ -479,9 +479,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public deleteSecretGroup(params: IbmCloudSecretsManagerApiV1.DeleteSecretGroupParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>> {
+  public deleteSecretGroup(params: SecretsManagerV1.DeleteSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['id'];
 
@@ -494,7 +494,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecretGroup');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecretGroup');
 
     const parameters = {
       options: {
@@ -530,9 +530,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
    * @param {SecretResource[]} params.resources - A collection of resources.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.CreateSecret>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.CreateSecret>>}
    */
-  public createSecret(params: IbmCloudSecretsManagerApiV1.CreateSecretParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.CreateSecret>> {
+  public createSecret(params: SecretsManagerV1.CreateSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.CreateSecret>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'metadata', 'resources'];
 
@@ -550,7 +550,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'secret_type': _params.secretType
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecret');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecret');
 
     const parameters = {
       options: {
@@ -589,9 +589,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
    * `../secrets/{secret-type}?offset=25&limit=25`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.ListSecrets>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
-  public listSecrets(params: IbmCloudSecretsManagerApiV1.ListSecretsParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.ListSecrets>> {
+  public listSecrets(params: SecretsManagerV1.ListSecretsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType'];
 
@@ -609,7 +609,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'secret_type': _params.secretType
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecrets');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecrets');
 
     const parameters = {
       options: {
@@ -645,19 +645,19 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
    * `../secrets/{secret-type}?offset=25&limit=25`.
-   * @param {string} [params.search] - Filters for secrets that contain the string that you specify. The fields that are
-   * searched include: id, name, description, labels, secret_type.
+   * @param {string} [params.search] - Filter secrets that contain the specified string. The fields that are searched
+   * include: id, name, description, labels, secret_type.
    *
    * **Usage:** If you want to list only the secrets that contain the string "text", use
    * `../secrets/{secret-type}?search=text`.
-   * @param {string} [params.sortBy] - Sorts a list of secrets by the field that you specify.
+   * @param {string} [params.sortBy] - Sort a list of secrets by the specified field.
    *
    * **Usage:** To sort a list of secrets by their creation date, use
    * `../secrets/{secret-type}?sort_by=creation_date`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.ListSecrets>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
-  public listAllSecrets(params?: IbmCloudSecretsManagerApiV1.ListAllSecretsParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.ListSecrets>> {
+  public listAllSecrets(params?: SecretsManagerV1.ListAllSecretsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
     const _params = Object.assign({}, params);
 
     const query = {
@@ -667,7 +667,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'sort_by': _params.sortBy
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
 
     const parameters = {
       options: {
@@ -698,9 +698,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecret>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>>}
    */
-  public getSecret(params: IbmCloudSecretsManagerApiV1.GetSecretParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecret>> {
+  public getSecret(params: SecretsManagerV1.GetSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id'];
 
@@ -714,7 +714,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecret');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecret');
 
     const parameters = {
       options: {
@@ -746,9 +746,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {string} params.action - The action to perform on the specified secret.
    * @param {SecretActionOneOf} params.secretActionOneOf - The base request for invoking an action on a secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecret>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>>}
    */
-  public updateSecret(params: IbmCloudSecretsManagerApiV1.UpdateSecretParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.GetSecret>> {
+  public updateSecret(params: SecretsManagerV1.UpdateSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id', 'action', 'secretActionOneOf'];
 
@@ -767,7 +767,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecret');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecret');
 
     const parameters = {
       options: {
@@ -797,9 +797,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public deleteSecret(params: IbmCloudSecretsManagerApiV1.DeleteSecretParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.Empty>> {
+  public deleteSecret(params: SecretsManagerV1.DeleteSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id'];
 
@@ -813,7 +813,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecret');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecret');
 
     const parameters = {
       options: {
@@ -841,9 +841,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretMetadataRequest>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>>}
    */
-  public getSecretMetadata(params: IbmCloudSecretsManagerApiV1.GetSecretMetadataParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretMetadataRequest>> {
+  public getSecretMetadata(params: SecretsManagerV1.GetSecretMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id'];
 
@@ -857,7 +857,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretMetadata');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretMetadata');
 
     const parameters = {
       options: {
@@ -889,9 +889,9 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
    * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
    * @param {SecretMetadata[]} params.resources - A collection of resources.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretMetadataRequest>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>>}
    */
-  public updateSecretMetadata(params: IbmCloudSecretsManagerApiV1.UpdateSecretMetadataParams): Promise<IbmCloudSecretsManagerApiV1.Response<IbmCloudSecretsManagerApiV1.SecretMetadataRequest>> {
+  public updateSecretMetadata(params: SecretsManagerV1.UpdateSecretMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
 
@@ -910,7 +910,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
       'id': _params.id
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretMetadata');
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretMetadata');
 
     const parameters = {
       options: {
@@ -936,7 +936,7 @@ class IbmCloudSecretsManagerApiV1 extends BaseService {
  * interfaces
  ************************/
 
-namespace IbmCloudSecretsManagerApiV1 {
+namespace SecretsManagerV1 {
 
   /** An operation response. */
   export interface Response<T = any> {
@@ -966,6 +966,7 @@ namespace IbmCloudSecretsManagerApiV1 {
   export interface PutConfigParams {
     /** The secret type. */
     secretType: PutConfigConstants.SecretType | string;
+    /** The base request for setting secret engine configuration. */
     engineConfigOneOf: EngineConfigOneOf;
     headers?: OutgoingHttpHeaders;
   }
@@ -1152,14 +1153,14 @@ namespace IbmCloudSecretsManagerApiV1 {
      *  `../secrets/{secret-type}?offset=25&limit=25`.
      */
     offset?: number;
-    /** Filters for secrets that contain the string that you specify. The fields that are searched include: id,
-     *  name, description, labels, secret_type.
+    /** Filter secrets that contain the specified string. The fields that are searched include: id, name,
+     *  description, labels, secret_type.
      *
      *  **Usage:** If you want to list only the secrets that contain the string "text", use
      *  `../secrets/{secret-type}?search=text`.
      */
     search?: string;
-    /** Sorts a list of secrets by the field that you specify.
+    /** Sort a list of secrets by the specified field.
      *
      *  **Usage:** To sort a list of secrets by their creation date, use
      *  `../secrets/{secret-type}?sort_by=creation_date`.
@@ -1170,7 +1171,7 @@ namespace IbmCloudSecretsManagerApiV1 {
 
   /** Constants for the `listAllSecrets` operation. */
   export namespace ListAllSecretsConstants {
-    /** Sorts a list of secrets by the field that you specify. **Usage:** To sort a list of secrets by their creation date, use `../secrets/{secret-type}?sort_by=creation_date`. */
+    /** Sort a list of secrets by the specified field. **Usage:** To sort a list of secrets by their creation date, use `../secrets/{secret-type}?sort_by=creation_date`. */
     export enum SortBy {
       ID = 'id',
       CREATION_DATE = 'creation_date',
@@ -1677,13 +1678,21 @@ namespace IbmCloudSecretsManagerApiV1 {
     access_groups?: string[];
     /** The API key that is generated for this secret.
      *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is revoked automatically.
+     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
+     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
      */
     api_key?: string;
     /** The service ID under which the API key (see the `api_key` field) is created. This service ID is added to the
      *  access groups that you assign for this secret.
      */
     service_id?: string;
+    /** Set to `true` to reuse the service ID and API key for this secret.
+     *
+     *  Use this field to control whether to use the same service ID and API key for future read operations on this
+     *  secret. If set to `true`, the service reuses the current credentials. If set to `false`, a new service ID and
+     *  API key is generated each time that the secret is read or accessed.
+     */
+    reuse_api_key?: boolean;
   }
 
   /** The base schema for secrets. */
@@ -1759,4 +1768,4 @@ namespace IbmCloudSecretsManagerApiV1 {
 
 }
 
-export = IbmCloudSecretsManagerApiV1;
+export = SecretsManagerV1;
