@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/secrets-manager",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Client library for IBM Cloud Secrets Manager",
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
   "dependencies": {
     "@types/node": "^12.0.8",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^2.7.1"
+    "ibm-cloud-sdk-core": "^2.8.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
@@ -55,7 +55,7 @@
     "installed-check": "^2.2.0",
     "jest": "^25.4.0",
     "prettier": "^1.17.1",
-    "semantic-release": "^17.4.0",
+    "semantic-release": "17.3.1",
     "tsc-publish": "^0.5.2",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",

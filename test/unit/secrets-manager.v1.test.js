@@ -19,7 +19,7 @@
 const core = require('ibm-cloud-sdk-core');
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
-const IbmCloudSecretsManagerApiV1 = require('../../dist/ibm-cloud-secrets-manager-api/v1');
+const SecretsManagerV1 = require('../../dist/secrets-manager/v1');
 
 const {
   getOptions,
@@ -31,13 +31,13 @@ const {
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'https://ibm-cloud-secrets-manager-api.cloud.ibm.com',
+  url: 'https://secrets-manager.cloud.ibm.com',
 };
 
-const ibmCloudSecretsManagerApiService = new IbmCloudSecretsManagerApiV1(service);
+const secretsManagerService = new SecretsManagerV1(service);
 
 // dont actually create a request
-const createRequestMock = jest.spyOn(ibmCloudSecretsManagerApiService, 'createRequest');
+const createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
 createRequestMock.mockImplementation(() => Promise.resolve());
 
 // dont actually construct an authenticator
@@ -49,20 +49,16 @@ afterEach(() => {
   getAuthenticatorMock.mockClear();
 });
 
-describe('IbmCloudSecretsManagerApiV1', () => {
+describe('SecretsManagerV1', () => {
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
-      const testInstance = IbmCloudSecretsManagerApiV1.newInstance();
+      const testInstance = SecretsManagerV1.newInstance();
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(
-        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_NAME
-      );
-      expect(testInstance.baseOptions.serviceUrl).toBe(
-        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL
-      );
-      expect(testInstance).toBeInstanceOf(IbmCloudSecretsManagerApiV1);
+      expect(testInstance.baseOptions.serviceName).toBe(SecretsManagerV1.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV1.DEFAULT_SERVICE_URL);
+      expect(testInstance).toBeInstanceOf(SecretsManagerV1);
     });
 
     test('should set serviceName, serviceUrl, and authenticator when provided', () => {
@@ -72,13 +68,13 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         serviceName: 'my-service',
       };
 
-      const testInstance = IbmCloudSecretsManagerApiV1.newInstance(options);
+      const testInstance = SecretsManagerV1.newInstance(options);
 
       expect(getAuthenticatorMock).not.toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
       expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
       expect(testInstance.baseOptions.serviceName).toBe('my-service');
-      expect(testInstance).toBeInstanceOf(IbmCloudSecretsManagerApiV1);
+      expect(testInstance).toBeInstanceOf(SecretsManagerV1);
     });
   });
   describe('the constructor', () => {
@@ -88,7 +84,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         serviceUrl: 'custom.com',
       };
 
-      const testInstance = new IbmCloudSecretsManagerApiV1(options);
+      const testInstance = new SecretsManagerV1(options);
 
       expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
     });
@@ -98,11 +94,9 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         authenticator: new NoAuthAuthenticator(),
       };
 
-      const testInstance = new IbmCloudSecretsManagerApiV1(options);
+      const testInstance = new SecretsManagerV1(options);
 
-      expect(testInstance.baseOptions.serviceUrl).toBe(
-        IbmCloudSecretsManagerApiV1.DEFAULT_SERVICE_URL
-      );
+      expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV1.DEFAULT_SERVICE_URL);
     });
   });
   describe('putConfig', () => {
@@ -123,7 +117,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           engineConfigOneOf: engineConfigOneOf,
         };
 
-        const putConfigResult = ibmCloudSecretsManagerApiService.putConfig(params);
+        const putConfigResult = secretsManagerService.putConfig(params);
 
         // all methods should return a Promise
         expectToBePromise(putConfigResult);
@@ -156,7 +150,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.putConfig(params);
+        secretsManagerService.putConfig(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -165,7 +159,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.putConfig({});
+          await secretsManagerService.putConfig({});
         } catch (e) {
           err = e;
         }
@@ -175,7 +169,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const putConfigPromise = ibmCloudSecretsManagerApiService.putConfig();
+        const putConfigPromise = secretsManagerService.putConfig();
         expectToBePromise(putConfigPromise);
 
         putConfigPromise.catch(err => {
@@ -194,7 +188,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           secretType: secretType,
         };
 
-        const getConfigResult = ibmCloudSecretsManagerApiService.getConfig(params);
+        const getConfigResult = secretsManagerService.getConfig(params);
 
         // all methods should return a Promise
         expectToBePromise(getConfigResult);
@@ -224,7 +218,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.getConfig(params);
+        secretsManagerService.getConfig(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -233,7 +227,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.getConfig({});
+          await secretsManagerService.getConfig({});
         } catch (e) {
           err = e;
         }
@@ -243,7 +237,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getConfigPromise = ibmCloudSecretsManagerApiService.getConfig();
+        const getConfigPromise = secretsManagerService.getConfig();
         expectToBePromise(getConfigPromise);
 
         getConfigPromise.catch(err => {
@@ -290,7 +284,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           policy: policy,
         };
 
-        const putPolicyResult = ibmCloudSecretsManagerApiService.putPolicy(params);
+        const putPolicyResult = secretsManagerService.putPolicy(params);
 
         // all methods should return a Promise
         expectToBePromise(putPolicyResult);
@@ -330,7 +324,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.putPolicy(params);
+        secretsManagerService.putPolicy(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -339,7 +333,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.putPolicy({});
+          await secretsManagerService.putPolicy({});
         } catch (e) {
           err = e;
         }
@@ -349,7 +343,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const putPolicyPromise = ibmCloudSecretsManagerApiService.putPolicy();
+        const putPolicyPromise = secretsManagerService.putPolicy();
         expectToBePromise(putPolicyPromise);
 
         putPolicyPromise.catch(err => {
@@ -372,7 +366,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           policy: policy,
         };
 
-        const getPolicyResult = ibmCloudSecretsManagerApiService.getPolicy(params);
+        const getPolicyResult = secretsManagerService.getPolicy(params);
 
         // all methods should return a Promise
         expectToBePromise(getPolicyResult);
@@ -406,7 +400,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.getPolicy(params);
+        secretsManagerService.getPolicy(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -415,7 +409,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.getPolicy({});
+          await secretsManagerService.getPolicy({});
         } catch (e) {
           err = e;
         }
@@ -425,7 +419,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getPolicyPromise = ibmCloudSecretsManagerApiService.getPolicy();
+        const getPolicyPromise = secretsManagerService.getPolicy();
         expectToBePromise(getPolicyPromise);
 
         getPolicyPromise.catch(err => {
@@ -461,7 +455,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const createSecretGroupResult = ibmCloudSecretsManagerApiService.createSecretGroup(params);
+        const createSecretGroupResult = secretsManagerService.createSecretGroup(params);
 
         // all methods should return a Promise
         expectToBePromise(createSecretGroupResult);
@@ -494,7 +488,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.createSecretGroup(params);
+        secretsManagerService.createSecretGroup(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -503,7 +497,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.createSecretGroup({});
+          await secretsManagerService.createSecretGroup({});
         } catch (e) {
           err = e;
         }
@@ -513,7 +507,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const createSecretGroupPromise = ibmCloudSecretsManagerApiService.createSecretGroup();
+        const createSecretGroupPromise = secretsManagerService.createSecretGroup();
         expectToBePromise(createSecretGroupPromise);
 
         createSecretGroupPromise.catch(err => {
@@ -529,7 +523,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
         // Construct the params object for operation listSecretGroups
         const params = {};
 
-        const listSecretGroupsResult = ibmCloudSecretsManagerApiService.listSecretGroups(params);
+        const listSecretGroupsResult = secretsManagerService.listSecretGroups(params);
 
         // all methods should return a Promise
         expectToBePromise(listSecretGroupsResult);
@@ -556,13 +550,13 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.listSecretGroups(params);
+        secretsManagerService.listSecretGroups(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
 
       test('should not have any problems when no parameters are passed in', () => {
         // invoke the method with no parameters
-        ibmCloudSecretsManagerApiService.listSecretGroups({});
+        secretsManagerService.listSecretGroups({});
         checkForSuccessfulExecution(createRequestMock);
       });
     });
@@ -576,7 +570,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           id: id,
         };
 
-        const getSecretGroupResult = ibmCloudSecretsManagerApiService.getSecretGroup(params);
+        const getSecretGroupResult = secretsManagerService.getSecretGroup(params);
 
         // all methods should return a Promise
         expectToBePromise(getSecretGroupResult);
@@ -606,7 +600,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.getSecretGroup(params);
+        secretsManagerService.getSecretGroup(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -615,7 +609,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.getSecretGroup({});
+          await secretsManagerService.getSecretGroup({});
         } catch (e) {
           err = e;
         }
@@ -625,7 +619,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getSecretGroupPromise = ibmCloudSecretsManagerApiService.getSecretGroup();
+        const getSecretGroupPromise = secretsManagerService.getSecretGroup();
         expectToBePromise(getSecretGroupPromise);
 
         getSecretGroupPromise.catch(err => {
@@ -662,7 +656,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const updateSecretGroupMetadataResult = ibmCloudSecretsManagerApiService.updateSecretGroupMetadata(
+        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(
           params
         );
 
@@ -700,7 +694,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.updateSecretGroupMetadata(params);
+        secretsManagerService.updateSecretGroupMetadata(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -709,7 +703,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.updateSecretGroupMetadata({});
+          await secretsManagerService.updateSecretGroupMetadata({});
         } catch (e) {
           err = e;
         }
@@ -719,7 +713,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const updateSecretGroupMetadataPromise = ibmCloudSecretsManagerApiService.updateSecretGroupMetadata();
+        const updateSecretGroupMetadataPromise = secretsManagerService.updateSecretGroupMetadata();
         expectToBePromise(updateSecretGroupMetadataPromise);
 
         updateSecretGroupMetadataPromise.catch(err => {
@@ -738,7 +732,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           id: id,
         };
 
-        const deleteSecretGroupResult = ibmCloudSecretsManagerApiService.deleteSecretGroup(params);
+        const deleteSecretGroupResult = secretsManagerService.deleteSecretGroup(params);
 
         // all methods should return a Promise
         expectToBePromise(deleteSecretGroupResult);
@@ -768,7 +762,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.deleteSecretGroup(params);
+        secretsManagerService.deleteSecretGroup(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -777,7 +771,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.deleteSecretGroup({});
+          await secretsManagerService.deleteSecretGroup({});
         } catch (e) {
           err = e;
         }
@@ -787,7 +781,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const deleteSecretGroupPromise = ibmCloudSecretsManagerApiService.deleteSecretGroup();
+        const deleteSecretGroupPromise = secretsManagerService.deleteSecretGroup();
         expectToBePromise(deleteSecretGroupPromise);
 
         deleteSecretGroupPromise.catch(err => {
@@ -829,7 +823,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const createSecretResult = ibmCloudSecretsManagerApiService.createSecret(params);
+        const createSecretResult = secretsManagerService.createSecret(params);
 
         // all methods should return a Promise
         expectToBePromise(createSecretResult);
@@ -865,7 +859,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.createSecret(params);
+        secretsManagerService.createSecret(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -874,7 +868,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.createSecret({});
+          await secretsManagerService.createSecret({});
         } catch (e) {
           err = e;
         }
@@ -884,7 +878,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const createSecretPromise = ibmCloudSecretsManagerApiService.createSecret();
+        const createSecretPromise = secretsManagerService.createSecret();
         expectToBePromise(createSecretPromise);
 
         createSecretPromise.catch(err => {
@@ -907,7 +901,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           offset: offset,
         };
 
-        const listSecretsResult = ibmCloudSecretsManagerApiService.listSecrets(params);
+        const listSecretsResult = secretsManagerService.listSecrets(params);
 
         // all methods should return a Promise
         expectToBePromise(listSecretsResult);
@@ -939,7 +933,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.listSecrets(params);
+        secretsManagerService.listSecrets(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -948,7 +942,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.listSecrets({});
+          await secretsManagerService.listSecrets({});
         } catch (e) {
           err = e;
         }
@@ -958,7 +952,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const listSecretsPromise = ibmCloudSecretsManagerApiService.listSecrets();
+        const listSecretsPromise = secretsManagerService.listSecrets();
         expectToBePromise(listSecretsPromise);
 
         listSecretsPromise.catch(err => {
@@ -983,7 +977,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           sortBy: sortBy,
         };
 
-        const listAllSecretsResult = ibmCloudSecretsManagerApiService.listAllSecrets(params);
+        const listAllSecretsResult = secretsManagerService.listAllSecrets(params);
 
         // all methods should return a Promise
         expectToBePromise(listAllSecretsResult);
@@ -1014,13 +1008,13 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.listAllSecrets(params);
+        secretsManagerService.listAllSecrets(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
 
       test('should not have any problems when no parameters are passed in', () => {
         // invoke the method with no parameters
-        ibmCloudSecretsManagerApiService.listAllSecrets({});
+        secretsManagerService.listAllSecrets({});
         checkForSuccessfulExecution(createRequestMock);
       });
     });
@@ -1036,7 +1030,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           id: id,
         };
 
-        const getSecretResult = ibmCloudSecretsManagerApiService.getSecret(params);
+        const getSecretResult = secretsManagerService.getSecret(params);
 
         // all methods should return a Promise
         expectToBePromise(getSecretResult);
@@ -1069,7 +1063,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.getSecret(params);
+        secretsManagerService.getSecret(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1078,7 +1072,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.getSecret({});
+          await secretsManagerService.getSecret({});
         } catch (e) {
           err = e;
         }
@@ -1088,7 +1082,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getSecretPromise = ibmCloudSecretsManagerApiService.getSecret();
+        const getSecretPromise = secretsManagerService.getSecret();
         expectToBePromise(getSecretPromise);
 
         getSecretPromise.catch(err => {
@@ -1120,7 +1114,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           secretActionOneOf: secretActionOneOf,
         };
 
-        const updateSecretResult = ibmCloudSecretsManagerApiService.updateSecret(params);
+        const updateSecretResult = secretsManagerService.updateSecret(params);
 
         // all methods should return a Promise
         expectToBePromise(updateSecretResult);
@@ -1159,7 +1153,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.updateSecret(params);
+        secretsManagerService.updateSecret(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1168,7 +1162,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.updateSecret({});
+          await secretsManagerService.updateSecret({});
         } catch (e) {
           err = e;
         }
@@ -1178,7 +1172,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const updateSecretPromise = ibmCloudSecretsManagerApiService.updateSecret();
+        const updateSecretPromise = secretsManagerService.updateSecret();
         expectToBePromise(updateSecretPromise);
 
         updateSecretPromise.catch(err => {
@@ -1199,7 +1193,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           id: id,
         };
 
-        const deleteSecretResult = ibmCloudSecretsManagerApiService.deleteSecret(params);
+        const deleteSecretResult = secretsManagerService.deleteSecret(params);
 
         // all methods should return a Promise
         expectToBePromise(deleteSecretResult);
@@ -1232,7 +1226,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.deleteSecret(params);
+        secretsManagerService.deleteSecret(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1241,7 +1235,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.deleteSecret({});
+          await secretsManagerService.deleteSecret({});
         } catch (e) {
           err = e;
         }
@@ -1251,7 +1245,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const deleteSecretPromise = ibmCloudSecretsManagerApiService.deleteSecret();
+        const deleteSecretPromise = secretsManagerService.deleteSecret();
         expectToBePromise(deleteSecretPromise);
 
         deleteSecretPromise.catch(err => {
@@ -1272,7 +1266,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           id: id,
         };
 
-        const getSecretMetadataResult = ibmCloudSecretsManagerApiService.getSecretMetadata(params);
+        const getSecretMetadataResult = secretsManagerService.getSecretMetadata(params);
 
         // all methods should return a Promise
         expectToBePromise(getSecretMetadataResult);
@@ -1305,7 +1299,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.getSecretMetadata(params);
+        secretsManagerService.getSecretMetadata(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1314,7 +1308,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.getSecretMetadata({});
+          await secretsManagerService.getSecretMetadata({});
         } catch (e) {
           err = e;
         }
@@ -1324,7 +1318,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getSecretMetadataPromise = ibmCloudSecretsManagerApiService.getSecretMetadata();
+        const getSecretMetadataPromise = secretsManagerService.getSecretMetadata();
         expectToBePromise(getSecretMetadataPromise);
 
         getSecretMetadataPromise.catch(err => {
@@ -1366,9 +1360,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           resources: resources,
         };
 
-        const updateSecretMetadataResult = ibmCloudSecretsManagerApiService.updateSecretMetadata(
-          params
-        );
+        const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(params);
 
         // all methods should return a Promise
         expectToBePromise(updateSecretMetadataResult);
@@ -1407,7 +1399,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
           },
         };
 
-        ibmCloudSecretsManagerApiService.updateSecretMetadata(params);
+        secretsManagerService.updateSecretMetadata(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1416,7 +1408,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmCloudSecretsManagerApiService.updateSecretMetadata({});
+          await secretsManagerService.updateSecretMetadata({});
         } catch (e) {
           err = e;
         }
@@ -1426,7 +1418,7 @@ describe('IbmCloudSecretsManagerApiV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const updateSecretMetadataPromise = ibmCloudSecretsManagerApiService.updateSecretMetadata();
+        const updateSecretMetadataPromise = secretsManagerService.updateSecretMetadata();
         expectToBePromise(updateSecretMetadataPromise);
 
         updateSecretMetadataPromise.catch(err => {
