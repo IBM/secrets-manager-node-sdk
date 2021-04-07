@@ -18,7 +18,7 @@
     "tslint:check": "tslint -p . -c ./tslint.json",
     "lint": "npm run eslint:check && npm run tslint:check",
     "lint-fix": "npm run eslint:fix && npm run tslint:fix",
-    "build": "tsc && cp {package.json,README.md} dist/",
+    "build": "tsc && cp package.json dist/ && cp README.md dist/",
     "postversion": "tsc-publish --no-checks --dry-run",
     "publishDist": "npm run build && cd dist && npm publish --access public",
     "jest": "jest",
