@@ -21,13 +21,7 @@
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import {
-  Authenticator,
-  BaseService,
-  getAuthenticatorFromEnvironment,
-  getMissingParams,
-  UserOptions
-} from 'ibm-cloud-sdk-core';
+import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -130,13 +124,13 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/config/{secret_type}',
         method: 'PUT',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -150,9 +144,9 @@ class SecretsManagerV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EngineConfigOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>>}
    */
-  public getConfig(params: SecretsManagerV1.GetConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.EngineConfigOneOf>> {
+  public getConfig(params: SecretsManagerV1.GetConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>> {
     const _params = Object.assign({}, params);
     const requiredParams = ['secretType'];
 
@@ -171,13 +165,13 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/config/{secret_type}',
         method: 'GET',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -234,14 +228,14 @@ class SecretsManagerV1 extends BaseService {
         method: 'PUT',
         body,
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -284,13 +278,13 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}/{id}/policies',
         method: 'GET',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -335,14 +329,14 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups',
         method: 'POST',
-        body
+        body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -365,13 +359,13 @@ class SecretsManagerV1 extends BaseService {
     const parameters = {
       options: {
         url: '/api/v1/secret_groups',
-        method: 'GET'
+        method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -406,13 +400,13 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups/{id}',
         method: 'GET',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -455,14 +449,14 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/secret_groups/{id}',
         method: 'PUT',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -500,11 +494,12 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secret_groups/{id}',
         method: 'DELETE',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers)
-      })
+        headers: extend(true, sdkHeaders, {
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -557,14 +552,14 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}',
         method: 'POST',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -616,13 +611,13 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}',
         method: 'GET',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -654,6 +649,13 @@ class SecretsManagerV1 extends BaseService {
    *
    * **Usage:** To sort a list of secrets by their creation date, use
    * `../secrets/{secret-type}?sort_by=creation_date`.
+   * @param {string[]} [params.groups] - Filter secrets by groups.
+   *
+   * You can apply multiple filters by using a comma-separated list of secret group IDs. If you need to filter secrets
+   * that are in the default secret group, use the `default` keyword.
+   *
+   * **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
+   * use `../secrets?groups={secret_group_ID},default`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
@@ -664,7 +666,8 @@ class SecretsManagerV1 extends BaseService {
       'limit': _params.limit,
       'offset': _params.offset,
       'search': _params.search,
-      'sort_by': _params.sortBy
+      'sort_by': _params.sortBy,
+      'groups': _params.groups
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
@@ -673,13 +676,13 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secrets',
         method: 'GET',
-        qs: query
+        qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -720,13 +723,13 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}',
         method: 'GET',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -744,7 +747,7 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} params.action - The action to perform on the specified secret.
-   * @param {SecretActionOneOf} params.secretActionOneOf - The base request for invoking an action on a secret.
+   * @param {SecretActionOneOf} params.secretActionOneOf - The base request body for invoking an action on a secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>>}
    */
@@ -775,14 +778,14 @@ class SecretsManagerV1 extends BaseService {
         method: 'POST',
         body,
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -819,11 +822,12 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}',
         method: 'DELETE',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers)
-      })
+        headers: extend(true, sdkHeaders, {
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -863,13 +867,13 @@ class SecretsManagerV1 extends BaseService {
       options: {
         url: '/api/v1/secrets/{secret_type}/{id}/metadata',
         method: 'GET',
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json'
-        }, _params.headers)
-      })
+          'Accept': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -917,14 +921,14 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/secrets/{secret_type}/{id}/metadata',
         method: 'PUT',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }, _params.headers)
-      })
+          'Content-Type': 'application/json',
+        }, _params.headers),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -939,7 +943,7 @@ class SecretsManagerV1 extends BaseService {
 namespace SecretsManagerV1 {
 
   /** An operation response. */
-  export interface Response<T = any> {
+  export interface Response<T = any>  {
     result: T;
     status: number;
     statusText: string;
@@ -950,8 +954,7 @@ namespace SecretsManagerV1 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty {
-  }
+  export interface Empty { }
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -1015,7 +1018,6 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
-
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1039,7 +1041,6 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
-
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1166,6 +1167,15 @@ namespace SecretsManagerV1 {
      *  `../secrets/{secret-type}?sort_by=creation_date`.
      */
     sortBy?: ListAllSecretsConstants.SortBy | string;
+    /** Filter secrets by groups.
+     *
+     *  You can apply multiple filters by using a comma-separated list of secret group IDs. If you need to filter
+     *  secrets that are in the default secret group, use the `default` keyword.
+     *
+     *  **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
+     *  use `../secrets?groups={secret_group_ID},default`.
+     */
+    groups?: string[];
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1208,7 +1218,7 @@ namespace SecretsManagerV1 {
     id: string;
     /** The action to perform on the specified secret. */
     action: UpdateSecretConstants.Action | string;
-    /** The base request for invoking an action on a secret. */
+    /** The base request body for invoking an action on a secret. */
     secretActionOneOf: SecretActionOneOf;
     headers?: OutgoingHttpHeaders;
   }
@@ -1221,7 +1231,6 @@ namespace SecretsManagerV1 {
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
     }
-
     /** The action to perform on the specified secret. */
     export enum Action {
       ROTATE = 'rotate',
@@ -1314,6 +1323,14 @@ namespace SecretsManagerV1 {
   export interface EngineConfigOneOf {
   }
 
+  /** Configuration that is used to generate IAM credentials. */
+  export interface GetConfig {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: IAMSecretEngineRootConfig[];
+  }
+
   /** The base schema for retrieving a secret. */
   export interface GetSecret {
     /** The metadata that describes the resource array. */
@@ -1344,6 +1361,19 @@ namespace SecretsManagerV1 {
     type: string;
     /** The secret rotation time interval. */
     rotation: SecretPolicyRotationRotation;
+  }
+
+  /** Configuration that is used to generate IAM credentials. */
+  export interface IAMSecretEngineRootConfig {
+    /** An IBM Cloud API key that has the capability to create and manage service IDs.
+     *
+     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
+     *  role on the IAM Identity Service. For more information, see [Enabling the IAM secrets
+     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-engines#configure-iam-engine).
+     */
+    api_key: string;
+    /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
+    api_key_hash?: string;
   }
 
   /** The base schema for listing secrets. */
@@ -1404,7 +1434,6 @@ namespace SecretsManagerV1 {
     last_update_date?: string;
     /** The MIME type that represents the secret group. */
     type?: string;
-
     /** SecretGroupResource accepts additional properties. */
     [propName: string]: any;
   }
@@ -1462,6 +1491,11 @@ namespace SecretsManagerV1 {
      *  `120m` or `24h`.
      */
     ttl?: any;
+    /** For `iam_credentials` secrets, this field controls whether to use the same service ID and API key for future
+     *  read operations on this secret. If set to `true`, the service reuses the current credentials. If set to `false`,
+     *  a new service ID and API key is generated each time that the secret is read or accessed.
+     */
+    reuse_api_key?: boolean;
     /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
