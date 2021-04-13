@@ -656,7 +656,9 @@ describe('SecretsManagerV1', () => {
           resources: resources,
         };
 
-        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(params);
+        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateSecretGroupMetadataResult);
