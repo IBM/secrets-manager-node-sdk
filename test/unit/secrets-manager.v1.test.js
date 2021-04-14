@@ -970,11 +970,13 @@ describe('SecretsManagerV1', () => {
         const offset = 0;
         const search = 'testString';
         const sortBy = 'id';
+        const groups = ['testString'];
         const params = {
           limit: limit,
           offset: offset,
           search: search,
           sortBy: sortBy,
+          groups: groups,
         };
 
         const listAllSecretsResult = secretsManagerService.listAllSecrets(params);
@@ -995,6 +997,7 @@ describe('SecretsManagerV1', () => {
         expect(options.qs['offset']).toEqual(offset);
         expect(options.qs['search']).toEqual(search);
         expect(options.qs['sort_by']).toEqual(sortBy);
+        expect(options.qs['groups']).toEqual(groups);
       });
 
       test('should prioritize user-given headers', () => {
