@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use strict';
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const core = require('ibm-cloud-sdk-core');
+
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const SecretsManagerV1 = require('../../dist/secrets-manager/v1');
@@ -29,12 +29,12 @@ const {
   checkForSuccessfulExecution,
 } = unitTestUtils;
 
-const service = {
+const secretsManagerServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://secrets-manager.cloud.ibm.com',
 };
 
-const secretsManagerService = new SecretsManagerV1(service);
+const secretsManagerService = new SecretsManagerV1(secretsManagerServiceOptions);
 
 // dont actually create a request
 const createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
@@ -103,18 +103,18 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // EngineConfigOneOfIAMSecretEngineRootConfig
-      const engineConfigOneOfModel = {
+      // IAMCredentialsSecretEngineRootConfig
+      const engineConfigModel = {
         api_key: 'API_KEY',
       };
 
       test('should pass the right params to createRequest', () => {
         // Construct the params object for operation putConfig
         const secretType = 'iam_credentials';
-        const engineConfigOneOf = engineConfigOneOfModel;
+        const engineConfig = engineConfigModel;
         const params = {
-          secretType: secretType,
-          engineConfigOneOf: engineConfigOneOf,
+          secretType,
+          engineConfig,
         };
 
         const putConfigResult = secretsManagerService.putConfig(params);
@@ -131,19 +131,19 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = undefined;
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body).toEqual(engineConfigOneOf);
-        expect(options.path['secret_type']).toEqual(secretType);
+        expect(options.body).toEqual(engineConfig);
+        expect(options.path.secret_type).toEqual(secretType);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
         const secretType = 'iam_credentials';
-        const engineConfigOneOf = engineConfigOneOfModel;
+        const engineConfig = engineConfigModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
           secretType,
-          engineConfigOneOf,
+          engineConfig,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -156,7 +156,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.putConfig({});
@@ -168,11 +168,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const putConfigPromise = secretsManagerService.putConfig();
         expectToBePromise(putConfigPromise);
 
-        putConfigPromise.catch(err => {
+        putConfigPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -185,7 +185,7 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation getConfig
         const secretType = 'iam_credentials';
         const params = {
-          secretType: secretType,
+          secretType,
         };
 
         const getConfigResult = secretsManagerService.getConfig(params);
@@ -202,7 +202,7 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['secret_type']).toEqual(secretType);
+        expect(options.path.secret_type).toEqual(secretType);
       });
 
       test('should prioritize user-given headers', () => {
@@ -224,7 +224,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.getConfig({});
@@ -236,11 +236,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const getConfigPromise = secretsManagerService.getConfig();
         expectToBePromise(getConfigPromise);
 
-        getConfigPromise.catch(err => {
+        getConfigPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -277,11 +277,11 @@ describe('SecretsManagerV1', () => {
         const resources = [secretPolicyRotationModel];
         const policy = 'rotation';
         const params = {
-          secretType: secretType,
-          id: id,
-          metadata: metadata,
-          resources: resources,
-          policy: policy,
+          secretType,
+          id,
+          metadata,
+          resources,
+          policy,
         };
 
         const putPolicyResult = secretsManagerService.putPolicy(params);
@@ -298,11 +298,11 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['metadata']).toEqual(metadata);
-        expect(options.body['resources']).toEqual(resources);
-        expect(options.qs['policy']).toEqual(policy);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.body.metadata).toEqual(metadata);
+        expect(options.body.resources).toEqual(resources);
+        expect(options.qs.policy).toEqual(policy);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -330,7 +330,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.putPolicy({});
@@ -342,11 +342,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const putPolicyPromise = secretsManagerService.putPolicy();
         expectToBePromise(putPolicyPromise);
 
-        putPolicyPromise.catch(err => {
+        putPolicyPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -361,9 +361,9 @@ describe('SecretsManagerV1', () => {
         const id = 'testString';
         const policy = 'rotation';
         const params = {
-          secretType: secretType,
-          id: id,
-          policy: policy,
+          secretType,
+          id,
+          policy,
         };
 
         const getPolicyResult = secretsManagerService.getPolicy(params);
@@ -380,9 +380,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs['policy']).toEqual(policy);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.qs.policy).toEqual(policy);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -406,7 +406,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.getPolicy({});
@@ -418,11 +418,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const getPolicyPromise = secretsManagerService.getPolicy();
         expectToBePromise(getPolicyPromise);
 
-        getPolicyPromise.catch(err => {
+        getPolicyPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -451,8 +451,8 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretGroupResourceModel];
         const params = {
-          metadata: metadata,
-          resources: resources,
+          metadata,
+          resources,
         };
 
         const createSecretGroupResult = secretsManagerService.createSecretGroup(params);
@@ -469,8 +469,8 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['metadata']).toEqual(metadata);
-        expect(options.body['resources']).toEqual(resources);
+        expect(options.body.metadata).toEqual(metadata);
+        expect(options.body.resources).toEqual(resources);
       });
 
       test('should prioritize user-given headers', () => {
@@ -494,7 +494,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.createSecretGroup({});
@@ -506,11 +506,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const createSecretGroupPromise = secretsManagerService.createSecretGroup();
         expectToBePromise(createSecretGroupPromise);
 
-        createSecretGroupPromise.catch(err => {
+        createSecretGroupPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -567,7 +567,7 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation getSecretGroup
         const id = 'testString';
         const params = {
-          id: id,
+          id,
         };
 
         const getSecretGroupResult = secretsManagerService.getSecretGroup(params);
@@ -584,7 +584,7 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -606,7 +606,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.getSecretGroup({});
@@ -618,11 +618,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const getSecretGroupPromise = secretsManagerService.getSecretGroup();
         expectToBePromise(getSecretGroupPromise);
 
-        getSecretGroupPromise.catch(err => {
+        getSecretGroupPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -651,14 +651,13 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretGroupMetadataUpdatableModel];
         const params = {
-          id: id,
-          metadata: metadata,
-          resources: resources,
+          id,
+          metadata,
+          resources,
         };
 
-        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(
-          params
-        );
+        const updateSecretGroupMetadataResult =
+          secretsManagerService.updateSecretGroupMetadata(params);
 
         // all methods should return a Promise
         expectToBePromise(updateSecretGroupMetadataResult);
@@ -672,9 +671,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['metadata']).toEqual(metadata);
-        expect(options.body['resources']).toEqual(resources);
-        expect(options.path['id']).toEqual(id);
+        expect(options.body.metadata).toEqual(metadata);
+        expect(options.body.resources).toEqual(resources);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -700,7 +699,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.updateSecretGroupMetadata({});
@@ -712,11 +711,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const updateSecretGroupMetadataPromise = secretsManagerService.updateSecretGroupMetadata();
         expectToBePromise(updateSecretGroupMetadataPromise);
 
-        updateSecretGroupMetadataPromise.catch(err => {
+        updateSecretGroupMetadataPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -729,7 +728,7 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation deleteSecretGroup
         const id = 'testString';
         const params = {
-          id: id,
+          id,
         };
 
         const deleteSecretGroupResult = secretsManagerService.deleteSecretGroup(params);
@@ -746,7 +745,7 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -768,7 +767,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.deleteSecretGroup({});
@@ -780,11 +779,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const deleteSecretGroupPromise = secretsManagerService.deleteSecretGroup();
         expectToBePromise(deleteSecretGroupPromise);
 
-        deleteSecretGroupPromise.catch(err => {
+        deleteSecretGroupPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -801,9 +800,8 @@ describe('SecretsManagerV1', () => {
         collection_total: 1,
       };
 
-      // SecretResourceArbitrarySecretResource
+      // ArbitrarySecretResource
       const secretResourceModel = {
-        type: 'testString',
         name: 'testString',
         description: 'testString',
         secret_group_id: 'testString',
@@ -818,9 +816,9 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretResourceModel];
         const params = {
-          secretType: secretType,
-          metadata: metadata,
-          resources: resources,
+          secretType,
+          metadata,
+          resources,
         };
 
         const createSecretResult = secretsManagerService.createSecret(params);
@@ -837,9 +835,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['metadata']).toEqual(metadata);
-        expect(options.body['resources']).toEqual(resources);
-        expect(options.path['secret_type']).toEqual(secretType);
+        expect(options.body.metadata).toEqual(metadata);
+        expect(options.body.resources).toEqual(resources);
+        expect(options.path.secret_type).toEqual(secretType);
       });
 
       test('should prioritize user-given headers', () => {
@@ -865,7 +863,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.createSecret({});
@@ -877,11 +875,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const createSecretPromise = secretsManagerService.createSecret();
         expectToBePromise(createSecretPromise);
 
-        createSecretPromise.catch(err => {
+        createSecretPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -896,9 +894,9 @@ describe('SecretsManagerV1', () => {
         const limit = 1;
         const offset = 0;
         const params = {
-          secretType: secretType,
-          limit: limit,
-          offset: offset,
+          secretType,
+          limit,
+          offset,
         };
 
         const listSecretsResult = secretsManagerService.listSecrets(params);
@@ -915,9 +913,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs['limit']).toEqual(limit);
-        expect(options.qs['offset']).toEqual(offset);
-        expect(options.path['secret_type']).toEqual(secretType);
+        expect(options.qs.limit).toEqual(limit);
+        expect(options.qs.offset).toEqual(offset);
+        expect(options.path.secret_type).toEqual(secretType);
       });
 
       test('should prioritize user-given headers', () => {
@@ -939,7 +937,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.listSecrets({});
@@ -951,11 +949,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const listSecretsPromise = secretsManagerService.listSecrets();
         expectToBePromise(listSecretsPromise);
 
-        listSecretsPromise.catch(err => {
+        listSecretsPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -972,11 +970,11 @@ describe('SecretsManagerV1', () => {
         const sortBy = 'id';
         const groups = ['testString'];
         const params = {
-          limit: limit,
-          offset: offset,
-          search: search,
-          sortBy: sortBy,
-          groups: groups,
+          limit,
+          offset,
+          search,
+          sortBy,
+          groups,
         };
 
         const listAllSecretsResult = secretsManagerService.listAllSecrets(params);
@@ -993,11 +991,11 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs['limit']).toEqual(limit);
-        expect(options.qs['offset']).toEqual(offset);
-        expect(options.qs['search']).toEqual(search);
-        expect(options.qs['sort_by']).toEqual(sortBy);
-        expect(options.qs['groups']).toEqual(groups);
+        expect(options.qs.limit).toEqual(limit);
+        expect(options.qs.offset).toEqual(offset);
+        expect(options.qs.search).toEqual(search);
+        expect(options.qs.sort_by).toEqual(sortBy);
+        expect(options.qs.groups).toEqual(groups);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1029,8 +1027,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const params = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
         const getSecretResult = secretsManagerService.getSecret(params);
@@ -1047,8 +1045,8 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1072,7 +1070,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.getSecret({});
@@ -1084,11 +1082,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const getSecretPromise = secretsManagerService.getSecret();
         expectToBePromise(getSecretPromise);
 
-        getSecretPromise.catch(err => {
+        getSecretPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -1099,8 +1097,8 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // SecretActionOneOfRotateArbitrarySecretBody
-      const secretActionOneOfModel = {
+      // RotateArbitrarySecretBody
+      const secretActionModel = {
         payload: 'testString',
       };
 
@@ -1109,12 +1107,12 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const action = 'rotate';
-        const secretActionOneOf = secretActionOneOfModel;
+        const secretAction = secretActionModel;
         const params = {
-          secretType: secretType,
-          id: id,
-          action: action,
-          secretActionOneOf: secretActionOneOf,
+          secretType,
+          id,
+          action,
+          secretAction,
         };
 
         const updateSecretResult = secretsManagerService.updateSecret(params);
@@ -1131,10 +1129,10 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body).toEqual(secretActionOneOf);
-        expect(options.qs['action']).toEqual(action);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.body).toEqual(secretAction);
+        expect(options.qs.action).toEqual(action);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1142,14 +1140,14 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const action = 'rotate';
-        const secretActionOneOf = secretActionOneOfModel;
+        const secretAction = secretActionModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
           secretType,
           id,
           action,
-          secretActionOneOf,
+          secretAction,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -1162,7 +1160,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.updateSecret({});
@@ -1174,11 +1172,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const updateSecretPromise = secretsManagerService.updateSecret();
         expectToBePromise(updateSecretPromise);
 
-        updateSecretPromise.catch(err => {
+        updateSecretPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -1192,8 +1190,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const params = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
         const deleteSecretResult = secretsManagerService.deleteSecret(params);
@@ -1210,8 +1208,8 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1235,7 +1233,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.deleteSecret({});
@@ -1247,11 +1245,176 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const deleteSecretPromise = secretsManagerService.deleteSecret();
         expectToBePromise(deleteSecretPromise);
 
-        deleteSecretPromise.catch(err => {
+        deleteSecretPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getSecretVersion', () => {
+    describe('positive tests', () => {
+      test('should pass the right params to createRequest', () => {
+        // Construct the params object for operation getSecretVersion
+        const secretType = 'imported_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const params = {
+          secretType,
+          id,
+          versionId,
+        };
+
+        const getSecretVersionResult = secretsManagerService.getSecretVersion(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getSecretVersionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const options = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          options,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
+        expect(options.path.version_id).toEqual(versionId);
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'imported_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          id,
+          versionId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecretVersion(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getSecretVersionPromise = secretsManagerService.getSecretVersion();
+        expectToBePromise(getSecretVersionPromise);
+
+        getSecretVersionPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getSecretVersionMetadata', () => {
+    describe('positive tests', () => {
+      test('should pass the right params to createRequest', () => {
+        // Construct the params object for operation getSecretVersionMetadata
+        const secretType = 'imported_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const params = {
+          secretType,
+          id,
+          versionId,
+        };
+
+        const getSecretVersionMetadataResult =
+          secretsManagerService.getSecretVersionMetadata(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getSecretVersionMetadataResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const options = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          options,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
+        expect(options.path.version_id).toEqual(versionId);
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'imported_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          id,
+          versionId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecretVersionMetadata(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersionMetadata({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getSecretVersionMetadataPromise = secretsManagerService.getSecretVersionMetadata();
+        expectToBePromise(getSecretVersionMetadataPromise);
+
+        getSecretVersionMetadataPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -1265,8 +1428,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const params = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
         const getSecretMetadataResult = secretsManagerService.getSecretMetadata(params);
@@ -1283,8 +1446,8 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1308,7 +1471,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.getSecretMetadata({});
@@ -1320,11 +1483,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const getSecretMetadataPromise = secretsManagerService.getSecretMetadata();
         expectToBePromise(getSecretMetadataPromise);
 
-        getSecretMetadataPromise.catch(err => {
+        getSecretMetadataPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -1341,13 +1504,12 @@ describe('SecretsManagerV1', () => {
         collection_total: 1,
       };
 
-      // SecretMetadata
+      // ArbitrarySecretMetadata
       const secretMetadataModel = {
         labels: ['dev', 'us-south'],
         name: 'example-secret',
         description: 'Extended description for this secret.',
         expiration_date: '2030-04-01T09:30:00.000Z',
-        ttl: '24h',
       };
 
       test('should pass the right params to createRequest', () => {
@@ -1357,10 +1519,10 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretMetadataModel];
         const params = {
-          secretType: secretType,
-          id: id,
-          metadata: metadata,
-          resources: resources,
+          secretType,
+          id,
+          metadata,
+          resources,
         };
 
         const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(params);
@@ -1377,10 +1539,10 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['metadata']).toEqual(metadata);
-        expect(options.body['resources']).toEqual(resources);
-        expect(options.path['secret_type']).toEqual(secretType);
-        expect(options.path['id']).toEqual(id);
+        expect(options.body.metadata).toEqual(metadata);
+        expect(options.body.resources).toEqual(resources);
+        expect(options.path.secret_type).toEqual(secretType);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -1408,7 +1570,7 @@ describe('SecretsManagerV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await secretsManagerService.updateSecretMetadata({});
@@ -1420,11 +1582,11 @@ describe('SecretsManagerV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const updateSecretMetadataPromise = secretsManagerService.updateSecretMetadata();
         expectToBePromise(updateSecretMetadataPromise);
 
-        updateSecretMetadataPromise.catch(err => {
+        updateSecretMetadataPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });

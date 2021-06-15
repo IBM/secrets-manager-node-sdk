@@ -22,5 +22,5 @@ export {
   CloudPakForDataAuthenticator,
   IamTokenManager,
   Cp4dTokenManager,
-  getAuthenticatorFromEnvironment
+  getAuthenticatorFromEnvironment,
 } from 'ibm-cloud-sdk-core';

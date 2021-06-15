@@ -21,12 +21,16 @@ const pkg = require('../package.json');
 
 export type SdkHeaders = {
   'User-Agent': string;
-}
+};
 
 /**
  * Get the request headers to be sent in requests by the SDK.
  */
-export function getSdkHeaders(serviceName: string, serviceVersion: string, operationId: string): SdkHeaders | {} {
+export function getSdkHeaders(
+  serviceName: string,
+  serviceVersion: string,
+  operationId: string
+): SdkHeaders | {} {
   const sdkName = 'secrets-manager-nodejs-sdk';
   const sdkVersion = pkg.version;
   const osName = os.platform();
@@ -34,7 +38,7 @@ export function getSdkHeaders(serviceName: string, serviceVersion: string, opera
   const nodeVersion = process.version;
 
   const headers = {
-    'User-Agent': `${sdkName}/${sdkVersion} (lang=node.js; os.name=${osName} os.version=${osVersion} node.version=${nodeVersion})`
+    'User-Agent': `${sdkName}/${sdkVersion} (lang=node.js; os.name=${osName} os.version=${osVersion} node.version=${nodeVersion})`,
   };
 
   return headers;
