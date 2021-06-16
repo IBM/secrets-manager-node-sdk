@@ -1278,7 +1278,6 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
-
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1302,7 +1301,6 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
     }
-
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
       ROTATION = 'rotation',
@@ -1497,7 +1495,6 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
     }
-
     /** The action to perform on the specified secret. */
     export enum Action {
       ROTATE = 'rotate',
@@ -1762,7 +1759,6 @@ namespace SecretsManagerV1 {
     last_update_date?: string;
     /** The MIME type that represents the secret group. */
     type?: string;
-
     /** SecretGroupResource accepts additional properties. */
     [propName: string]: any;
   }

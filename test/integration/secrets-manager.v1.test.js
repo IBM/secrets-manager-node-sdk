@@ -31,9 +31,9 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
   const secretsManager = new SecretsManager({
     authenticator: new IamAuthenticator({
       apikey: process.env.SECRETS_MANAGER_API_APIKEY,
-      url: process.env.AUTH_URL
+      url: process.env.AUTH_URL,
     }),
-    serviceUrl: process.env.SERVICE_URL
+    serviceUrl: process.env.SERVICE_URL,
   });
 
   expect(secretsManager).not.toBeNull();
