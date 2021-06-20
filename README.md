@@ -76,7 +76,6 @@ const authenticator = new IamAuthenticator({
 import { getAuthenticatorFromEnvironment } from '@ibm-cloud/secrets-manager/auth';
 
 // env vars
-// SECRETS_MANAGER_API_AUTH_TYPE=iam
 // SECRETS_MANAGER_API_APIKEY==<apikey>
 const iamAuthenticator = getAuthenticatorFromEnvironment('SECRETS_MANAGER_API');
 ```
@@ -156,7 +155,7 @@ secretsManagerSdkExample();
 To delete a secret, specify the `secretType` and its `id`.
 
 ```js
-  res = await secretsManagerApi.deleteSecret({
+  res = await secretsManager.deleteSecret({
     secretType: 'username_password',
     id: secretId,
   });
@@ -177,11 +176,11 @@ Create a secret group, and then add a new secret to this group.
       resources: [{ name: 'Test Group', description: 'Group my test secrets' }],
     };
 
-    let res = await ibmCloudSecretsManagerApiService.createSecretGroup(createGroupParams);
+    let res = await secretsManager.createSecretGroup(createGroupParams);
     const secretGroupId = res.result.resources[0].id;
 
     // Create a secret and associate it with your secret group
-    res = await ibmCloudSecretsManagerApiService.createSecret({
+    res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
@@ -204,7 +203,7 @@ Create a secret group, and then add a new secret to this group.
 Create a rotation policy of one month for a secret.
 
 ```js
-    let res = await ibmCloudSecretsManagerApiService.putPolicy({
+    let res = await secretsManager.putPolicy({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
         collection_total: 1,
@@ -234,7 +233,6 @@ The integration tests are run against an actual Secrets Manager instance and req
 to be set:
 
 ```
-SECRETS_MANAGER_API_AUTH_TYPE=iam;
 SECRETS_MANAGER_API_APIKEY=<API_KEY>
 SERVICE_URL=<SECRETS_MANAGER_ENDPOINT_URL>
 ```

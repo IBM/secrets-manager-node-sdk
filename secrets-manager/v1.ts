@@ -15,13 +15,18 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.30.0-bd714324-20210406-200538
+ * IBM OpenAPI SDK Code Generator Version: 3.34.0-e2a502a2-20210616-185634
  */
-
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
+import {
+  Authenticator,
+  BaseService,
+  getAuthenticatorFromEnvironment,
+  getMissingParams,
+  UserOptions,
+} from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -31,8 +36,8 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class SecretsManagerV1 extends BaseService {
-
   static DEFAULT_SERVICE_URL: string = 'https://secrets-manager.cloud.ibm.com';
+
   static DEFAULT_SERVICE_NAME: string = 'secrets_manager';
 
   /*************************
@@ -66,7 +71,6 @@ class SecretsManagerV1 extends BaseService {
     return service;
   }
 
-
   /**
    * Construct a SecretsManagerV1 object.
    *
@@ -99,22 +103,24 @@ class SecretsManagerV1 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
-   * @param {EngineConfigOneOf} params.engineConfigOneOf - The base request for setting secret engine configuration.
+   * @param {EngineConfig} params.engineConfig - Properties to update for a secrets engine.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public putConfig(params: SecretsManagerV1.PutConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
-    const _params = Object.assign({}, params);
-    const requiredParams = ['secretType', 'engineConfigOneOf'];
+  public putConfig(
+    params: SecretsManagerV1.PutConfigParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'engineConfig'];
 
     const missingParams = getMissingParams(_params, requiredParams);
     if (missingParams) {
       return Promise.reject(missingParams);
     }
 
-    const body = _params.engineConfigOneOf;
+    const body = _params.engineConfig;
     const path = {
-      'secret_type': _params.secretType
+      'secret_type': _params.secretType,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putConfig');
@@ -127,14 +133,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Get the configuration for a secret type.
@@ -146,8 +157,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>>}
    */
-  public getConfig(params: SecretsManagerV1.GetConfigParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>> {
-    const _params = Object.assign({}, params);
+  public getConfig(
+    params: SecretsManagerV1.GetConfigParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>> {
+    const _params = { ...params };
     const requiredParams = ['secretType'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -156,7 +169,7 @@ class SecretsManagerV1 extends BaseService {
     }
 
     const path = {
-      'secret_type': _params.secretType
+      'secret_type': _params.secretType,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getConfig');
@@ -168,14 +181,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /*************************
    * policies
@@ -195,10 +213,12 @@ class SecretsManagerV1 extends BaseService {
    * @param {SecretPolicyRotation[]} params.resources - A collection of resources.
    * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
    */
-  public putPolicy(params: SecretsManagerV1.PutPolicyParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>> {
-    const _params = Object.assign({}, params);
+  public putPolicy(
+    params: SecretsManagerV1.PutPolicyParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -208,16 +228,16 @@ class SecretsManagerV1 extends BaseService {
 
     const body = {
       'metadata': _params.metadata,
-      'resources': _params.resources
+      'resources': _params.resources,
     };
 
     const query = {
-      'policy': _params.policy
+      'policy': _params.policy,
     };
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putPolicy');
@@ -231,15 +251,20 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * List secret policies.
@@ -251,10 +276,12 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
    */
-  public getPolicy(params: SecretsManagerV1.GetPolicyParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPoliciesOneOf>> {
-    const _params = Object.assign({}, params);
+  public getPolicy(
+    params: SecretsManagerV1.GetPolicyParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -263,12 +290,12 @@ class SecretsManagerV1 extends BaseService {
     }
 
     const query = {
-      'policy': _params.policy
+      'policy': _params.policy,
     };
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getPolicy');
@@ -281,14 +308,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /*************************
    * secretGroups
@@ -309,8 +341,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public createSecretGroup(params: SecretsManagerV1.CreateSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
-    const _params = Object.assign({}, params);
+  public createSecretGroup(
+    params: SecretsManagerV1.CreateSecretGroupParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
+    const _params = { ...params };
     const requiredParams = ['metadata', 'resources'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -320,10 +354,14 @@ class SecretsManagerV1 extends BaseService {
 
     const body = {
       'metadata': _params.metadata,
-      'resources': _params.resources
+      'resources': _params.resources,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecretGroup');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'createSecretGroup'
+    );
 
     const parameters = {
       options: {
@@ -332,15 +370,20 @@ class SecretsManagerV1 extends BaseService {
         body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * List secret groups.
@@ -351,10 +394,16 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public listSecretGroups(params?: SecretsManagerV1.ListSecretGroupsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
-    const _params = Object.assign({}, params);
+  public listSecretGroups(
+    params?: SecretsManagerV1.ListSecretGroupsParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
+    const _params = { ...params };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecretGroups');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'listSecretGroups'
+    );
 
     const parameters = {
       options: {
@@ -362,14 +411,19 @@ class SecretsManagerV1 extends BaseService {
         method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Get a secret group.
@@ -381,8 +435,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public getSecretGroup(params: SecretsManagerV1.GetSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
-    const _params = Object.assign({}, params);
+  public getSecretGroup(
+    params: SecretsManagerV1.GetSecretGroupParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
+    const _params = { ...params };
     const requiredParams = ['id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -391,7 +447,7 @@ class SecretsManagerV1 extends BaseService {
     }
 
     const path = {
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretGroup');
@@ -403,14 +459,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Update a secret group.
@@ -424,8 +485,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>>}
    */
-  public updateSecretGroupMetadata(params: SecretsManagerV1.UpdateSecretGroupMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
-    const _params = Object.assign({}, params);
+  public updateSecretGroupMetadata(
+    params: SecretsManagerV1.UpdateSecretGroupMetadataParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretGroupDef>> {
+    const _params = { ...params };
     const requiredParams = ['id', 'metadata', 'resources'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -435,14 +498,18 @@ class SecretsManagerV1 extends BaseService {
 
     const body = {
       'metadata': _params.metadata,
-      'resources': _params.resources
+      'resources': _params.resources,
     };
 
     const path = {
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretGroupMetadata');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'updateSecretGroupMetadata'
+    );
 
     const parameters = {
       options: {
@@ -452,15 +519,20 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Delete a secret group.
@@ -475,8 +547,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public deleteSecretGroup(params: SecretsManagerV1.DeleteSecretGroupParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
-    const _params = Object.assign({}, params);
+  public deleteSecretGroup(
+    params: SecretsManagerV1.DeleteSecretGroupParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
     const requiredParams = ['id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -485,10 +559,14 @@ class SecretsManagerV1 extends BaseService {
     }
 
     const path = {
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecretGroup');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'deleteSecretGroup'
+    );
 
     const parameters = {
       options: {
@@ -497,13 +575,12 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-        }, _params.headers),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /*************************
    * secrets
@@ -512,13 +589,15 @@ class SecretsManagerV1 extends BaseService {
   /**
    * Create a secret.
    *
-   * Creates a secret that you can use to access or authenticate to a protected resource.
+   * Creates a secret or imports an existing value that you can use to access or authenticate to a protected resource.
    *
-   * A successful request stores the secret in your dedicated instance based on the secret type and data that you
-   * specify. The response returns the ID value of the secret, along with other metadata.
+   * Use this method to either generate or import an existing secret, such as an arbitrary value or a TLS certificate,
+   * that you can manage in your Secrets Manager service instance. A successful request stores the secret in your
+   * dedicated instance based on the secret type and data that you specify. The response returns the ID value of the
+   * secret, along with other metadata.
    *
    * To learn more about the types of secrets that you can create with Secrets Manager, check out the
-   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-basics).
+   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-what-is-secret).
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -527,8 +606,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.CreateSecret>>}
    */
-  public createSecret(params: SecretsManagerV1.CreateSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.CreateSecret>> {
-    const _params = Object.assign({}, params);
+  public createSecret(
+    params: SecretsManagerV1.CreateSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.CreateSecret>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'metadata', 'resources'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -538,11 +619,11 @@ class SecretsManagerV1 extends BaseService {
 
     const body = {
       'metadata': _params.metadata,
-      'resources': _params.resources
+      'resources': _params.resources,
     };
 
     const path = {
-      'secret_type': _params.secretType
+      'secret_type': _params.secretType,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecret');
@@ -555,15 +636,20 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * List secrets by type.
@@ -586,8 +672,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
-  public listSecrets(params: SecretsManagerV1.ListSecretsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
-    const _params = Object.assign({}, params);
+  public listSecrets(
+    params: SecretsManagerV1.ListSecretsParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
+    const _params = { ...params };
     const requiredParams = ['secretType'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -597,11 +685,11 @@ class SecretsManagerV1 extends BaseService {
 
     const query = {
       'limit': _params.limit,
-      'offset': _params.offset
+      'offset': _params.offset,
     };
 
     const path = {
-      'secret_type': _params.secretType
+      'secret_type': _params.secretType,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecrets');
@@ -614,14 +702,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * List all secrets.
@@ -659,15 +752,17 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
-  public listAllSecrets(params?: SecretsManagerV1.ListAllSecretsParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
-    const _params = Object.assign({}, params);
+  public listAllSecrets(
+    params?: SecretsManagerV1.ListAllSecretsParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>> {
+    const _params = { ...params };
 
     const query = {
       'limit': _params.limit,
       'offset': _params.offset,
       'search': _params.search,
       'sort_by': _params.sortBy,
-      'groups': _params.groups
+      'groups': _params.groups,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
@@ -679,14 +774,19 @@ class SecretsManagerV1 extends BaseService {
         qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Get a secret.
@@ -703,8 +803,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>>}
    */
-  public getSecret(params: SecretsManagerV1.GetSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
-    const _params = Object.assign({}, params);
+  public getSecret(
+    params: SecretsManagerV1.GetSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -714,7 +816,7 @@ class SecretsManagerV1 extends BaseService {
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecret');
@@ -726,48 +828,55 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Invoke an action on a secret.
    *
    * Invokes an action on a specified secret. This method supports the following actions:
    *
-   * - `rotate`: Replace the value of an `arbitrary` or `username_password` secret.
+   * - `rotate`: Replace the value of an `arbitrary`, `username_password` or `imported_cert` secret.
    * - `delete_credentials`: Delete the API key that is associated with an `iam_credentials` secret.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} params.action - The action to perform on the specified secret.
-   * @param {SecretActionOneOf} params.secretActionOneOf - The base request body for invoking an action on a secret.
+   * @param {SecretAction} params.secretAction - The properties to update for the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>>}
    */
-  public updateSecret(params: SecretsManagerV1.UpdateSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
-    const _params = Object.assign({}, params);
-    const requiredParams = ['secretType', 'id', 'action', 'secretActionOneOf'];
+  public updateSecret(
+    params: SecretsManagerV1.UpdateSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecret>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'id', 'action', 'secretAction'];
 
     const missingParams = getMissingParams(_params, requiredParams);
     if (missingParams) {
       return Promise.reject(missingParams);
     }
 
-    const body = _params.secretActionOneOf;
+    const body = _params.secretAction;
     const query = {
-      'action': _params.action
+      'action': _params.action,
     };
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecret');
@@ -781,15 +890,20 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Delete a secret.
@@ -802,8 +916,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public deleteSecret(params: SecretsManagerV1.DeleteSecretParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
-    const _params = Object.assign({}, params);
+  public deleteSecret(
+    params: SecretsManagerV1.DeleteSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -813,7 +929,7 @@ class SecretsManagerV1 extends BaseService {
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecret');
@@ -825,13 +941,137 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-        }, _params.headers),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
+
+  /**
+   * Get a version of a secret.
+   *
+   * Retrieves a version of a secret by specifying the ID of the version or the alias `previous`.
+   *
+   * A successful request returns the secret data that is associated with the specified version of your secret, along
+   * with other metadata.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type. Supported options include: imported_cert.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
+   * `previous` to retrieve the previous version.
+   *
+   * **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and check
+   * the response details.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretVersion>>}
+   */
+  public getSecretVersion(
+    params: SecretsManagerV1.GetSecretVersionParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretVersion>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'id', 'versionId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+      'version_id': _params.versionId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getSecretVersion'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get secret version metadata.
+   *
+   * Retrieves secret version metadata by specifying the ID of the version or the alias `previous`.
+   *
+   * A successful request returns the metadata that is associated with the specified version of your secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type. Supported options include: imported_cert.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
+   * `previous` to retrieve the previous version.
+   *
+   * **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and check
+   * the response details.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretVersionMetadata>>}
+   */
+  public getSecretVersionMetadata(
+    params: SecretsManagerV1.GetSecretVersionMetadataParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretVersionMetadata>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'id', 'versionId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+      'version_id': _params.versionId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getSecretVersionMetadata'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
 
   /**
    * Get secret metadata.
@@ -839,7 +1079,7 @@ class SecretsManagerV1 extends BaseService {
    * Retrieves the details of a secret by specifying the ID.
    *
    * A successful request returns only metadata about the secret, such as its name and creation date. To retrieve the
-   * value of a secret, use the [Get a secret](#get-secret) method.
+   * value of a secret, use the [Get a secret](#get-secret) or [Get a version of a secret](#get-secret-version) methods.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -847,8 +1087,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>>}
    */
-  public getSecretMetadata(params: SecretsManagerV1.GetSecretMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
-    const _params = Object.assign({}, params);
+  public getSecretMetadata(
+    params: SecretsManagerV1.GetSecretMetadataParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -858,10 +1100,14 @@ class SecretsManagerV1 extends BaseService {
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretMetadata');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getSecretMetadata'
+    );
 
     const parameters = {
       options: {
@@ -870,14 +1116,19 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Update secret metadata.
@@ -895,8 +1146,10 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>>}
    */
-  public updateSecretMetadata(params: SecretsManagerV1.UpdateSecretMetadataParams): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
-    const _params = Object.assign({}, params);
+  public updateSecretMetadata(
+    params: SecretsManagerV1.UpdateSecretMetadataParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.SecretMetadataRequest>> {
+    const _params = { ...params };
     const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -906,15 +1159,19 @@ class SecretsManagerV1 extends BaseService {
 
     const body = {
       'metadata': _params.metadata,
-      'resources': _params.resources
+      'resources': _params.resources,
     };
 
     const path = {
       'secret_type': _params.secretType,
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecretMetadata');
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'updateSecretMetadata'
+    );
 
     const parameters = {
       options: {
@@ -924,16 +1181,20 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
-
+  }
 }
 
 /*************************
@@ -941,9 +1202,8 @@ class SecretsManagerV1 extends BaseService {
  ************************/
 
 namespace SecretsManagerV1 {
-
   /** An operation response. */
-  export interface Response<T = any>  {
+  export interface Response<T = any> {
     result: T;
     status: number;
     statusText: string;
@@ -954,7 +1214,7 @@ namespace SecretsManagerV1 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty { }
+  export interface Empty {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -969,8 +1229,8 @@ namespace SecretsManagerV1 {
   export interface PutConfigParams {
     /** The secret type. */
     secretType: PutConfigConstants.SecretType | string;
-    /** The base request for setting secret engine configuration. */
-    engineConfigOneOf: EngineConfigOneOf;
+    /** Properties to update for a secrets engine. */
+    engineConfig: EngineConfig;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1104,6 +1364,7 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
@@ -1135,6 +1396,7 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
@@ -1207,6 +1469,7 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
@@ -1218,8 +1481,8 @@ namespace SecretsManagerV1 {
     id: string;
     /** The action to perform on the specified secret. */
     action: UpdateSecretConstants.Action | string;
-    /** The base request body for invoking an action on a secret. */
-    secretActionOneOf: SecretActionOneOf;
+    /** The properties to update for the secret. */
+    secretAction: SecretAction;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1230,6 +1493,7 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
     /** The action to perform on the specified secret. */
     export enum Action {
@@ -1254,6 +1518,55 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+    }
+  }
+
+  /** Parameters for the `getSecretVersion` operation. */
+  export interface GetSecretVersionParams {
+    /** The secret type. Supported options include: imported_cert. */
+    secretType: GetSecretVersionConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The v4 UUID that uniquely identifies the secret version. You can also use `previous` to retrieve the
+     *  previous version.
+     *
+     *  **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and
+     *  check the response details.
+     */
+    versionId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getSecretVersion` operation. */
+  export namespace GetSecretVersionConstants {
+    /** The secret type. Supported options include: imported_cert. */
+    export enum SecretType {
+      IMPORTED_CERT = 'imported_cert',
+    }
+  }
+
+  /** Parameters for the `getSecretVersionMetadata` operation. */
+  export interface GetSecretVersionMetadataParams {
+    /** The secret type. Supported options include: imported_cert. */
+    secretType: GetSecretVersionMetadataConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The v4 UUID that uniquely identifies the secret version. You can also use `previous` to retrieve the
+     *  previous version.
+     *
+     *  **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and
+     *  check the response details.
+     */
+    versionId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getSecretVersionMetadata` operation. */
+  export namespace GetSecretVersionMetadataConstants {
+    /** The secret type. Supported options include: imported_cert. */
+    export enum SecretType {
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
@@ -1273,6 +1586,7 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
@@ -1296,12 +1610,23 @@ namespace SecretsManagerV1 {
       ARBITRARY = 'arbitrary',
       USERNAME_PASSWORD = 'username_password',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
     }
   }
 
   /*************************
    * model interfaces
    ************************/
+
+  /** CertificateSecretData. */
+  export interface CertificateSecretData {
+    /** The contents of the certificate. */
+    certificate?: string;
+    /** The private key that is associated with the certificate. */
+    private_key?: string;
+    /** The intermediate certificate that is associated with the certificate. */
+    intermediate?: string;
+  }
 
   /** The metadata that describes the resource array. */
   export interface CollectionMetadata {
@@ -1311,7 +1636,7 @@ namespace SecretsManagerV1 {
     collection_total: number;
   }
 
-  /** The base schema for creating secrets. */
+  /** Properties that describe a secret. */
   export interface CreateSecret {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -1319,19 +1644,18 @@ namespace SecretsManagerV1 {
     resources: SecretResource[];
   }
 
-  /** EngineConfigOneOf. */
-  export interface EngineConfigOneOf {
-  }
+  /** EngineConfig. */
+  export interface EngineConfig {}
 
   /** Configuration that is used to generate IAM credentials. */
   export interface GetConfig {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
     /** A collection of resources. */
-    resources: IAMSecretEngineRootConfig[];
+    resources: IAMCredentialsSecretEngineRootConfig[];
   }
 
-  /** The base schema for retrieving a secret. */
+  /** Properties that describe a secret. */
   export interface GetSecret {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -1339,12 +1663,11 @@ namespace SecretsManagerV1 {
     resources: SecretResource[];
   }
 
-  /** GetSecretPoliciesOneOf. */
-  export interface GetSecretPoliciesOneOf {
-  }
+  /** GetSecretPolicies. */
+  export interface GetSecretPolicies {}
 
-  /** Properties that are associated with a rotation policy. */
-  export interface GetSecretPoliciesOneOfGetSecretPolicyRotationResourcesItem {
+  /** Properties that describe a rotation policy. */
+  export interface GetSecretPolicyRotationResourcesItem {
     /** The v4 UUID that uniquely identifies the policy. */
     id: string;
     /** The Cloud Resource Name (CRN) that uniquely identifies your cloud resources. */
@@ -1363,20 +1686,23 @@ namespace SecretsManagerV1 {
     rotation: SecretPolicyRotationRotation;
   }
 
-  /** Configuration that is used to generate IAM credentials. */
-  export interface IAMSecretEngineRootConfig {
-    /** An IBM Cloud API key that has the capability to create and manage service IDs.
-     *
-     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
-     *  role on the IAM Identity Service. For more information, see [Enabling the IAM secrets
-     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-engines#configure-iam-engine).
-     */
-    api_key: string;
-    /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
-    api_key_hash?: string;
+  /** Properties that describe the version of a secret. */
+  export interface GetSecretVersion {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretVersion[];
   }
 
-  /** The base schema for listing secrets. */
+  /** Properties that describe the version of a secret. */
+  export interface GetSecretVersionMetadata {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretVersionMetadata[];
+  }
+
+  /** Properties that describe a list of secrets. */
   export interface ListSecrets {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -1384,11 +1710,10 @@ namespace SecretsManagerV1 {
     resources?: SecretResource[];
   }
 
-  /** SecretActionOneOf. */
-  export interface SecretActionOneOf {
-  }
+  /** SecretAction. */
+  export interface SecretAction {}
 
-  /** The base schema definition for a secret group. */
+  /** Properties that describe a secret group. */
   export interface SecretGroupDef {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -1396,7 +1721,7 @@ namespace SecretsManagerV1 {
     resources: SecretGroupResource[];
   }
 
-  /** Metadata properties that describe a secret group. */
+  /** Metadata properties to update for a secret group. */
   export interface SecretGroupMetadataUpdatable {
     /** A human-readable name to assign to your secret group.
      *
@@ -1438,8 +1763,52 @@ namespace SecretsManagerV1 {
     [propName: string]: any;
   }
 
-  /** Metadata properties that describe a secret. */
-  export interface SecretMetadata {
+  /** SecretMetadata. */
+  export interface SecretMetadata {}
+
+  /** The metadata of a secret. */
+  export interface SecretMetadataRequest {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretMetadata[];
+  }
+
+  /** Properties that describe a rotation policy. */
+  export interface SecretPolicyRotation {
+    /** The MIME type that represents the policy. Currently, only the default is supported. */
+    type: string;
+    /** The secret rotation time interval. */
+    rotation: SecretPolicyRotationRotation;
+  }
+
+  /** The secret rotation time interval. */
+  export interface SecretPolicyRotationRotation {
+    /** Specifies the length of the secret rotation time interval. */
+    interval: number;
+    /** Specifies the units for the secret rotation time interval. */
+    unit: string;
+  }
+
+  /** SecretResource. */
+  export interface SecretResource {}
+
+  /** SecretVersion. */
+  export interface SecretVersion {}
+
+  /** SecretVersionMetadata. */
+  export interface SecretVersionMetadata {}
+
+  /** CertificateValidity. */
+  export interface CertificateValidity {
+    /** The date the certificate validity period begins. */
+    not_before?: string;
+    /** The date the certificate validity period ends. */
+    not_after?: string;
+  }
+
+  /** Metadata properties that describe an arbitrary secret. */
+  export interface ArbitrarySecretMetadata extends SecretMetadata {
     /** The unique ID of the secret. */
     id?: string;
     /** Labels that you can use to filter for secrets in your instance.
@@ -1474,6 +1843,16 @@ namespace SecretsManagerV1 {
     state_description?: string;
     /** The secret type. */
     secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions the secret has. */
+    versions_total?: number;
     /** The date the secret material expires. The date format follows RFC 3339.
      *
      *  You can set an expiration date on supported secret types at their creation. If you create a secret without
@@ -1484,6 +1863,348 @@ namespace SecretsManagerV1 {
      *  - `username_password`.
      */
     expiration_date?: string;
+  }
+
+  /** Properties that describe a secret. */
+  export interface ArbitrarySecretResource extends SecretResource {
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions that are associated with a secret. */
+    versions_total?: number;
+    /** An array that contains metadata for each secret version. For more information on the metadata properties,
+     *  see [Get secret version metadata](#get-secret-version-metadata).
+     */
+    versions?: JsonObject[];
+    /** The date the secret material expires. The date format follows RFC 3339.
+     *
+     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
+     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
+     *  following secret types:
+     *
+     *  - `arbitrary`
+     *  - `username_password`.
+     */
+    expiration_date?: string;
+    /** The new secret data to assign to the secret. */
+    payload?: string;
+    secret_data?: JsonObject;
+  }
+
+  /** Properties that describe a secret version. */
+  export interface ArbitrarySecretVersionMetadata extends SecretVersionMetadata {
+    /** The ID of the secret version. */
+    id?: string;
+    /** The date that the version of the secret was created. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret version. */
+    created_by?: string;
+  }
+
+  /** Metadata properties that describe a certificate secret. */
+  export interface CertificateSecretMetadata extends SecretMetadata {
+    /** The unique ID of the secret. */
+    id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions the secret has. */
+    versions_total?: number;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
+    serial_number?: string;
+    /** The identifier for the cryptographic algorthim that was used by the issuing certificate authority to sign
+     *  the ceritificate.
+     */
+    algorithm?: string;
+    /** The identifier for the cryptographic algorithm that was used to generate the public key that is associated
+     *  with the certificate.
+     */
+    key_algorithm?: string;
+    /** The distinguished name that identifies the entity that signed and issued the certificate. */
+    issuer?: string;
+    validity?: CertificateValidity;
+    /** The fully qualified domain name or host domain name that is defined for the certificate. */
+    common_name?: string;
+    /** Indicates whether the certificate was imported with an associated intermediate certificate. */
+    intermediate_included?: boolean;
+    /** Indicates whether the certificate was imported with an associated private key. */
+    private_key_included?: boolean;
+    /** The alternative names that are defined for the certificate. */
+    alt_names?: string[];
+    /** The date that the certificate expires. The date format follows RFC 3339. */
+    expiration_date?: string;
+  }
+
+  /** Properties that describe a secret. */
+  export interface CertificateSecretResource extends SecretResource {
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions that are associated with a secret. */
+    versions_total?: number;
+    /** An array that contains metadata for each secret version. For more information on the metadata properties,
+     *  see [Get secret version metadata](#get-secret-version-metadata).
+     */
+    versions?: JsonObject[];
+    /** The contents of your certificate. The data must be formatted on a single line with embedded newline
+     *  characters.
+     */
+    certificate?: string;
+    /** The private key to associate with the certificate. The data must be formatted on a single line with embedded
+     *  newline characters.
+     */
+    private_key?: string;
+    /** The intermediate certificate to associate with the root certificate. The data must be formatted on a single
+     *  line with embedded newline characters.
+     */
+    intermediate?: string;
+    secret_data?: JsonObject;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
+    serial_number?: string;
+    /** The identifier for the cryptographic algorthim that was used by the issuing certificate authority to sign
+     *  the ceritificate.
+     */
+    algorithm?: string;
+    /** The identifier for the cryptographic algorithm that was used to generate the public key that is associated
+     *  with the certificate.
+     */
+    key_algorithm?: string;
+    /** The distinguished name that identifies the entity that signed and issued the certificate. */
+    issuer?: string;
+    validity?: CertificateValidity;
+    /** The fully qualified domain name or host domain name that is defined for the certificate. */
+    common_name?: string;
+    /** Indicates whether the certificate was imported with an associated intermediate certificate. */
+    intermediate_included?: boolean;
+    /** Indicates whether the certificate was imported with an associated private key. */
+    private_key_included?: boolean;
+    /** The alternative names that are defined for the certificate. */
+    alt_names?: string[];
+    /** The date that the certificate expires. The date format follows RFC 3339. */
+    expiration_date?: string;
+  }
+
+  /** CertificateSecretVersion. */
+  export interface CertificateSecretVersion extends SecretVersion {
+    /** The v4 UUID that uniquely identifies the secret. */
+    id?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the secret. */
+    crn?: string;
+    /** The ID of the secret version. */
+    version_id?: string;
+    /** The date that the version of the secret was created. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret version. */
+    created_by?: string;
+    validity?: CertificateValidity;
+    serial_number?: string;
+    /** The date that the certificate expires. The date format follows RFC 3339. */
+    expiration_date?: string;
+    secret_data?: CertificateSecretData;
+  }
+
+  /** Properties that describe a secret version. */
+  export interface CertificateSecretVersionMetadata extends SecretVersionMetadata {
+    /** The ID of the secret version. */
+    id?: string;
+    /** The date that the version of the secret was created. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret version. */
+    created_by?: string;
+    serial_number?: string;
+    /** The date that the certificate expires. The date format follows RFC 3339. */
+    expiration_date?: string;
+    validity?: CertificateValidity;
+  }
+
+  /** Delete the credentials that are associated with an `iam_credentials` secret. */
+  export interface DeleteCredentialsForIAMCredentialsSecret extends SecretAction {
+    /** The service ID that you want to delete. It is deleted together with its API key. */
+    service_id: string;
+  }
+
+  /** Properties that describe a rotation policy. */
+  export interface GetSecretPolicyRotation extends GetSecretPolicies {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: GetSecretPolicyRotationResourcesItem[];
+  }
+
+  /** Configuration that is used to generate IAM credentials. */
+  export interface IAMCredentialsSecretEngineRootConfig extends EngineConfig {
+    /** An IBM Cloud API key that has the capability to create and manage service IDs.
+     *
+     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
+     *  role on the IAM Identity Service. For more information, see [Configuring the IAM secrets
+     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
+     */
+    api_key: string;
+    /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
+    api_key_hash?: string;
+  }
+
+  /** Metadata properties that describe a iam_credentials secret. */
+  export interface IAMCredentialsSecretMetadata extends SecretMetadata {
+    /** The unique ID of the secret. */
+    id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions the secret has. */
+    versions_total?: number;
     /** The time-to-live (TTL) or lease duration to assign to generated credentials.
      *
      *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
@@ -1496,99 +2217,10 @@ namespace SecretsManagerV1 {
      *  a new service ID and API key is generated each time that the secret is read or accessed.
      */
     reuse_api_key?: boolean;
-    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
-    crn?: string;
-    /** The date the secret was created. The date format follows RFC 3339. */
-    creation_date?: string;
-    /** The unique identifier for the entity that created the secret. */
-    created_by?: string;
-    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
-    last_update_date?: string;
   }
 
-  /** The metadata of a secret. */
-  export interface SecretMetadataRequest {
-    /** The metadata that describes the resource array. */
-    metadata: CollectionMetadata;
-    /** A collection of resources. */
-    resources: SecretMetadata[];
-  }
-
-  /** Properties that are associated with a rotation policy. */
-  export interface SecretPolicyRotation {
-    /** The MIME type that represents the policy. Currently, only the default is supported. */
-    type: string;
-    /** The secret rotation time interval. */
-    rotation: SecretPolicyRotationRotation;
-  }
-
-  /** The secret rotation time interval. */
-  export interface SecretPolicyRotationRotation {
-    /** Specifies the length of the secret rotation time interval. */
-    interval: number;
-    /** Specifies the units for the secret rotation time interval. */
-    unit: string;
-  }
-
-  /** SecretResource. */
-  export interface SecretResource {
-  }
-
-  /** Properties that are associated with a specific secret version. */
-  export interface SecretVersion {
-    /** The ID of the secret version. */
-    id?: string;
-    /** The date that the version of the secret was created. */
-    creation_date?: string;
-    /** The unique identifier for the entity that created the secret. */
-    created_by?: string;
-    /** Indicates whether the version of the secret was created by automatic rotation. */
-    auto_rotated?: boolean;
-  }
-
-  /** Configuration that is used to generate IAM credentials. */
-  export interface EngineConfigOneOfIAMSecretEngineRootConfig extends EngineConfigOneOf {
-    /** An IBM Cloud API key that has the capability to create and manage service IDs.
-     *
-     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
-     *  role on the IAM Identity Service. For more information, see [Enabling the IAM secrets
-     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-engines#configure-iam-engine).
-     */
-    api_key: string;
-    /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
-    api_key_hash?: string;
-  }
-
-  /** The base schema for retrieving a policy that is associated with a secret. */
-  export interface GetSecretPoliciesOneOfGetSecretPolicyRotation extends GetSecretPoliciesOneOf {
-    /** The metadata that describes the resource array. */
-    metadata: CollectionMetadata;
-    /** A collection of resources. */
-    resources: GetSecretPoliciesOneOfGetSecretPolicyRotationResourcesItem[];
-  }
-
-  /** Delete the credentials that are associated with an `iam_credentials` secret. */
-  export interface SecretActionOneOfDeleteCredentialsForIAMSecret extends SecretActionOneOf {
-    /** The service ID that you want to delete. It is deleted together with its API key. */
-    service_id: string;
-  }
-
-  /** The request body of a `rotate` action. */
-  export interface SecretActionOneOfRotateArbitrarySecretBody extends SecretActionOneOf {
-    /** The new secret data to assign to an `arbitrary` secret. */
-    payload: string;
-  }
-
-  /** The request body of a `rotate` action. */
-  export interface SecretActionOneOfRotateUsernamePasswordSecretBody extends SecretActionOneOf {
-    /** The new password to assign to a `username_password` secret. */
-    password: string;
-  }
-
-  /** The base schema for secrets. */
-  export interface SecretResourceArbitrarySecretResource extends SecretResource {
-    /** The MIME type that represents the secret. */
-    type?: string;
+  /** Properties that describe a secret. */
+  export interface IAMCredentialsSecretResource extends SecretResource {
     /** The v4 UUID that uniquely identifies the secret. */
     id?: string;
     /** A human-readable alias to assign to your secret.
@@ -1631,71 +2263,12 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when the actual secret is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** An array that contains metadata for each secret version. */
-    versions?: SecretVersion[];
-    /** The date the secret material expires. The date format follows RFC 3339.
-     *
-     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
-     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
-     *  following secret types:
-     *
-     *  - `arbitrary`
-     *  - `username_password`.
+    /** The number of versions that are associated with a secret. */
+    versions_total?: number;
+    /** An array that contains metadata for each secret version. For more information on the metadata properties,
+     *  see [Get secret version metadata](#get-secret-version-metadata).
      */
-    expiration_date?: string;
-    /** The new secret data to assign to an `arbitrary` secret. */
-    payload?: string;
-    secret_data?: JsonObject;
-  }
-
-  /** The base schema for secrets. */
-  export interface SecretResourceIAMSecretResource extends SecretResource {
-    /** The MIME type that represents the secret. */
-    type?: string;
-    /** The v4 UUID that uniquely identifies the secret. */
-    id?: string;
-    /** A human-readable alias to assign to your secret.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
-     */
-    name: string;
-    /** An extended description of your secret.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
-     *  secret.
-     */
-    description?: string;
-    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
-     *
-     *  If you omit this parameter, your secret is assigned to the `default` secret group.
-     */
-    secret_group_id?: string;
-    /** Labels that you can use to filter for secrets in your instance.
-     *
-     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
-     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
-     */
-    labels?: string[];
-    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
-     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
-     */
-    state?: number;
-    /** A text representation of the secret state. */
-    state_description?: string;
-    /** The secret type. */
-    secret_type?: string;
-    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
-    crn?: string;
-    /** The date the secret was created. The date format follows RFC 3339. */
-    creation_date?: string;
-    /** The unique identifier for the entity that created the secret. */
-    created_by?: string;
-    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
-    last_update_date?: string;
-    /** An array that contains metadata for each secret version. */
-    versions?: SecretVersion[];
+    versions?: JsonObject[];
     /** The time-to-live (TTL) or lease duration to assign to generated credentials.
      *
      *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
@@ -1729,10 +2302,98 @@ namespace SecretsManagerV1 {
     reuse_api_key?: boolean;
   }
 
-  /** The base schema for secrets. */
-  export interface SecretResourceUsernamePasswordSecretResource extends SecretResource {
-    /** The MIME type that represents the secret. */
-    type?: string;
+  /** Properties that describe a secret version. */
+  export interface IAMCredentialsSecretVersionMetadata extends SecretVersionMetadata {
+    /** The ID of the secret version. */
+    id?: string;
+    /** The date that the version of the secret was created. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret version. */
+    created_by?: string;
+  }
+
+  /** The request body of a `rotate` action. */
+  export interface RotateArbitrarySecretBody extends SecretAction {
+    /** The new secret data to assign to an `arbitrary` secret. */
+    payload: string;
+  }
+
+  /** The request body of a rotate certificate action. */
+  export interface RotateCertificateBody extends SecretAction {
+    /** The new data to associate with the certificate. */
+    certificate: string;
+    /** The new private key to associate with the certificate. */
+    private_key?: string;
+    /** The new intermediate certificate to associate with the certificate. */
+    intermediate?: string;
+  }
+
+  /** The request body of a `rotate` action. */
+  export interface RotateUsernamePasswordSecretBody extends SecretAction {
+    /** The new password to assign to a `username_password` secret. */
+    password: string;
+  }
+
+  /** Metadata properties that describe a username_password secret. */
+  export interface UsernamePasswordSecretMetadata extends SecretMetadata {
+    /** The unique ID of the secret. */
+    id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions the secret has. */
+    versions_total?: number;
+    /** The date the secret material expires. The date format follows RFC 3339.
+     *
+     *  You can set an expiration date on supported secret types at their creation. If you create a secret without
+     *  specifying an expiration date, the secret does not expire. The `expiration_date` field is supported for the
+     *  following secret types:
+     *
+     *  - `arbitrary`
+     *  - `username_password`.
+     */
+    expiration_date?: string;
+  }
+
+  /** Properties that describe a secret. */
+  export interface UsernamePasswordSecretResource extends SecretResource {
     /** The v4 UUID that uniquely identifies the secret. */
     id?: string;
     /** A human-readable alias to assign to your secret.
@@ -1775,8 +2436,12 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when the actual secret is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** An array that contains metadata for each secret version. */
-    versions?: SecretVersion[];
+    /** The number of versions that are associated with a secret. */
+    versions_total?: number;
+    /** An array that contains metadata for each secret version. For more information on the metadata properties,
+     *  see [Get secret version metadata](#get-secret-version-metadata).
+     */
+    versions?: JsonObject[];
     /** The username to assign to this secret. */
     username?: string;
     /** The password to assign to this secret. */
@@ -1800,6 +2465,17 @@ namespace SecretsManagerV1 {
     next_rotation_date?: string;
   }
 
+  /** Properties that describe a secret version. */
+  export interface UsernamePasswordSecretVersionMetadata extends SecretVersionMetadata {
+    /** The ID of the secret version. */
+    id?: string;
+    /** The date that the version of the secret was created. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret version. */
+    created_by?: string;
+    /** Indicates whether the version of the secret was created by automatic rotation. */
+    auto_rotated?: boolean;
+  }
 }
 
 export = SecretsManagerV1;
