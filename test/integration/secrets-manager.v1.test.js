@@ -306,7 +306,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       await clearConfigs(secretsManager);
   });
 
-    test.only('Should create configs, order certificate and delete configs', async () => {
+    test('Should create configs, order certificate and delete configs', async () => {
 
         const caConfigName = generateName() + '-ca';
         //Create CA config
@@ -392,7 +392,8 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
         expect(res.status).toBe(204);
     })
-    test.only('Should create, get, list and delete configs', async () => {
+
+    test('Should create, get, list and delete configs', async () => {
 
         const caConfigName = generateName() + '-ca';
         //Create CA config
