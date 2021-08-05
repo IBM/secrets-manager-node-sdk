@@ -110,8 +110,8 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
-  public createSecretConfigElement(
-    params: SecretsManagerV1.CreateSecretConfigElementParams
+  public createConfigElement(
+    params: SecretsManagerV1.CreateConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
     const requiredParams = ['secretType', 'configElement', 'name', 'type', 'config'];
@@ -135,7 +135,7 @@ class SecretsManagerV1 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       SecretsManagerV1.DEFAULT_SERVICE_NAME,
       'v1',
-      'createSecretConfigElement'
+      'createConfigElement'
     );
 
     const parameters = {
@@ -172,8 +172,8 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>>}
    */
-  public getSecretConfigElement(
-    params: SecretsManagerV1.GetSecretConfigElementParams
+  public getConfigElements(
+    params: SecretsManagerV1.GetConfigElementsParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>> {
     const _params = { ...params };
     const requiredParams = ['secretType', 'configElement'];
@@ -191,7 +191,7 @@ class SecretsManagerV1 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       SecretsManagerV1.DEFAULT_SERVICE_NAME,
       'v1',
-      'getSecretConfigElement'
+      'getConfigElements'
     );
 
     const parameters = {
@@ -229,8 +229,8 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
-  public updateSecretConfigElement(
-    params: SecretsManagerV1.UpdateSecretConfigElementParams
+  public updateConfigElement(
+    params: SecretsManagerV1.UpdateConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
     const requiredParams = ['secretType', 'configElement', 'configName', 'type', 'config'];
@@ -254,7 +254,7 @@ class SecretsManagerV1 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       SecretsManagerV1.DEFAULT_SERVICE_NAME,
       'v1',
-      'updateSecretConfigElement'
+      'updateConfigElement'
     );
 
     const parameters = {
@@ -292,8 +292,8 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
-  public deleteSecretConfigElement(
-    params: SecretsManagerV1.DeleteSecretConfigElementParams
+  public deleteConfigElement(
+    params: SecretsManagerV1.DeleteConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = { ...params };
     const requiredParams = ['secretType', 'configElement', 'configName'];
@@ -312,7 +312,7 @@ class SecretsManagerV1 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       SecretsManagerV1.DEFAULT_SERVICE_NAME,
       'v1',
-      'deleteSecretConfigElement'
+      'deleteConfigElement'
     );
 
     const parameters = {
@@ -347,8 +347,8 @@ class SecretsManagerV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
-  public getSingleSecretConfigElement(
-    params: SecretsManagerV1.GetSingleSecretConfigElementParams
+  public getConfigElement(
+    params: SecretsManagerV1.GetConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
     const requiredParams = ['secretType', 'configElement', 'configName'];
@@ -367,7 +367,7 @@ class SecretsManagerV1 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       SecretsManagerV1.DEFAULT_SERVICE_NAME,
       'v1',
-      'getSingleSecretConfigElement'
+      'getConfigElement'
     );
 
     const parameters = {
@@ -1580,12 +1580,12 @@ namespace SecretsManagerV1 {
    * request interfaces
    ************************/
 
-  /** Parameters for the `createSecretConfigElement` operation. */
-  export interface CreateSecretConfigElementParams {
+  /** Parameters for the `createConfigElement` operation. */
+  export interface CreateConfigElementParams {
     /** The secret type. */
-    secretType: CreateSecretConfigElementConstants.SecretType | string;
+    secretType: CreateConfigElementConstants.SecretType | string;
     /** The Config element type. */
-    configElement: CreateSecretConfigElementConstants.ConfigElement | string;
+    configElement: CreateConfigElementConstants.ConfigElement | string;
     /** Config element name. */
     name: string;
     /** Dns provider config type. */
@@ -1594,8 +1594,8 @@ namespace SecretsManagerV1 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Constants for the `createSecretConfigElement` operation. */
-  export namespace CreateSecretConfigElementConstants {
+  /** Constants for the `createConfigElement` operation. */
+  export namespace CreateConfigElementConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
@@ -1607,17 +1607,17 @@ namespace SecretsManagerV1 {
     }
   }
 
-  /** Parameters for the `getSecretConfigElement` operation. */
-  export interface GetSecretConfigElementParams {
+  /** Parameters for the `getConfigElements` operation. */
+  export interface GetConfigElementsParams {
     /** The secret type. */
-    secretType: GetSecretConfigElementConstants.SecretType | string;
+    secretType: GetConfigElementsConstants.SecretType | string;
     /** The Config element type. */
-    configElement: GetSecretConfigElementConstants.ConfigElement | string;
+    configElement: GetConfigElementsConstants.ConfigElement | string;
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Constants for the `getSecretConfigElement` operation. */
-  export namespace GetSecretConfigElementConstants {
+  /** Constants for the `getConfigElements` operation. */
+  export namespace GetConfigElementsConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
@@ -1629,12 +1629,12 @@ namespace SecretsManagerV1 {
     }
   }
 
-  /** Parameters for the `updateSecretConfigElement` operation. */
-  export interface UpdateSecretConfigElementParams {
+  /** Parameters for the `updateConfigElement` operation. */
+  export interface UpdateConfigElementParams {
     /** The secret type. */
-    secretType: UpdateSecretConfigElementConstants.SecretType | string;
+    secretType: UpdateConfigElementConstants.SecretType | string;
     /** The Config element type. */
-    configElement: UpdateSecretConfigElementConstants.ConfigElement | string;
+    configElement: UpdateConfigElementConstants.ConfigElement | string;
     /** Config name. */
     configName: string;
     /** Dns provider config type. */
@@ -1643,8 +1643,8 @@ namespace SecretsManagerV1 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Constants for the `updateSecretConfigElement` operation. */
-  export namespace UpdateSecretConfigElementConstants {
+  /** Constants for the `updateConfigElement` operation. */
+  export namespace UpdateConfigElementConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
@@ -1656,19 +1656,19 @@ namespace SecretsManagerV1 {
     }
   }
 
-  /** Parameters for the `deleteSecretConfigElement` operation. */
-  export interface DeleteSecretConfigElementParams {
+  /** Parameters for the `deleteConfigElement` operation. */
+  export interface DeleteConfigElementParams {
     /** The secret type. */
-    secretType: DeleteSecretConfigElementConstants.SecretType | string;
+    secretType: DeleteConfigElementConstants.SecretType | string;
     /** The Config element type. */
-    configElement: DeleteSecretConfigElementConstants.ConfigElement | string;
+    configElement: DeleteConfigElementConstants.ConfigElement | string;
     /** Config name. */
     configName: string;
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Constants for the `deleteSecretConfigElement` operation. */
-  export namespace DeleteSecretConfigElementConstants {
+  /** Constants for the `deleteConfigElement` operation. */
+  export namespace DeleteConfigElementConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
@@ -1680,19 +1680,19 @@ namespace SecretsManagerV1 {
     }
   }
 
-  /** Parameters for the `getSingleSecretConfigElement` operation. */
-  export interface GetSingleSecretConfigElementParams {
+  /** Parameters for the `getConfigElement` operation. */
+  export interface GetConfigElementParams {
     /** The secret type. */
-    secretType: GetSingleSecretConfigElementConstants.SecretType | string;
+    secretType: GetConfigElementConstants.SecretType | string;
     /** The Config element type. */
-    configElement: GetSingleSecretConfigElementConstants.ConfigElement | string;
+    configElement: GetConfigElementConstants.ConfigElement | string;
     /** Config name. */
     configName: string;
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Constants for the `getSingleSecretConfigElement` operation. */
-  export namespace GetSingleSecretConfigElementConstants {
+  /** Constants for the `getConfigElement` operation. */
+  export namespace GetConfigElementConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',

@@ -99,10 +99,10 @@ describe('SecretsManagerV1', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV1.DEFAULT_SERVICE_URL);
     });
   });
-  describe('createSecretConfigElement', () => {
+  describe('createConfigElement', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation createSecretConfigElement
+        // Construct the params object for operation createConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const name = 'testString';
@@ -116,10 +116,10 @@ describe('SecretsManagerV1', () => {
           config: config,
         };
 
-        const createSecretConfigElementResult = secretsManagerService.createSecretConfigElement(params);
+        const createConfigElementResult = secretsManagerService.createConfigElement(params);
 
         // all methods should return a Promise
-        expectToBePromise(createSecretConfigElementResult);
+        expectToBePromise(createConfigElementResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -158,7 +158,7 @@ describe('SecretsManagerV1', () => {
           },
         };
 
-        secretsManagerService.createSecretConfigElement(params);
+        secretsManagerService.createConfigElement(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -167,7 +167,7 @@ describe('SecretsManagerV1', () => {
       test('should enforce required parameters', async (done) => {
         let err;
         try {
-          await secretsManagerService.createSecretConfigElement({});
+          await secretsManagerService.createConfigElement({});
         } catch (e) {
           err = e;
         }
@@ -177,20 +177,20 @@ describe('SecretsManagerV1', () => {
       });
 
       test('should reject promise when required params are not given', (done) => {
-        const createSecretConfigElementPromise = secretsManagerService.createSecretConfigElement();
-        expectToBePromise(createSecretConfigElementPromise);
+        const createConfigElementPromise = secretsManagerService.createConfigElement();
+        expectToBePromise(createConfigElementPromise);
 
-        createSecretConfigElementPromise.catch((err) => {
+        createConfigElementPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });
     });
   });
-  describe('getSecretConfigElement', () => {
+  describe('getConfigElements', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getSecretConfigElement
+        // Construct the params object for operation getConfigElements
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const params = {
@@ -198,10 +198,10 @@ describe('SecretsManagerV1', () => {
           configElement: configElement,
         };
 
-        const getSecretConfigElementResult = secretsManagerService.getSecretConfigElement(params);
+        const getConfigElementsResult = secretsManagerService.getConfigElements(params);
 
         // all methods should return a Promise
-        expectToBePromise(getSecretConfigElementResult);
+        expectToBePromise(getConfigElementsResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -231,7 +231,7 @@ describe('SecretsManagerV1', () => {
           },
         };
 
-        secretsManagerService.getSecretConfigElement(params);
+        secretsManagerService.getConfigElements(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -240,7 +240,7 @@ describe('SecretsManagerV1', () => {
       test('should enforce required parameters', async (done) => {
         let err;
         try {
-          await secretsManagerService.getSecretConfigElement({});
+          await secretsManagerService.getConfigElements({});
         } catch (e) {
           err = e;
         }
@@ -250,20 +250,20 @@ describe('SecretsManagerV1', () => {
       });
 
       test('should reject promise when required params are not given', (done) => {
-        const getSecretConfigElementPromise = secretsManagerService.getSecretConfigElement();
-        expectToBePromise(getSecretConfigElementPromise);
+        const getConfigElementsPromise = secretsManagerService.getConfigElements();
+        expectToBePromise(getConfigElementsPromise);
 
-        getSecretConfigElementPromise.catch((err) => {
+        getConfigElementsPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });
     });
   });
-  describe('updateSecretConfigElement', () => {
+  describe('updateConfigElement', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation updateSecretConfigElement
+        // Construct the params object for operation updateConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const configName = 'testString';
@@ -277,10 +277,10 @@ describe('SecretsManagerV1', () => {
           config: config,
         };
 
-        const updateSecretConfigElementResult = secretsManagerService.updateSecretConfigElement(params);
+        const updateConfigElementResult = secretsManagerService.updateConfigElement(params);
 
         // all methods should return a Promise
-        expectToBePromise(updateSecretConfigElementResult);
+        expectToBePromise(updateConfigElementResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -319,7 +319,7 @@ describe('SecretsManagerV1', () => {
           },
         };
 
-        secretsManagerService.updateSecretConfigElement(params);
+        secretsManagerService.updateConfigElement(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -328,7 +328,7 @@ describe('SecretsManagerV1', () => {
       test('should enforce required parameters', async (done) => {
         let err;
         try {
-          await secretsManagerService.updateSecretConfigElement({});
+          await secretsManagerService.updateConfigElement({});
         } catch (e) {
           err = e;
         }
@@ -338,20 +338,20 @@ describe('SecretsManagerV1', () => {
       });
 
       test('should reject promise when required params are not given', (done) => {
-        const updateSecretConfigElementPromise = secretsManagerService.updateSecretConfigElement();
-        expectToBePromise(updateSecretConfigElementPromise);
+        const updateConfigElementPromise = secretsManagerService.updateConfigElement();
+        expectToBePromise(updateConfigElementPromise);
 
-        updateSecretConfigElementPromise.catch((err) => {
+        updateConfigElementPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });
     });
   });
-  describe('deleteSecretConfigElement', () => {
+  describe('deleteConfigElement', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation deleteSecretConfigElement
+        // Construct the params object for operation deleteConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const configName = 'testString';
@@ -361,10 +361,10 @@ describe('SecretsManagerV1', () => {
           configName: configName,
         };
 
-        const deleteSecretConfigElementResult = secretsManagerService.deleteSecretConfigElement(params);
+        const deleteConfigElementResult = secretsManagerService.deleteConfigElement(params);
 
         // all methods should return a Promise
-        expectToBePromise(deleteSecretConfigElementResult);
+        expectToBePromise(deleteConfigElementResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -397,7 +397,7 @@ describe('SecretsManagerV1', () => {
           },
         };
 
-        secretsManagerService.deleteSecretConfigElement(params);
+        secretsManagerService.deleteConfigElement(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -406,7 +406,7 @@ describe('SecretsManagerV1', () => {
       test('should enforce required parameters', async (done) => {
         let err;
         try {
-          await secretsManagerService.deleteSecretConfigElement({});
+          await secretsManagerService.deleteConfigElement({});
         } catch (e) {
           err = e;
         }
@@ -416,20 +416,20 @@ describe('SecretsManagerV1', () => {
       });
 
       test('should reject promise when required params are not given', (done) => {
-        const deleteSecretConfigElementPromise = secretsManagerService.deleteSecretConfigElement();
-        expectToBePromise(deleteSecretConfigElementPromise);
+        const deleteConfigElementPromise = secretsManagerService.deleteConfigElement();
+        expectToBePromise(deleteConfigElementPromise);
 
-        deleteSecretConfigElementPromise.catch((err) => {
+        deleteConfigElementPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });
     });
   });
-  describe('getSingleSecretConfigElement', () => {
+  describe('getConfigElement', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getSingleSecretConfigElement
+        // Construct the params object for operation getConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const configName = 'testString';
@@ -439,10 +439,10 @@ describe('SecretsManagerV1', () => {
           configName: configName,
         };
 
-        const getSingleSecretConfigElementResult = secretsManagerService.getSingleSecretConfigElement(params);
+        const getConfigElementResult = secretsManagerService.getConfigElement(params);
 
         // all methods should return a Promise
-        expectToBePromise(getSingleSecretConfigElementResult);
+        expectToBePromise(getConfigElementResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -475,7 +475,7 @@ describe('SecretsManagerV1', () => {
           },
         };
 
-        secretsManagerService.getSingleSecretConfigElement(params);
+        secretsManagerService.getConfigElement(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -484,7 +484,7 @@ describe('SecretsManagerV1', () => {
       test('should enforce required parameters', async (done) => {
         let err;
         try {
-          await secretsManagerService.getSingleSecretConfigElement({});
+          await secretsManagerService.getConfigElement({});
         } catch (e) {
           err = e;
         }
@@ -494,10 +494,10 @@ describe('SecretsManagerV1', () => {
       });
 
       test('should reject promise when required params are not given', (done) => {
-        const getSingleSecretConfigElementPromise = secretsManagerService.getSingleSecretConfigElement();
-        expectToBePromise(getSingleSecretConfigElementPromise);
+        const getConfigElementPromise = secretsManagerService.getConfigElement();
+        expectToBePromise(getConfigElementPromise);
 
-        getSingleSecretConfigElementPromise.catch((err) => {
+        getConfigElementPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
