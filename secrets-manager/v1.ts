@@ -2132,7 +2132,7 @@ namespace SecretsManagerV1 {
   }
 
   /** Config element. */
-  export interface ConfigElement {
+  export interface ConfigElementDef {
     /** Config element name. */
     name: string;
     /** Dns provider config type. */
@@ -2232,7 +2232,7 @@ namespace SecretsManagerV1 {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
     /** A collection of resources. */
-    resources: ConfigElement[];
+    resources: ConfigElementDef[];
   }
 
   /** Public certificate issuance info. */
@@ -2891,8 +2891,16 @@ namespace SecretsManagerV1 {
 
   /** Metadata properties that describe a public certificate secret. */
   export interface PublicCertificateMetadataSecretResource extends SecretMetadata {
-    /** The v4 UUID that uniquely identifies the secret. */
+    /** The unique ID of the secret. */
     id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
+     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
     /** A human-readable alias to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
@@ -2909,14 +2917,6 @@ namespace SecretsManagerV1 {
      *  If you omit this parameter, your secret is assigned to the `default` secret group.
      */
     secret_group_id?: string;
-    /** Labels that you can use to filter for secrets in your instance.
-     *
-     *  Up to 30 labels can be created. Labels can be between 2-30 characters, including spaces. Special characters not
-     *  permitted include the angled bracket, comma, colon, ampersand, and vertical pipe character (|).
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
-     */
-    labels?: string[];
     /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
      *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
      */
@@ -2925,27 +2925,19 @@ namespace SecretsManagerV1 {
     state_description?: string;
     /** The secret type. */
     secret_type?: string;
-    /** The Cloud Resource Name (CRN) that uniquely identifies your Secrets Manager resource. */
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
     crn?: string;
     /** The date the secret was created. The date format follows RFC 3339. */
     creation_date?: string;
     /** The unique identifier for the entity that created the secret. */
     created_by?: string;
-    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions that are associated with a secret. */
+    /** The number of versions the secret has. */
     versions_total?: number;
-    /** An array that contains metadata for each secret version. For more information on the metadata properties,
-     *  see [Get secret version metadata](#get-secret-version-metadata).
-     */
-    versions?: JsonObject[];
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     bundle_certs?: boolean;
-    /** The configured ca name. */
-    ca?: string;
-    /** The configured dns provider. */
-    dns?: string;
     /** The identifier for the cryptographic algorthim to be used by the issuing certificate authority to sign the
      *  ceritificate.
      */
@@ -2958,6 +2950,8 @@ namespace SecretsManagerV1 {
     alt_names?: string[];
     /** The fully qualified domain name or host domain name for the certificate. */
     common_name?: string;
+    private_key_included?: boolean;
+    intermediate_included?: boolean;
     rotation?: Rotation;
     /** Public certificate issuance info. */
     issuance_info?: IssuanceInfo;
