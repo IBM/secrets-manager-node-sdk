@@ -315,7 +315,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
             name: caConfigName,
             type: 'letsencrypt-stage',
-            config: {PRIVATE_KEY: process.env.CA_CONFIG_PRIVATE_KEY},
+            config: {private_key: process.env.CA_CONFIG_PRIVATE_KEY},
         });
 
         expect(res.status).toBe(201);
@@ -328,7 +328,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
             name: dnsConfigName,
             type: 'cis',
-            config: {CIS_APIKEY: process.env.SECRETS_MANAGER_API_APIKEY, CIS_CRN: process.env.DNS_CONFIG_CRN},
+            config: {cis_apikey: process.env.SECRETS_MANAGER_API_APIKEY, cis_crn: process.env.DNS_CONFIG_CRN},
         });
 
         expect(res.status).toBe(201);
@@ -402,7 +402,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
             name: caConfigName,
             type: 'letsencrypt-stage',
-            config: {PRIVATE_KEY: process.env.CA_CONFIG_PRIVATE_KEY},
+            config: {private_key: process.env.CA_CONFIG_PRIVATE_KEY},
         });
 
         expect(res.status).toBe(201);
@@ -415,7 +415,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
             name: dnsConfigName,
             type: 'cis',
-            config: {CIS_APIKEY: process.env.SECRETS_MANAGER_API_APIKEY, CIS_CRN: process.env.DNS_CONFIG_CRN},
+            config: {cis_apikey: process.env.SECRETS_MANAGER_API_APIKEY, cis_crn: process.env.DNS_CONFIG_CRN},
         });
 
         expect(res.status).toBe(201);

@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.37.0-a85661cd-20210802-190136
+ * IBM OpenAPI SDK Code Generator Version: 3.38.1-1037b405-20210908-184149
  */
 
 import * as extend from 'extend';
@@ -33,6 +33,9 @@ import { getSdkHeaders } from '../lib/common';
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
  * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, built on
  * open source HashiCorp Vault.
+ *
+ * API Version: 1.0.0
+ * See: https://cloud.ibm.com/docs/secrets-manager
  */
 
 class SecretsManagerV1 extends BaseService {
@@ -92,552 +95,6 @@ class SecretsManagerV1 extends BaseService {
     }
   }
 
-  /*************************
-   * config
-   ************************/
-
-  /**
-   * Create config element.
-   *
-   * Create a config element.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The Config element type.
-   * @param {string} params.name - Config element name.
-   * @param {string} params.type - Dns provider config type.
-   * @param {JsonObject} params.config -
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
-   */
-  public createConfigElement(
-    params: SecretsManagerV1.CreateConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement', 'name', 'type', 'config'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const body = {
-      'name': _params.name,
-      'type': _params.type,
-      'config': _params.config,
-    };
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'createConfigElement'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}',
-        method: 'POST',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Get config elements by type.
-   *
-   * Get a config elements.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The Config element type.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>>}
-   */
-  public getConfigElements(
-    params: SecretsManagerV1.GetConfigElementsParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getConfigElements'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}',
-        method: 'GET',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Update config element.
-   *
-   * Update a config element.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The Config element type.
-   * @param {string} params.configName - Config name.
-   * @param {string} params.type - Dns provider config type.
-   * @param {JsonObject} params.config -
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
-   */
-  public updateConfigElement(
-    params: SecretsManagerV1.UpdateConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement', 'configName', 'type', 'config'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const body = {
-      'type': _params.type,
-      'config': _params.config,
-    };
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-      'config_name': _params.configName,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'updateConfigElement'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
-        method: 'PUT',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Delete config element.
-   *
-   * Delete a config element.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The Config element type.
-   * @param {string} params.configName - Config name.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
-   */
-  public deleteConfigElement(
-    params: SecretsManagerV1.DeleteConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement', 'configName'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-      'config_name': _params.configName,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'deleteConfigElement'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
-        method: 'DELETE',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Get config element.
-   *
-   * Get a config element.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The Config element type.
-   * @param {string} params.configName - Config name.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
-   */
-  public getConfigElement(
-    params: SecretsManagerV1.GetConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement', 'configName'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-      'config_name': _params.configName,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getConfigElement'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
-        method: 'GET',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Configure secrets of a given type.
-   *
-   * Updates the configuration for the given secret type.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.apiKey - An IBM Cloud API key that has the capability to create and manage service IDs.
-   *
-   * The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform role
-   * on the IAM Identity Service. For more information, see [Configuring the IAM secrets
-   * engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
-   */
-  public putConfig(
-    params: SecretsManagerV1.PutConfigParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'apiKey'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const body = {
-      'api_key': _params.apiKey,
-    };
-
-    const path = {
-      'secret_type': _params.secretType,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'putConfig'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}',
-        method: 'PUT',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Content-Type': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Get the configuration for a secret type.
-   *
-   * Retrieves the configuration that is associated with the given secret type.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>>}
-   */
-  public getConfig(
-    params: SecretsManagerV1.GetConfigParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const path = {
-      'secret_type': _params.secretType,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getConfig'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}',
-        method: 'GET',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-  /*************************
-   * policies
-   ************************/
-
-  /**
-   * Set secret policies.
-   *
-   * Creates or updates one or more policies, such as an [automatic rotation
-   * policy](http://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-rotate-secrets#auto-rotate-secret), for the
-   * specified secret.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
-   * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
-   * @param {SecretPolicyRotation[]} params.resources - A collection of resources.
-   * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
-   */
-  public putPolicy(
-    params: SecretsManagerV1.PutPolicyParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const body = {
-      'metadata': _params.metadata,
-      'resources': _params.resources,
-    };
-
-    const query = {
-      'policy': _params.policy,
-    };
-
-    const path = {
-      'secret_type': _params.secretType,
-      'id': _params.id,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'putPolicy'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/secrets/{secret_type}/{id}/policies',
-        method: 'PUT',
-        body,
-        qs: query,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * List secret policies.
-   *
-   * Retrieves a list of policies that are associated with a specified secret.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
-   * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
-   */
-  public getPolicy(
-    params: SecretsManagerV1.GetPolicyParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'id'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const query = {
-      'policy': _params.policy,
-    };
-
-    const path = {
-      'secret_type': _params.secretType,
-      'id': _params.id,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getPolicy'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/secrets/{secret_type}/{id}/policies',
-        method: 'GET',
-        qs: query,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
   /*************************
    * secretGroups
    ************************/
@@ -1550,6 +1007,561 @@ class SecretsManagerV1 extends BaseService {
 
     return this.createRequest(parameters);
   }
+  /*************************
+   * policies
+   ************************/
+
+  /**
+   * Set secret policies.
+   *
+   * Creates or updates one or more policies, such as an [automatic rotation
+   * policy](http://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-rotate-secrets#auto-rotate-secret), for the
+   * specified secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {CollectionMetadata} params.metadata - The metadata that describes the resource array.
+   * @param {SecretPolicyRotation[]} params.resources - A collection of resources.
+   * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
+   */
+  public putPolicy(
+    params: SecretsManagerV1.PutPolicyParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'id', 'metadata', 'resources'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'metadata': _params.metadata,
+      'resources': _params.resources,
+    };
+
+    const query = {
+      'policy': _params.policy,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'putPolicy'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/secrets/{secret_type}/{id}/policies',
+        method: 'PUT',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List secret policies.
+   *
+   * Retrieves a list of policies that are associated with a specified secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} [params.policy] - The type of policy that is associated with the specified secret.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>>}
+   */
+  public getPolicy(
+    params: SecretsManagerV1.GetPolicyParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretPolicies>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'id'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const query = {
+      'policy': _params.policy,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getPolicy'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/secrets/{secret_type}/{id}/policies',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * config
+   ************************/
+
+  /**
+   * Set the configuration of a secret type.
+   *
+   * Sets the configuration for the specified secret type.
+   *
+   * Use this method to configure the IAM credentials (`iam_credentials`) engine for your service instance. Looking to
+   * set up certificate ordering? To configure the public certificates (`public_cert`) engine, use the [Add a
+   * configuration](#create_config_element) method.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.apiKey - An IBM Cloud API key that has the capability to create and manage service IDs.
+   *
+   * The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform role
+   * on the IAM Identity Service. For more information, see [Configuring the IAM secrets
+   * engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   */
+  public putConfig(
+    params: SecretsManagerV1.PutConfigParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'apiKey'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'api_key': _params.apiKey,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'putConfig'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get the configuration of a secret type.
+   *
+   * Retrieves the configuration that is associated with the specified secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>>}
+   */
+  public getConfig(
+    params: SecretsManagerV1.GetConfigParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfig>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getConfig'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Add a configuration.
+   *
+   * Adds a configuration element to the specified secret type.
+   *
+   * Use this method to define the configurations that are required to enable the  public certificates (`public_cert`)
+   * engine. You can add up to 10 certificate authority and DNS provider configurations for your instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.name - The human-readable name to assign to your configuration.
+   * @param {string} params.type - The type of configuration. Value options differ depending on the `config_element`
+   * property that you want to define.
+   * @param {ConfigElementDefConfig} params.config - The configuration to define for the specified secret type.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
+   */
+  public createConfigElement(
+    params: SecretsManagerV1.CreateConfigElementParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement', 'name', 'type', 'config'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'name': _params.name,
+      'type': _params.type,
+      'config': _params.config,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'createConfigElement'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List configurations.
+   *
+   * Lists the configuration elements that are associated with a specified secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>>}
+   */
+  public getConfigElements(
+    params: SecretsManagerV1.GetConfigElementsParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetConfigElements>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getConfigElements'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update a configuration.
+   *
+   * Updates a configuration element that is associated with the specified secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
+   * @param {string} params.type - The type of configuration. Value options differ depending on the `config_element`
+   * property that you want to define.
+   * @param {JsonObject} params.config -
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
+   */
+  public updateConfigElement(
+    params: SecretsManagerV1.UpdateConfigElementParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement', 'configName', 'type', 'config'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'type': _params.type,
+      'config': _params.config,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+      'config_name': _params.configName,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'updateConfigElement'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Remove a configuration.
+   *
+   * Removes a configuration element from the specified secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   */
+  public deleteConfigElement(
+    params: SecretsManagerV1.DeleteConfigElementParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement', 'configName'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+      'config_name': _params.configName,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'deleteConfigElement'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a configuration.
+   *
+   * Retrieves the details of a specific configuration that is associated with a secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
+   */
+  public getConfigElement(
+    params: SecretsManagerV1.GetConfigElementParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement', 'configName'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+      'config_name': _params.configName,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getConfigElement'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
 }
 
 /*************************
@@ -1579,221 +1591,6 @@ namespace SecretsManagerV1 {
   /*************************
    * request interfaces
    ************************/
-
-  /** Parameters for the `createConfigElement` operation. */
-  export interface CreateConfigElementParams {
-    /** The secret type. */
-    secretType: CreateConfigElementConstants.SecretType | string;
-    /** The Config element type. */
-    configElement: CreateConfigElementConstants.ConfigElement | string;
-    /** Config element name. */
-    name: string;
-    /** Dns provider config type. */
-    type: string;
-    config: JsonObject;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `createConfigElement` operation. */
-  export namespace CreateConfigElementConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The Config element type. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `getConfigElements` operation. */
-  export interface GetConfigElementsParams {
-    /** The secret type. */
-    secretType: GetConfigElementsConstants.SecretType | string;
-    /** The Config element type. */
-    configElement: GetConfigElementsConstants.ConfigElement | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `getConfigElements` operation. */
-  export namespace GetConfigElementsConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The Config element type. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `updateConfigElement` operation. */
-  export interface UpdateConfigElementParams {
-    /** The secret type. */
-    secretType: UpdateConfigElementConstants.SecretType | string;
-    /** The Config element type. */
-    configElement: UpdateConfigElementConstants.ConfigElement | string;
-    /** Config name. */
-    configName: string;
-    /** Dns provider config type. */
-    type: string;
-    config: JsonObject;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `updateConfigElement` operation. */
-  export namespace UpdateConfigElementConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The Config element type. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `deleteConfigElement` operation. */
-  export interface DeleteConfigElementParams {
-    /** The secret type. */
-    secretType: DeleteConfigElementConstants.SecretType | string;
-    /** The Config element type. */
-    configElement: DeleteConfigElementConstants.ConfigElement | string;
-    /** Config name. */
-    configName: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `deleteConfigElement` operation. */
-  export namespace DeleteConfigElementConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The Config element type. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `getConfigElement` operation. */
-  export interface GetConfigElementParams {
-    /** The secret type. */
-    secretType: GetConfigElementConstants.SecretType | string;
-    /** The Config element type. */
-    configElement: GetConfigElementConstants.ConfigElement | string;
-    /** Config name. */
-    configName: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `getConfigElement` operation. */
-  export namespace GetConfigElementConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The Config element type. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `putConfig` operation. */
-  export interface PutConfigParams {
-    /** The secret type. */
-    secretType: PutConfigConstants.SecretType | string;
-    /** An IBM Cloud API key that has the capability to create and manage service IDs.
-     *
-     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
-     *  role on the IAM Identity Service. For more information, see [Configuring the IAM secrets
-     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
-     */
-    apiKey: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `putConfig` operation. */
-  export namespace PutConfigConstants {
-    /** The secret type. */
-    export enum SecretType {
-      IAM_CREDENTIALS = 'iam_credentials',
-      PUBLIC_CERT = 'public_cert',
-    }
-  }
-
-  /** Parameters for the `getConfig` operation. */
-  export interface GetConfigParams {
-    /** The secret type. */
-    secretType: GetConfigConstants.SecretType | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `getConfig` operation. */
-  export namespace GetConfigConstants {
-    /** The secret type. */
-    export enum SecretType {
-      IAM_CREDENTIALS = 'iam_credentials',
-      PUBLIC_CERT = 'public_cert',
-    }
-  }
-
-  /** Parameters for the `putPolicy` operation. */
-  export interface PutPolicyParams {
-    /** The secret type. */
-    secretType: PutPolicyConstants.SecretType | string;
-    /** The v4 UUID that uniquely identifies the secret. */
-    id: string;
-    /** The metadata that describes the resource array. */
-    metadata: CollectionMetadata;
-    /** A collection of resources. */
-    resources: SecretPolicyRotation[];
-    /** The type of policy that is associated with the specified secret. */
-    policy?: PutPolicyConstants.Policy | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `putPolicy` operation. */
-  export namespace PutPolicyConstants {
-    /** The secret type. */
-    export enum SecretType {
-      USERNAME_PASSWORD = 'username_password',
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The type of policy that is associated with the specified secret. */
-    export enum Policy {
-      ROTATION = 'rotation',
-    }
-  }
-
-  /** Parameters for the `getPolicy` operation. */
-  export interface GetPolicyParams {
-    /** The secret type. */
-    secretType: GetPolicyConstants.SecretType | string;
-    /** The v4 UUID that uniquely identifies the secret. */
-    id: string;
-    /** The type of policy that is associated with the specified secret. */
-    policy?: GetPolicyConstants.Policy | string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `getPolicy` operation. */
-  export namespace GetPolicyConstants {
-    /** The secret type. */
-    export enum SecretType {
-      USERNAME_PASSWORD = 'username_password',
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The type of policy that is associated with the specified secret. */
-    export enum Policy {
-      ROTATION = 'rotation',
-    }
-  }
 
   /** Parameters for the `createSecretGroup` operation. */
   export interface CreateSecretGroupParams {
@@ -2036,6 +1833,7 @@ namespace SecretsManagerV1 {
     /** The secret type. Supported options include: imported_cert. */
     export enum SecretType {
       IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
     }
   }
 
@@ -2060,6 +1858,7 @@ namespace SecretsManagerV1 {
     /** The secret type. Supported options include: imported_cert. */
     export enum SecretType {
       IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
     }
   }
 
@@ -2109,6 +1908,240 @@ namespace SecretsManagerV1 {
     }
   }
 
+  /** Parameters for the `putPolicy` operation. */
+  export interface PutPolicyParams {
+    /** The secret type. */
+    secretType: PutPolicyConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretPolicyRotation[];
+    /** The type of policy that is associated with the specified secret. */
+    policy?: PutPolicyConstants.Policy | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `putPolicy` operation. */
+  export namespace PutPolicyConstants {
+    /** The secret type. */
+    export enum SecretType {
+      USERNAME_PASSWORD = 'username_password',
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The type of policy that is associated with the specified secret. */
+    export enum Policy {
+      ROTATION = 'rotation',
+    }
+  }
+
+  /** Parameters for the `getPolicy` operation. */
+  export interface GetPolicyParams {
+    /** The secret type. */
+    secretType: GetPolicyConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The type of policy that is associated with the specified secret. */
+    policy?: GetPolicyConstants.Policy | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getPolicy` operation. */
+  export namespace GetPolicyConstants {
+    /** The secret type. */
+    export enum SecretType {
+      USERNAME_PASSWORD = 'username_password',
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The type of policy that is associated with the specified secret. */
+    export enum Policy {
+      ROTATION = 'rotation',
+    }
+  }
+
+  /** Parameters for the `putConfig` operation. */
+  export interface PutConfigParams {
+    /** The secret type. */
+    secretType: PutConfigConstants.SecretType | string;
+    /** An IBM Cloud API key that has the capability to create and manage service IDs.
+     *
+     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
+     *  role on the IAM Identity Service. For more information, see [Configuring the IAM secrets
+     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
+     */
+    apiKey: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `putConfig` operation. */
+  export namespace PutConfigConstants {
+    /** The secret type. */
+    export enum SecretType {
+      IAM_CREDENTIALS = 'iam_credentials',
+      PUBLIC_CERT = 'public_cert',
+    }
+  }
+
+  /** Parameters for the `getConfig` operation. */
+  export interface GetConfigParams {
+    /** The secret type. */
+    secretType: GetConfigConstants.SecretType | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getConfig` operation. */
+  export namespace GetConfigConstants {
+    /** The secret type. */
+    export enum SecretType {
+      IAM_CREDENTIALS = 'iam_credentials',
+      PUBLIC_CERT = 'public_cert',
+    }
+  }
+
+  /** Parameters for the `createConfigElement` operation. */
+  export interface CreateConfigElementParams {
+    /** The secret type. */
+    secretType: CreateConfigElementConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: CreateConfigElementConstants.ConfigElement | string;
+    /** The human-readable name to assign to your configuration. */
+    name: string;
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to
+     *  define.
+     */
+    type: CreateConfigElementConstants.Type | string;
+    /** The configuration to define for the specified secret type. */
+    config: ConfigElementDefConfig;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `createConfigElement` operation. */
+  export namespace CreateConfigElementConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to define. */
+    export enum Type {
+      LETSENCRYPT = 'letsencrypt',
+      LETSENCRYPT_STAGE = 'letsencrypt-stage',
+      CIS = 'cis',
+      CLASSIC_INFRASTRUCTURE = 'classic_infrastructure',
+    }
+  }
+
+  /** Parameters for the `getConfigElements` operation. */
+  export interface GetConfigElementsParams {
+    /** The secret type. */
+    secretType: GetConfigElementsConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: GetConfigElementsConstants.ConfigElement | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getConfigElements` operation. */
+  export namespace GetConfigElementsConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+  }
+
+  /** Parameters for the `updateConfigElement` operation. */
+  export interface UpdateConfigElementParams {
+    /** The secret type. */
+    secretType: UpdateConfigElementConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: UpdateConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to
+     *  define.
+     */
+    type: UpdateConfigElementConstants.Type | string;
+    config: JsonObject;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `updateConfigElement` operation. */
+  export namespace UpdateConfigElementConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to define. */
+    export enum Type {
+      LETSENCRYPT = 'letsencrypt',
+      LETSENCRYPT_STAGE = 'letsencrypt-stage',
+      CIS = 'cis',
+      CLASSIC_INFRASTRUCTURE = 'classic_infrastructure',
+    }
+  }
+
+  /** Parameters for the `deleteConfigElement` operation. */
+  export interface DeleteConfigElementParams {
+    /** The secret type. */
+    secretType: DeleteConfigElementConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: DeleteConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `deleteConfigElement` operation. */
+  export namespace DeleteConfigElementConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+  }
+
+  /** Parameters for the `getConfigElement` operation. */
+  export interface GetConfigElementParams {
+    /** The secret type. */
+    secretType: GetConfigElementConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: GetConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getConfigElement` operation. */
+  export namespace GetConfigElementConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+  }
+
   /*************************
    * model interfaces
    ************************/
@@ -2131,20 +2164,29 @@ namespace SecretsManagerV1 {
     collection_total: number;
   }
 
-  /** Config element. */
+  /** The configuration to add or update. */
   export interface ConfigElementDef {
-    /** Config element name. */
+    /** The human-readable name to assign to your configuration. */
     name: string;
-    /** Dns provider config type. */
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to
+     *  define.
+     */
     type: string;
-    config: JsonObject;
+    /** The configuration to define for the specified secret type. */
+    config: ConfigElementDefConfig;
   }
 
-  /** Dns provider config metadata. */
+  /** The configuration to define for the specified secret type. */
+  export interface ConfigElementDefConfig {
+  }
+
+  /** Properties that describe a configuration element. */
   export interface ConfigElementMetadata {
-    /** Config element name. */
+    /** The human-readable name to assign to your configuration. */
     name: string;
-    /** Dns provider config type. */
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to
+     *  define.
+     */
     type: string;
   }
 
@@ -2156,7 +2198,7 @@ namespace SecretsManagerV1 {
     resources: SecretResource[];
   }
 
-  /** Configuration that is used to generate IAM credentials. */
+  /** Configuration for the specified secret type. */
   export interface GetConfig {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -2164,7 +2206,7 @@ namespace SecretsManagerV1 {
     resources: GetConfigResourcesItem[];
   }
 
-  /** Config elements. */
+  /** Properties that describe a list of configurations. */
   export interface GetConfigElements {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -2227,7 +2269,7 @@ namespace SecretsManagerV1 {
     resources: SecretVersionMetadata[];
   }
 
-  /** Config element. */
+  /** Properties that describe a configuration. */
   export interface GetSingleConfigElement {
     /** The metadata that describes the resource array. */
     metadata: CollectionMetadata;
@@ -2235,14 +2277,19 @@ namespace SecretsManagerV1 {
     resources: ConfigElementDef[];
   }
 
-  /** Public certificate issuance info. */
+  /** Issuance information that is associated with your certificate. */
   export interface IssuanceInfo {
     /** The date the certificate was ordered. The date format follows RFC 3339. */
     ordered_on?: string;
-    /** The issuance info error code. */
+    /** An code that identifies an issuance error.
+     *
+     *  This field, along with `error_message`, is returned when Secrets Manager successfully processes your request,
+     *  but a certificate is unable to be issued by the certificate authority.
+     */
     error_code?: string;
-    /** The issuance info error message. */
+    /** A human-readable message that provides details about the issuance error. */
     error_message?: string;
+    /** Indicates whether the issued certificate is bundled with intermediate certificates. */
     bundle_certs?: boolean;
     /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
      *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
@@ -2250,8 +2297,11 @@ namespace SecretsManagerV1 {
     state?: number;
     /** A text representation of the secret state. */
     state_description?: string;
+    /** Indicates whether the issued certificate is configured with an automatic rotation policy. */
     auto_rotated?: boolean;
+    /** The name that was assigned to the certificate authority configuration. */
     ca?: string;
+    /** The name that was assigned to the DNS provider configuration. */
     dns?: string;
   }
 
@@ -2265,7 +2315,16 @@ namespace SecretsManagerV1 {
 
   /** Rotation. */
   export interface Rotation {
+    /** Determines whether Secrets Manager rotates your certificate automatically.
+     *
+     *  If set to `true`, the service reorders your certificate 31 days before it expires. To access the previous
+     *  version of the certifcate, you can use the [Get a version of a secret](#get-secret-version) method.
+     */
     auto_rotate?: boolean;
+    /** Determines whether Secrets Manager rotates the private key for your certificate automatically.
+     *
+     *  If set to `true`, the service generates and stores a new private key for your rotated certificate.
+     */
     rotate_keys?: boolean;
   }
 
@@ -2364,6 +2423,14 @@ namespace SecretsManagerV1 {
     not_before?: string;
     /** The date the certificate validity period ends. */
     not_after?: string;
+  }
+
+  /** Warning response. */
+  export interface Warning {
+    /** A warning code identifier. */
+    code: string;
+    /** A human-readable message that provides details about the warning. */
+    message: string;
   }
 
   /** Metadata properties that describe an arbitrary secret. */
@@ -2671,6 +2738,7 @@ namespace SecretsManagerV1 {
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
     validity?: CertificateValidity;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date that the certificate expires. The date format follows RFC 3339. */
     expiration_date?: string;
@@ -2685,10 +2753,43 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date that the certificate expires. The date format follows RFC 3339. */
     expiration_date?: string;
     validity?: CertificateValidity;
+  }
+
+  /** Properties that describe an IBM Cloud classic infrastructure (SoftLayer) configuration. */
+  export interface ConfigElementDefConfigClassicInfrastructureConfig extends ConfigElementDefConfig {
+    /** The username that is associated with your classic infrastructure account. */
+    classic_infrastructure_username: string;
+    /** Your classic infrastructure API key. */
+    classic_infrastructure_password: string;
+  }
+
+  /** Properties that describe an IBM Cloud Internet Services (CIS) configuration. */
+  export interface ConfigElementDefConfigCloudInternetServicesConfig extends ConfigElementDefConfig {
+    /** The Cloud Resource Name (CRN) that is associated with the CIS instance. */
+    cis_crn: string;
+    /** An IBM Cloud API key that has the capability to list domains in your CIS instance.
+     *
+     *  To grant Secrets Manager the ability to view the CIS instance and all of its domains, the API key must be
+     *  assigned the Reader service role on Internet Services (`internet-svcs`).
+     *
+     *  If you need to manage specific domains, you can assign the Manager role. For production environments, it is
+     *  recommended that you assign the Reader access role, and then use the
+     *  [IAM Policy Management API](https://cloud.ibm.com/apidocs/iam-policy-management#create-policy) to control
+     *  specific domains. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-specific-domains).
+     */
+    cis_apikey?: string;
+  }
+
+  /** Properties that describe a Let's Encrypt configuration. */
+  export interface ConfigElementDefConfigLetsEncryptConfig extends ConfigElementDefConfig {
+    /** The private key that is associated with your ACME account. */
+    private_key: string;
   }
 
   /** Delete the credentials that are associated with an `iam_credentials` secret. */
@@ -2697,12 +2798,12 @@ namespace SecretsManagerV1 {
     service_id: string;
   }
 
-  /** Certificate authorities config. */
+  /** Certificate authorities configuration. */
   export interface GetConfigElementsResourcesItemCertificateAuthoritiesConfig extends GetConfigElementsResourcesItem {
     certificate_authorities: ConfigElementMetadata[];
   }
 
-  /** Dns providers config. */
+  /** DNS providers configuration. */
   export interface GetConfigElementsResourcesItemDnsProvidersConfig extends GetConfigElementsResourcesItem {
     dns_providers: ConfigElementMetadata[];
   }
@@ -2715,7 +2816,7 @@ namespace SecretsManagerV1 {
     resources: GetSecretPolicyRotationResourcesItem[];
   }
 
-  /** Configuration that is used to generate IAM credentials. */
+  /** Configuration for the IAM credentials engine. */
   export interface IAMCredentialsSecretEngineRootConfig extends GetConfigResourcesItem {
     /** An IBM Cloud API key that has the capability to create and manage service IDs.
      *
@@ -2881,11 +2982,11 @@ namespace SecretsManagerV1 {
     created_by?: string;
   }
 
-  /** Configuration for `public_cert` secret. */
+  /** Configuration for the public certificates engine. */
   export interface PublicCertSecretEngineRootConfig extends GetConfigResourcesItem {
-    /** `public_cert` certificate authorites configuration. */
+    /** The certificate authority configurations that are associated with your instance. */
     certificate_authorities?: ConfigElementMetadata[];
-    /** `public_cert` dns provider configuration. */
+    /** The DNS provider configurations that are associated with your instance. */
     dns_providers?: ConfigElementMetadata[];
   }
 
@@ -2937,6 +3038,10 @@ namespace SecretsManagerV1 {
     versions_total?: number;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
+    /** Determines whether your issued certificate is bundled with intermediate certificates.
+     *
+     *  Set to `false` for the certificate file to contain only the issued certificate.
+     */
     bundle_certs?: boolean;
     /** The identifier for the cryptographic algorthim to be used by the issuing certificate authority to sign the
      *  ceritificate.
@@ -2950,10 +3055,12 @@ namespace SecretsManagerV1 {
     alt_names?: string[];
     /** The fully qualified domain name or host domain name for the certificate. */
     common_name?: string;
-    private_key_included?: boolean;
+    /** Indicates whether the certificate was ordered with an associated intermediate certificate. */
     intermediate_included?: boolean;
+    /** Indicates whether the certificate was ordered with an associated private key. */
+    private_key_included?: boolean;
     rotation?: Rotation;
-    /** Public certificate issuance info. */
+    /** Issuance information that is associated with your certificate. */
     issuance_info?: IssuanceInfo;
   }
 
@@ -3009,10 +3116,20 @@ namespace SecretsManagerV1 {
     versions?: JsonObject[];
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
+    /** Determines whether your issued certificate is bundled with intermediate certificates.
+     *
+     *  Set to `false` for the certificate file to contain only the issued certificate.
+     */
     bundle_certs?: boolean;
-    /** The configured ca name. */
+    /** The name of the certificate authority configuration.
+     *
+     *  To view a list of your configured authorities, use the [List configurations API](#get-secret-config-element).
+     */
     ca?: string;
-    /** The configured dns provider. */
+    /** The name of the DNS provider configuration.
+     *
+     *  To view a list of your configured authorities, use the [List configurations API](#get-secret-config-element).
+     */
     dns?: string;
     /** The identifier for the cryptographic algorthim to be used by the issuing certificate authority to sign the
      *  ceritificate.
@@ -3027,7 +3144,7 @@ namespace SecretsManagerV1 {
     /** The fully qualified domain name or host domain name for the certificate. */
     common_name?: string;
     rotation?: Rotation;
-    /** Public certificate issuance info. */
+    /** Issuance information that is associated with your certificate. */
     issuance_info?: IssuanceInfo;
     secret_data?: JsonObject;
   }
@@ -3072,6 +3189,8 @@ namespace SecretsManagerV1 {
   export interface SecretPolicyRotationRotationPublicCertPolicyRotation extends SecretPolicyRotationRotation {
     auto_rotate: boolean;
     rotate_keys: boolean;
+    /** Warning response. */
+    warning?: Warning;
   }
 
   /** Metadata properties that describe a username_password secret. */

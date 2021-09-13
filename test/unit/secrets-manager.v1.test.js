@@ -99,734 +99,6 @@ describe('SecretsManagerV1', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV1.DEFAULT_SERVICE_URL);
     });
   });
-  describe('createConfigElement', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation createConfigElement
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const name = 'testString';
-        const type = 'testString';
-        const config = { foo: 'bar' };
-        const params = {
-          secretType: secretType,
-          configElement: configElement,
-          name: name,
-          type: type,
-          config: config,
-        };
-
-        const createConfigElementResult = secretsManagerService.createConfigElement(params);
-
-        // all methods should return a Promise
-        expectToBePromise(createConfigElementResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}/{config_element}', 'POST');
-        const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.name).toEqual(name);
-        expect(options.body.type).toEqual(type);
-        expect(options.body.config).toEqual(config);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.config_element).toEqual(configElement);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const name = 'testString';
-        const type = 'testString';
-        const config = { foo: 'bar' };
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          configElement,
-          name,
-          type,
-          config,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.createConfigElement(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.createConfigElement({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const createConfigElementPromise = secretsManagerService.createConfigElement();
-        expectToBePromise(createConfigElementPromise);
-
-        createConfigElementPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('getConfigElements', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getConfigElements
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const params = {
-          secretType: secretType,
-          configElement: configElement,
-        };
-
-        const getConfigElementsResult = secretsManagerService.getConfigElements(params);
-
-        // all methods should return a Promise
-        expectToBePromise(getConfigElementsResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}/{config_element}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.config_element).toEqual(configElement);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          configElement,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.getConfigElements(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.getConfigElements({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const getConfigElementsPromise = secretsManagerService.getConfigElements();
-        expectToBePromise(getConfigElementsPromise);
-
-        getConfigElementsPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('updateConfigElement', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation updateConfigElement
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const type = 'testString';
-        const config = { foo: 'bar' };
-        const params = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
-          type: type,
-          config: config,
-        };
-
-        const updateConfigElementResult = secretsManagerService.updateConfigElement(params);
-
-        // all methods should return a Promise
-        expectToBePromise(updateConfigElementResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'PUT');
-        const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.type).toEqual(type);
-        expect(options.body.config).toEqual(config);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.config_element).toEqual(configElement);
-        expect(options.path.config_name).toEqual(configName);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const type = 'testString';
-        const config = { foo: 'bar' };
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          configElement,
-          configName,
-          type,
-          config,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.updateConfigElement(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.updateConfigElement({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const updateConfigElementPromise = secretsManagerService.updateConfigElement();
-        expectToBePromise(updateConfigElementPromise);
-
-        updateConfigElementPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('deleteConfigElement', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation deleteConfigElement
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const params = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
-        };
-
-        const deleteConfigElementResult = secretsManagerService.deleteConfigElement(params);
-
-        // all methods should return a Promise
-        expectToBePromise(deleteConfigElementResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'DELETE');
-        const expectedAccept = undefined;
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.config_element).toEqual(configElement);
-        expect(options.path.config_name).toEqual(configName);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          configElement,
-          configName,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.deleteConfigElement(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.deleteConfigElement({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const deleteConfigElementPromise = secretsManagerService.deleteConfigElement();
-        expectToBePromise(deleteConfigElementPromise);
-
-        deleteConfigElementPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('getConfigElement', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getConfigElement
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const params = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
-        };
-
-        const getConfigElementResult = secretsManagerService.getConfigElement(params);
-
-        // all methods should return a Promise
-        expectToBePromise(getConfigElementResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.config_element).toEqual(configElement);
-        expect(options.path.config_name).toEqual(configName);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'public_cert';
-        const configElement = 'certificate_authorities';
-        const configName = 'testString';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          configElement,
-          configName,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.getConfigElement(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.getConfigElement({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const getConfigElementPromise = secretsManagerService.getConfigElement();
-        expectToBePromise(getConfigElementPromise);
-
-        getConfigElementPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('putConfig', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation putConfig
-        const secretType = 'iam_credentials';
-        const apiKey = 'API_KEY';
-        const params = {
-          secretType: secretType,
-          apiKey: apiKey,
-        };
-
-        const putConfigResult = secretsManagerService.putConfig(params);
-
-        // all methods should return a Promise
-        expectToBePromise(putConfigResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}', 'PUT');
-        const expectedAccept = undefined;
-        const expectedContentType = 'application/json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.api_key).toEqual(apiKey);
-        expect(options.path.secret_type).toEqual(secretType);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'iam_credentials';
-        const apiKey = 'API_KEY';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          apiKey,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.putConfig(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.putConfig({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const putConfigPromise = secretsManagerService.putConfig();
-        expectToBePromise(putConfigPromise);
-
-        putConfigPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('getConfig', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getConfig
-        const secretType = 'iam_credentials';
-        const params = {
-          secretType: secretType,
-        };
-
-        const getConfigResult = secretsManagerService.getConfig(params);
-
-        // all methods should return a Promise
-        expectToBePromise(getConfigResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/config/{secret_type}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'iam_credentials';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.getConfig(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.getConfig({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const getConfigPromise = secretsManagerService.getConfig();
-        expectToBePromise(getConfigPromise);
-
-        getConfigPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('putPolicy', () => {
-    describe('positive tests', () => {
-      // Request models needed by this operation.
-
-      // CollectionMetadata
-      const collectionMetadataModel = {
-        collection_type: 'application/vnd.ibm.secrets-manager.config+json',
-        collection_total: 1,
-      };
-
-      // SecretPolicyRotationRotationPolicyRotation
-      const secretPolicyRotationRotationModel = {
-        interval: 1,
-        unit: 'day',
-      };
-
-      // SecretPolicyRotation
-      const secretPolicyRotationModel = {
-        type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
-        rotation: secretPolicyRotationRotationModel,
-      };
-
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation putPolicy
-        const secretType = 'username_password';
-        const id = 'testString';
-        const metadata = collectionMetadataModel;
-        const resources = [secretPolicyRotationModel];
-        const policy = 'rotation';
-        const params = {
-          secretType: secretType,
-          id: id,
-          metadata: metadata,
-          resources: resources,
-          policy: policy,
-        };
-
-        const putPolicyResult = secretsManagerService.putPolicy(params);
-
-        // all methods should return a Promise
-        expectToBePromise(putPolicyResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/policies', 'PUT');
-        const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.metadata).toEqual(metadata);
-        expect(options.body.resources).toEqual(resources);
-        expect(options.qs.policy).toEqual(policy);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'username_password';
-        const id = 'testString';
-        const metadata = collectionMetadataModel;
-        const resources = [secretPolicyRotationModel];
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          id,
-          metadata,
-          resources,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.putPolicy(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.putPolicy({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const putPolicyPromise = secretsManagerService.putPolicy();
-        expectToBePromise(putPolicyPromise);
-
-        putPolicyPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('getPolicy', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getPolicy
-        const secretType = 'username_password';
-        const id = 'testString';
-        const policy = 'rotation';
-        const params = {
-          secretType: secretType,
-          id: id,
-          policy: policy,
-        };
-
-        const getPolicyResult = secretsManagerService.getPolicy(params);
-
-        // all methods should return a Promise
-        expectToBePromise(getPolicyResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/policies', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs.policy).toEqual(policy);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const secretType = 'username_password';
-        const id = 'testString';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          secretType,
-          id,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        secretsManagerService.getPolicy(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
-        let err;
-        try {
-          await secretsManagerService.getPolicy({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', (done) => {
-        const getPolicyPromise = secretsManagerService.getPolicy();
-        expectToBePromise(getPolicyPromise);
-
-        getPolicyPromise.catch((err) => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
   describe('createSecretGroup', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -844,7 +116,7 @@ describe('SecretsManagerV1', () => {
         foo: 'testString',
       };
 
-      test('should pass the right params to createRequest', () => {
+      function __createSecretGroupTest() {
         // Construct the params object for operation createSecretGroup
         const metadata = collectionMetadataModel;
         const resources = [secretGroupResourceModel];
@@ -861,14 +133,29 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secret_groups', 'POST');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secret_groups', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.metadata).toEqual(metadata);
-        expect(options.body.resources).toEqual(resources);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretGroupTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -917,7 +204,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('listSecretGroups', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __listSecretGroupsTest() {
         // Construct the params object for operation listSecretGroups
         const params = {};
 
@@ -929,12 +216,27 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secret_groups', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secret_groups', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretGroupsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretGroupsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretGroupsTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -961,7 +263,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('getSecretGroup', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __getSecretGroupTest() {
         // Construct the params object for operation getSecretGroup
         const id = 'testString';
         const params = {
@@ -976,13 +278,28 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secret_groups/{id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secret_groups/{id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretGroupTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1043,7 +360,7 @@ describe('SecretsManagerV1', () => {
         description: 'Updated description for this group.',
       };
 
-      test('should pass the right params to createRequest', () => {
+      function __updateSecretGroupMetadataTest() {
         // Construct the params object for operation updateSecretGroupMetadata
         const id = 'testString';
         const metadata = collectionMetadataModel;
@@ -1062,15 +379,30 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secret_groups/{id}', 'PUT');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secret_groups/{id}', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.metadata).toEqual(metadata);
-        expect(options.body.resources).toEqual(resources);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretGroupMetadataTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretGroupMetadataTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretGroupMetadataTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1121,7 +453,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('deleteSecretGroup', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __deleteSecretGroupTest() {
         // Construct the params object for operation deleteSecretGroup
         const id = 'testString';
         const params = {
@@ -1136,13 +468,28 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secret_groups/{id}', 'DELETE');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secret_groups/{id}', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretGroupTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1207,7 +554,7 @@ describe('SecretsManagerV1', () => {
         payload: 'testString',
       };
 
-      test('should pass the right params to createRequest', () => {
+      function __createSecretTest() {
         // Construct the params object for operation createSecret
         const secretType = 'arbitrary';
         const metadata = collectionMetadataModel;
@@ -1226,15 +573,30 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}', 'POST');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.metadata).toEqual(metadata);
-        expect(options.body.resources).toEqual(resources);
-        expect(options.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1285,7 +647,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('listSecrets', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __listSecretsTest() {
         // Construct the params object for operation listSecrets
         const secretType = 'arbitrary';
         const limit = 1;
@@ -1304,15 +666,30 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs.limit).toEqual(limit);
-        expect(options.qs.offset).toEqual(offset);
-        expect(options.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretsTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1359,7 +736,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('listAllSecrets', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __listAllSecretsTest() {
         // Construct the params object for operation listAllSecrets
         const limit = 1;
         const offset = 0;
@@ -1382,17 +759,32 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.qs.limit).toEqual(limit);
-        expect(options.qs.offset).toEqual(offset);
-        expect(options.qs.search).toEqual(search);
-        expect(options.qs.sort_by).toEqual(sortBy);
-        expect(options.qs.groups).toEqual(groups);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.sort_by).toEqual(sortBy);
+        expect(mockRequestOptions.qs.groups).toEqual(groups);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listAllSecretsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listAllSecretsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listAllSecretsTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1419,7 +811,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('getSecret', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __getSecretTest() {
         // Construct the params object for operation getSecret
         const secretType = 'arbitrary';
         const id = 'testString';
@@ -1436,14 +828,29 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1499,7 +906,7 @@ describe('SecretsManagerV1', () => {
         payload: 'testString',
       };
 
-      test('should pass the right params to createRequest', () => {
+      function __updateSecretTest() {
         // Construct the params object for operation updateSecret
         const secretType = 'arbitrary';
         const id = 'testString';
@@ -1520,16 +927,31 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}', 'POST');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body).toEqual(secretAction);
-        expect(options.qs.action).toEqual(action);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.body).toEqual(secretAction);
+        expect(mockRequestOptions.qs.action).toEqual(action);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1582,7 +1004,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('deleteSecret', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __deleteSecretTest() {
         // Construct the params object for operation deleteSecret
         const secretType = 'arbitrary';
         const id = 'testString';
@@ -1599,14 +1021,29 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}', 'DELETE');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1655,7 +1092,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('getSecretVersion', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __getSecretVersionTest() {
         // Construct the params object for operation getSecretVersion
         const secretType = 'imported_cert';
         const id = 'testString';
@@ -1674,15 +1111,30 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
-        expect(options.path.version_id).toEqual(versionId);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretVersionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretVersionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretVersionTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1733,7 +1185,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('getSecretVersionMetadata', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __getSecretVersionMetadataTest() {
         // Construct the params object for operation getSecretVersionMetadata
         const secretType = 'imported_cert';
         const id = 'testString';
@@ -1752,15 +1204,30 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
-        expect(options.path.version_id).toEqual(versionId);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretVersionMetadataTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretVersionMetadataTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretVersionMetadataTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1811,7 +1278,7 @@ describe('SecretsManagerV1', () => {
   });
   describe('getSecretMetadata', () => {
     describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
+      function __getSecretMetadataTest() {
         // Construct the params object for operation getSecretMetadata
         const secretType = 'arbitrary';
         const id = 'testString';
@@ -1828,14 +1295,29 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/metadata', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/metadata', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretMetadataTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretMetadataTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretMetadataTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1900,7 +1382,7 @@ describe('SecretsManagerV1', () => {
         expiration_date: '2030-04-01T09:30:00.000Z',
       };
 
-      test('should pass the right params to createRequest', () => {
+      function __updateSecretMetadataTest() {
         // Construct the params object for operation updateSecretMetadata
         const secretType = 'arbitrary';
         const id = 'testString';
@@ -1921,16 +1403,31 @@ describe('SecretsManagerV1', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/api/v1/secrets/{secret_type}/{id}/metadata', 'PUT');
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/metadata', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body.metadata).toEqual(metadata);
-        expect(options.body.resources).toEqual(resources);
-        expect(options.path.secret_type).toEqual(secretType);
-        expect(options.path.id).toEqual(id);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretMetadataTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretMetadataTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretMetadataTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -1975,6 +1472,876 @@ describe('SecretsManagerV1', () => {
         expectToBePromise(updateSecretMetadataPromise);
 
         updateSecretMetadataPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('putPolicy', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // CollectionMetadata
+      const collectionMetadataModel = {
+        collection_type: 'application/vnd.ibm.secrets-manager.config+json',
+        collection_total: 1,
+      };
+
+      // SecretPolicyRotationRotationPolicyRotation
+      const secretPolicyRotationRotationModel = {
+        interval: 1,
+        unit: 'day',
+      };
+
+      // SecretPolicyRotation
+      const secretPolicyRotationModel = {
+        type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
+        rotation: secretPolicyRotationRotationModel,
+      };
+
+      function __putPolicyTest() {
+        // Construct the params object for operation putPolicy
+        const secretType = 'username_password';
+        const id = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [secretPolicyRotationModel];
+        const policy = 'rotation';
+        const params = {
+          secretType: secretType,
+          id: id,
+          metadata: metadata,
+          resources: resources,
+          policy: policy,
+        };
+
+        const putPolicyResult = secretsManagerService.putPolicy(params);
+
+        // all methods should return a Promise
+        expectToBePromise(putPolicyResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/policies', 'PUT');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.qs.policy).toEqual(policy);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __putPolicyTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __putPolicyTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __putPolicyTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'username_password';
+        const id = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [secretPolicyRotationModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          id,
+          metadata,
+          resources,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.putPolicy(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.putPolicy({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const putPolicyPromise = secretsManagerService.putPolicy();
+        expectToBePromise(putPolicyPromise);
+
+        putPolicyPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getPolicy', () => {
+    describe('positive tests', () => {
+      function __getPolicyTest() {
+        // Construct the params object for operation getPolicy
+        const secretType = 'username_password';
+        const id = 'testString';
+        const policy = 'rotation';
+        const params = {
+          secretType: secretType,
+          id: id,
+          policy: policy,
+        };
+
+        const getPolicyResult = secretsManagerService.getPolicy(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getPolicyResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/policies', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.policy).toEqual(policy);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getPolicyTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getPolicyTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getPolicyTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'username_password';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getPolicy(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getPolicy({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getPolicyPromise = secretsManagerService.getPolicy();
+        expectToBePromise(getPolicyPromise);
+
+        getPolicyPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('putConfig', () => {
+    describe('positive tests', () => {
+      function __putConfigTest() {
+        // Construct the params object for operation putConfig
+        const secretType = 'iam_credentials';
+        const apiKey = 'API_KEY';
+        const params = {
+          secretType: secretType,
+          apiKey: apiKey,
+        };
+
+        const putConfigResult = secretsManagerService.putConfig(params);
+
+        // all methods should return a Promise
+        expectToBePromise(putConfigResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}', 'PUT');
+        const expectedAccept = undefined;
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.api_key).toEqual(apiKey);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __putConfigTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __putConfigTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __putConfigTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'iam_credentials';
+        const apiKey = 'API_KEY';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          apiKey,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.putConfig(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.putConfig({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const putConfigPromise = secretsManagerService.putConfig();
+        expectToBePromise(putConfigPromise);
+
+        putConfigPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getConfig', () => {
+    describe('positive tests', () => {
+      function __getConfigTest() {
+        // Construct the params object for operation getConfig
+        const secretType = 'iam_credentials';
+        const params = {
+          secretType: secretType,
+        };
+
+        const getConfigResult = secretsManagerService.getConfig(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getConfigResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getConfigTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getConfigTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getConfigTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'iam_credentials';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getConfig(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getConfig({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getConfigPromise = secretsManagerService.getConfig();
+        expectToBePromise(getConfigPromise);
+
+        getConfigPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('createConfigElement', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ConfigElementDefConfigLetsEncryptConfig
+      const configElementDefConfigModel = {
+        private_key: 'testString',
+      };
+
+      function __createConfigElementTest() {
+        // Construct the params object for operation createConfigElement
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const name = 'testString';
+        const type = 'letsencrypt';
+        const config = configElementDefConfigModel;
+        const params = {
+          secretType: secretType,
+          configElement: configElement,
+          name: name,
+          type: type,
+          config: config,
+        };
+
+        const createConfigElementResult = secretsManagerService.createConfigElement(params);
+
+        // all methods should return a Promise
+        expectToBePromise(createConfigElementResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.type).toEqual(type);
+        expect(mockRequestOptions.body.config).toEqual(config);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createConfigElementTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createConfigElementTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createConfigElementTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const name = 'testString';
+        const type = 'letsencrypt';
+        const config = configElementDefConfigModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          configElement,
+          name,
+          type,
+          config,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createConfigElement(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.createConfigElement({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const createConfigElementPromise = secretsManagerService.createConfigElement();
+        expectToBePromise(createConfigElementPromise);
+
+        createConfigElementPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getConfigElements', () => {
+    describe('positive tests', () => {
+      function __getConfigElementsTest() {
+        // Construct the params object for operation getConfigElements
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const params = {
+          secretType: secretType,
+          configElement: configElement,
+        };
+
+        const getConfigElementsResult = secretsManagerService.getConfigElements(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getConfigElementsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getConfigElementsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getConfigElementsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getConfigElementsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          configElement,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getConfigElements(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getConfigElements({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getConfigElementsPromise = secretsManagerService.getConfigElements();
+        expectToBePromise(getConfigElementsPromise);
+
+        getConfigElementsPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('updateConfigElement', () => {
+    describe('positive tests', () => {
+      function __updateConfigElementTest() {
+        // Construct the params object for operation updateConfigElement
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const type = 'letsencrypt';
+        const config = { foo: 'bar' };
+        const params = {
+          secretType: secretType,
+          configElement: configElement,
+          configName: configName,
+          type: type,
+          config: config,
+        };
+
+        const updateConfigElementResult = secretsManagerService.updateConfigElement(params);
+
+        // all methods should return a Promise
+        expectToBePromise(updateConfigElementResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'PUT');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.type).toEqual(type);
+        expect(mockRequestOptions.body.config).toEqual(config);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateConfigElementTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateConfigElementTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateConfigElementTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const type = 'letsencrypt';
+        const config = { foo: 'bar' };
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          configElement,
+          configName,
+          type,
+          config,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.updateConfigElement(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.updateConfigElement({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const updateConfigElementPromise = secretsManagerService.updateConfigElement();
+        expectToBePromise(updateConfigElementPromise);
+
+        updateConfigElementPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('deleteConfigElement', () => {
+    describe('positive tests', () => {
+      function __deleteConfigElementTest() {
+        // Construct the params object for operation deleteConfigElement
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const params = {
+          secretType: secretType,
+          configElement: configElement,
+          configName: configName,
+        };
+
+        const deleteConfigElementResult = secretsManagerService.deleteConfigElement(params);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteConfigElementResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteConfigElementTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteConfigElementTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteConfigElementTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          configElement,
+          configName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.deleteConfigElement(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.deleteConfigElement({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const deleteConfigElementPromise = secretsManagerService.deleteConfigElement();
+        expectToBePromise(deleteConfigElementPromise);
+
+        deleteConfigElementPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getConfigElement', () => {
+    describe('positive tests', () => {
+      function __getConfigElementTest() {
+        // Construct the params object for operation getConfigElement
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const params = {
+          secretType: secretType,
+          configElement: configElement,
+          configName: configName,
+        };
+
+        const getConfigElementResult = secretsManagerService.getConfigElement(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getConfigElementResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getConfigElementTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getConfigElementTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getConfigElementTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'public_cert';
+        const configElement = 'certificate_authorities';
+        const configName = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          secretType,
+          configElement,
+          configName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getConfigElement(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async (done) => {
+        let err;
+        try {
+          await secretsManagerService.getConfigElement({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', (done) => {
+        const getConfigElementPromise = secretsManagerService.getConfigElement();
+        expectToBePromise(getConfigElementPromise);
+
+        getConfigElementPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
