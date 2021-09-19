@@ -10,6 +10,8 @@ module.exports = {
       'extends': ['airbnb-base', 'plugin:jest/recommended', 'plugin:jest/style', 'prettier'],
       'rules': {
         'camelcase': 'off',
+        'no-plusplus': 'off',
+        'no-await-in-loop': 'off',
         'import/extensions': 'off',
         'no-template-curly-in-string': 'off',
         'no-underscore-dangle': 'off',
