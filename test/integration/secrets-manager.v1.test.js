@@ -328,7 +328,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
             name: dnsConfigName,
             type: 'cis',
-            config: {cis_apikey: process.env.SECRETS_MANAGER_API_APIKEY, cis_crn: process.env.DNS_CONFIG_CRN},
+            config: {cis_apikey: process.env.DNS_CONFIG_API_KEY, cis_crn: process.env.DNS_CONFIG_CRN},
         });
 
         expect(res.status).toBe(201);
@@ -415,7 +415,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
             configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
             name: dnsConfigName,
             type: 'cis',
-            config: {cis_apikey: process.env.SECRETS_MANAGER_API_APIKEY, cis_crn: process.env.DNS_CONFIG_CRN},
+            config: {cis_apikey: process.env.DNS_CONFIG_API_KEY, cis_crn: process.env.DNS_CONFIG_CRN},
         });
 
         expect(res.status).toBe(201);
