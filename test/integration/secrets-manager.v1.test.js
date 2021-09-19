@@ -25,6 +25,32 @@ function generateName() {
   return `test-integration-${Date.now()}${Math.random()}`;
 }
 
+async function clearConfigs(secretsManager) {
+  const res = await secretsManager.getConfig({
+    secretType: SecretsManager.GetConfigConstants.SecretType.PUBLIC_CERT,
+  });
+  for (let i = 0; i < res.result.resources[0].certificate_authorities.length; i++) {
+    const c = res.result.resources[0].certificate_authorities[i];
+    const res2 = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.DeleteConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      configName: c.name,
+    });
+    expect(res2.status).toBe(204);
+  }
+
+  for (let i = 0; i < res.result.resources[0].dns_providers.length; i++) {
+    const c = res.result.resources[0].dns_providers[i];
+    const res3 = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.DeleteConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      configName: c.name,
+    });
+    expect(res3.status).toBe(204);
+  }
+}
+
 describe('IbmCloudSecretsManagerApiV1_integration', () => {
   jest.setTimeout(timeout);
 
@@ -273,6 +299,167 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       secretType: 'imported_cert',
       id: secretId,
     });
+    expect(res.status).toBe(204);
+  });
+
+  beforeAll(async () => {
+    await clearConfigs(secretsManager);
+  });
+
+  test('Should create configs, order certificate and delete configs', async () => {
+    const caConfigName = `${generateName()}-ca`;
+    // Create CA config
+    let res = await secretsManager.createConfigElement({
+      secretType: SecretsManager.CreateConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.CreateConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      name: caConfigName,
+      type: 'letsencrypt-stage',
+      config: { private_key: process.env.CA_CONFIG_PRIVATE_KEY },
+    });
+
+    expect(res.status).toBe(201);
+
+    // Create DNS config
+    const dnsConfigName = `${generateName()}-dns`;
+    res = await secretsManager.createConfigElement({
+      secretType: SecretsManager.CreateConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      name: dnsConfigName,
+      type: 'cis',
+      config: { cis_apikey: process.env.DNS_CONFIG_API_KEY, cis_crn: process.env.DNS_CONFIG_CRN },
+    });
+
+    expect(res.status).toBe(201);
+
+    // Order certificate
+
+    res = await secretsManager.createSecret({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      },
+      secretType: SecretsManager.CreateSecretConstants.SecretType.PUBLIC_CERT,
+      resources: [
+        {
+          name: generateName(),
+          description: 'Integration test public_cert generated',
+          labels: ['label1', 'label2'],
+          common_name: 'integration.secrets-manager.test.appdomain.cloud',
+          alt_names: ['integration2.secrets-manager.test.appdomain.cloud'],
+          key_algorithm: 'RSA2048',
+          ca: caConfigName,
+          dns: dnsConfigName,
+          rotation: {
+            auto_rotate: false,
+            rotate_keys: false,
+          },
+        },
+      ],
+    });
+
+    expect(res.status).toBe(202);
+
+    const { id } = res.result.resources[0];
+
+    // Get the secret
+    res = await secretsManager.getSecret({
+      secretType: SecretsManager.GetSecretConstants.SecretType.PUBLIC_CERT,
+      id,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].id).toEqual(id);
+
+    // delete the configs
+    res = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.DeleteConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      configName: dnsConfigName,
+    });
+
+    expect(res.status).toBe(204);
+
+    // delete the configs
+    res = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.DeleteConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      configName: caConfigName,
+    });
+
+    expect(res.status).toBe(204);
+  });
+
+  test('Should create, get, list and delete configs', async () => {
+    const caConfigName = `${generateName()}-ca`;
+    // Create CA config
+    let res = await secretsManager.createConfigElement({
+      secretType: SecretsManager.CreateConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.CreateConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      name: caConfigName,
+      type: 'letsencrypt-stage',
+      config: { private_key: process.env.CA_CONFIG_PRIVATE_KEY },
+    });
+
+    expect(res.status).toBe(201);
+
+    // Create DNS config
+    const dnsConfigName = `${generateName()}-dns`;
+    res = await secretsManager.createConfigElement({
+      secretType: SecretsManager.CreateConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.CreateConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      name: dnsConfigName,
+      type: 'cis',
+      config: { cis_apikey: process.env.DNS_CONFIG_API_KEY, cis_crn: process.env.DNS_CONFIG_CRN },
+    });
+
+    expect(res.status).toBe(201);
+
+    // get ca config
+    res = await secretsManager.getConfigElement({
+      secretType: SecretsManager.CreateConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.CreateConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      configName: caConfigName,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].name).toBe(caConfigName);
+
+    // get dns config
+    res = await secretsManager.getConfigElement({
+      secretType: SecretsManager.GetConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.GetConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      configName: dnsConfigName,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].name).toBe(dnsConfigName);
+
+    // Get all configs
+    res = await secretsManager.getConfig({
+      secretType: SecretsManager.GetConfigElementConstants.SecretType.PUBLIC_CERT,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].dns_providers).not.toBeNull();
+    expect(res.result.resources[0].certificate_authorities).not.toBeNull();
+
+    // delete the configs
+    res = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement: SecretsManager.DeleteConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+      configName: dnsConfigName,
+    });
+
+    expect(res.status).toBe(204);
+
+    // delete the configs
+    res = await secretsManager.deleteConfigElement({
+      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+      configElement:
+        SecretsManager.DeleteConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+      configName: caConfigName,
+    });
+
     expect(res.status).toBe(204);
   });
 });
