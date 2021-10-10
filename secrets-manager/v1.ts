@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.38.1-1037b405-20210908-184149
+ * IBM OpenAPI SDK Code Generator Version: 3.40.0-910cf8c2-20211006-154754
  */
 
 import * as extend from 'extend';
@@ -729,7 +729,7 @@ class SecretsManagerV1 extends BaseService {
    * with other metadata.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type. Supported options include: imported_cert.
+   * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
    * `previous` to retrieve the previous version.
@@ -791,7 +791,7 @@ class SecretsManagerV1 extends BaseService {
    * A successful request returns the metadata that is associated with the specified version of your secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type. Supported options include: imported_cert.
+   * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
    * `previous` to retrieve the previous version.
@@ -1107,12 +1107,8 @@ class SecretsManagerV1 extends BaseService {
    * configuration](#create_config_element) method.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.apiKey - An IBM Cloud API key that has the capability to create and manage service IDs.
-   *
-   * The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform role
-   * on the IAM Identity Service. For more information, see [Configuring the IAM secrets
-   * engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
+   * @param {string} params.secretType -
+   * @param {EngineConfig} params.engineConfig - Properties to update for a secrets engine.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
@@ -1120,17 +1116,14 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.PutConfigParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = { ...params };
-    const requiredParams = ['secretType', 'apiKey'];
+    const requiredParams = ['secretType', 'engineConfig'];
 
     const missingParams = getMissingParams(_params, requiredParams);
     if (missingParams) {
       return Promise.reject(missingParams);
     }
 
-    const body = {
-      'api_key': _params.apiKey,
-    };
-
+    const body = _params.engineConfig;
     const path = {
       'secret_type': _params.secretType,
     };
@@ -1331,6 +1324,62 @@ class SecretsManagerV1 extends BaseService {
   }
 
   /**
+   * Get a configuration.
+   *
+   * Retrieves the details of a specific configuration that is associated with a secret type.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
+   */
+  public getConfigElement(
+    params: SecretsManagerV1.GetConfigElementParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
+    const _params = { ...params };
+    const requiredParams = ['secretType', 'configElement', 'configName'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'config_element': _params.configElement,
+      'config_name': _params.configName,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getConfigElement'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
    * Update a configuration.
    *
    * Updates a configuration element that is associated with the specified secret type.
@@ -1397,9 +1446,9 @@ class SecretsManagerV1 extends BaseService {
   }
 
   /**
-   * Remove a configuration.
+   * Delete a configuration.
    *
-   * Removes a configuration element from the specified secret type.
+   * Deletes a configuration element from the specified secret type.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -1439,62 +1488,6 @@ class SecretsManagerV1 extends BaseService {
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {}, _params.headers),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Get a configuration.
-   *
-   * Retrieves the details of a specific configuration that is associated with a secret type.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type.
-   * @param {string} params.configElement - The configuration element to define or manage.
-   * @param {string} params.configName - The name of your configuration.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
-   */
-  public getConfigElement(
-    params: SecretsManagerV1.GetConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
-    const _params = { ...params };
-    const requiredParams = ['secretType', 'configElement', 'configName'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
-    }
-
-    const path = {
-      'secret_type': _params.secretType,
-      'config_element': _params.configElement,
-      'config_name': _params.configName,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getConfigElement'
-    );
-
-    const parameters = {
-      options: {
-        url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
-        method: 'GET',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
       }),
     };
 
@@ -1752,7 +1745,7 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `getSecretVersion` operation. */
   export interface GetSecretVersionParams {
-    /** The secret type. Supported options include: imported_cert. */
+    /** The secret type. */
     secretType: GetSecretVersionConstants.SecretType | string;
     /** The v4 UUID that uniquely identifies the secret. */
     id: string;
@@ -1768,7 +1761,7 @@ namespace SecretsManagerV1 {
 
   /** Constants for the `getSecretVersion` operation. */
   export namespace GetSecretVersionConstants {
-    /** The secret type. Supported options include: imported_cert. */
+    /** The secret type. */
     export enum SecretType {
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
@@ -1777,7 +1770,7 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `getSecretVersionMetadata` operation. */
   export interface GetSecretVersionMetadataParams {
-    /** The secret type. Supported options include: imported_cert. */
+    /** The secret type. */
     secretType: GetSecretVersionMetadataConstants.SecretType | string;
     /** The v4 UUID that uniquely identifies the secret. */
     id: string;
@@ -1793,7 +1786,7 @@ namespace SecretsManagerV1 {
 
   /** Constants for the `getSecretVersionMetadata` operation. */
   export namespace GetSecretVersionMetadataConstants {
-    /** The secret type. Supported options include: imported_cert. */
+    /** The secret type. */
     export enum SecretType {
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
@@ -1900,24 +1893,17 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `putConfig` operation. */
   export interface PutConfigParams {
-    /** The secret type. */
     secretType: PutConfigConstants.SecretType | string;
-    /** An IBM Cloud API key that has the capability to create and manage service IDs.
-     *
-     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
-     *  role on the IAM Identity Service. For more information, see [Configuring the IAM secrets
-     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
-     */
-    apiKey: string;
+    /** Properties to update for a secrets engine. */
+    engineConfig: EngineConfig;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `putConfig` operation. */
   export namespace PutConfigConstants {
-    /** The secret type. */
+    /** SecretType */
     export enum SecretType {
       IAM_CREDENTIALS = 'iam_credentials',
-      PUBLIC_CERT = 'public_cert',
     }
   }
 
@@ -1996,6 +1982,30 @@ namespace SecretsManagerV1 {
     }
   }
 
+  /** Parameters for the `getConfigElement` operation. */
+  export interface GetConfigElementParams {
+    /** The secret type. */
+    secretType: GetConfigElementConstants.SecretType | string;
+    /** The configuration element to define or manage. */
+    configElement: GetConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getConfigElement` operation. */
+  export namespace GetConfigElementConstants {
+    /** The secret type. */
+    export enum SecretType {
+      PUBLIC_CERT = 'public_cert',
+    }
+    /** The configuration element to define or manage. */
+    export enum ConfigElement {
+      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
+      DNS_PROVIDERS = 'dns_providers',
+    }
+  }
+
   /** Parameters for the `updateConfigElement` operation. */
   export interface UpdateConfigElementParams {
     /** The secret type. */
@@ -2045,30 +2055,6 @@ namespace SecretsManagerV1 {
 
   /** Constants for the `deleteConfigElement` operation. */
   export namespace DeleteConfigElementConstants {
-    /** The secret type. */
-    export enum SecretType {
-      PUBLIC_CERT = 'public_cert',
-    }
-    /** The configuration element to define or manage. */
-    export enum ConfigElement {
-      CERTIFICATE_AUTHORITIES = 'certificate_authorities',
-      DNS_PROVIDERS = 'dns_providers',
-    }
-  }
-
-  /** Parameters for the `getConfigElement` operation. */
-  export interface GetConfigElementParams {
-    /** The secret type. */
-    secretType: GetConfigElementConstants.SecretType | string;
-    /** The configuration element to define or manage. */
-    configElement: GetConfigElementConstants.ConfigElement | string;
-    /** The name of your configuration. */
-    configName: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Constants for the `getConfigElement` operation. */
-  export namespace GetConfigElementConstants {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
@@ -2134,6 +2120,9 @@ namespace SecretsManagerV1 {
     /** A collection of resources. */
     resources: SecretResource[];
   }
+
+  /** EngineConfig. */
+  export interface EngineConfig {}
 
   /** Configuration for the specified secret type. */
   export interface GetConfig {
@@ -2351,14 +2340,6 @@ namespace SecretsManagerV1 {
     not_before?: string;
     /** The date the certificate validity period ends. */
     not_after?: string;
-  }
-
-  /** Warning response. */
-  export interface Warning {
-    /** A warning code identifier. */
-    code: string;
-    /** A human-readable message that provides details about the warning. */
-    message: string;
   }
 
   /** Metadata properties that describe an arbitrary secret. */
@@ -2691,9 +2672,20 @@ namespace SecretsManagerV1 {
   /** Properties that describe an IBM Cloud classic infrastructure (SoftLayer) configuration. */
   export interface ConfigElementDefConfigClassicInfrastructureConfig
     extends ConfigElementDefConfig {
-    /** The username that is associated with your classic infrastructure account. */
+    /** The username that is associated with your classic infrastructure account.
+     *
+     *  In most cases, your classic infrastructure username is your `<account_id>_<email_address>`. In the console, you
+     *  can find your username by going to **Manage > Access (IAM) > Users > name > VPN password.** For more
+     *  information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-classic-infrastructure).
+     */
     classic_infrastructure_username: string;
-    /** Your classic infrastructure API key. */
+    /** Your classic infrastructure API key.
+     *
+     *  In the console, you can view or create a classic infrastructure API key by going to **Manage > Access (IAM)
+     *  > Users > name > API keys.** For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-classic-infrastructure).
+     */
     classic_infrastructure_password: string;
   }
 
@@ -2718,8 +2710,27 @@ namespace SecretsManagerV1 {
 
   /** Properties that describe a Let's Encrypt configuration. */
   export interface ConfigElementDefConfigLetsEncryptConfig extends ConfigElementDefConfig {
-    /** The private key that is associated with your ACME account. */
+    /** The private key that is associated with your Automatic Certificate Management Environment (ACME) account.
+     *
+     *  If you have a working ACME client or account for Let's Encrypt, you can use the existing private key to  enable
+     *  communications with Secrets Manager. If you don't have an account yet, you can create one. For more information,
+     *  see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#create-acme-account).
+     */
     private_key: string;
+  }
+
+  /** Configuration for the IAM credentials engine. */
+  export interface CreateIAMCredentialsSecretEngineRootConfig extends EngineConfig {
+    /** An IBM Cloud API key that has the capability to create and manage service IDs.
+     *
+     *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
+     *  role on the IAM Identity Service. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
+     */
+    api_key: string;
+    /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
+    api_key_hash?: string;
   }
 
   /** Delete the credentials that are associated with an `iam_credentials` secret. */
@@ -2753,8 +2764,8 @@ namespace SecretsManagerV1 {
     /** An IBM Cloud API key that has the capability to create and manage service IDs.
      *
      *  The API key must be assigned the Editor platform role on the Access Groups Service and the Operator platform
-     *  role on the IAM Identity Service. For more information, see [Configuring the IAM secrets
-     *  engine](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-iam-credentials#configure-iam-secrets-engine-api).
+     *  role on the IAM Identity Service. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
      */
     api_key: string;
     /** The hash value of the IBM Cloud API key that is used to create and manage service IDs. */
@@ -2881,8 +2892,10 @@ namespace SecretsManagerV1 {
     /** The access groups that define the capabilities of the service ID and API key that are generated for an
      *  `iam_credentials` secret.
      *
-     *  **Tip:** To find the ID of an access group, go to **Manage > Access (IAM) > Access groups** in the IBM Cloud
-     *  console. Select the access group to inspect, and click **Details** to view its ID.
+     *  **Tip:** To list the access groups that are available in an account, you can use the [IAM Access Groups
+     *  API](https://cloud.ibm.com/apidocs/iam-access-groups#list-access-groups). To find the ID of an access group in
+     *  the console, go to **Manage > Access (IAM) > Access groups**. Select the access group to inspect, and click
+     *  **Details** to view its ID.
      */
     access_groups?: string[];
     /** The API key that is generated for this secret.
@@ -3069,6 +3082,10 @@ namespace SecretsManagerV1 {
     algorithm?: string;
     /** The identifier for the cryptographic algorithm to be used to generate the public key that is associated with
      *  the certificate.
+     *
+     *  The algorithm that you select determines the encryption algorthim (`RSA` or `ECDSA`) and key size to be used to
+     *  generate keys and sign certificates. For longer living certificates it is recommended to use longer keys to
+     *  provide more encryption protection.
      */
     key_algorithm?: string;
     /** The alternative names that are defined for the certificate. */
@@ -3078,6 +3095,7 @@ namespace SecretsManagerV1 {
     rotation?: Rotation;
     /** Issuance information that is associated with your certificate. */
     issuance_info?: IssuanceInfo;
+    /** The data that is associated with the secret. */
     secret_data?: JsonObject;
   }
 
@@ -3122,8 +3140,6 @@ namespace SecretsManagerV1 {
     extends SecretPolicyRotationRotation {
     auto_rotate: boolean;
     rotate_keys: boolean;
-    /** Warning response. */
-    warning?: Warning;
   }
 
   /** Metadata properties that describe a username_password secret. */
