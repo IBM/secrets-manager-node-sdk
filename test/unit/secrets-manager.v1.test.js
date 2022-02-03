@@ -121,11 +121,12 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretGroupResourceModel];
         const createSecretGroupParams = {
-          metadata: metadata,
-          resources: resources,
+          metadata,
+          resources,
         };
 
-        const createSecretGroupResult = secretsManagerService.createSecretGroup(createSecretGroupParams);
+        const createSecretGroupResult =
+          secretsManagerService.createSecretGroup(createSecretGroupParams);
 
         // all methods should return a Promise
         expectToBePromise(createSecretGroupResult);
@@ -208,7 +209,8 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation listSecretGroups
         const listSecretGroupsParams = {};
 
-        const listSecretGroupsResult = secretsManagerService.listSecretGroups(listSecretGroupsParams);
+        const listSecretGroupsResult =
+          secretsManagerService.listSecretGroups(listSecretGroupsParams);
 
         // all methods should return a Promise
         expectToBePromise(listSecretGroupsResult);
@@ -267,7 +269,7 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation getSecretGroup
         const id = 'testString';
         const getSecretGroupParams = {
-          id: id,
+          id,
         };
 
         const getSecretGroupResult = secretsManagerService.getSecretGroup(getSecretGroupParams);
@@ -366,12 +368,14 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretGroupMetadataUpdatableModel];
         const updateSecretGroupMetadataParams = {
-          id: id,
-          metadata: metadata,
-          resources: resources,
+          id,
+          metadata,
+          resources,
         };
 
-        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(updateSecretGroupMetadataParams);
+        const updateSecretGroupMetadataResult = secretsManagerService.updateSecretGroupMetadata(
+          updateSecretGroupMetadataParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateSecretGroupMetadataResult);
@@ -457,10 +461,11 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation deleteSecretGroup
         const id = 'testString';
         const deleteSecretGroupParams = {
-          id: id,
+          id,
         };
 
-        const deleteSecretGroupResult = secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
+        const deleteSecretGroupResult =
+          secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteSecretGroupResult);
@@ -560,9 +565,9 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretResourceModel];
         const createSecretParams = {
-          secretType: secretType,
-          metadata: metadata,
-          resources: resources,
+          secretType,
+          metadata,
+          resources,
         };
 
         const createSecretResult = secretsManagerService.createSecret(createSecretParams);
@@ -653,9 +658,9 @@ describe('SecretsManagerV1', () => {
         const limit = 1;
         const offset = 0;
         const listSecretsParams = {
-          secretType: secretType,
-          limit: limit,
-          offset: offset,
+          secretType,
+          limit,
+          offset,
         };
 
         const listSecretsResult = secretsManagerService.listSecrets(listSecretsParams);
@@ -744,11 +749,11 @@ describe('SecretsManagerV1', () => {
         const sortBy = 'id';
         const groups = ['testString'];
         const listAllSecretsParams = {
-          limit: limit,
-          offset: offset,
-          search: search,
-          sortBy: sortBy,
-          groups: groups,
+          limit,
+          offset,
+          search,
+          sortBy,
+          groups,
         };
 
         const listAllSecretsResult = secretsManagerService.listAllSecrets(listAllSecretsParams);
@@ -816,8 +821,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const getSecretParams = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
         const getSecretResult = secretsManagerService.getSecret(getSecretParams);
@@ -913,10 +918,10 @@ describe('SecretsManagerV1', () => {
         const action = 'rotate';
         const secretAction = secretActionModel;
         const updateSecretParams = {
-          secretType: secretType,
-          id: id,
-          action: action,
-          secretAction: secretAction,
+          secretType,
+          id,
+          action,
+          secretAction,
         };
 
         const updateSecretResult = secretsManagerService.updateSecret(updateSecretParams);
@@ -1007,8 +1012,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const deleteSecretParams = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
         const deleteSecretResult = secretsManagerService.deleteSecret(deleteSecretParams);
@@ -1095,11 +1100,12 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const listSecretVersionsParams = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
-        const listSecretVersionsResult = secretsManagerService.listSecretVersions(listSecretVersionsParams);
+        const listSecretVersionsResult =
+          secretsManagerService.listSecretVersions(listSecretVersionsParams);
 
         // all methods should return a Promise
         expectToBePromise(listSecretVersionsResult);
@@ -1184,12 +1190,13 @@ describe('SecretsManagerV1', () => {
         const id = 'testString';
         const versionId = 'testString';
         const getSecretVersionParams = {
-          secretType: secretType,
-          id: id,
-          versionId: versionId,
+          secretType,
+          id,
+          versionId,
         };
 
-        const getSecretVersionResult = secretsManagerService.getSecretVersion(getSecretVersionParams);
+        const getSecretVersionResult =
+          secretsManagerService.getSecretVersion(getSecretVersionParams);
 
         // all methods should return a Promise
         expectToBePromise(getSecretVersionResult);
@@ -1199,7 +1206,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1277,12 +1288,14 @@ describe('SecretsManagerV1', () => {
         const id = 'testString';
         const versionId = 'testString';
         const getSecretVersionMetadataParams = {
-          secretType: secretType,
-          id: id,
-          versionId: versionId,
+          secretType,
+          id,
+          versionId,
         };
 
-        const getSecretVersionMetadataResult = secretsManagerService.getSecretVersionMetadata(getSecretVersionMetadataParams);
+        const getSecretVersionMetadataResult = secretsManagerService.getSecretVersionMetadata(
+          getSecretVersionMetadataParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getSecretVersionMetadataResult);
@@ -1292,7 +1305,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1369,11 +1386,12 @@ describe('SecretsManagerV1', () => {
         const secretType = 'arbitrary';
         const id = 'testString';
         const getSecretMetadataParams = {
-          secretType: secretType,
-          id: id,
+          secretType,
+          id,
         };
 
-        const getSecretMetadataResult = secretsManagerService.getSecretMetadata(getSecretMetadataParams);
+        const getSecretMetadataResult =
+          secretsManagerService.getSecretMetadata(getSecretMetadataParams);
 
         // all methods should return a Promise
         expectToBePromise(getSecretMetadataResult);
@@ -1475,13 +1493,15 @@ describe('SecretsManagerV1', () => {
         const metadata = collectionMetadataModel;
         const resources = [secretMetadataModel];
         const updateSecretMetadataParams = {
-          secretType: secretType,
-          id: id,
-          metadata: metadata,
-          resources: resources,
+          secretType,
+          id,
+          metadata,
+          resources,
         };
 
-        const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(updateSecretMetadataParams);
+        const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(
+          updateSecretMetadataParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateSecretMetadataResult);
@@ -1594,11 +1614,11 @@ describe('SecretsManagerV1', () => {
         const resources = [secretPolicyRotationModel];
         const policy = 'rotation';
         const putPolicyParams = {
-          secretType: secretType,
-          id: id,
-          metadata: metadata,
-          resources: resources,
-          policy: policy,
+          secretType,
+          id,
+          metadata,
+          resources,
+          policy,
         };
 
         const putPolicyResult = secretsManagerService.putPolicy(putPolicyParams);
@@ -1693,9 +1713,9 @@ describe('SecretsManagerV1', () => {
         const id = 'testString';
         const policy = 'rotation';
         const getPolicyParams = {
-          secretType: secretType,
-          id: id,
-          policy: policy,
+          secretType,
+          id,
+          policy,
         };
 
         const getPolicyResult = secretsManagerService.getPolicy(getPolicyParams);
@@ -1790,8 +1810,8 @@ describe('SecretsManagerV1', () => {
         const secretType = 'iam_credentials';
         const engineConfig = engineConfigModel;
         const putConfigParams = {
-          secretType: secretType,
-          engineConfig: engineConfig,
+          secretType,
+          engineConfig,
         };
 
         const putConfigResult = secretsManagerService.putConfig(putConfigParams);
@@ -1877,7 +1897,7 @@ describe('SecretsManagerV1', () => {
         // Construct the params object for operation getConfig
         const secretType = 'iam_credentials';
         const getConfigParams = {
-          secretType: secretType,
+          secretType,
         };
 
         const getConfigResult = secretsManagerService.getConfig(getConfigParams);
@@ -1964,14 +1984,15 @@ describe('SecretsManagerV1', () => {
         const type = 'letsencrypt';
         const config = { foo: 'bar' };
         const createConfigElementParams = {
-          secretType: secretType,
-          configElement: configElement,
-          name: name,
-          type: type,
-          config: config,
+          secretType,
+          configElement,
+          name,
+          type,
+          config,
         };
 
-        const createConfigElementResult = secretsManagerService.createConfigElement(createConfigElementParams);
+        const createConfigElementResult =
+          secretsManagerService.createConfigElement(createConfigElementParams);
 
         // all methods should return a Promise
         expectToBePromise(createConfigElementResult);
@@ -1981,7 +2002,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2064,11 +2089,12 @@ describe('SecretsManagerV1', () => {
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const getConfigElementsParams = {
-          secretType: secretType,
-          configElement: configElement,
+          secretType,
+          configElement,
         };
 
-        const getConfigElementsResult = secretsManagerService.getConfigElements(getConfigElementsParams);
+        const getConfigElementsResult =
+          secretsManagerService.getConfigElements(getConfigElementsParams);
 
         // all methods should return a Promise
         expectToBePromise(getConfigElementsResult);
@@ -2078,7 +2104,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2153,12 +2183,13 @@ describe('SecretsManagerV1', () => {
         const configElement = 'certificate_authorities';
         const configName = 'testString';
         const getConfigElementParams = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
+          secretType,
+          configElement,
+          configName,
         };
 
-        const getConfigElementResult = secretsManagerService.getConfigElement(getConfigElementParams);
+        const getConfigElementResult =
+          secretsManagerService.getConfigElement(getConfigElementParams);
 
         // all methods should return a Promise
         expectToBePromise(getConfigElementResult);
@@ -2168,7 +2199,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2248,14 +2283,15 @@ describe('SecretsManagerV1', () => {
         const type = 'letsencrypt';
         const config = { foo: 'bar' };
         const updateConfigElementParams = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
-          type: type,
-          config: config,
+          secretType,
+          configElement,
+          configName,
+          type,
+          config,
         };
 
-        const updateConfigElementResult = secretsManagerService.updateConfigElement(updateConfigElementParams);
+        const updateConfigElementResult =
+          secretsManagerService.updateConfigElement(updateConfigElementParams);
 
         // all methods should return a Promise
         expectToBePromise(updateConfigElementResult);
@@ -2265,7 +2301,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'PUT');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+          'PUT'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2349,12 +2389,13 @@ describe('SecretsManagerV1', () => {
         const configElement = 'certificate_authorities';
         const configName = 'testString';
         const deleteConfigElementParams = {
-          secretType: secretType,
-          configElement: configElement,
-          configName: configName,
+          secretType,
+          configElement,
+          configName,
         };
 
-        const deleteConfigElementResult = secretsManagerService.deleteConfigElement(deleteConfigElementParams);
+        const deleteConfigElementResult =
+          secretsManagerService.deleteConfigElement(deleteConfigElementParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteConfigElementResult);
@@ -2364,7 +2405,11 @@ describe('SecretsManagerV1', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/api/v1/config/{secret_type}/{config_element}/{config_name}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
