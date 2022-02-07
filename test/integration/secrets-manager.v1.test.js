@@ -111,7 +111,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
         {
           name: generateName(),
           description: 'Integration test generated',
-          payload: { 'foo': 'data'},
+          payload: `'foo':·'data'·`,
           labels: ['label1', 'label2'],
           expiration_date: '2030-04-01T09:30:00Z',
         },
@@ -125,7 +125,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       id: secretId,
     });
     expect(res.status).toBe(200);
-    expect(res.result.resources[0].secret_data.payload).toEqual({ 'foo': 'data'});
+    expect(res.result.resources[0].secret_data.payload).toEqual(`'foo':·'data'·`);
     // Delete the secret.
     res = await secretsManager.deleteSecret({
       secretType: 'kv',
