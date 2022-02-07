@@ -101,6 +101,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
   test('Should create a kv secret', async () => {
     // Create a new kv secret
+    const payload = new Map([['foo', 'bar']]);
     let res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
@@ -111,7 +112,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
         {
           name: generateName(),
           description: 'Integration test generated',
-          payload: `'foo':·'data'·`,
+          payload: payload,
           labels: ['label1', 'label2'],
           expiration_date: '2030-04-01T09:30:00Z',
         },
@@ -125,7 +126,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       id: secretId,
     });
     expect(res.status).toBe(200);
-    expect(res.result.resources[0].secret_data.payload).toEqual("{'foo': 'data'}");
+    expect(res.result.resources[0].secret_data.payload).toEqual(`'foo':·'data'·`);
     // Delete the secret.
     res = await secretsManager.deleteSecret({
       secretType: 'kv',
