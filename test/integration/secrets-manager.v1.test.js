@@ -114,7 +114,6 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
           description: 'Integration test generated',
           payload,
           labels: ['label1', 'label2'],
-          expiration_date: '2030-04-01T09:30:00Z',
         },
       ],
     });
