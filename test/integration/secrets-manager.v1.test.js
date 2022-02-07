@@ -126,7 +126,6 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       id: secretId,
     });
     expect(res.status).toBe(200);
-    console.log(JSON.stringify(res.result.resources.payload));
     expect(res.result.resources[0].secret_data.payload).toEqual(payload);
     // Delete the secret.
     res = await secretsManager.deleteSecret({
