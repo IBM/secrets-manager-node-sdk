@@ -101,7 +101,8 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
   test('Should create a kv secret', async () => {
     // Create a new kv secret
-    const payload = new Map([['foo', 'bar']]);
+    const payload = {};
+    payload.foo = 'bar';
     let res = await secretsManager.createSecret({
       metadata: {
         collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
