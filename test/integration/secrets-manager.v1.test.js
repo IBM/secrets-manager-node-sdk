@@ -99,6 +99,42 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     expect(res.status).toBe(204);
   });
 
+  test('Should create a kv secret', async () => {
+    // Create a new kv secret
+    const payload = {};
+    payload.foo = 'bar';
+    let res = await secretsManager.createSecret({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      },
+      secretType: 'kv',
+      resources: [
+        {
+          name: generateName(),
+          description: 'Integration test generated',
+          payload,
+          labels: ['label1', 'label2'],
+        },
+      ],
+    });
+    expect(res.status).toBe(200);
+    const secretId = res.result.resources[0].id;
+    // get kv secret
+    res = await secretsManager.getSecret({
+      secretType: 'kv',
+      id: secretId,
+    });
+    expect(res.status).toBe(200);
+    expect(res.result.resources[0].secret_data.payload).toEqual(payload);
+    // Delete the secret.
+    res = await secretsManager.deleteSecret({
+      secretType: 'kv',
+      id: secretId,
+    });
+    expect(res.status).toBe(204);
+  });
+
   test('Should create a secret group and a secret belonging to this group', async () => {
     // Create a secret group
     const createGroupParams = {
