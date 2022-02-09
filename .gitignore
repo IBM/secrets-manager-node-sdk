@@ -79,3 +79,5 @@ secrets.tar
 
 # SDK generator
 .openapi-generator*
+
+.npmrc
