@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.44.0-98838c07-20220128-151531
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
 import * as extend from 'extend';
@@ -633,6 +633,7 @@ class SecretsManagerV1 extends BaseService {
    *
    * - `rotate`: Replace the value of a secret.
    * - `restore`: Restore a previous version of an `iam_credentials` secret.
+   * - `revoke`: Revoke a private certificate.
    * - `delete_credentials`: Delete the API key that is associated with an `iam_credentials` secret.
    *
    * @param {Object} params - The parameters to send to the service.
@@ -1283,7 +1284,7 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.name - The human-readable name to assign to your configuration.
    * @param {string} params.type - The type of configuration. Value options differ depending on the `config_element`
    * property that you want to define.
-   * @param {JsonObject} params.config - The configuration to define for the specified secret type.
+   * @param {ConfigElementDefConfig} params.config - The configuration to define for the specified secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
@@ -1398,9 +1399,9 @@ class SecretsManagerV1 extends BaseService {
    * Retrieves the details of a specific configuration that is associated with a secret type.
    *
    * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
-   * @param {string} params.configName - The name of your configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
@@ -1408,17 +1409,17 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.GetConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
-    const _requiredParams = ['secretType', 'configElement', 'configName'];
-    const _validParams = ['secretType', 'configElement', 'configName', 'headers'];
+    const _requiredParams = ['configName', 'secretType', 'configElement'];
+    const _validParams = ['configName', 'secretType', 'configElement', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
+      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
-      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -1454,9 +1455,9 @@ class SecretsManagerV1 extends BaseService {
    * Updates a configuration element that is associated with the specified secret type.
    *
    * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
-   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.type - The type of configuration. Value options differ depending on the `config_element`
    * property that you want to define.
    * @param {JsonObject} params.config - Properties that describe a configuration, which depends on type.
@@ -1467,8 +1468,8 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.UpdateConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
-    const _requiredParams = ['secretType', 'configElement', 'configName', 'type', 'config'];
-    const _validParams = ['secretType', 'configElement', 'configName', 'type', 'config', 'headers'];
+    const _requiredParams = ['configName', 'secretType', 'configElement', 'type', 'config'];
+    const _validParams = ['configName', 'secretType', 'configElement', 'type', 'config', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1480,9 +1481,9 @@ class SecretsManagerV1 extends BaseService {
     };
 
     const path = {
+      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
-      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -1520,9 +1521,9 @@ class SecretsManagerV1 extends BaseService {
    * Deletes a configuration element from the specified secret type.
    *
    * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
-   * @param {string} params.configName - The name of your configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
@@ -1530,17 +1531,17 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.DeleteConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = { ...params };
-    const _requiredParams = ['secretType', 'configElement', 'configName'];
-    const _validParams = ['secretType', 'configElement', 'configName', 'headers'];
+    const _requiredParams = ['configName', 'secretType', 'configElement'];
+    const _validParams = ['configName', 'secretType', 'configElement', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
+      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
-      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -1554,6 +1555,210 @@ class SecretsManagerV1 extends BaseService {
         url: '/api/v1/config/{secret_type}/{config_element}/{config_name}',
         method: 'DELETE',
         path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * notifications
+   ************************/
+
+  /**
+   * Register with Event Notifications.
+   *
+   * Creates a registration between a Secrets Manager instance and [Event
+   * Notifications](https://cloud.ibm.com/apidocs/event-notifications).
+   *
+   * A successful request adds Secrets Manager as a source that you can reference from your Event Notifications
+   * instance. For more information about enabling notifications for Secrets Manager, check out the
+   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-event-notifications).
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.eventNotificationsInstanceCrn - The Cloud Resource Name (CRN) of the connected Event
+   * Notifications instance.
+   * @param {string} params.eventNotificationsSourceName - The name that is displayed as a source in your Event
+   * Notifications instance.
+   * @param {string} [params.eventNotificationsSourceDescription] - An optional description for the source in your Event
+   * Notifications instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetNotificationsSettings>>}
+   */
+  public createNotificationsRegistration(
+    params: SecretsManagerV1.CreateNotificationsRegistrationParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetNotificationsSettings>> {
+    const _params = { ...params };
+    const _requiredParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName'];
+    const _validParams = [
+      'eventNotificationsInstanceCrn',
+      'eventNotificationsSourceName',
+      'eventNotificationsSourceDescription',
+      'headers',
+    ];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'event_notifications_instance_crn': _params.eventNotificationsInstanceCrn,
+      'event_notifications_source_name': _params.eventNotificationsSourceName,
+      'event_notifications_source_description': _params.eventNotificationsSourceDescription,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'createNotificationsRegistration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/notifications/registration',
+        method: 'POST',
+        body,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get Event Notifications registration details.
+   *
+   * Retrieves the details of an existing registration between a Secrets Manager instance and Event Notifications.
+   *
+   * @param {Object} [params] - The parameters to send to the service.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetNotificationsSettings>>}
+   */
+  public getNotificationsRegistration(
+    params?: SecretsManagerV1.GetNotificationsRegistrationParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetNotificationsSettings>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getNotificationsRegistration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/notifications/registration',
+        method: 'GET',
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Unregister from Event Notifications.
+   *
+   * Deletes a registration between a Secrets Manager instance and Event Notifications.
+   *
+   * A successful request removes your Secrets Manager instance as a source in Event Notifications.
+   *
+   * @param {Object} [params] - The parameters to send to the service.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   */
+  public deleteNotificationsRegistration(
+    params?: SecretsManagerV1.DeleteNotificationsRegistrationParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'deleteNotificationsRegistration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/notifications/registration',
+        method: 'DELETE',
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Send test event.
+   *
+   * Send a test event from a Secrets Manager instance to a configured [Event
+   * Notifications](https://cloud.ibm.com/apidocs/event-notifications) instance.
+   *
+   * A successful request sends a test event to the Event Notifications instance. For more information about enabling
+   * notifications for Secrets Manager, check out the
+   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-event-notifications).
+   *
+   * @param {Object} [params] - The parameters to send to the service.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   */
+  public sendTestNotification(
+    params?: SecretsManagerV1.SendTestNotificationParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'sendTestNotification'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/notifications/test',
+        method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {}, _params.headers),
@@ -1650,6 +1855,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1684,6 +1890,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1759,6 +1966,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1785,6 +1993,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1792,6 +2001,7 @@ namespace SecretsManagerV1 {
     export enum Action {
       ROTATE = 'rotate',
       RESTORE = 'restore',
+      REVOKE = 'revoke',
       DELETE_CREDENTIALS = 'delete_credentials',
     }
   }
@@ -1813,6 +2023,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1835,6 +2046,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1864,6 +2076,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1893,6 +2106,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1915,6 +2129,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1941,6 +2156,7 @@ namespace SecretsManagerV1 {
       IAM_CREDENTIALS = 'iam_credentials',
       IMPORTED_CERT = 'imported_cert',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
@@ -1967,6 +2183,7 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
@@ -1991,6 +2208,7 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       USERNAME_PASSWORD = 'username_password',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The type of policy that is associated with the specified secret. */
     export enum Policy {
@@ -2028,6 +2246,7 @@ namespace SecretsManagerV1 {
     export enum SecretType {
       IAM_CREDENTIALS = 'iam_credentials',
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
   }
 
@@ -2044,7 +2263,7 @@ namespace SecretsManagerV1 {
      */
     type: CreateConfigElementConstants.Type | string;
     /** The configuration to define for the specified secret type. */
-    config: JsonObject;
+    config: ConfigElementDefConfig;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2053,11 +2272,15 @@ namespace SecretsManagerV1 {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The configuration element to define or manage. */
     export enum ConfigElement {
       CERTIFICATE_AUTHORITIES = 'certificate_authorities',
       DNS_PROVIDERS = 'dns_providers',
+      ROOT_CERTIFICATE_AUTHORITIES = 'root_certificate_authorities',
+      INTERMEDIATE_CERTIFICATE_AUTHORITIES = 'intermediate_certificate_authorities',
+      CERTIFICATE_TEMPLATES = 'certificate_templates',
     }
     /** The type of configuration. Value options differ depending on the `config_element` property that you want to define. */
     export enum Type {
@@ -2065,6 +2288,9 @@ namespace SecretsManagerV1 {
       LETSENCRYPT_STAGE = 'letsencrypt-stage',
       CIS = 'cis',
       CLASSIC_INFRASTRUCTURE = 'classic_infrastructure',
+      ROOT_CERTIFICATE_AUTHORITY = 'root_certificate_authority',
+      INTERMEDIATE_CERTIFICATE_AUTHORITY = 'intermediate_certificate_authority',
+      CERTIFICATE_TEMPLATE = 'certificate_template',
     }
   }
 
@@ -2082,22 +2308,26 @@ namespace SecretsManagerV1 {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The configuration element to define or manage. */
     export enum ConfigElement {
       CERTIFICATE_AUTHORITIES = 'certificate_authorities',
       DNS_PROVIDERS = 'dns_providers',
+      ROOT_CERTIFICATE_AUTHORITIES = 'root_certificate_authorities',
+      INTERMEDIATE_CERTIFICATE_AUTHORITIES = 'intermediate_certificate_authorities',
+      CERTIFICATE_TEMPLATES = 'certificate_templates',
     }
   }
 
   /** Parameters for the `getConfigElement` operation. */
   export interface GetConfigElementParams {
+    /** The name of your configuration. */
+    configName: string;
     /** The secret type. */
     secretType: GetConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: GetConfigElementConstants.ConfigElement | string;
-    /** The name of your configuration. */
-    configName: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2106,22 +2336,26 @@ namespace SecretsManagerV1 {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The configuration element to define or manage. */
     export enum ConfigElement {
       CERTIFICATE_AUTHORITIES = 'certificate_authorities',
       DNS_PROVIDERS = 'dns_providers',
+      ROOT_CERTIFICATE_AUTHORITIES = 'root_certificate_authorities',
+      INTERMEDIATE_CERTIFICATE_AUTHORITIES = 'intermediate_certificate_authorities',
+      CERTIFICATE_TEMPLATES = 'certificate_templates',
     }
   }
 
   /** Parameters for the `updateConfigElement` operation. */
   export interface UpdateConfigElementParams {
+    /** The name of your configuration. */
+    configName: string;
     /** The secret type. */
     secretType: UpdateConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: UpdateConfigElementConstants.ConfigElement | string;
-    /** The name of your configuration. */
-    configName: string;
     /** The type of configuration. Value options differ depending on the `config_element` property that you want to
      *  define.
      */
@@ -2136,11 +2370,15 @@ namespace SecretsManagerV1 {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The configuration element to define or manage. */
     export enum ConfigElement {
       CERTIFICATE_AUTHORITIES = 'certificate_authorities',
       DNS_PROVIDERS = 'dns_providers',
+      ROOT_CERTIFICATE_AUTHORITIES = 'root_certificate_authorities',
+      INTERMEDIATE_CERTIFICATE_AUTHORITIES = 'intermediate_certificate_authorities',
+      CERTIFICATE_TEMPLATES = 'certificate_templates',
     }
     /** The type of configuration. Value options differ depending on the `config_element` property that you want to define. */
     export enum Type {
@@ -2148,17 +2386,20 @@ namespace SecretsManagerV1 {
       LETSENCRYPT_STAGE = 'letsencrypt-stage',
       CIS = 'cis',
       CLASSIC_INFRASTRUCTURE = 'classic_infrastructure',
+      ROOT_CERTIFICATE_AUTHORITY = 'root_certificate_authority',
+      INTERMEDIATE_CERTIFICATE_AUTHORITY = 'intermediate_certificate_authority',
+      CERTIFICATE_TEMPLATE = 'certificate_template',
     }
   }
 
   /** Parameters for the `deleteConfigElement` operation. */
   export interface DeleteConfigElementParams {
+    /** The name of your configuration. */
+    configName: string;
     /** The secret type. */
     secretType: DeleteConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: DeleteConfigElementConstants.ConfigElement | string;
-    /** The name of your configuration. */
-    configName: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2167,12 +2408,42 @@ namespace SecretsManagerV1 {
     /** The secret type. */
     export enum SecretType {
       PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
     }
     /** The configuration element to define or manage. */
     export enum ConfigElement {
       CERTIFICATE_AUTHORITIES = 'certificate_authorities',
       DNS_PROVIDERS = 'dns_providers',
+      ROOT_CERTIFICATE_AUTHORITIES = 'root_certificate_authorities',
+      INTERMEDIATE_CERTIFICATE_AUTHORITIES = 'intermediate_certificate_authorities',
+      CERTIFICATE_TEMPLATES = 'certificate_templates',
     }
+  }
+
+  /** Parameters for the `createNotificationsRegistration` operation. */
+  export interface CreateNotificationsRegistrationParams {
+    /** The Cloud Resource Name (CRN) of the connected Event Notifications instance. */
+    eventNotificationsInstanceCrn: string;
+    /** The name that is displayed as a source in your Event Notifications instance. */
+    eventNotificationsSourceName: string;
+    /** An optional description for the source in your Event Notifications instance. */
+    eventNotificationsSourceDescription?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getNotificationsRegistration` operation. */
+  export interface GetNotificationsRegistrationParams {
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteNotificationsRegistration` operation. */
+  export interface DeleteNotificationsRegistrationParams {
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `sendTestNotification` operation. */
+  export interface SendTestNotificationParams {
+    headers?: OutgoingHttpHeaders;
   }
 
   /*************************
@@ -2196,8 +2467,11 @@ namespace SecretsManagerV1 {
      */
     type: string;
     /** The configuration to define for the specified secret type. */
-    config: JsonObject;
+    config: ConfigElementDefConfig;
   }
+
+  /** The configuration to define for the specified secret type. */
+  export interface ConfigElementDefConfig {}
 
   /** Properties that describe a configuration element. */
   export interface ConfigElementMetadata {
@@ -2241,6 +2515,14 @@ namespace SecretsManagerV1 {
 
   /** GetConfigResourcesItem. */
   export interface GetConfigResourcesItem {}
+
+  /** Properties that describe an existing registration with Event Notifications. */
+  export interface GetNotificationsSettings {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: NotificationsSettings[];
+  }
 
   /** Properties that describe a secret. */
   export interface GetSecret {
@@ -2321,19 +2603,42 @@ namespace SecretsManagerV1 {
     resources?: SecretResource[];
   }
 
+  /** The Event Notifications details. */
+  export interface NotificationsSettings {
+    /** The Cloud Resource Name (CRN) of the connected Event Notifications instance. */
+    event_notifications_instance_crn: string;
+  }
+
   /** Rotation. */
   export interface Rotation {
     /** Determines whether Secrets Manager rotates your certificate automatically.
      *
-     *  If set to `true`, the service reorders your certificate 31 days before it expires. To access the previous
-     *  version of the certificate, you can use the [Get a version of a secret](#get-secret-version) method.
+     *  For public certificates, if `auto_rotate` is set to `true` the service reorders your certificate 31 days before
+     *  it expires. For private certificates, the certificate is rotated according to the time interval specified in the
+     *  `interval` and `unit` fields.
+     *
+     *  To access the previous version of the certificate, you can use the
+     *  [Get a version of a secret](#get-secret-version) method.
      */
     auto_rotate?: boolean;
     /** Determines whether Secrets Manager rotates the private key for your certificate automatically.
      *
      *  If set to `true`, the service generates and stores a new private key for your rotated certificate.
+     *
+     *  **Note:** Use this field only for public certificates. Ignored for private certificates.
      */
     rotate_keys?: boolean;
+    /** Used together with the `unit` field to specify the rotation interval. The minimum interval is one day, and
+     *  the maximum interval is 3 years (1095 days). Required in case `auto_rotate` is set to `true`.
+     *
+     *  **Note:** Use this field only for private certificates Ignored for public certificates.
+     */
+    interval?: number;
+    /** The time unit of the rotation interval.
+     *
+     *  **Note:** Use this field only for private certificates. Ignored for public certificates.
+     */
+    unit?: string;
   }
 
   /** SecretAction. */
@@ -2551,7 +2856,10 @@ namespace SecretsManagerV1 {
     expiration_date?: string;
     /** The new secret data to assign to the secret. */
     payload?: string;
-    /** The data that is associated with the secret version. The data object contains the field `payload`. */
+    /** The data that is associated with the secret version.
+     *
+     *  The data object contains the field `payload`.
+     */
     secret_data?: JsonObject;
   }
 
@@ -2565,7 +2873,10 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
-    /** The data that is associated with the secret version. The data object contains the field `payload`. */
+    /** The data that is associated with the secret version.
+     *
+     *  The data object contains the field `payload`.
+     */
     secret_data?: JsonObject;
   }
 
@@ -2738,8 +3049,11 @@ namespace SecretsManagerV1 {
      */
     intermediate?: string;
     /** The data that is associated with the secret. The data object contains the following fields:
+     *
      *  `certificate`: The contents of the certificate.
+     *
      *  `private_key`: The private key that is associated with the certificate.
+     *
      *  `intermediate`: The intermediate certificate that is associated with the certificate.
      */
     secret_data?: JsonObject;
@@ -2784,8 +3098,11 @@ namespace SecretsManagerV1 {
     /** The date that the certificate expires. The date format follows RFC 3339. */
     expiration_date?: string;
     /** The data that is associated with the secret version. The data object contains the following fields:
+     *
      *  `certificate`: The contents of the certificate.
+     *
      *  `private_key`: The private key that is associated with the certificate.
+     *
      *  `intermediate`: The intermediate certificate that is associated with the certificate.
      */
     secret_data?: JsonObject;
@@ -2833,6 +3150,54 @@ namespace SecretsManagerV1 {
     /** The date that the certificate expires. The date format follows RFC 3339. */
     expiration_date?: string;
     validity?: CertificateValidity;
+  }
+
+  /** Properties that describe an IBM Cloud classic infrastructure (SoftLayer) configuration. */
+  export interface ConfigElementDefConfigClassicInfrastructureConfig
+    extends ConfigElementDefConfig {
+    /** The username that is associated with your classic infrastructure account.
+     *
+     *  In most cases, your classic infrastructure username is your `<account_id>_<email_address>`. For more
+     *  information, see the [docs](https://cloud.ibm.com/docs/account?topic=account-classic_keys).
+     */
+    classic_infrastructure_username: string;
+    /** Your classic infrastructure API key.
+     *
+     *  For information about viewing and accessing your classic infrastructure API key, see the
+     *  [docs](https://cloud.ibm.com/docs/account?topic=account-classic_keys).
+     */
+    classic_infrastructure_password: string;
+  }
+
+  /** Properties that describe an IBM Cloud Internet Services (CIS) configuration. */
+  export interface ConfigElementDefConfigCloudInternetServicesConfig
+    extends ConfigElementDefConfig {
+    /** The Cloud Resource Name (CRN) that is associated with the CIS instance. */
+    cis_crn: string;
+    /** An IBM Cloud API key that can to list domains in your CIS instance.
+     *
+     *  To grant Secrets Manager the ability to view the CIS instance and all of its domains, the API key must be
+     *  assigned the Reader service role on Internet Services (`internet-svcs`).
+     *
+     *  If you need to manage specific domains, you can assign the Manager role. For production environments, it is
+     *  recommended that you assign the Reader access role, and then use the
+     *  [IAM Policy Management API](https://cloud.ibm.com/apidocs/iam-policy-management#create-policy) to control
+     *  specific domains. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-specific-domains).
+     */
+    cis_apikey?: string;
+  }
+
+  /** Properties that describe a Let's Encrypt configuration. */
+  export interface ConfigElementDefConfigLetsEncryptConfig extends ConfigElementDefConfig {
+    /** The private key that is associated with your Automatic Certificate Management Environment (ACME) account.
+     *
+     *  If you have a working ACME client or account for Let's Encrypt, you can use the existing private key to enable
+     *  communications with Secrets Manager. If you don't have an account yet, you can create one. For more information,
+     *  see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#create-acme-account).
+     */
+    private_key: string;
   }
 
   /** Configuration for the IAM credentials engine. */
@@ -2942,15 +3307,8 @@ namespace SecretsManagerV1 {
     last_update_date?: string;
     /** The number of versions the secret has. */
     versions_total?: number;
-    /** The time-to-live (TTL) or lease duration to assign to generated credentials.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
-     *  `120m` or `24h`.
-     *
-     *  Minimum duration is 1 minute. Maximum is 90 days.
-     */
-    ttl?: any;
+    /** Specifies the Time To Live value provided as a string duration with time suffix. */
+    ttl?: string;
     /** Determines whether to use the same service ID and API key for future read operations on an
      *  `iam_credentials` secret.
      *
@@ -3088,8 +3446,11 @@ namespace SecretsManagerV1 {
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
     /** The data that is associated with the secret version. The data object contains the following fields:
+     *
      *  `api_key`: The API key that is generated for this secret.
+     *
      *  `api_key_id`: The ID of the API key that is generated for this secret.
+     *
      *  `service_id`: The service ID under which the API key is created.
      */
     secret_data?: JsonObject;
@@ -3240,8 +3601,60 @@ namespace SecretsManagerV1 {
     expiration_date?: string;
     /** The new secret data to assign to the secret. */
     payload?: JsonObject;
-    /** The data that is associated with the secret version. The data object contains the field `payload`. */
+    /** The data that is associated with the secret version.
+     *
+     *  The data object contains the field `payload`.
+     */
     secret_data?: JsonObject;
+  }
+
+  /** Metadata properties that describe a private certificate secret. */
+  export interface PrivateCertificateSecretMetadata extends SecretMetadata {
+    /** The unique ID of the secret. */
+    id?: string;
+    /** Labels that you can use to filter for secrets in your instance.
+     *
+     *  Up to 30 labels can be created. Labels can be in the range 2 - 30 characters, including spaces. Special
+     *  characters that are not permitted include the angled bracket, comma, colon, ampersand, and vertical pipe
+     *  character (|).
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable alias to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an alias for your secret.
+     */
+    name: string;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret.
+     */
+    description?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** The secret state based on NIST SP 800-57. States are integers and correspond to the Pre-activation = 0,
+     *  Active = 1,  Suspended = 2, Deactivated = 3, and Destroyed = 5 values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** The Cloud Resource Name (CRN) that uniquely identifies the resource. */
+    crn?: string;
+    /** The date the secret was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret. */
+    created_by?: string;
+    /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** The number of versions the secret has. */
+    versions_total?: number;
   }
 
   /** Configuration for the public certificates engine. */
@@ -3325,6 +3738,9 @@ namespace SecretsManagerV1 {
     rotation?: Rotation;
     /** Issuance information that is associated with your certificate. */
     issuance_info?: IssuanceInfo;
+    validity?: CertificateValidity;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
+    serial_number?: string;
   }
 
   /** Properties that describe a secret. */
@@ -3418,6 +3834,8 @@ namespace SecretsManagerV1 {
     /** Issuance information that is associated with your certificate. */
     issuance_info?: IssuanceInfo;
     validity?: CertificateValidity;
+    /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
+    serial_number?: string;
     /** The data that is associated with the secret. The data object contains the following fields:
      *
      *  `certificate`: The contents of the certificate.
@@ -3598,7 +4016,9 @@ namespace SecretsManagerV1 {
     /** The password to assign to this secret. */
     password?: string;
     /** The data that is associated with the secret version. The data object contains the following fields:
+     *
      *  `username`: The username that is associated with the secret version.
+     *
      *  `password`: The password that is associated with the secret version.
      */
     secret_data?: JsonObject;
@@ -3633,7 +4053,9 @@ namespace SecretsManagerV1 {
     /** Indicates whether the version of the secret was created by automatic rotation. */
     auto_rotated?: boolean;
     /** The data that is associated with the secret version. The data object contains the following fields:
+     *
      *  `username`: The username that is associated with the secret version.
+     *
      *  `password`: The password that is associated with the secret version.
      */
     secret_data?: JsonObject;
