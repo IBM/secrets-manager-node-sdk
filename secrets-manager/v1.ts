@@ -1276,7 +1276,15 @@ class SecretsManagerV1 extends BaseService {
    * Adds a configuration element to the specified secret type.
    *
    * Use this method to define the configurations that are required to enable the public certificates (`public_cert`)
-   * engine. You can add up to 10 certificate authority and DNS provider configurations for your instance.
+   * engine and the private certificates (`private_cert`) engine.
+   *
+   * You can add multiple configurations for your instance as follows:
+   *
+   * - Up to 10 public certificate authority configurations
+   * - Up to 10 DNS provider configurations
+   * - Up to 10 private root certifiate authority configurations
+   * - Up to 10 private intermediate certifiate authority configurations
+   * - Up to 10 certificate templates.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -1399,9 +1407,9 @@ class SecretsManagerV1 extends BaseService {
    * Retrieves the details of a specific configuration that is associated with a secret type.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>>}
    */
@@ -1409,17 +1417,17 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.GetConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
-    const _requiredParams = ['configName', 'secretType', 'configElement'];
-    const _validParams = ['configName', 'secretType', 'configElement', 'headers'];
+    const _requiredParams = ['secretType', 'configElement', 'configName'];
+    const _validParams = ['secretType', 'configElement', 'configName', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
+      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -1455,9 +1463,9 @@ class SecretsManagerV1 extends BaseService {
    * Updates a configuration element that is associated with the specified secret type.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.type - The type of configuration. Value options differ depending on the `config_element`
    * property that you want to define.
    * @param {JsonObject} params.config - Properties that describe a configuration, which depends on type.
@@ -1468,8 +1476,8 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.UpdateConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSingleConfigElement>> {
     const _params = { ...params };
-    const _requiredParams = ['configName', 'secretType', 'configElement', 'type', 'config'];
-    const _validParams = ['configName', 'secretType', 'configElement', 'type', 'config', 'headers'];
+    const _requiredParams = ['secretType', 'configElement', 'configName', 'type', 'config'];
+    const _validParams = ['secretType', 'configElement', 'configName', 'type', 'config', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1481,9 +1489,9 @@ class SecretsManagerV1 extends BaseService {
     };
 
     const path = {
-      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
+      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -1521,9 +1529,9 @@ class SecretsManagerV1 extends BaseService {
    * Deletes a configuration element from the specified secret type.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.configName - The name of your configuration.
    * @param {string} params.secretType - The secret type.
    * @param {string} params.configElement - The configuration element to define or manage.
+   * @param {string} params.configName - The name of your configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
    */
@@ -1531,17 +1539,17 @@ class SecretsManagerV1 extends BaseService {
     params: SecretsManagerV1.DeleteConfigElementParams
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
     const _params = { ...params };
-    const _requiredParams = ['configName', 'secretType', 'configElement'];
-    const _validParams = ['configName', 'secretType', 'configElement', 'headers'];
+    const _requiredParams = ['secretType', 'configElement', 'configName'];
+    const _validParams = ['secretType', 'configElement', 'configName', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      'config_name': _params.configName,
       'secret_type': _params.secretType,
       'config_element': _params.configElement,
+      'config_name': _params.configName,
     };
 
     const sdkHeaders = getSdkHeaders(
@@ -2322,12 +2330,12 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `getConfigElement` operation. */
   export interface GetConfigElementParams {
-    /** The name of your configuration. */
-    configName: string;
     /** The secret type. */
     secretType: GetConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: GetConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2350,12 +2358,12 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `updateConfigElement` operation. */
   export interface UpdateConfigElementParams {
-    /** The name of your configuration. */
-    configName: string;
     /** The secret type. */
     secretType: UpdateConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: UpdateConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
     /** The type of configuration. Value options differ depending on the `config_element` property that you want to
      *  define.
      */
@@ -2394,12 +2402,12 @@ namespace SecretsManagerV1 {
 
   /** Parameters for the `deleteConfigElement` operation. */
   export interface DeleteConfigElementParams {
-    /** The name of your configuration. */
-    configName: string;
     /** The secret type. */
     secretType: DeleteConfigElementConstants.SecretType | string;
     /** The configuration element to define or manage. */
     configElement: DeleteConfigElementConstants.ConfigElement | string;
+    /** The name of your configuration. */
+    configName: string;
     headers?: OutgoingHttpHeaders;
   }
 

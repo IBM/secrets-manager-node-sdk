@@ -2186,13 +2186,13 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       function __getConfigElementTest() {
         // Construct the params object for operation getConfigElement
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const getConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
         };
 
         const getConfigElementResult =
@@ -2214,9 +2214,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.config_name).toEqual(configName);
         expect(mockRequestOptions.path.secret_type).toEqual(secretType);
         expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -2236,15 +2236,15 @@ describe('SecretsManagerV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -2284,15 +2284,15 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       function __updateConfigElementTest() {
         // Construct the params object for operation updateConfigElement
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const type = 'letsencrypt';
         const config = { foo: 'bar' };
         const updateConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
           type,
           config,
         };
@@ -2318,9 +2318,9 @@ describe('SecretsManagerV1', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.config).toEqual(config);
-        expect(mockRequestOptions.path.config_name).toEqual(configName);
         expect(mockRequestOptions.path.secret_type).toEqual(secretType);
         expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -2340,17 +2340,17 @@ describe('SecretsManagerV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const type = 'letsencrypt';
         const config = { foo: 'bar' };
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const updateConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
           type,
           config,
           headers: {
@@ -2392,13 +2392,13 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       function __deleteConfigElementTest() {
         // Construct the params object for operation deleteConfigElement
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const deleteConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
         };
 
         const deleteConfigElementResult =
@@ -2420,9 +2420,9 @@ describe('SecretsManagerV1', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.config_name).toEqual(configName);
         expect(mockRequestOptions.path.secret_type).toEqual(secretType);
         expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -2442,15 +2442,15 @@ describe('SecretsManagerV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const configName = 'testString';
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
+        const configName = 'testString';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const deleteConfigElementParams = {
-          configName,
           secretType,
           configElement,
+          configName,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
