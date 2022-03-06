@@ -1976,13 +1976,20 @@ describe('SecretsManagerV1', () => {
   });
   describe('createConfigElement', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ConfigElementDefConfigLetsEncryptConfig
+      const configElementDefConfigModel = {
+        private_key: 'testString',
+      };
+
       function __createConfigElementTest() {
         // Construct the params object for operation createConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const name = 'testString';
         const type = 'letsencrypt';
-        const config = { foo: 'bar' };
+        const config = configElementDefConfigModel;
         const createConfigElementParams = {
           secretType,
           configElement,
@@ -2038,7 +2045,7 @@ describe('SecretsManagerV1', () => {
         const configElement = 'certificate_authorities';
         const name = 'testString';
         const type = 'letsencrypt';
-        const config = { foo: 'bar' };
+        const config = configElementDefConfigModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createConfigElementParams = {
@@ -2476,6 +2483,296 @@ describe('SecretsManagerV1', () => {
         }
 
         expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('createNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __createNotificationsRegistrationTest() {
+        // Construct the params object for operation createNotificationsRegistration
+        const eventNotificationsInstanceCrn =
+          'crn:v1:bluemix:public:event-notifications:us-south:a/<account-id>:<service-instance>::';
+        const eventNotificationsSourceName = 'My Secrets Manager';
+        const eventNotificationsSourceDescription =
+          'Optional description of this source in an Event Notifications instance.';
+        const createNotificationsRegistrationParams = {
+          eventNotificationsInstanceCrn,
+          eventNotificationsSourceName,
+          eventNotificationsSourceDescription,
+        };
+
+        const createNotificationsRegistrationResult =
+          secretsManagerService.createNotificationsRegistration(
+            createNotificationsRegistrationParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(createNotificationsRegistrationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/notifications/registration', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.event_notifications_instance_crn).toEqual(
+          eventNotificationsInstanceCrn
+        );
+        expect(mockRequestOptions.body.event_notifications_source_name).toEqual(
+          eventNotificationsSourceName
+        );
+        expect(mockRequestOptions.body.event_notifications_source_description).toEqual(
+          eventNotificationsSourceDescription
+        );
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createNotificationsRegistrationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createNotificationsRegistrationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createNotificationsRegistrationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const eventNotificationsInstanceCrn =
+          'crn:v1:bluemix:public:event-notifications:us-south:a/<account-id>:<service-instance>::';
+        const eventNotificationsSourceName = 'My Secrets Manager';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createNotificationsRegistrationParams = {
+          eventNotificationsInstanceCrn,
+          eventNotificationsSourceName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createNotificationsRegistration(
+          createNotificationsRegistrationParams
+        );
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createNotificationsRegistration({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createNotificationsRegistration();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('getNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __getNotificationsRegistrationTest() {
+        // Construct the params object for operation getNotificationsRegistration
+        const getNotificationsRegistrationParams = {};
+
+        const getNotificationsRegistrationResult =
+          secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getNotificationsRegistrationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/notifications/registration', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getNotificationsRegistrationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getNotificationsRegistrationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getNotificationsRegistrationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getNotificationsRegistrationParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.getNotificationsRegistration({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
+  describe('deleteNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __deleteNotificationsRegistrationTest() {
+        // Construct the params object for operation deleteNotificationsRegistration
+        const deleteNotificationsRegistrationParams = {};
+
+        const deleteNotificationsRegistrationResult =
+          secretsManagerService.deleteNotificationsRegistration(
+            deleteNotificationsRegistrationParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(deleteNotificationsRegistrationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/notifications/registration', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteNotificationsRegistrationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteNotificationsRegistrationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteNotificationsRegistrationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteNotificationsRegistrationParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.deleteNotificationsRegistration(
+          deleteNotificationsRegistrationParams
+        );
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.deleteNotificationsRegistration({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
+  describe('sendTestNotification', () => {
+    describe('positive tests', () => {
+      function __sendTestNotificationTest() {
+        // Construct the params object for operation sendTestNotification
+        const sendTestNotificationParams = {};
+
+        const sendTestNotificationResult = secretsManagerService.sendTestNotification(
+          sendTestNotificationParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(sendTestNotificationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/notifications/test', 'GET');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __sendTestNotificationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __sendTestNotificationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __sendTestNotificationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const sendTestNotificationParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.sendTestNotification(sendTestNotificationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.sendTestNotification({});
+        checkForSuccessfulExecution(createRequestMock);
       });
     });
   });
