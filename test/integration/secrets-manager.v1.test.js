@@ -20,34 +20,65 @@ const { IamAuthenticator } = require('../../dist/auth');
 
 // testcase timeout value (200s).
 const timeout = 200000;
+const TESTCASEPREFIX = 'NodeJs-SDK_';
 
 function generateName() {
-  return `test-integration-${Date.now()}${Math.random()}`;
+  return `${TESTCASEPREFIX}test-integration-${Date.now()}${Math.random()}`;
 }
 
-async function clearConfigs(secretsManager) {
+async function clearConfigs(secretsManager, prefix = '') {
   const res = await secretsManager.getConfig({
     secretType: SecretsManager.GetConfigConstants.SecretType.PUBLIC_CERT,
   });
   for (let i = 0; i < res.result.resources[0].certificate_authorities.length; i++) {
     const c = res.result.resources[0].certificate_authorities[i];
-    const res2 = await secretsManager.deleteConfigElement({
-      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
-      configElement:
-        SecretsManager.DeleteConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
-      configName: c.name,
-    });
-    expect(res2.status).toBe(204);
+    if (prefix === '' || c.name.startsWith(prefix)) {
+      await secretsManager.deleteConfigElement({
+        secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+        configElement:
+          SecretsManager.DeleteConfigElementConstants.ConfigElement.CERTIFICATE_AUTHORITIES,
+        configName: c.name,
+      });
+    }
   }
 
   for (let i = 0; i < res.result.resources[0].dns_providers.length; i++) {
     const c = res.result.resources[0].dns_providers[i];
-    const res3 = await secretsManager.deleteConfigElement({
-      secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
-      configElement: SecretsManager.DeleteConfigElementConstants.ConfigElement.DNS_PROVIDERS,
-      configName: c.name,
-    });
-    expect(res3.status).toBe(204);
+    if (prefix === '' || c.name.startsWith(prefix)) {
+      await secretsManager.deleteConfigElement({
+        secretType: SecretsManager.DeleteConfigElementConstants.SecretType.PUBLIC_CERT,
+        configElement: SecretsManager.DeleteConfigElementConstants.ConfigElement.DNS_PROVIDERS,
+        configName: c.name,
+      });
+    }
+  }
+}
+
+async function clearSecrets(secretsManager, prefix = '') {
+  const res = await secretsManager.listAllSecrets();
+  const secrets = res.result.resources;
+  for (let i = 0; i < secrets.length; i++) {
+    const secret = secrets[i];
+    if (prefix === '' || secret.name.startsWith(prefix)) {
+      const secretType = secret.secret_type.toLowerCase();
+      await secretsManager.deleteSecret({
+        secretType: secret.secret_type,
+        id: secret.id,
+      });
+    }
+  }
+}
+
+async function clearSecretGroups(secretsManager, prefix = '') {
+  const res = await secretsManager.listSecretGroups();
+  const secretGroups = res.result.resources;
+  for (let i = 0; i < secretGroups.length; i++) {
+    const secretGroup = secretGroups[i];
+    if (prefix === '' || secretGroup.name.startsWith(prefix)) {
+      await secretsManager.deleteSecretGroup({
+        id: secretGroup.id,
+      });
+    }
   }
 }
 
@@ -63,6 +94,12 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
   });
 
   expect(secretsManager).not.toBeNull();
+
+  beforeAll(async () => {
+    await clearSecrets(secretsManager, TESTCASEPREFIX);
+    await clearSecretGroups(secretsManager, TESTCASEPREFIX);
+    await clearConfigs(secretsManager, TESTCASEPREFIX);
+  });
 
   test('Should create an arbitrary secret', async () => {
     // Create a new arbitrary secret
@@ -244,7 +281,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
   });
 
   test('Creating a secret with the same name should result in a conflict', async () => {
-    const secretName = 'conflict_integration_test_secret';
+    const secretName = generateName();
 
     // Create a new arbitrary secret
     let res = await secretsManager.createSecret({
@@ -338,10 +375,6 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     expect(res.status).toBe(204);
   });
 
-  beforeAll(async () => {
-    await clearConfigs(secretsManager);
-  });
-
   test('Should create configs, order certificate and delete configs', async () => {
     const caConfigName = `${generateName()}-ca`;
     // Create CA config
@@ -405,6 +438,13 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     });
     expect(res.status).toBe(200);
     expect(res.result.resources[0].id).toEqual(id);
+
+    // Delete the secret
+    res = await secretsManager.deleteSecret({
+      secretType: SecretsManager.GetSecretConstants.SecretType.PUBLIC_CERT,
+      id,
+    });
+    expect(res.status).toBe(204);
 
     // delete the configs
     res = await secretsManager.deleteConfigElement({
