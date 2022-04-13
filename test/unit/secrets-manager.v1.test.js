@@ -31,7 +31,7 @@ const {
 
 const secretsManagerServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'https://secrets-manager.cloud.ibm.com',
+  url: 'ibm.com/123456',
 };
 
 const secretsManagerService = new SecretsManagerV1(secretsManagerServiceOptions);
@@ -545,18 +545,18 @@ describe('SecretsManagerV1', () => {
 
       // CollectionMetadata
       const collectionMetadataModel = {
-        collection_type: 'application/vnd.ibm.secrets-manager.config+json',
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
       };
 
       // ArbitrarySecretResource
       const secretResourceModel = {
-        name: 'testString',
-        description: 'testString',
-        secret_group_id: 'testString',
-        labels: ['testString'],
-        expiration_date: '2030-04-01T09:30:00.000Z',
-        payload: 'testString',
+        name: 'example-arbitrary-secret',
+        description: 'Extended description for this secret.',
+        secret_group_id: 'bc656587-8fda-4d05-9ad8-b1de1ec7e712',
+        labels: ['dev', 'us-south'],
+        expiration_date: '2030-01-01T00:00:00Z',
+        payload: 'secret-data',
       };
 
       function __createSecretTest() {
@@ -1280,6 +1280,109 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+  describe('updateSecretVersion', () => {
+    describe('positive tests', () => {
+      function __updateSecretVersionTest() {
+        // Construct the params object for operation updateSecretVersion
+        const secretType = 'private_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const action = 'revoke';
+        const updateSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          action,
+        };
+
+        const updateSecretVersionResult =
+          secretsManagerService.updateSecretVersion(updateSecretVersionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(updateSecretVersionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.action).toEqual(action);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretVersionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretVersionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretVersionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'private_cert';
+        const id = 'testString';
+        const versionId = 'testString';
+        const action = 'revoke';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          action,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.updateSecretVersion(updateSecretVersionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersion();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
   describe('getSecretVersionMetadata', () => {
     describe('positive tests', () => {
       function __getSecretVersionMetadataTest() {
@@ -1474,16 +1577,16 @@ describe('SecretsManagerV1', () => {
 
       // CollectionMetadata
       const collectionMetadataModel = {
-        collection_type: 'application/vnd.ibm.secrets-manager.config+json',
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
         collection_total: 1,
       };
 
       // ArbitrarySecretMetadata
       const secretMetadataModel = {
         labels: ['dev', 'us-south'],
-        name: 'example-secret',
-        description: 'Extended description for this secret.',
-        expiration_date: '2030-04-01T09:30:00.000Z',
+        name: 'updated-secret-name',
+        description: 'Updated description for this secret.',
+        expiration_date: '2030-04-01T09:30:00Z',
       };
 
       function __updateSecretMetadataTest() {
@@ -1978,17 +2081,18 @@ describe('SecretsManagerV1', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // ConfigElementDefConfigLetsEncryptConfig
+      // ConfigElementDefConfigCloudInternetServicesConfig
       const configElementDefConfigModel = {
-        private_key: 'testString',
+        cis_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/<account-id>:<service-instance>::',
+        cis_apikey: 'cis_apikey_value',
       };
 
       function __createConfigElementTest() {
         // Construct the params object for operation createConfigElement
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
-        const name = 'testString';
-        const type = 'letsencrypt';
+        const name = 'cis-example-config';
+        const type = 'cis';
         const config = configElementDefConfigModel;
         const createConfigElementParams = {
           secretType,
@@ -2043,8 +2147,8 @@ describe('SecretsManagerV1', () => {
         // parameters
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
-        const name = 'testString';
-        const type = 'letsencrypt';
+        const name = 'cis-example-config';
+        const type = 'cis';
         const config = configElementDefConfigModel;
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -2287,7 +2391,7 @@ describe('SecretsManagerV1', () => {
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const configName = 'testString';
-        const type = 'letsencrypt';
+        const type = 'cis';
         const config = { foo: 'bar' };
         const updateConfigElementParams = {
           secretType,
@@ -2343,7 +2447,7 @@ describe('SecretsManagerV1', () => {
         const secretType = 'public_cert';
         const configElement = 'certificate_authorities';
         const configName = 'testString';
-        const type = 'letsencrypt';
+        const type = 'cis';
         const config = { foo: 'bar' };
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -2380,6 +2484,139 @@ describe('SecretsManagerV1', () => {
         let err;
         try {
           await secretsManagerService.updateConfigElement();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('actionOnConfigElement', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // SignCsrAction
+      const configActionModel = {
+        common_name: 'example.com',
+        alt_names: 'testString',
+        ip_sans: 'testString',
+        uri_sans: 'testString',
+        other_sans: ['testString'],
+        ttl: '12h',
+        format: 'pem',
+        max_path_length: 38,
+        exclude_cn_from_sans: false,
+        permitted_dns_domains: ['testString'],
+        use_csr_values: false,
+        ou: ['testString'],
+        organization: ['testString'],
+        country: ['testString'],
+        locality: ['testString'],
+        province: ['testString'],
+        street_address: ['testString'],
+        postal_code: ['testString'],
+        serial_number: 'd9:be:fe:35:ba:09:42:b5',
+        csr: 'testString',
+      };
+
+      function __actionOnConfigElementTest() {
+        // Construct the params object for operation actionOnConfigElement
+        const secretType = 'private_cert';
+        const configElement = 'root_certificate_authorities';
+        const configName = 'testString';
+        const action = 'sign_intermediate';
+        const config = configActionModel;
+        const actionOnConfigElementParams = {
+          secretType,
+          configElement,
+          configName,
+          action,
+          config,
+        };
+
+        const actionOnConfigElementResult = secretsManagerService.actionOnConfigElement(
+          actionOnConfigElementParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(actionOnConfigElementResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/config/{secret_type}/{config_element}/{config_name}',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.config).toEqual(config);
+        expect(mockRequestOptions.qs.action).toEqual(action);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.config_element).toEqual(configElement);
+        expect(mockRequestOptions.path.config_name).toEqual(configName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __actionOnConfigElementTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __actionOnConfigElementTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __actionOnConfigElementTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'private_cert';
+        const configElement = 'root_certificate_authorities';
+        const configName = 'testString';
+        const action = 'sign_intermediate';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const actionOnConfigElementParams = {
+          secretType,
+          configElement,
+          configName,
+          action,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.actionOnConfigElement(actionOnConfigElementParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.actionOnConfigElement({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.actionOnConfigElement();
         } catch (e) {
           err = e;
         }
