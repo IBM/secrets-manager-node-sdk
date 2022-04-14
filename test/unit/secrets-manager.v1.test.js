@@ -2499,7 +2499,7 @@ describe('SecretsManagerV1', () => {
       // SignCsrAction
       const configActionModel = {
         common_name: 'example.com',
-        alt_names: 'testString',
+        alt_names: ['testString'],
         ip_sans: 'testString',
         uri_sans: 'testString',
         other_sans: ['testString'],

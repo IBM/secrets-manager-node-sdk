@@ -3470,7 +3470,7 @@ namespace SecretsManagerV1 {
      *  time suffix. The value can't exceed the `max_ttl` that is defined in the associated certificate template. Note
      *  that in the API response the value is returned in seconds (integer).
      */
-    ttl?: any;
+    ttl?: string;
     /** Determines whether to allow `localhost` to be included as one of the requested common names. */
     allow_localhost?: boolean;
     /** The domains to define for the certificate template. This property is used along with the
@@ -3538,11 +3538,14 @@ namespace SecretsManagerV1 {
     /** The type of private key to generate for private certificates and the type of key that is expected for
      *  submitted certificate signing requests (CSRs).
      *
-     *  Allowable values are: `rsa`, `ec` and `any`. A value of `any` allow keys of either type and with any bit size.
-     *  The bit size must be greater than 1024 bits for RSA keys.
+     *  Allowable values are: `rsa` and `ec`.
      */
     key_type?: string;
-    /** The number of bits to use when generating the private key. */
+    /** The number of bits to use when generating the private key.
+     *
+     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
+     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     */
     key_bits?: number;
     /** The allowed key usage constraint to define for private certificates.
      *
@@ -3852,7 +3855,7 @@ namespace SecretsManagerV1 {
      *
      *  Minimum duration is 1 minute. Maximum is 90 days.
      */
-    ttl?: any;
+    ttl?: string;
     /** The access groups that define the capabilities of the service ID and API key that are generated for an
      *  `iam_credentials` secret. If you prefer to use an existing service ID that is already assigned the access
      *  policies that you require, you can omit this parameter and use the `service_id` field instead.
@@ -4006,7 +4009,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4025,7 +4028,11 @@ namespace SecretsManagerV1 {
     private_key_format?: string;
     /** The type of private key to generate. */
     key_type?: string;
-    /** The number of bits to use when generating the private key. */
+    /** The number of bits to use when generating the private key.
+     *
+     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
+     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     */
     key_bits?: number;
     /** Controls whether the common name is excluded from Subject Alternative Names (SANs).
      *
@@ -4255,7 +4262,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4363,7 +4370,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4774,7 +4781,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4800,7 +4807,11 @@ namespace SecretsManagerV1 {
     private_key_format?: string;
     /** The type of private key to generate. */
     key_type?: string;
-    /** The number of bits to use when generating the private key. */
+    /** The number of bits to use when generating the private key.
+     *
+     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
+     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     */
     key_bits?: number;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
@@ -4913,7 +4924,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4990,7 +5001,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -5069,7 +5080,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -5148,7 +5159,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string;
+    alt_names?: string[];
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
