@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.47.1-be944570-20220406-170244
+ * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
  */
 
 import * as extend from 'extend';
@@ -34,7 +34,7 @@ import { getSdkHeaders } from '../lib/common';
  * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, which is
  * built on open source HashiCorp Vault.
  *
- * API Version: 1.0.0
+ * API Version: 1.0.33
  * See: https://cloud.ibm.com/docs/secrets-manager
  */
 
@@ -2673,6 +2673,22 @@ namespace SecretsManagerV1 {
   /** The data that is associated with the secret version. The data object contains the following fields: - `certificate`: The contents of the certificate. - `private_key`: The private key that is associated with the certificate. - `intermediate`: The intermediate certificate that is associated with the certificate. */
   export interface CertificateSecretData {}
 
+  /** Certificate templates configuration. */
+  export interface CertificateTemplatesConfigItem {
+    /** The human-readable name to assign to your configuration. */
+    name: string;
+    /** The type of configuration. Value options differ depending on the `config_element` property that you want to
+     *  define.
+     */
+    type: string;
+    /** Properties that describe a certificate template. You can use a certificate template to control the
+     *  parameters that
+     *  are applied to your issued private certificates. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-certificate-templates).
+     */
+    config?: CertificateTemplateConfig;
+  }
+
   /** The metadata that describes the resource array. */
   export interface CollectionMetadata {
     /** The type of resources in the resource array. */
@@ -3374,8 +3390,13 @@ namespace SecretsManagerV1 {
     intermediate_included?: boolean;
     /** Indicates whether the certificate was imported with an associated private key. */
     private_key_included?: boolean;
-    /** The alternative names that are defined for the certificate. */
-    alt_names?: string[];
+    /** The alternative names that are defined for the certificate.
+     *
+     *  For public certificates, this value is provided as an array of strings. For private certificates, this value is
+     *  provided as a comma-delimited list (string). In the API response, this value is returned as an array of strings
+     *  for all the types of certificate secrets.
+     */
+    alt_names?: any;
     /** The date that the certificate expires. The date format follows RFC 3339. */
     expiration_date?: string;
   }
@@ -3457,20 +3478,21 @@ namespace SecretsManagerV1 {
      *  This field can be supplied as a comma-delimited list of secret group IDs.
      */
     allowed_secret_groups?: string;
-    /** The maximum time-to-live (TTL) for certificates that are created by this CA. The value can be supplied as a
-     *  string representation of a duration in hours, for example '8760h'. Note that in the API response the value is
-     *  returned in seconds (integer).
+    /** The maximum time-to-live (TTL) for certificates that are created by this CA.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
+     *  response, this value is returned in seconds (integer).
      *
      *  Minimum value is one hour (`1h`). Maximum value is 100 years (`876000h`).
      */
     max_ttl?: any;
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to a private certificate.
      *
      *  The value can be supplied as a string representation of a duration, such as `12h`. Hour (`h`) is the largest
-     *  time suffix. The value can't exceed the `max_ttl` that is defined in the associated certificate template. Note
-     *  that in the API response the value is returned in seconds (integer).
+     *  time suffix. The value can't exceed the `max_ttl` that is defined in the associated certificate template. In the
+     *  API response, this value is returned in seconds (integer).
      */
-    ttl?: string;
+    ttl?: any;
     /** Determines whether to allow `localhost` to be included as one of the requested common names. */
     allow_localhost?: boolean;
     /** The domains to define for the certificate template. This property is used along with the
@@ -3543,8 +3565,8 @@ namespace SecretsManagerV1 {
     key_type?: string;
     /** The number of bits to use when generating the private key.
      *
-     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
-     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
      */
     key_bits?: number;
     /** The allowed key usage constraint to define for private certificates.
@@ -3577,22 +3599,22 @@ namespace SecretsManagerV1 {
      *  Does not include the common name in the CSR. To use the common name, include the `use_csr_common_name` property.
      */
     use_csr_sans?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** Determines whether to require a common name to create a private certificate.
@@ -3607,11 +3629,17 @@ namespace SecretsManagerV1 {
      *  non-CA certificates.
      */
     basic_constraints_valid_for_non_ca?: boolean;
-    /** The duration in seconds by which to backdate the `not_before` property of an issued private certificate. The
-     *  value can be supplied as a string representation of a duration, such as `30s`. Note that in the API response the
+    /** The duration in seconds by which to backdate the `not_before` property of an issued private certificate.
+     *
+     *  The value can be supplied as a string representation of a duration, such as `30s`. In the API response, this
      *  value is returned in seconds (integer).
      */
     not_before_duration?: any;
+  }
+
+  /** Certificate templates configuration. */
+  export interface CertificateTemplatesConfig extends GetConfigElementsResourcesItem {
+    certificate_templates: CertificateTemplatesConfigItem[];
   }
 
   /** Properties that describe an IBM Cloud classic infrastructure (SoftLayer) configuration. */
@@ -3855,7 +3883,7 @@ namespace SecretsManagerV1 {
      *
      *  Minimum duration is 1 minute. Maximum is 90 days.
      */
-    ttl?: string;
+    ttl?: any;
     /** The access groups that define the capabilities of the service ID and API key that are generated for an
      *  `iam_credentials` secret. If you prefer to use an existing service ID that is already assigned the access
      *  policies that you require, you can omit this parameter and use the `service_id` field instead.
@@ -3959,9 +3987,10 @@ namespace SecretsManagerV1 {
 
   /** Intermediate certificate authority configuration. */
   export interface IntermediateCertificateAuthorityConfig extends ConfigElementDefConfig {
-    /** The maximum time-to-live (TTL) for certificates that are created by this CA. The value can be supplied as a
-     *  string representation of a duration in hours, for example '8760h'. Note that in the API response the value is
-     *  returned in seconds (integer).
+    /** The maximum time-to-live (TTL) for certificates that are created by this CA.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
+     *  response, this value is returned in seconds (integer).
      *
      *  Minimum value is one hour (`1h`). Maximum value is 100 years (`876000h`).
      */
@@ -3978,22 +4007,26 @@ namespace SecretsManagerV1 {
      *  authority that is configured in the Secrets Manager service instance.
      */
     issuer?: string;
-    /** The time until the certificate revocation list (CRL) expires. The value can be supplied as a string
-     *  representation of a duration in hours, such as `48h`. The default is 72 hours. Note that in the API response the
-     *  value is returned in seconds (integer).
+    /** The time until the certificate revocation list (CRL) expires.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, such as `48h`. The default is 72
+     *  hours. In the API response, this value is returned in seconds (integer).
+     *
+     *  **Note:** The CRL is rotated automatically before it expires.
      */
     crl_expiry?: any;
-    /** Determines whether to disable certificate revocation list (CRL) building.
+    /** Disables or enables certificate revocation list (CRL) building.
      *
-     *  By default, each request rebuilds a CRL. To disable CRL building, set this field to `true`.
+     *  If CRL building is disabled, a signed but zero-length CRL is returned when downloading the CRL. If CRL building
+     *  is enabled,  it will rebuild the CRL.
      */
     crl_disable?: boolean;
-    /** Determines whether to encode the certificate revocation list (CRL) distribution points in the private
-     *  certificates that are issued by a certificate authority.
+    /** Determines whether to encode the certificate revocation list (CRL) distribution points in the certificates
+     *  that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** Determines whether to encode the URL of the issuing certificate in the private certificates that are issued
-     *  by a certificate authority.
+    /** Determines whether to encode the URL of the issuing certificate in the certificates that are issued by this
+     *  certificate authority.
      */
     issuing_certificates_urls_encoded?: boolean;
     /** The fully qualified domain name or host domain name for the certificate. */
@@ -4009,7 +4042,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4030,8 +4063,8 @@ namespace SecretsManagerV1 {
     key_type?: string;
     /** The number of bits to use when generating the private key.
      *
-     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
-     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
      */
     key_bits?: number;
     /** Controls whether the common name is excluded from Subject Alternative Names (SANs).
@@ -4040,22 +4073,22 @@ namespace SecretsManagerV1 {
      *  useful if the common name is not a hostname or an email address, but is instead a human-readable identifier.
      */
     exclude_cn_from_sans?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** The data that is associated with the intermediate certificate authority. The data object contains the
@@ -4198,11 +4231,11 @@ namespace SecretsManagerV1 {
   /** Configuration for the private certificates engine. */
   export interface PrivateCertSecretEngineRootConfig extends GetConfigResourcesItem {
     /** The root certificate authority configurations that are associated with your instance. */
-    root_certificate_authorities?: RootCertificateAuthorityConfig[];
+    root_certificate_authorities?: RootCertificateAuthoritiesConfigItem[];
     /** The intermediate certificate authority configurations that are associated with your instance. */
-    intermdiate_certificate_authorities?: IntermediateCertificateAuthorityConfig[];
+    intermediate_certificate_authorities?: IntermediateCertificateAuthoritiesConfigItem[];
     /** The certificate templates that are associated with your instance. */
-    certificate_templates?: CertificateTemplateConfig[];
+    certificate_templates?: CertificateTemplatesConfigItem[];
   }
 
   /** Metadata properties that describe a private certificate secret. */
@@ -4253,43 +4286,13 @@ namespace SecretsManagerV1 {
     /** The number of versions the secret has. */
     versions_total?: number;
     /** The name of the certificate template. */
-    certificate_template: string;
+    certificate_template?: string;
     /** The intermediate certificate authority that signed this certificate. */
     certificate_authority?: string;
     /** The fully qualified domain name or host domain name for the certificate. */
-    common_name: string;
-    /** The Subject Alternative Names to define for the CA certificate, in a comma-delimited list.
-     *
-     *  The alternative names can be host names or email addresses.
-     */
+    common_name?: string;
+    /** The alternative names that are defined for the certificate. */
     alt_names?: string[];
-    /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
-    ip_sans?: string;
-    /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
-    uri_sans?: string;
-    /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the CA
-     *  certificate.
-     *
-     *  The alternative names must match the values that are specified in the `allowed_other_sans` field in the
-     *  associated certificate template. The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current
-     *  valid type is `UTF8`.
-     */
-    other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate. The value can be supplied as a
-     *  string representation of a duration in hours, for example '12h'. The value can't exceed the `max_ttl` that is
-     *  defined in the associated certificate template.
-     */
-    ttl?: string;
-    /** The format of the returned data. */
-    format?: string;
-    /** The format of the generated private key. */
-    private_key_format?: string;
-    /** Controls whether the common name is excluded from Subject Alternative Names (SANs).
-     *
-     *  If set to `true`, the common name is is not included in DNS or Email SANs if they apply. This field can be
-     *  useful if the common name is not a hostname or an email address, but is instead a human-readable identifier.
-     */
-    exclude_cn_from_sans?: boolean;
     rotation?: Rotation;
     /** The identifier for the cryptographic algorithm that was used by the issuing certificate authority to sign
      *  the certificate.
@@ -4366,11 +4369,13 @@ namespace SecretsManagerV1 {
     certificate_authority?: string;
     /** The fully qualified domain name or host domain name for the certificate. */
     common_name: string;
-    /** The Subject Alternative Names to define for the CA certificate, in a comma-delimited list.
+    /** The alternative names that are defined for the certificate.
      *
-     *  The alternative names can be host names or email addresses.
+     *  For public certificates, this value is provided as an array of strings. For private certificates, this value is
+     *  provided as a comma-delimited list (string). In the API response, this value is returned as an array of strings
+     *  for all the types of certificate secrets.
      */
-    alt_names?: string[];
+    alt_names?: any;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4383,11 +4388,12 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate. The value can be supplied as a
-     *  string representation of a duration in hours, for example '12h'. The value can't exceed the `max_ttl` that is
-     *  defined in the associated certificate template.
+    /** The time-to-live (TTL) to assign to a private certificate.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, for example '12h'. The value can't
+     *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The format of the generated private key. */
@@ -4695,8 +4701,13 @@ namespace SecretsManagerV1 {
      *  provide more encryption protection.
      */
     key_algorithm?: string;
-    /** The alternative names that are defined for the certificate. */
-    alt_names?: string[];
+    /** The alternative names that are defined for the certificate.
+     *
+     *  For public certificates, this value is provided as an array of strings. For private certificates, this value is
+     *  provided as a comma-delimited list (string). In the API response, this value is returned as an array of strings
+     *  for all the types of certificate secrets.
+     */
+    alt_names?: any;
     /** The fully qualified domain name or host domain name for the certificate. */
     common_name?: string;
     /** Indicates whether the issued certificate includes a private key. */
@@ -4743,29 +4754,34 @@ namespace SecretsManagerV1 {
 
   /** Root certificate authority configuration. */
   export interface RootCertificateAuthorityConfig extends ConfigElementDefConfig {
-    /** The maximum time-to-live (TTL) for certificates that are created by this CA. The value can be supplied as a
-     *  string representation of a duration in hours, for example '8760h'. Note that in the API response the value is
-     *  returned in seconds (integer).
+    /** The maximum time-to-live (TTL) for certificates that are created by this CA.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
+     *  response, this value is returned in seconds (integer).
      *
      *  Minimum value is one hour (`1h`). Maximum value is 100 years (`876000h`).
      */
     max_ttl: any;
-    /** The time until the certificate revocation list (CRL) expires. The value can be supplied as a string
-     *  representation of a duration in hours, such as `48h`. The default is 72 hours. Note that in the API response the
-     *  value is returned in seconds (integer).
+    /** The time until the certificate revocation list (CRL) expires.
+     *
+     *  The value can be supplied as a string representation of a duration in hours, such as `48h`. The default is 72
+     *  hours. In the API response, this value is returned in seconds (integer).
+     *
+     *  **Note:** The CRL is rotated automatically before it expires.
      */
     crl_expiry?: any;
-    /** Determines whether to disable certificate revocation list (CRL) building.
+    /** Disables or enables certificate revocation list (CRL) building.
      *
-     *  By default, each request rebuilds a CRL. To disable CRL building, set this field to `true`.
+     *  If CRL building is disabled, a signed but zero-length CRL is returned when downloading the CRL. If CRL building
+     *  is enabled,  it will rebuild the CRL.
      */
     crl_disable?: boolean;
-    /** Determines whether to encode the certificate revocation list (CRL) distribution points in the private
-     *  certificates that are issued by a certificate authority.
+    /** Determines whether to encode the certificate revocation list (CRL) distribution points in the certificates
+     *  that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** Determines whether to encode the URL of the issuing certificate in the private certificates that are issued
-     *  by a certificate authority.
+    /** Determines whether to encode the URL of the issuing certificate in the certificates that are issued by this
+     *  certificate authority.
      */
     issuing_certificates_urls_encoded?: boolean;
     /** The fully qualified domain name or host domain name for the certificate. */
@@ -4781,7 +4797,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4794,13 +4810,13 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to this CA certificate.
      *
      *  The value can be supplied as a string representation of a duration, such as `12h`. The value can't exceed the
-     *  `max_ttl` that is defined in the associated certificate template. Note that in the API response the value is
-     *  returned in seconds (integer).
+     *  `max_ttl` that is defined in the associated certificate template. In the API response, this value is returned in
+     *  seconds (integer).
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The format of the generated private key. */
@@ -4809,8 +4825,8 @@ namespace SecretsManagerV1 {
     key_type?: string;
     /** The number of bits to use when generating the private key.
      *
-     *  Allowable values for RSA keys are: 2048 and 4096. Allowable values for EC keys are: 224, 256, 384 And 521. The
-     *  default for RSA keys is 2048, and the default for EC keys is 256.
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
      */
     key_bits?: number;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
@@ -4827,22 +4843,22 @@ namespace SecretsManagerV1 {
     exclude_cn_from_sans?: boolean;
     /** The allowed DNS domains or subdomains for the certificates to be signed and issued by this CA certificate. */
     permitted_dns_domains?: string[];
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** The data that is associated with the root certificate authority. The data object contains the following
@@ -4924,7 +4940,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -4937,12 +4953,12 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to a private certificate.
      *
      *  The value can be supplied as a string representation of a duration in hours, such as `12h`. The value can't
      *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
@@ -4971,22 +4987,22 @@ namespace SecretsManagerV1 {
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
      */
     use_csr_values?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** The PEM-encoded certificate signing request (CSR). This field is required for the `sign_csr` action. */
@@ -5001,7 +5017,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -5014,12 +5030,12 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to a private certificate.
      *
      *  The value can be supplied as a string representation of a duration in hours, such as `12h`. The value can't
      *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
@@ -5048,22 +5064,22 @@ namespace SecretsManagerV1 {
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
      */
     use_csr_values?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** Properties that are returned with a successful `sign` action. */
@@ -5080,7 +5096,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -5093,12 +5109,12 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to a private certificate.
      *
      *  The value can be supplied as a string representation of a duration in hours, such as `12h`. The value can't
      *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
@@ -5127,22 +5143,22 @@ namespace SecretsManagerV1 {
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
      */
     use_csr_values?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** The intermediate certificate authority to be signed. The name must match one of the pre-configured
@@ -5159,7 +5175,7 @@ namespace SecretsManagerV1 {
      *
      *  The alternative names can be host names or email addresses.
      */
-    alt_names?: string[];
+    alt_names?: string;
     /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
     ip_sans?: string;
     /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
@@ -5172,12 +5188,12 @@ namespace SecretsManagerV1 {
      *  valid type is `UTF8`.
      */
     other_sans?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to a private certificate.
+    /** The time-to-live (TTL) to assign to a private certificate.
      *
      *  The value can be supplied as a string representation of a duration in hours, such as `12h`. The value can't
      *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
-    ttl?: string;
+    ttl?: any;
     /** The format of the returned data. */
     format?: string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
@@ -5206,22 +5222,22 @@ namespace SecretsManagerV1 {
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
      */
     use_csr_values?: boolean;
-    /** The Organizational Unit (OU) values to define in the subject field of the resulting CA certificate. */
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
     ou?: string[];
-    /** The Organization (O) values to define in the subject field of the resulting CA certificate. */
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
     organization?: string[];
-    /** The Country (C) values to define in the subject field of the resulting CA certificate. */
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
     country?: string[];
-    /** The Locality (L) values to define in the subject field of the resulting CA certificate. */
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
     locality?: string[];
-    /** The Province (ST) values to define in the subject field of the resulting CA certificate. */
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
     province?: string[];
-    /** The Street Address values in the subject field of the resulting CA certificate. */
+    /** The Street Address values in the subject field of the resulting certificate. */
     street_address?: string[];
-    /** The Postal Code values in the subject field of the resulting CA certificate. */
+    /** The Postal Code values in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated private certificate. To assign a random serial number, you can
-     *  omit this field.
+    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
+     *  this field.
      */
     serial_number?: string;
     /** Properties that are returned with a successful `sign` action. */
