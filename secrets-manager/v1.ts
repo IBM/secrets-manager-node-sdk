@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
+ * IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
  */
 
 import * as extend from 'extend';
@@ -34,7 +34,7 @@ import { getSdkHeaders } from '../lib/common';
  * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, which is
  * built on open source HashiCorp Vault.
  *
- * API Version: 1.0.33
+ * API Version: 1.0.0
  * See: https://cloud.ibm.com/docs/secrets-manager
  */
 
@@ -437,12 +437,12 @@ class SecretsManagerV1 extends BaseService {
    * resources.
    *
    * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
-   * `../secrets/{secret-type}?limit=5`.
+   * `../secrets/{secret_type}?limit=5`.
    * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
    * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
-   * `../secrets/{secret-type}?offset=25&limit=25`.
+   * `..?offset=25&limit=25`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
@@ -501,28 +501,28 @@ class SecretsManagerV1 extends BaseService {
    * resources.
    *
    * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
-   * `../secrets/{secret-type}?limit=5`.
+   * `../secrets/{secret_type}?limit=5`.
    * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
    * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
    *
    * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
-   * `../secrets/{secret-type}?offset=25&limit=25`.
+   * `..?offset=25&limit=25`.
    * @param {string} [params.search] - Filter secrets that contain the specified string. The fields that are searched
    * include: id, name, description, labels, secret_type.
    *
    * **Usage:** If you want to list only the secrets that contain the string "text", use
-   * `../secrets/{secret-type}?search=text`.
+   * `../secrets/{secret_type}?search=text`.
    * @param {string} [params.sortBy] - Sort a list of secrets by the specified field.
    *
    * **Usage:** To sort a list of secrets by their creation date, use
-   * `../secrets/{secret-type}?sort_by=creation_date`.
+   * `../secrets/{secret_type}?sort_by=creation_date`.
    * @param {string[]} [params.groups] - Filter secrets by groups.
    *
    * You can apply multiple filters by using a comma-separated list of secret group IDs. If you need to filter secrets
    * that are in the default secret group, use the `default` keyword.
    *
    * **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
-   * use `../secrets?groups={secret_group_ID},default`.
+   * use `..?groups={secret_group_ID},default`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecrets>>}
    */
@@ -1093,6 +1093,549 @@ class SecretsManagerV1 extends BaseService {
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * locks
+   ************************/
+
+  /**
+   * List secret locks.
+   *
+   * List the locks that are associated with a specified secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {number} [params.limit] - The number of secrets with locks to retrieve. By default, list operations return
+   * the first 25 items. To retrieve a different set of items, use `limit` with `offset` to page through your available
+   * resources.
+   *
+   * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+   * `..?limit=5`.
+   * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
+   * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+   *
+   * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+   * `..?offset=25&limit=25`.
+   * @param {string} [params.search] - Filter locks that contain the specified string in the field "name".
+   *
+   * **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+   * `..?search=text`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecretLocks>>}
+   */
+  public getLocks(
+    params: SecretsManagerV1.GetLocksParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id'];
+    const _validParams = ['secretType', 'id', 'limit', 'offset', 'search', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'offset': _params.offset,
+      'search': _params.search,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getLocks');
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Lock a secret.
+   *
+   * Create a lock on the current version of a secret.
+   *
+   * A lock can be used to prevent a secret from being deleted or modified while it's in use by your applications. A
+   * successful request attaches a new lock to your secret, or replaces a lock of the same name if it already exists.
+   * Additionally, you can use this method to clear any matching locks on a secret by using one of the following
+   * optional lock modes:
+   *
+   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
+   * - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if
+   * it doesn't have any locks.
+   *
+   * For more information about locking secrets, check out the
+   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-locks).
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {LockSecretBodyLocksItem[]} [params.locks] - The lock data to be attached to a secret version.
+   * @param {string} [params.mode] - An optional lock mode. At lock creation, you can set one of the following modes to
+   * clear any matching locks on a secret version.
+   *
+   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
+   * - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if
+   * it doesn't have any locks.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>>}
+   */
+  public lockSecret(
+    params: SecretsManagerV1.LockSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id'];
+    const _validParams = ['secretType', 'id', 'locks', 'mode', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'locks': _params.locks,
+    };
+
+    const query = {
+      'mode': _params.mode,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'lockSecret');
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}/lock',
+        method: 'POST',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Unlock a secret.
+   *
+   * Delete one or more locks that are associated with a secret.
+   *
+   * A successful request deletes the locks that you specify. To remove all locks, you can pass `{"locks": ["*"]}` in in
+   * the request body. Otherwise, specify the names of the locks that you want to delete. For example, `{"locks":
+   * ["lock1", "lock2"]}`.
+   *
+   * **Note:** A secret is considered unlocked and able to be rotated or deleted only after all of its locks are
+   * removed. To understand whether a secret contains locks, check the `total_locks` field that is returned as part of
+   * the metadata of your secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string[]} [params.locks] - A comma-separated list of locks to delete.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>>}
+   */
+  public unlockSecret(
+    params: SecretsManagerV1.UnlockSecretParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id'];
+    const _validParams = ['secretType', 'id', 'locks', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'locks': _params.locks,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'unlockSecret');
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}/unlock',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List secret version locks.
+   *
+   * List the locks that are associated with a specified secret version.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
+   * `previous` to retrieve the previous version.
+   *
+   * **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and check
+   * the response details.
+   * @param {number} [params.limit] - The number of secrets with locks to retrieve. By default, list operations return
+   * the first 25 items. To retrieve a different set of items, use `limit` with `offset` to page through your available
+   * resources.
+   *
+   * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+   * `..?limit=5`.
+   * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
+   * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+   *
+   * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+   * `..?offset=25&limit=25`.
+   * @param {string} [params.search] - Filter locks that contain the specified string in the field "name".
+   *
+   * **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+   * `..?search=text`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecretLocks>>}
+   */
+  public getSecretVersionLocks(
+    params: SecretsManagerV1.GetSecretVersionLocksParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.ListSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id', 'versionId'];
+    const _validParams = ['secretType', 'id', 'versionId', 'limit', 'offset', 'search', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'offset': _params.offset,
+      'search': _params.search,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+      'version_id': _params.versionId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getSecretVersionLocks'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}/versions/{version_id}',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Lock a secret version.
+   *
+   * Create a lock on the specified version of a secret.
+   *
+   * A lock can be used to prevent a secret from being deleted or modified while it's in use by your applications. A
+   * successful request attaches a new lock to the specified version, or replaces a lock of the same name if it already
+   * exists. Additionally, you can use this method to clear any matching locks on a secret version by using one of the
+   * following optional lock modes:
+   *
+   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
+   * - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if
+   * it doesn't have any locks.
+   *
+   * For more information about locking secrets, check out the
+   * [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-secret-locks).
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
+   * `previous` to retrieve the previous version.
+   *
+   * **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and check
+   * the response details.
+   * @param {LockSecretBodyLocksItem[]} [params.locks] - The lock data to be attached to a secret version.
+   * @param {string} [params.mode] - An optional lock mode. At lock creation, you can set one of the following modes to
+   * clear any matching locks on a secret version.
+   *
+   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
+   * - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if
+   * it doesn't have any locks.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>>}
+   */
+  public lockSecretVersion(
+    params: SecretsManagerV1.LockSecretVersionParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id', 'versionId'];
+    const _validParams = ['secretType', 'id', 'versionId', 'locks', 'mode', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'locks': _params.locks,
+    };
+
+    const query = {
+      'mode': _params.mode,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+      'version_id': _params.versionId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'lockSecretVersion'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}/versions/{version_id}/lock',
+        method: 'POST',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Unlock a secret version.
+   *
+   * Delete one or more locks that are associated with the specified secret version.
+   *
+   * A successful request deletes the locks that you specify. To remove all locks, you can pass `{"locks": ["*"]}` in in
+   * the request body. Otherwise, specify the names of the locks that you want to delete. For example, `{"locks":
+   * ["lock-1", "lock-2"]}`.
+   *
+   * **Note:** A secret is considered unlocked and able to be rotated or deleted only after all of its locks are
+   * removed. To understand whether a secret contains locks, check the `total_locks` field that is returned as part of
+   * the metadata of your secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type.
+   * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
+   * @param {string} params.versionId - The v4 UUID that uniquely identifies the secret version. You can also use
+   * `previous` to retrieve the previous version.
+   *
+   * **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and check
+   * the response details.
+   * @param {string[]} [params.locks] - A comma-separated list of locks to delete.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>>}
+   */
+  public unlockSecretVersion(
+    params: SecretsManagerV1.UnlockSecretVersionParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetSecretLocks>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'id', 'versionId'];
+    const _validParams = ['secretType', 'id', 'versionId', 'locks', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'locks': _params.locks,
+    };
+
+    const path = {
+      'secret_type': _params.secretType,
+      'id': _params.id,
+      'version_id': _params.versionId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'unlockSecretVersion'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks/{secret_type}/{id}/versions/{version_id}/unlock',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List all locks.
+   *
+   * List all of the locks that are associated with the secrets in your Secrets Manager instance.
+   *
+   * @param {Object} [params] - The parameters to send to the service.
+   * @param {number} [params.limit] - The number of secrets with locks to retrieve. By default, list operations return
+   * the first 25 items. To retrieve a different set of items, use `limit` with `offset` to page through your available
+   * resources.
+   *
+   * **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+   * `..?limit=5`.
+   * @param {number} [params.offset] - The number of secrets to skip. By specifying `offset`, you retrieve a subset of
+   * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
+   *
+   * **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+   * `..?offset=25&limit=25`.
+   * @param {string} [params.search] - Filter locks that contain the specified string in the field "name".
+   *
+   * **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+   * `..?search=text`.
+   * @param {string[]} [params.groups] - Filter secrets by groups.
+   *
+   * You can apply multiple filters by using a comma-separated list of secret group IDs. If you need to filter secrets
+   * that are in the default secret group, use the `default` keyword.
+   *
+   * **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
+   * use `..?groups={secret_group_ID},default`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.GetInstanceLocks>>}
+   */
+  public listInstanceSecretsLocks(
+    params?: SecretsManagerV1.ListInstanceSecretsLocksParams
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetInstanceLocks>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['limit', 'offset', 'search', 'groups', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'offset': _params.offset,
+      'search': _params.search,
+      'groups': _params.groups,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      SecretsManagerV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'listInstanceSecretsLocks'
+    );
+
+    const parameters = {
+      options: {
+        url: '/api/v1/locks',
+        method: 'GET',
+        qs: query,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
           },
           _params.headers
         ),
@@ -2023,14 +2566,14 @@ namespace SecretsManagerV1 {
      *  different set of items, use `limit` with `offset` to page through your available resources.
      *
      *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
-     *  `../secrets/{secret-type}?limit=5`.
+     *  `../secrets/{secret_type}?limit=5`.
      */
     limit?: number;
     /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
      *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
-     *  `../secrets/{secret-type}?offset=25&limit=25`.
+     *  `..?offset=25&limit=25`.
      */
     offset?: number;
     headers?: OutgoingHttpHeaders;
@@ -2056,27 +2599,27 @@ namespace SecretsManagerV1 {
      *  different set of items, use `limit` with `offset` to page through your available resources.
      *
      *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 secrets, use
-     *  `../secrets/{secret-type}?limit=5`.
+     *  `../secrets/{secret_type}?limit=5`.
      */
     limit?: number;
     /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
      *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
-     *  `../secrets/{secret-type}?offset=25&limit=25`.
+     *  `..?offset=25&limit=25`.
      */
     offset?: number;
     /** Filter secrets that contain the specified string. The fields that are searched include: id, name,
      *  description, labels, secret_type.
      *
      *  **Usage:** If you want to list only the secrets that contain the string "text", use
-     *  `../secrets/{secret-type}?search=text`.
+     *  `../secrets/{secret_type}?search=text`.
      */
     search?: string;
     /** Sort a list of secrets by the specified field.
      *
      *  **Usage:** To sort a list of secrets by their creation date, use
-     *  `../secrets/{secret-type}?sort_by=creation_date`.
+     *  `../secrets/{secret_type}?sort_by=creation_date`.
      */
     sortBy?: ListAllSecretsConstants.SortBy | string;
     /** Filter secrets by groups.
@@ -2085,7 +2628,7 @@ namespace SecretsManagerV1 {
      *  secrets that are in the default secret group, use the `default` keyword.
      *
      *  **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
-     *  use `../secrets?groups={secret_group_ID},default`.
+     *  use `..?groups={secret_group_ID},default`.
      */
     groups?: string[];
     headers?: OutgoingHttpHeaders;
@@ -2093,7 +2636,7 @@ namespace SecretsManagerV1 {
 
   /** Constants for the `listAllSecrets` operation. */
   export namespace ListAllSecretsConstants {
-    /** Sort a list of secrets by the specified field. **Usage:** To sort a list of secrets by their creation date, use `../secrets/{secret-type}?sort_by=creation_date`. */
+    /** Sort a list of secrets by the specified field. **Usage:** To sort a list of secrets by their creation date, use `../secrets/{secret_type}?sort_by=creation_date`. */
     export enum SortBy {
       ID = 'id',
       CREATION_DATE = 'creation_date',
@@ -2344,6 +2887,275 @@ namespace SecretsManagerV1 {
       USERNAME_PASSWORD = 'username_password',
       KV = 'kv',
     }
+  }
+
+  /** Parameters for the `getLocks` operation. */
+  export interface GetLocksParams {
+    /** The secret type. */
+    secretType: GetLocksConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The number of secrets with locks to retrieve. By default, list operations return the first 25 items. To
+     *  retrieve a different set of items, use `limit` with `offset` to page through your available resources.
+     *
+     *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+     *  `..?limit=5`.
+     */
+    limit?: number;
+    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
+     *  `offset` value. Use `offset` with `limit` to page through your available resources.
+     *
+     *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+     *  `..?offset=25&limit=25`.
+     */
+    offset?: number;
+    /** Filter locks that contain the specified string in the field "name".
+     *
+     *  **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+     *  `..?search=text`.
+     */
+    search?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getLocks` operation. */
+  export namespace GetLocksConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+  }
+
+  /** Parameters for the `lockSecret` operation. */
+  export interface LockSecretParams {
+    /** The secret type. */
+    secretType: LockSecretConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The lock data to be attached to a secret version. */
+    locks?: LockSecretBodyLocksItem[];
+    /** An optional lock mode. At lock creation, you can set one of the following modes to clear any matching locks
+     *  on a secret version.
+     *
+     *  - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the
+     *  secret.
+     *  - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version
+     *  if it doesn't have any locks.
+     */
+    mode?: LockSecretConstants.Mode | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `lockSecret` operation. */
+  export namespace LockSecretConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+    /** An optional lock mode. At lock creation, you can set one of the following modes to clear any matching locks on a secret version. - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret. - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    export enum Mode {
+      EXCLUSIVE = 'exclusive',
+      EXCLUSIVE_DELETE = 'exclusive_delete',
+    }
+  }
+
+  /** Parameters for the `unlockSecret` operation. */
+  export interface UnlockSecretParams {
+    /** The secret type. */
+    secretType: UnlockSecretConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** A comma-separated list of locks to delete. */
+    locks?: string[];
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `unlockSecret` operation. */
+  export namespace UnlockSecretConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+  }
+
+  /** Parameters for the `getSecretVersionLocks` operation. */
+  export interface GetSecretVersionLocksParams {
+    /** The secret type. */
+    secretType: GetSecretVersionLocksConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The v4 UUID that uniquely identifies the secret version. You can also use `previous` to retrieve the
+     *  previous version.
+     *
+     *  **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and
+     *  check the response details.
+     */
+    versionId: string;
+    /** The number of secrets with locks to retrieve. By default, list operations return the first 25 items. To
+     *  retrieve a different set of items, use `limit` with `offset` to page through your available resources.
+     *
+     *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+     *  `..?limit=5`.
+     */
+    limit?: number;
+    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
+     *  `offset` value. Use `offset` with `limit` to page through your available resources.
+     *
+     *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+     *  `..?offset=25&limit=25`.
+     */
+    offset?: number;
+    /** Filter locks that contain the specified string in the field "name".
+     *
+     *  **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+     *  `..?search=text`.
+     */
+    search?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getSecretVersionLocks` operation. */
+  export namespace GetSecretVersionLocksConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+  }
+
+  /** Parameters for the `lockSecretVersion` operation. */
+  export interface LockSecretVersionParams {
+    /** The secret type. */
+    secretType: LockSecretVersionConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The v4 UUID that uniquely identifies the secret version. You can also use `previous` to retrieve the
+     *  previous version.
+     *
+     *  **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and
+     *  check the response details.
+     */
+    versionId: string;
+    /** The lock data to be attached to a secret version. */
+    locks?: LockSecretBodyLocksItem[];
+    /** An optional lock mode. At lock creation, you can set one of the following modes to clear any matching locks
+     *  on a secret version.
+     *
+     *  - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the
+     *  secret.
+     *  - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version
+     *  if it doesn't have any locks.
+     */
+    mode?: LockSecretVersionConstants.Mode | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `lockSecretVersion` operation. */
+  export namespace LockSecretVersionConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+    /** An optional lock mode. At lock creation, you can set one of the following modes to clear any matching locks on a secret version. - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret. - `exclusive_delete`: Same as `exclusive`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    export enum Mode {
+      EXCLUSIVE = 'exclusive',
+      EXCLUSIVE_DELETE = 'exclusive_delete',
+    }
+  }
+
+  /** Parameters for the `unlockSecretVersion` operation. */
+  export interface UnlockSecretVersionParams {
+    /** The secret type. */
+    secretType: UnlockSecretVersionConstants.SecretType | string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    id: string;
+    /** The v4 UUID that uniquely identifies the secret version. You can also use `previous` to retrieve the
+     *  previous version.
+     *
+     *  **Note:** To find the version ID of a secret, use the [Get secret metadata](#get-secret-metadata) method and
+     *  check the response details.
+     */
+    versionId: string;
+    /** A comma-separated list of locks to delete. */
+    locks?: string[];
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `unlockSecretVersion` operation. */
+  export namespace UnlockSecretVersionConstants {
+    /** The secret type. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      PRIVATE_CERT = 'private_cert',
+      USERNAME_PASSWORD = 'username_password',
+      KV = 'kv',
+    }
+  }
+
+  /** Parameters for the `listInstanceSecretsLocks` operation. */
+  export interface ListInstanceSecretsLocksParams {
+    /** The number of secrets with locks to retrieve. By default, list operations return the first 25 items. To
+     *  retrieve a different set of items, use `limit` with `offset` to page through your available resources.
+     *
+     *  **Usage:** If you have 20 secrets in your instance, and you want to retrieve only the first 5 with locks, use
+     *  `..?limit=5`.
+     */
+    limit?: number;
+    /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
+     *  `offset` value. Use `offset` with `limit` to page through your available resources.
+     *
+     *  **Usage:** If you have 100 secrets in your instance, and you want to retrieve secrets 26 through 50, use
+     *  `..?offset=25&limit=25`.
+     */
+    offset?: number;
+    /** Filter locks that contain the specified string in the field "name".
+     *
+     *  **Usage:** If you want to list only the locks that contain the string "text" in the field "name", use
+     *  `..?search=text`.
+     */
+    search?: string;
+    /** Filter secrets by groups.
+     *
+     *  You can apply multiple filters by using a comma-separated list of secret group IDs. If you need to filter
+     *  secrets that are in the default secret group, use the `default` keyword.
+     *
+     *  **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
+     *  use `..?groups={secret_group_ID},default`.
+     */
+    groups?: string[];
+    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `putPolicy` operation. */
@@ -2780,6 +3592,14 @@ namespace SecretsManagerV1 {
   /** GetConfigResourcesItem. */
   export interface GetConfigResourcesItem {}
 
+  /** Properties that describe the locks that are associated with an instance. */
+  export interface GetInstanceLocks {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: InstanceSecretsLocks[];
+  }
+
   /** Properties that describe an existing registration with Event Notifications. */
   export interface GetNotificationsSettings {
     /** The metadata that describes the resource array. */
@@ -2794,6 +3614,14 @@ namespace SecretsManagerV1 {
     metadata: CollectionMetadata;
     /** A collection of resources. */
     resources: SecretResource[];
+  }
+
+  /** Properties that describe the lock of a secret or a secret version. */
+  export interface GetSecretLocks {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretsLocks[];
   }
 
   /** GetSecretPolicies. */
@@ -2821,6 +3649,23 @@ namespace SecretsManagerV1 {
     metadata: CollectionMetadata;
     /** A collection of resources. */
     resources: ConfigElementDef[];
+  }
+
+  /** Properties that describe the locks that are associated with an instance. */
+  export interface InstanceSecretsLocks {
+    /** The unique ID of the secret. */
+    secret_id?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** The secret type. */
+    secret_type?: string;
+    /** A collection of locks that are attached to a secret version. */
+    versions?: SecretLockVersion[];
+    /** InstanceSecretsLocks accepts additional properties. */
+    [propName: string]: any;
   }
 
   /** Intermediate certificate authorities configuration. */
@@ -2863,6 +3708,14 @@ namespace SecretsManagerV1 {
     dns?: string;
   }
 
+  /** Properties that describe the locks of a secret or a secret version. */
+  export interface ListSecretLocks {
+    /** The metadata that describes the resource array. */
+    metadata: CollectionMetadata;
+    /** A collection of resources. */
+    resources: SecretLockData[];
+  }
+
   /** Properties that describe a list of versions of a secret. */
   export interface ListSecretVersions {
     /** The metadata that describes the resource array. */
@@ -2877,6 +3730,24 @@ namespace SecretsManagerV1 {
     metadata: CollectionMetadata;
     /** A collection of resources. */
     resources?: SecretResource[];
+  }
+
+  /** LockSecretBodyLocksItem. */
+  export interface LockSecretBodyLocksItem {
+    /** A human-readable name to assign to your secret lock.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret
+     *  lock.
+     */
+    name: string;
+    /** An extended description of your secret lock.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret lock.
+     */
+    description: string;
+    /** Optional information to associate with a lock, such as resources CRNs to be used by automation. */
+    attributes: JsonObject;
   }
 
   /** The Event Notifications details. */
@@ -2982,6 +3853,58 @@ namespace SecretsManagerV1 {
     [propName: string]: any;
   }
 
+  /** Properties that describe a lock. */
+  export interface SecretLockData {
+    /** A human-readable name to assign to the secret lock.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for the secret lock.
+     */
+    name?: string;
+    /** An extended description of the secret lock.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for the
+     *  secret lock.
+     */
+    description?: string;
+    /** The date the secret lock was created. The date format follows RFC 3339. */
+    creation_date?: string;
+    /** The unique identifier for the entity that created the secret lock. */
+    created_by?: string;
+    /** The information that is associated with a lock, such as resources CRNs to be used by automation. */
+    attributes?: JsonObject;
+    /** The v4 UUID that uniquely identifies the secret version. */
+    secret_version_id?: string;
+    /** The v4 UUID that uniquely identifies the secret. */
+    secret_id?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** Updates when the actual secret is modified. The date format follows RFC 3339. */
+    last_update_date?: string;
+    /** A representation for the 2 last secret versions. Could be "current" for version (n) or "previous" for
+     *  version (n-1).
+     */
+    secret_version_alias?: string;
+  }
+
+  /** Properties that describe the secret locks. */
+  export interface SecretLockVersion {
+    /** The v4 UUID that uniquely identifies the lock. */
+    id?: string;
+    /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
+     *  is used for version `n-1`.
+     */
+    alias?: string;
+    /** The names of all locks that are associated with this secret. */
+    locks?: string[];
+    /** Indicates whether the payload for the secret version is stored and available. */
+    payload_available?: boolean;
+    /** SecretLockVersion accepts additional properties. */
+    [propName: string]: any;
+  }
+
   /** SecretMetadata. */
   export interface SecretMetadata {}
 
@@ -3014,6 +3937,21 @@ namespace SecretsManagerV1 {
 
   /** SecretVersionMetadata. */
   export interface SecretVersionMetadata {}
+
+  /** Properties that describe the secret locks. */
+  export interface SecretsLocks {
+    /** The unique ID of the secret. */
+    secret_id?: string;
+    /** The v4 UUID that uniquely identifies the secret group to assign to this secret.
+     *
+     *  If you omit this parameter, your secret is assigned to the `default` secret group.
+     */
+    secret_group_id?: string;
+    /** A collection of locks that are attached to a secret version. */
+    versions?: SecretLockVersion[];
+    /** SecretsLocks accepts additional properties. */
+    [propName: string]: any;
+  }
 
   /** Properties that are returned with a successful `sign` action. */
   export interface SignActionResultData {
@@ -3096,8 +4034,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The date the secret material expires. The date format follows RFC 3339.
      *
      *  You can set an expiration date on supported secret types at their creation. If you create a secret without
@@ -3160,6 +4100,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The date the secret material expires. The date format follows RFC 3339.
      *
      *  You can set an expiration date on supported secret types at their creation. If you create a secret without
@@ -3189,6 +4131,8 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** The data that is associated with the secret version.
      *
      *  The data object contains the field `payload`.
@@ -3228,6 +4172,8 @@ namespace SecretsManagerV1 {
      *  service API.
      */
     downloaded?: boolean;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
   }
 
   /** Metadata properties that describe a certificate secret. */
@@ -3275,8 +4221,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The identifier for the cryptographic algorithm that was used by the issuing certificate authority to sign
@@ -3352,6 +4300,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The contents of your certificate. The data must be formatted on a single line with embedded newline
      *  characters.
      */
@@ -3411,6 +4361,8 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     validity?: CertificateValidity;
     /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
@@ -3462,6 +4414,8 @@ namespace SecretsManagerV1 {
      *  service API.
      */
     downloaded?: boolean;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date that the certificate expires. The date format follows RFC 3339. */
@@ -3795,8 +4749,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The time-to-live (TTL) or lease duration that is assigned to the secret. For `iam_credentials` secrets, the
      *  TTL defines for how long each generated API key remains valid.
      */
@@ -3875,6 +4831,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The time-to-live (TTL) or lease duration to assign to generated credentials.
      *
      *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
@@ -3937,6 +4895,8 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** The data that is associated with the secret version. The data object contains the following fields:
      *
      *  - `api_key`: The API key that is generated for this secret.
@@ -3978,6 +4938,8 @@ namespace SecretsManagerV1 {
      *  service API.
      */
     downloaded?: boolean;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
   }
 
   /** Intermediate certificate authorities configuration. */
@@ -4146,8 +5108,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
   }
 
   /** Properties that describe a secret. */
@@ -4200,6 +5164,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The date the secret material expires. The date format follows RFC 3339.
      *
      *  You can set an expiration date on supported secret types at their creation. If you create a secret without
@@ -4283,8 +5249,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The name of the certificate template. */
     certificate_template?: string;
     /** The intermediate certificate authority that signed this certificate. */
@@ -4363,6 +5331,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The name of the certificate template. */
     certificate_template: string;
     /** The intermediate certificate authority that signed this certificate. */
@@ -4442,6 +5412,8 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     validity?: CertificateValidity;
     /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
@@ -4517,6 +5489,8 @@ namespace SecretsManagerV1 {
      *  service API.
      */
     downloaded?: boolean;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** The unique serial number that was assigned to the certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date that the certificate expires. The date format follows RFC 3339. */
@@ -4589,8 +5563,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     /** Determines whether your issued certificate is bundled with intermediate certificates.
@@ -4672,6 +5648,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     /** Determines whether your issued certificate is bundled with intermediate certificates.
@@ -5291,8 +6269,10 @@ namespace SecretsManagerV1 {
     created_by?: string;
     /** Updates when any part of the secret metadata is modified. The date format follows RFC 3339. */
     last_update_date?: string;
-    /** The number of versions the secret has. */
+    /** The number of versions that are associated with a secret. */
     versions_total?: number;
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The date the secret material expires. The date format follows RFC 3339.
      *
      *  You can set an expiration date on supported secret types at their creation. If you create a secret without
@@ -5355,6 +6335,8 @@ namespace SecretsManagerV1 {
      *  see [Get secret version metadata](#get-secret-version-metadata).
      */
     versions?: JsonObject[];
+    /** The number of locks that are associated with a secret. */
+    locks_total?: number;
     /** The username to assign to this secret. */
     username?: string;
     /** The password to assign to this secret. */
@@ -5393,6 +6375,8 @@ namespace SecretsManagerV1 {
     creation_date?: string;
     /** The unique identifier for the entity that created the secret version. */
     created_by?: string;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** Indicates whether the version of the secret was created by automatic rotation. */
     auto_rotated?: boolean;
     /** The data that is associated with the secret version. The data object contains the following fields:
@@ -5437,6 +6421,8 @@ namespace SecretsManagerV1 {
      *  service API.
      */
     downloaded?: boolean;
+    /** The number of locks that are associated with a secret version. */
+    locks_total?: number;
     /** Indicates whether the version of the secret was created by automatic rotation. */
     auto_rotated?: boolean;
   }

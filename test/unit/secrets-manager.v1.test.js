@@ -1687,6 +1687,693 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+  describe('getLocks', () => {
+    describe('positive tests', () => {
+      function __getLocksTest() {
+        // Construct the params object for operation getLocks
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const limit = 1;
+        const offset = 0;
+        const search = 'testString';
+        const getLocksParams = {
+          secretType,
+          id,
+          limit,
+          offset,
+          search,
+        };
+
+        const getLocksResult = secretsManagerService.getLocks(getLocksParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getLocksResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/locks/{secret_type}/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getLocksTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getLocksTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getLocksTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getLocksParams = {
+          secretType,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getLocks(getLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getLocks({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getLocks();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('lockSecret', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // LockSecretBodyLocksItem
+      const lockSecretBodyLocksItemModel = {
+        name: 'lock-1',
+        description: 'lock for consumer-1',
+        attributes: { foo: 'bar' },
+      };
+
+      function __lockSecretTest() {
+        // Construct the params object for operation lockSecret
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const locks = [lockSecretBodyLocksItemModel];
+        const mode = 'exclusive';
+        const lockSecretParams = {
+          secretType,
+          id,
+          locks,
+          mode,
+        };
+
+        const lockSecretResult = secretsManagerService.lockSecret(lockSecretParams);
+
+        // all methods should return a Promise
+        expectToBePromise(lockSecretResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/locks/{secret_type}/{id}/lock', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.qs.mode).toEqual(mode);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __lockSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __lockSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __lockSecretTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const lockSecretParams = {
+          secretType,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.lockSecret(lockSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.lockSecret({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.lockSecret();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('unlockSecret', () => {
+    describe('positive tests', () => {
+      function __unlockSecretTest() {
+        // Construct the params object for operation unlockSecret
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const locks = ['testString'];
+        const unlockSecretParams = {
+          secretType,
+          id,
+          locks,
+        };
+
+        const unlockSecretResult = secretsManagerService.unlockSecret(unlockSecretParams);
+
+        // all methods should return a Promise
+        expectToBePromise(unlockSecretResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/locks/{secret_type}/{id}/unlock', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __unlockSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __unlockSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __unlockSecretTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const unlockSecretParams = {
+          secretType,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.unlockSecret(unlockSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.unlockSecret({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.unlockSecret();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('getSecretVersionLocks', () => {
+    describe('positive tests', () => {
+      function __getSecretVersionLocksTest() {
+        // Construct the params object for operation getSecretVersionLocks
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const limit = 1;
+        const offset = 0;
+        const search = 'testString';
+        const getSecretVersionLocksParams = {
+          secretType,
+          id,
+          versionId,
+          limit,
+          offset,
+          search,
+        };
+
+        const getSecretVersionLocksResult = secretsManagerService.getSecretVersionLocks(
+          getSecretVersionLocksParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getSecretVersionLocksResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/locks/{secret_type}/{id}/versions/{version_id}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretVersionLocksTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretVersionLocksTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretVersionLocksTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretVersionLocksParams = {
+          secretType,
+          id,
+          versionId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecretVersionLocks(getSecretVersionLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersionLocks({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersionLocks();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('lockSecretVersion', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // LockSecretBodyLocksItem
+      const lockSecretBodyLocksItemModel = {
+        name: 'lock-1',
+        description: 'lock for consumer-1',
+        attributes: { foo: 'bar' },
+      };
+
+      function __lockSecretVersionTest() {
+        // Construct the params object for operation lockSecretVersion
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const locks = [lockSecretBodyLocksItemModel];
+        const mode = 'exclusive';
+        const lockSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          locks,
+          mode,
+        };
+
+        const lockSecretVersionResult =
+          secretsManagerService.lockSecretVersion(lockSecretVersionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(lockSecretVersionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/locks/{secret_type}/{id}/versions/{version_id}/lock',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.qs.mode).toEqual(mode);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __lockSecretVersionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __lockSecretVersionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __lockSecretVersionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const lockSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.lockSecretVersion(lockSecretVersionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.lockSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.lockSecretVersion();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('unlockSecretVersion', () => {
+    describe('positive tests', () => {
+      function __unlockSecretVersionTest() {
+        // Construct the params object for operation unlockSecretVersion
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const locks = ['testString'];
+        const unlockSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          locks,
+        };
+
+        const unlockSecretVersionResult =
+          secretsManagerService.unlockSecretVersion(unlockSecretVersionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(unlockSecretVersionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/locks/{secret_type}/{id}/versions/{version_id}/unlock',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __unlockSecretVersionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __unlockSecretVersionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __unlockSecretVersionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const unlockSecretVersionParams = {
+          secretType,
+          id,
+          versionId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.unlockSecretVersion(unlockSecretVersionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.unlockSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.unlockSecretVersion();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('listInstanceSecretsLocks', () => {
+    describe('positive tests', () => {
+      function __listInstanceSecretsLocksTest() {
+        // Construct the params object for operation listInstanceSecretsLocks
+        const limit = 1;
+        const offset = 0;
+        const search = 'testString';
+        const groups = ['testString'];
+        const listInstanceSecretsLocksParams = {
+          limit,
+          offset,
+          search,
+          groups,
+        };
+
+        const listInstanceSecretsLocksResult = secretsManagerService.listInstanceSecretsLocks(
+          listInstanceSecretsLocksParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(listInstanceSecretsLocksResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v1/locks', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.groups).toEqual(groups);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listInstanceSecretsLocksTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listInstanceSecretsLocksTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listInstanceSecretsLocksTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listInstanceSecretsLocksParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.listInstanceSecretsLocks(listInstanceSecretsLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.listInstanceSecretsLocks({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
   describe('putPolicy', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
