@@ -557,6 +557,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     });
     expect(res.status).toBe(200);
     const secretId = res.result.resources[0].id;
+
     // Lock Secret
     const lockSecretBodyLocksItemModel = {
       name: 'test-lock',
@@ -570,7 +571,8 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       mode: 'exclusive',
     });
     expect(res.status).toBe(200);
-    // Delete the secret.
+
+    // Delete the secret - should fail to delete locked secret
     try {
       res = await secretsManager.deleteSecret({
         secretType: 'arbitrary',
@@ -579,6 +581,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
     } catch (errorResponse) {
       expect(errorResponse.status).toBe(412);
     }
+
     // Unlock Secret
     res = await secretsManager.unlockSecret({
       secretType: 'arbitrary',
@@ -586,6 +589,7 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       locks: ['test-lock'],
     });
     expect(res.status).toBe(200);
+
     // Delete the secret.
     res = await secretsManager.deleteSecret({
       secretType: 'arbitrary',
