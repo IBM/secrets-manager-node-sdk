@@ -589,7 +589,6 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
       locks: ['test-lock'],
     });
     expect(res.status).toBe(200);
-
     // Delete the secret.
     res = await secretsManager.deleteSecret({
       secretType: 'arbitrary',
