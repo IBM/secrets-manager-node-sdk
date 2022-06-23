@@ -538,4 +538,62 @@ describe('IbmCloudSecretsManagerApiV1_integration', () => {
 
     expect(res.status).toBe(204);
   });
+
+  test('Should test failed and successful delete of a locked secret', async () => {
+    // Create a new arbitrary secret
+    let res = await secretsManager.createSecret({
+      metadata: {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      },
+      secretType: 'arbitrary',
+      resources: [
+        {
+          name: generateName(),
+          payload: 'secret-data',
+          expiration_date: '2030-04-01T09:30:00Z',
+        },
+      ],
+    });
+    expect(res.status).toBe(200);
+    const secretId = res.result.resources[0].id;
+
+    // Lock Secret
+    const lockSecretBodyLocksItemModel = {
+      name: 'test-lock',
+      description: 'lock for consumer-1',
+      attributes: { Key: 'Value' },
+    };
+    res = await secretsManager.lockSecret({
+      secretType: 'arbitrary',
+      id: secretId,
+      locks: [lockSecretBodyLocksItemModel],
+      mode: 'exclusive',
+    });
+    expect(res.status).toBe(200);
+
+    // Delete the secret - should fail to delete locked secret
+    try {
+      res = await secretsManager.deleteSecret({
+        secretType: 'arbitrary',
+        id: secretId,
+      });
+    } catch (errorResponse) {
+      expect(errorResponse.status).toBe(412);
+    }
+
+    // Unlock Secret
+    res = await secretsManager.unlockSecret({
+      secretType: 'arbitrary',
+      id: secretId,
+      locks: ['test-lock'],
+    });
+    expect(res.status).toBe(200);
+    // Delete the secret.
+    res = await secretsManager.deleteSecret({
+      secretType: 'arbitrary',
+      id: secretId,
+    });
+    expect(res.status).toBe(204);
+  });
 });
