@@ -36,20 +36,30 @@ const secretsManagerServiceOptions = {
 
 const secretsManagerService = new SecretsManagerV1(secretsManagerServiceOptions);
 
-// dont actually create a request
-const createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
-createRequestMock.mockImplementation(() => Promise.resolve());
+let createRequestMock = null;
+function mock_createRequest() {
+  if (!createRequestMock) {
+    createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
+    createRequestMock.mockImplementation(() => Promise.resolve());
+  }
+}
 
 // dont actually construct an authenticator
 const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
-afterEach(() => {
-  createRequestMock.mockClear();
-  getAuthenticatorMock.mockClear();
-});
-
 describe('SecretsManagerV1', () => {
+  beforeEach(() => {
+    mock_createRequest();
+  });
+
+  afterEach(() => {
+    if (createRequestMock) {
+      createRequestMock.mockClear();
+    }
+    getAuthenticatorMock.mockClear();
+  });
+
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = SecretsManagerV1.newInstance();
@@ -77,6 +87,7 @@ describe('SecretsManagerV1', () => {
       expect(testInstance).toBeInstanceOf(SecretsManagerV1);
     });
   });
+
   describe('the constructor', () => {
     test('use user-given service url', () => {
       const options = {
@@ -99,6 +110,7 @@ describe('SecretsManagerV1', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV1.DEFAULT_SERVICE_URL);
     });
   });
+
   describe('createSecretGroup', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -203,6 +215,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('listSecretGroups', () => {
     describe('positive tests', () => {
       function __listSecretGroupsTest() {
@@ -263,6 +276,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecretGroup', () => {
     describe('positive tests', () => {
       function __getSecretGroupTest() {
@@ -346,6 +360,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('updateSecretGroupMetadata', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -455,6 +470,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('deleteSecretGroup', () => {
     describe('positive tests', () => {
       function __deleteSecretGroupTest() {
@@ -539,6 +555,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('createSecret', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -650,6 +667,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('listSecrets', () => {
     describe('positive tests', () => {
       function __listSecretsTest() {
@@ -739,6 +757,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('listAllSecrets', () => {
     describe('positive tests', () => {
       function __listAllSecretsTest() {
@@ -814,6 +833,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecret', () => {
     describe('positive tests', () => {
       function __getSecretTest() {
@@ -902,6 +922,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('updateSecret', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1005,6 +1026,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('deleteSecret', () => {
     describe('positive tests', () => {
       function __deleteSecretTest() {
@@ -1093,6 +1115,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('listSecretVersions', () => {
     describe('positive tests', () => {
       function __listSecretVersionsTest() {
@@ -1182,6 +1205,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecretVersion', () => {
     describe('positive tests', () => {
       function __getSecretVersionTest() {
@@ -1280,6 +1304,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('updateSecretVersion', () => {
     describe('positive tests', () => {
       function __updateSecretVersionTest() {
@@ -1383,6 +1408,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecretVersionMetadata', () => {
     describe('positive tests', () => {
       function __getSecretVersionMetadataTest() {
@@ -1482,6 +1508,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecretMetadata', () => {
     describe('positive tests', () => {
       function __getSecretMetadataTest() {
@@ -1571,6 +1598,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('updateSecretMetadata', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1687,6 +1715,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getLocks', () => {
     describe('positive tests', () => {
       function __getLocksTest() {
@@ -1784,6 +1813,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('lockSecret', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1887,6 +1917,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('unlockSecret', () => {
     describe('positive tests', () => {
       function __unlockSecretTest() {
@@ -1978,6 +2009,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getSecretVersionLocks', () => {
     describe('positive tests', () => {
       function __getSecretVersionLocksTest() {
@@ -2086,6 +2118,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('lockSecretVersion', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2199,6 +2232,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('unlockSecretVersion', () => {
     describe('positive tests', () => {
       function __unlockSecretVersionTest() {
@@ -2300,6 +2334,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('listInstanceSecretsLocks', () => {
     describe('positive tests', () => {
       function __listInstanceSecretsLocksTest() {
@@ -2374,6 +2409,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('putPolicy', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2495,6 +2531,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getPolicy', () => {
     describe('positive tests', () => {
       function __getPolicyTest() {
@@ -2586,6 +2623,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('putConfig', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2681,6 +2719,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getConfig', () => {
     describe('positive tests', () => {
       function __getConfigTest() {
@@ -2764,6 +2803,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('createConfigElement', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2880,6 +2920,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getConfigElements', () => {
     describe('positive tests', () => {
       function __getConfigElementsTest() {
@@ -2973,6 +3014,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getConfigElement', () => {
     describe('positive tests', () => {
       function __getConfigElementTest() {
@@ -3071,6 +3113,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('updateConfigElement', () => {
     describe('positive tests', () => {
       function __updateConfigElementTest() {
@@ -3179,6 +3222,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('actionOnConfigElement', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -3312,6 +3356,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('deleteConfigElement', () => {
     describe('positive tests', () => {
       function __deleteConfigElementTest() {
@@ -3410,6 +3455,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('createNotificationsRegistration', () => {
     describe('positive tests', () => {
       function __createNotificationsRegistrationTest() {
@@ -3515,6 +3561,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('getNotificationsRegistration', () => {
     describe('positive tests', () => {
       function __getNotificationsRegistrationTest() {
@@ -3575,6 +3622,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('deleteNotificationsRegistration', () => {
     describe('positive tests', () => {
       function __deleteNotificationsRegistrationTest() {
@@ -3639,6 +3687,7 @@ describe('SecretsManagerV1', () => {
       });
     });
   });
+
   describe('sendTestNotification', () => {
     describe('positive tests', () => {
       function __sendTestNotificationTest() {
