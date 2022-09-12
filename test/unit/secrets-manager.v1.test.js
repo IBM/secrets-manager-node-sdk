@@ -572,6 +572,8 @@ describe('SecretsManagerV1', () => {
         description: 'Extended description for this secret.',
         secret_group_id: 'bc656587-8fda-4d05-9ad8-b1de1ec7e712',
         labels: ['dev', 'us-south'],
+        custom_metadata: { foo: 'bar' },
+        version_custom_metadata: { foo: 'bar' },
         expiration_date: '2030-01-01T00:00:00Z',
         payload: 'secret-data',
       };
@@ -930,6 +932,8 @@ describe('SecretsManagerV1', () => {
       // RotateArbitrarySecretBody
       const secretActionModel = {
         payload: 'testString',
+        custom_metadata: { foo: 'bar' },
+        version_custom_metadata: { foo: 'bar' },
       };
 
       function __updateSecretTest() {
@@ -1509,6 +1513,129 @@ describe('SecretsManagerV1', () => {
     });
   });
 
+  describe('updateSecretVersionMetadata', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // CollectionMetadata
+      const collectionMetadataModel = {
+        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
+        collection_total: 1,
+      };
+
+      // UpdateSecretVersionMetadata
+      const updateSecretVersionMetadataModel = {
+        version_custom_metadata: { foo: 'bar' },
+      };
+
+      function __updateSecretVersionMetadataTest() {
+        // Construct the params object for operation updateSecretVersionMetadata
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [updateSecretVersionMetadataModel];
+        const updateSecretVersionMetadataParams = {
+          secretType,
+          id,
+          versionId,
+          metadata,
+          resources,
+        };
+
+        const updateSecretVersionMetadataResult = secretsManagerService.updateSecretVersionMetadata(
+          updateSecretVersionMetadataParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(updateSecretVersionMetadataResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/api/v1/secrets/{secret_type}/{id}/versions/{version_id}/metadata',
+          'PUT'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.metadata).toEqual(metadata);
+        expect(mockRequestOptions.body.resources).toEqual(resources);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+        expect(mockRequestOptions.path.version_id).toEqual(versionId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretVersionMetadataTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretVersionMetadataTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretVersionMetadataTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const id = 'testString';
+        const versionId = 'testString';
+        const metadata = collectionMetadataModel;
+        const resources = [updateSecretVersionMetadataModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateSecretVersionMetadataParams = {
+          secretType,
+          id,
+          versionId,
+          metadata,
+          resources,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.updateSecretVersionMetadata(updateSecretVersionMetadataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersionMetadata({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersionMetadata();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('getSecretMetadata', () => {
     describe('positive tests', () => {
       function __getSecretMetadataTest() {
@@ -1614,6 +1741,7 @@ describe('SecretsManagerV1', () => {
         labels: ['dev', 'us-south'],
         name: 'updated-secret-name',
         description: 'Updated description for this secret.',
+        custom_metadata: { foo: 'bar' },
         expiration_date: '2030-04-01T09:30:00Z',
       };
 
