@@ -225,11 +225,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getSecretGroup'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecretGroup');
 
     const parameters = {
       options: {
@@ -354,13 +350,7 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -410,11 +400,7 @@ class SecretsManagerV1 extends BaseService {
       'secret_type': _params.secretType,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'createSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'createSecret');
 
     const parameters = {
       options: {
@@ -480,11 +466,7 @@ class SecretsManagerV1 extends BaseService {
       'secret_type': _params.secretType,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'listSecrets'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listSecrets');
 
     const parameters = {
       options: {
@@ -563,11 +545,7 @@ class SecretsManagerV1 extends BaseService {
       'groups': _params.groups,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'listAllSecrets'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'listAllSecrets');
 
     const parameters = {
       options: {
@@ -621,11 +599,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getSecret');
 
     const parameters = {
       options: {
@@ -688,11 +662,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'updateSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'updateSecret');
 
     const parameters = {
       options: {
@@ -745,11 +715,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'deleteSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'deleteSecret');
 
     const parameters = {
       options: {
@@ -758,13 +724,7 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1262,11 +1222,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getLocks'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getLocks');
 
     const parameters = {
       options: {
@@ -1345,11 +1301,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'lockSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'lockSecret');
 
     const parameters = {
       options: {
@@ -1415,11 +1367,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'unlockSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'unlockSecret');
 
     const parameters = {
       options: {
@@ -1811,11 +1759,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'putPolicy'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putPolicy');
 
     const parameters = {
       options: {
@@ -1873,11 +1817,7 @@ class SecretsManagerV1 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getPolicy'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getPolicy');
 
     const parameters = {
       options: {
@@ -1935,11 +1875,7 @@ class SecretsManagerV1 extends BaseService {
       'secret_type': _params.secretType,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'putConfig'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'putConfig');
 
     const parameters = {
       options: {
@@ -1988,11 +1924,7 @@ class SecretsManagerV1 extends BaseService {
       'secret_type': _params.secretType,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV1.DEFAULT_SERVICE_NAME,
-      'v1',
-      'getConfig'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV1.DEFAULT_SERVICE_NAME, 'v1', 'getConfig');
 
     const parameters = {
       options: {
@@ -2293,7 +2225,14 @@ class SecretsManagerV1 extends BaseService {
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.ConfigElementActionResult>> {
     const _params = { ...params };
     const _requiredParams = ['secretType', 'configElement', 'configName', 'action'];
-    const _validParams = ['secretType', 'configElement', 'configName', 'action', 'config', 'headers'];
+    const _validParams = [
+      'secretType',
+      'configElement',
+      'configName',
+      'action',
+      'config',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2385,13 +2324,7 @@ class SecretsManagerV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -2426,7 +2359,12 @@ class SecretsManagerV1 extends BaseService {
   ): Promise<SecretsManagerV1.Response<SecretsManagerV1.GetNotificationsSettings>> {
     const _params = { ...params };
     const _requiredParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName'];
-    const _validParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName', 'eventNotificationsSourceDescription', 'headers'];
+    const _validParams = [
+      'eventNotificationsInstanceCrn',
+      'eventNotificationsSourceName',
+      'eventNotificationsSourceDescription',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2546,13 +2484,7 @@ class SecretsManagerV1 extends BaseService {
         method: 'DELETE',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -2596,13 +2528,7 @@ class SecretsManagerV1 extends BaseService {
         method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -3666,8 +3592,7 @@ namespace SecretsManagerV1 {
    ************************/
 
   /** The data that is associated with the secret version. The data object contains the following fields: - `certificate`: The contents of the certificate. - `private_key`: The private key that is associated with the certificate. - `intermediate`: The intermediate certificate that is associated with the certificate. */
-  export interface CertificateSecretData {
-  }
+  export interface CertificateSecretData {}
 
   /** Certificate templates configuration. */
   export interface CertificateTemplatesConfigItem {
@@ -3694,8 +3619,7 @@ namespace SecretsManagerV1 {
   }
 
   /** Properties that describe an action on a configuration element. */
-  export interface ConfigAction {
-  }
+  export interface ConfigAction {}
 
   /** The configuration to add or update. */
   export interface ConfigElementActionData {
@@ -3717,8 +3641,7 @@ namespace SecretsManagerV1 {
   }
 
   /** ConfigElementActionResultConfig. */
-  export interface ConfigElementActionResultConfig {
-  }
+  export interface ConfigElementActionResultConfig {}
 
   /** The configuration to add or update. */
   export interface ConfigElementDef {
@@ -3733,8 +3656,7 @@ namespace SecretsManagerV1 {
   }
 
   /** The configuration to define for the specified secret type. */
-  export interface ConfigElementDefConfig {
-  }
+  export interface ConfigElementDefConfig {}
 
   /** Properties that describe a configuration element. */
   export interface ConfigElementMetadata {
@@ -3755,8 +3677,7 @@ namespace SecretsManagerV1 {
   }
 
   /** EngineConfig. */
-  export interface EngineConfig {
-  }
+  export interface EngineConfig {}
 
   /** Configuration for the specified secret type. */
   export interface GetConfig {
@@ -3775,12 +3696,10 @@ namespace SecretsManagerV1 {
   }
 
   /** GetConfigElementsResourcesItem. */
-  export interface GetConfigElementsResourcesItem {
-  }
+  export interface GetConfigElementsResourcesItem {}
 
   /** GetConfigResourcesItem. */
-  export interface GetConfigResourcesItem {
-  }
+  export interface GetConfigResourcesItem {}
 
   /** Properties that describe the locks that are associated with an instance. */
   export interface GetInstanceLocks {
@@ -3815,8 +3734,7 @@ namespace SecretsManagerV1 {
   }
 
   /** GetSecretPolicies. */
-  export interface GetSecretPolicies {
-  }
+  export interface GetSecretPolicies {}
 
   /** Properties that describe the version of a secret. */
   export interface GetSecretVersion {
@@ -3992,8 +3910,7 @@ namespace SecretsManagerV1 {
   }
 
   /** SecretAction. */
-  export interface SecretAction {
-  }
+  export interface SecretAction {}
 
   /** Properties that describe a secret group. */
   export interface SecretGroupDef {
@@ -4098,8 +4015,7 @@ namespace SecretsManagerV1 {
   }
 
   /** SecretMetadata. */
-  export interface SecretMetadata {
-  }
+  export interface SecretMetadata {}
 
   /** The metadata of a secret. */
   export interface SecretMetadataRequest {
@@ -4117,24 +4033,19 @@ namespace SecretsManagerV1 {
   }
 
   /** SecretPolicyRotationRotation. */
-  export interface SecretPolicyRotationRotation {
-  }
+  export interface SecretPolicyRotationRotation {}
 
   /** SecretResource. */
-  export interface SecretResource {
-  }
+  export interface SecretResource {}
 
   /** SecretVersion. */
-  export interface SecretVersion {
-  }
+  export interface SecretVersion {}
 
   /** Properties that describe a secret version within a list of secret versions. */
-  export interface SecretVersionInfo {
-  }
+  export interface SecretVersionInfo {}
 
   /** SecretVersionMetadata. */
-  export interface SecretVersionMetadata {
-  }
+  export interface SecretVersionMetadata {}
 
   /** Properties that describe the secret locks. */
   export interface SecretsLocks {
@@ -4826,7 +4737,8 @@ namespace SecretsManagerV1 {
   }
 
   /** Properties that describe an IBM Cloud classic infrastructure (SoftLayer) configuration. */
-  export interface ConfigElementDefConfigClassicInfrastructureConfig extends ConfigElementDefConfig {
+  export interface ConfigElementDefConfigClassicInfrastructureConfig
+    extends ConfigElementDefConfig {
     /** The username that is associated with your classic infrastructure account.
      *
      *  In most cases, your classic infrastructure username is your `<account_id>_<email_address>`. For more
@@ -4842,7 +4754,8 @@ namespace SecretsManagerV1 {
   }
 
   /** Properties that describe an IBM Cloud Internet Services (CIS) configuration. */
-  export interface ConfigElementDefConfigCloudInternetServicesConfig extends ConfigElementDefConfig {
+  export interface ConfigElementDefConfigCloudInternetServicesConfig
+    extends ConfigElementDefConfig {
     /** The Cloud Resource Name (CRN) that is associated with the CIS instance. */
     cis_crn: string;
     /** An IBM Cloud API key that can to list domains in your CIS instance.
@@ -4899,12 +4812,14 @@ namespace SecretsManagerV1 {
   }
 
   /** Certificate authorities configuration. */
-  export interface GetConfigElementsResourcesItemCertificateAuthoritiesConfig extends GetConfigElementsResourcesItem {
+  export interface GetConfigElementsResourcesItemCertificateAuthoritiesConfig
+    extends GetConfigElementsResourcesItem {
     certificate_authorities: ConfigElementMetadata[];
   }
 
   /** DNS providers configuration. */
-  export interface GetConfigElementsResourcesItemDnsProvidersConfig extends GetConfigElementsResourcesItem {
+  export interface GetConfigElementsResourcesItemDnsProvidersConfig
+    extends GetConfigElementsResourcesItem {
     dns_providers: ConfigElementMetadata[];
   }
 
@@ -6152,8 +6067,7 @@ namespace SecretsManagerV1 {
   }
 
   /** Properties that are returned with a successful `rotate_crl` action. */
-  export interface RotateCrlActionResult extends ConfigElementActionResultConfig {
-  }
+  export interface RotateCrlActionResult extends ConfigElementActionResultConfig {}
 
   /** The request body of a `rotate` action. */
   export interface RotateKvSecretBody extends SecretAction {
@@ -6208,7 +6122,8 @@ namespace SecretsManagerV1 {
   }
 
   /** The `public_cert` secret rotation policy. */
-  export interface SecretPolicyRotationRotationPublicCertPolicyRotation extends SecretPolicyRotationRotation {
+  export interface SecretPolicyRotationRotationPublicCertPolicyRotation
+    extends SecretPolicyRotationRotation {
     auto_rotate: boolean;
     rotate_keys: boolean;
   }
@@ -6220,8 +6135,7 @@ namespace SecretsManagerV1 {
   }
 
   /** Properties that are returned with a successful `set_signed` action. */
-  export interface SetSignedActionResult extends ConfigElementActionResultConfig {
-  }
+  export interface SetSignedActionResult extends ConfigElementActionResultConfig {}
 
   /** A request to sign a certificate signing request (CSR). */
   export interface SignCsrAction extends ConfigAction {
