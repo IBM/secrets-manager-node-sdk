@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.55.1-b24c7487-20220831-201343
+ * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
  */
 
 import * as extend from 'extend';
@@ -320,11 +320,11 @@ class SecretsManagerV1 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public deleteSecretGroup(
     params: SecretsManagerV1.DeleteSecretGroupParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
     const _validParams = ['id', 'headers'];
@@ -631,7 +631,8 @@ class SecretsManagerV1 extends BaseService {
    * - `restore`: Restore a previous version of an `iam_credentials` secret.
    * - `revoke`: Revoke a private certificate.
    * - `delete_credentials`: Delete the API key that is associated with an `iam_credentials` secret.
-   * - `validate_dns_challenge`: Validate challenge for public certificate order with manual dns provider.
+   * - `validate_dns_challenge`: Validate challenges for a public certificate that is ordered with a manual DNS
+   * provider.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -697,11 +698,11 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {string} params.id - The v4 UUID that uniquely identifies the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public deleteSecret(
     params: SecretsManagerV1.DeleteSecretParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['secretType', 'id'];
     const _validParams = ['secretType', 'id', 'headers'];
@@ -1723,7 +1724,7 @@ class SecretsManagerV1 extends BaseService {
    *
    * Create or update one or more policies, such as an [automatic rotation
    * policy](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-automatic-rotation), for the specified
-   * secret.
+   * secret. To remove a policy, keep the resources block empty.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type.
@@ -1857,11 +1858,11 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.secretType - The secret type.
    * @param {EngineConfig} params.engineConfig - Properties to update for a secrets engine.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public putConfig(
     params: SecretsManagerV1.PutConfigParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['secretType', 'engineConfig'];
     const _validParams = ['secretType', 'engineConfig', 'headers'];
@@ -2292,11 +2293,11 @@ class SecretsManagerV1 extends BaseService {
    * @param {string} params.configElement - The configuration element to define or manage.
    * @param {string} params.configName - The name of your configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public deleteConfigElement(
     params: SecretsManagerV1.DeleteConfigElementParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['secretType', 'configElement', 'configName'];
     const _validParams = ['secretType', 'configElement', 'configName', 'headers'];
@@ -2459,11 +2460,11 @@ class SecretsManagerV1 extends BaseService {
    *
    * @param {Object} [params] - The parameters to send to the service.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public deleteNotificationsRegistration(
     params?: SecretsManagerV1.DeleteNotificationsRegistrationParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
     const _validParams = ['headers'];
@@ -2503,11 +2504,11 @@ class SecretsManagerV1 extends BaseService {
    *
    * @param {Object} [params] - The parameters to send to the service.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>>}
+   * @returns {Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>>}
    */
   public sendTestNotification(
     params?: SecretsManagerV1.SendTestNotificationParams
-  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.Empty>> {
+  ): Promise<SecretsManagerV1.Response<SecretsManagerV1.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
     const _validParams = ['headers'];
@@ -2553,7 +2554,7 @@ namespace SecretsManagerV1 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty {}
+  export interface EmptyObject {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -3592,7 +3593,10 @@ namespace SecretsManagerV1 {
    ************************/
 
   /** The data that is associated with the secret version. The data object contains the following fields: - `certificate`: The contents of the certificate. - `private_key`: The private key that is associated with the certificate. - `intermediate`: The intermediate certificate that is associated with the certificate. */
-  export interface CertificateSecretData {}
+  export interface CertificateSecretData {
+    /** CertificateSecretData accepts additional properties. */
+    [propName: string]: any;
+  }
 
   /** Certificate templates configuration. */
   export interface CertificateTemplatesConfigItem {
@@ -3608,6 +3612,20 @@ namespace SecretsManagerV1 {
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-certificate-templates).
      */
     config?: CertificateTemplateConfig;
+  }
+
+  /** Properties that describe a challenge. */
+  export interface ChallengeResource {
+    /** The challenge domain. */
+    domain?: string;
+    /** The challenge expiration date. The date format follows RFC 3339. */
+    expiration?: string;
+    /** The challenge status. */
+    status?: string;
+    /** The txt_record_name. */
+    txt_record_name?: string;
+    /** The txt_record_value. */
+    txt_record_value?: string;
   }
 
   /** The metadata that describes the resource array. */
@@ -3815,6 +3833,14 @@ namespace SecretsManagerV1 {
     ca?: string;
     /** The name that was assigned to the DNS provider configuration. */
     dns?: string;
+    /** The set of challenges, will be returned only when ordering public certificate using manual DNS
+     *  configuration.
+     */
+    challenges?: ChallengeResource[];
+    /** The date a user called "validate dns challenges" for "manual" DNS provider. The date format follows RFC
+     *  3339.
+     */
+    dns_challenge_validation_time?: string;
   }
 
   /** Properties that describe the locks of a secret or a secret version. */
@@ -3854,9 +3880,9 @@ namespace SecretsManagerV1 {
      *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
      *  secret lock.
      */
-    description: string;
+    description?: string;
     /** Optional information to associate with a lock, such as resources CRNs to be used by automation. */
-    attributes: JsonObject;
+    attributes?: JsonObject;
   }
 
   /** The Event Notifications details. */
@@ -4803,8 +4829,8 @@ namespace SecretsManagerV1 {
      *  API key is deleted. Otherwise, the service ID is deleted together with its API key.
      */
     api_key_id?: string;
-    /** The service ID that you want to delete. This property can be used instead of the `api_key_id` field, but
-     *  only for secrets that were created with a service ID that was generated by Secrets Manager.
+    /** Deprecated: The service ID that you want to delete. This property can be used instead of the `api_key_id`
+     *  field, but only for secrets that were created with a service ID that was generated by Secrets Manager.
      *
      *  **Deprecated.** Use the `api_key_id` field instead.
      */
@@ -6288,7 +6314,7 @@ namespace SecretsManagerV1 {
      */
     serial_number?: string;
     /** Properties that are returned with a successful `sign` action. */
-    data: SignActionResultData;
+    data?: SignActionResultData;
     /** The PEM-encoded certificate signing request (CSR). */
     csr: string;
   }
@@ -6446,7 +6472,7 @@ namespace SecretsManagerV1 {
      */
     serial_number?: string;
     /** Properties that are returned with a successful `sign` action. */
-    data: SignIntermediateActionResultData;
+    data?: SignIntermediateActionResultData;
     /** The signed intermediate certificate authority. */
     intermediate_certificate_authority: string;
   }
