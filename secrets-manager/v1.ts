@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
+ * IBM OpenAPI SDK Code Generator Version: 3.60.2-95dc7721-20221102-203229
  */
 
 import * as extend from 'extend';
@@ -24,8 +24,8 @@ import {
   Authenticator,
   BaseService,
   getAuthenticatorFromEnvironment,
-  validateParams,
   UserOptions,
+  validateParams,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
@@ -5539,7 +5539,14 @@ namespace SecretsManagerV1 {
     certificate_template: string;
     /** The intermediate certificate authority that signed this certificate. */
     certificate_authority?: string;
-    /** The fully qualified domain name or host domain name for the certificate. */
+    /** The certificate signing request. If you don't include this parameter, the CSR that is used to generate the
+     *  certificate is created internally. If you provide a CSR, it is used also for auto rotation and manual rotation,
+     *  unless you provide another CSR in the manual rotation request.
+     */
+    csr?: string;
+    /** The fully qualified domain name or host domain name for the certificate. If you provide a CSR that includes
+     *  a common name value, the certificate is generated with the common name that is provided in the CSR.
+     */
     common_name: string;
     /** The alternative names that are defined for the certificate.
      *
@@ -5597,7 +5604,8 @@ namespace SecretsManagerV1 {
     /** The data that is associated with the secret. The data object contains the following fields:
      *
      *  - `certificate`: The contents of the certificate.
-     *  - `private_key`: The private key that is associated with the certificate.
+     *  - `private_key`: The private key that is associated with the certificate. If you provide a CSR in the request,
+     *  the private_key field is not included in the data.
      *  - `issuing_ca`: The certificate of the certificate authority that signed and issued this certificate.
      *  - `ca_chain`: The chain of certificate authorities that are associated with the certificate.
      */
@@ -6109,6 +6117,20 @@ namespace SecretsManagerV1 {
   export interface RotatePrivateCertBody extends SecretAction {
     /** The secret metadata that a user can customize. */
     custom_metadata: JsonObject;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+  }
+
+  /** The body of a request to rotate a private certificate. */
+  export interface RotatePrivateCertBodyWithCsr extends SecretAction {
+    /** The certificate signing request. If you provide a CSR, it is used for auto rotation and manual rotation
+     *  requests that do not include a CSR. If you don't include the CSR, the certificate is generated with the last CSR
+     *  that you provided to create the private certificate, or on a previous request to rotate the certificate. If no
+     *  CSR was provided in the past, the certificate is generated with a CSR that is created internally.
+     */
+    csr: string;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
