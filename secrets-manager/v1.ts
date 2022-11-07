@@ -19,7 +19,7 @@
  */
 
 import * as extend from 'extend';
-import {IncomingHttpHeaders, OutgoingHttpHeaders} from 'http';
+import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
@@ -27,7 +27,7 @@ import {
   UserOptions,
   validateParams,
 } from 'ibm-cloud-sdk-core';
-import {getSdkHeaders} from '../lib/common';
+import { getSdkHeaders } from '../lib/common';
 
 /**
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
