@@ -37,5 +37,3 @@ jobs:
           npm install @semantic-release/github
           npx semantic-release
 
-      - name: Create GitHub
-
