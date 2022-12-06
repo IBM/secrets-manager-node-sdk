@@ -35,9 +35,9 @@ services:
 - An [IBM Cloud account](https://cloud.ibm.com/registration).
 - A [Secrets Manager service instance](https://cloud.ibm.com/catalog/services/secrets-manager).
 - An [IBM Cloud API key](https://cloud.ibm.com/iam/apikeys) that allows the SDK to access your account.
-- Node.js version 12 or above.
+- Node.js version 16 or above.
 
-  This SDK is tested with Node versions 12 and up. The SDK may work on previous versions, but this is not supported
+  This SDK is tested with Node versions 14 and up. The SDK may work on previous versions, but this is not supported
   officially.
 
 ## Installation
