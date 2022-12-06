@@ -19,7 +19,12 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm run lint-fix
-    - run: npm test
+    - uses: nick-fields/retry@v2
+      with:
+        timeout_seconds: 10
+        max_attempts: 3
+        retry_on: error
+        command: npm test
       env:
         AUTH_URL: https://iam.cloud.ibm.com/identity/token
         SECRETS_MANAGER_API_AUTH_TYPE: iam
