@@ -1,21 +1,41 @@
-name: create-release
+name: Create new release
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-
 jobs:
-  build:
-    name: Release
+  release:
     runs-on: ubuntu-latest
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore')"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Release
-        uses: justincy/github-action-npm-release@2.0.2
-        id: release
-      - name: Print release output
-        if: ${{ steps.release.outputs.released == 'true' }}
-        run: echo Release ID ${{ steps.release.outputs.release_id }}
+          token: ${{ secrets.ADMIN_TOKEN }}
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: release using semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          GIT_AUTHOR_NAME: secrets.automation.dev
+          GIT_AUTHOR_EMAIL: secrets.automation.dev@il.ibm.com
+          GIT_COMMITTER_NAME: secrets.automation.dev
+          GIT_COMMITTER_EMAIL: secrets.automation.dev@il.ibm.com
+        run: |
+          sudo apt-get update
+          sudo apt-get install python
+          pip install --user bumpversion
+          npm install @semantic-release/changelog
+          npm install @semantic-release/exec
+          npm install @semantic-release/git
+          npm install @semantic-release/github
+          npx semantic-release
+
+      - name: Create GitHub
+
