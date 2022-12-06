@@ -5,19 +5,22 @@
     ["@semantic-release/commit-analyzer", {
         "preset": "angular",
         "releaseRules": [
-          {"type": "release","release": "patch"}
+            {"type": "release","release": "patch"}
     ]}],
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    ["@semantic-release/npm", {
-          "npmPublish": false
-        }],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "bump2version --allow-dirty --current-version ${lastRelease.version} --new-version ${nextRelease.version} patch"
+      }
+    ],
     [
       "@semantic-release/git",
       {
-        "message": "chore(release): ${nextRelease.version} [skip ci] release notes\n\n${nextRelease.notes}"
-      },
+        "message": "chore(release): ${nextRelease.version} [skip ci]release notes\n\n${nextRelease.notes}"
+      }
     ],
     "@semantic-release/github"
-  ],
+  ]
 }
