@@ -26,9 +26,9 @@ the [IBM Cloud® Secrets Manager APIs](https://cloud.ibm.com/apidocs/secrets-man
 The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with the following IBM Cloud
 services:
 
-Service name | Import path
---- | ---
-[Secrets Manager](https://cloud.ibm.com/apidocs/secrets-manager) | @ibm-cloud/secrets-manager/secrets-manager/v1
+| Service name                                                     | Import path                                   |
+|------------------------------------------------------------------|-----------------------------------------------|
+| [Secrets Manager](https://cloud.ibm.com/apidocs/secrets-manager) | @ibm-cloud/secrets-manager/secrets-manager/v1 |
 
 ## Prerequisites
 
