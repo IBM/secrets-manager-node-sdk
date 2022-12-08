@@ -14,7 +14,9 @@
         "releaseRules": [
             {"type": "release","release": "patch"}
     ]}],
-    "@semantic-release/release-notes-generator"
+  ],
+   "generateNotes": [
+      "@semantic-release/release-notes-generator"
   ],
   "prepare": [
     "@semantic-release/changelog",
