@@ -31,7 +31,7 @@ export function getSdkHeaders(
   serviceVersion: string,
   operationId: string
 ): SdkHeaders | {} {
-  const sdkName = 'secrets-manager-nodejs-sdk';
+  const sdkName = 'secrets-manager-node-sdk';
   const sdkVersion = pkg.version;
   const osName = os.platform();
   const osVersion = os.release();

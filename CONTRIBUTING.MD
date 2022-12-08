@@ -12,7 +12,7 @@ and [API reference](https://cloud.ibm.com/apidocs/secrets-manager) for more info
 ## Issues
 
 If you encounter an issue with this project, you're welcome to submit
-a [bug report](https://github.com/IBM/secrets-manager-nodejs-sdk/issues) to help us improve. Before you create a new
+a [bug report](https://github.com/IBM/secrets-manager-node-sdk/issues) to help us improve. Before you create a new
 issue, please search for similar issues in case someone has already reported the same problem.
 
 ## Changes
