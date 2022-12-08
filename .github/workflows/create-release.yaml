@@ -27,6 +27,7 @@ jobs:
           GIT_AUTHOR_EMAIL: secrets.automation.dev@il.ibm.com
           GIT_COMMITTER_NAME: secrets.automation.dev
           GIT_COMMITTER_EMAIL: secrets.automation.dev@il.ibm.com
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           sudo apt-get update
           sudo apt-get install python
