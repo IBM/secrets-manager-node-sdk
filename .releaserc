@@ -4,21 +4,19 @@
     "main"
   ],
   "verifyConditions": [
-    ["@semantic-release/commit-analyzer", {
-        "preset": "angular",
-        "releaseRules": [
-            {"type": "release","release": "patch"}
-    ]}],
     "@semantic-release/changelog",
     "@semantic-release/npm",
     "@semantic-release/git"
   ],
-  "prepare": [
+  "analyzeCommits":[
     ["@semantic-release/commit-analyzer", {
         "preset": "angular",
         "releaseRules": [
             {"type": "release","release": "patch"}
     ]}],
+    "@semantic-release/release-notes-generator"
+  ],
+  "prepare": [
     "@semantic-release/changelog",
     "@semantic-release/npm",
     "@semantic-release/git"
