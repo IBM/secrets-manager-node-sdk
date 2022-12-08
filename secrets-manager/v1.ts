@@ -34,7 +34,7 @@ import { getSdkHeaders } from '../lib/common';
  * services or your custom-built applications. Secrets are stored in a dedicated instance of Secrets Manager, which is
  * built on open source HashiCorp Vault.
  *
- * API Version: 1.0.0
+ * API Version: 1.0.39
  * See: https://cloud.ibm.com/docs/secrets-manager
  */
 

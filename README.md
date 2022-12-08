@@ -1,4 +1,4 @@
-![tests](https://github.com/IBM/secrets-manager-nodejs-sdk/workflows/run-tests/badge.svg)
+![tests](https://github.com/IBM/secrets-manager-node-sdk/workflows/run-tests/badge.svg)
 
 # IBM Cloud Secrets Manager Node.js SDK
 
@@ -255,7 +255,7 @@ and [API reference](https://cloud.ibm.com/apidocs/secrets-manager) for more info
 ## Issues
 
 If you encounter an issue with the project, you're welcome to submit
-a [bug report](https://github.com/IBM/secrets-manager-nodejs-sdk/issues) to help us improve.
+a [bug report](https://github.com/IBM/secrets-manager-node-sdk/issues) to help us improve.
 
 ## Contributing
 
