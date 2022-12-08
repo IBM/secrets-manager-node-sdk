@@ -1,3 +1,5 @@
+## [1.0.41](https://github.com/IBM/secrets-manager-node-sdk/compare/v1.0.40...v1.0.41) (2022-12-08)
+
 # 1.0.39 (2022-12-08)
 
 
