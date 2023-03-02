@@ -309,24 +309,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('createSecretAction()', async () => {
-    // Request models needed by this operation.
-
-    // PublicCertificateActionValidateManualDNSPrototype
-    const secretActionPrototypeModel = {
-      action_type: 'private_cert_action_revoke_certificate',
-    };
-
-    const params = {
-      id: secretIdForGetSecretLink,
-      secretActionPrototype: secretActionPrototypeModel,
-    };
-
-    const res = await secretsManagerService.createSecretAction(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for createSecretAction has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('createSecretAction()', async () => {});
 
   test('createSecretVersion()', async () => {
     // Request models needed by this operation.
@@ -386,25 +371,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('createSecretVersionAction()', async () => {
-    // Request models needed by this operation.
-
-    // PrivateCertificateVersionActionRevokePrototype
-    const secretVersionActionPrototypeModel = {
-      action_type: 'private_cert_action_revoke_certificate',
-    };
-
-    const params = {
-      secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
-      secretVersionActionPrototype: secretVersionActionPrototypeModel,
-    };
-
-    const res = await secretsManagerService.createSecretVersionAction(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for createSecretVersionAction has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('createSecretVersionAction()', async () => {});
 
   test('listSecretsLocks()', async () => {
     const params = {
@@ -486,6 +455,29 @@ describe('SecretsManagerV2_integration', () => {
     console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
 
+  test('createSecretVersionLocksBulk()', async () => {
+    // Request models needed by this operation.
+
+    // SecretLockPrototype
+    const secretLockPrototypeModel = {
+      name: 'lock-example-1',
+      description: 'lock for consumer 1',
+      attributes: { key: 'value' },
+    };
+
+    const params = {
+      secretId: secretIdForCreateSecretVersionLocksLink,
+      id: secretVersionIdForCreateSecretVersionLocksLink,
+      locks: [secretLockPrototypeModel],
+      mode: 'exclusive',
+    };
+
+    const res = await secretsManagerService.createSecretVersionLocksBulk(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
   test('listSecretVersionLocks()', async () => {
     const params = {
       secretId: secretIdForListSecretVersionLocksLink,
@@ -527,29 +519,6 @@ describe('SecretsManagerV2_integration', () => {
     expect(allItems).not.toBeNull();
     expect(allItems).toHaveLength(allResults.length);
     console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
-  });
-
-  test('createSecretVersionLocksBulk()', async () => {
-    // Request models needed by this operation.
-
-    // SecretLockPrototype
-    const secretLockPrototypeModel = {
-      name: 'lock-example-1',
-      description: 'lock for consumer 1',
-      attributes: { key: 'value' },
-    };
-
-    const params = {
-      secretId: secretIdForCreateSecretVersionLocksLink,
-      id: secretVersionIdForCreateSecretVersionLocksLink,
-      locks: [secretLockPrototypeModel],
-      mode: 'exclusive',
-    };
-
-    const res = await secretsManagerService.createSecretVersionLocksBulk(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
   });
 
   test('listConfigurations()', async () => {
@@ -663,12 +632,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('getNotificationsRegistrationTest()', async () => {
-    const res = await secretsManagerService.getNotificationsRegistrationTest();
-    expect(res).toBeDefined();
-    expect(res.status).toBe(204);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for getNotificationsRegistrationTest has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('getNotificationsRegistrationTest()', async () => {});
 
   test('deleteSecretGroup()', async () => {
     const params = {
@@ -681,17 +647,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('deleteSecretVersionData()', async () => {
-    const params = {
-      secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
-    };
-
-    const res = await secretsManagerService.deleteSecretVersionData(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(204);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for deleteSecretVersionData has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('deleteSecretVersionData()', async () => {});
 
   test('deleteSecretLocksBulk()', async () => {
     const params = {

@@ -759,43 +759,6 @@ describe('SecretsManagerV2', () => {
     // end-list_secret_locks
   });
 
-  test('listSecretVersionLocks request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('listSecretVersionLocks() result:');
-    // begin-list_secret_version_locks
-
-    const params = {
-      secretId: secretIdForListSecretVersionLocksLink,
-      id: secretVersionIdForListSecretVersionLocksLink,
-      limit: 10,
-      sort: 'name',
-      search: 'example',
-    };
-
-    const allResults = [];
-    try {
-      const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
-      while (pager.hasNext()) {
-        const nextPage = await pager.getNext();
-        expect(nextPage).not.toBeNull();
-        allResults.push(...nextPage);
-      }
-      console.log(JSON.stringify(allResults, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-list_secret_version_locks
-  });
-
   test('createSecretVersionLocksBulk request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -833,6 +796,43 @@ describe('SecretsManagerV2', () => {
     }
 
     // end-create_secret_version_locks_bulk
+  });
+
+  test('listSecretVersionLocks request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listSecretVersionLocks() result:');
+    // begin-list_secret_version_locks
+
+    const params = {
+      secretId: secretIdForListSecretVersionLocksLink,
+      id: secretVersionIdForListSecretVersionLocksLink,
+      limit: 10,
+      sort: 'name',
+      search: 'example',
+    };
+
+    const allResults = [];
+    try {
+      const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_secret_version_locks
   });
 
   test('listConfigurations request example', async () => {

@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.60.2-95dc7721-20221102-203229
+ * IBM OpenAPI SDK Code Generator Version: 3.68.0-c188a613-20230301-190553
  */
 
 /* eslint-disable max-classes-per-file */
@@ -1007,7 +1007,7 @@ class SecretsManagerV2 extends BaseService {
    *
    * Delete the data of a secret version by specifying the ID of the version.
    *
-   * This operation is available for secret type: iam_credentials.
+   * This operation is available for secret type: iam_credentials current version.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
