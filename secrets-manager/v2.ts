@@ -7103,8 +7103,12 @@ namespace SecretsManagerV2 {
      *  `false` for the certificate file to contain only the issued certificate.
      */
     bundle_certs?: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
-    rotation?: RotationPolicy;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically.
+     *
+     *  For public certificates, if `auto_rotate` is set to `true`, the service reorders your certificate for 31 days,
+     *  before it expires.
+     */
+    rotation?: PublicCertificateRotationPolicy;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
