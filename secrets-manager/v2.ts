@@ -7119,10 +7119,6 @@ namespace SecretsManagerV2 {
      *  interval.
      */
     auto_rotate: boolean;
-    /** The length of the secret rotation time interval. */
-    interval?: number;
-    /** The units for the secret rotation time interval. */
-    unit?: string;
     /** This field indicates whether Secrets Manager rotates the private key for your public certificate
      *  automatically.
      *
