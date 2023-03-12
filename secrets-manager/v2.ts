@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.68.0-c188a613-20230301-190553
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 /* eslint-disable max-classes-per-file */
@@ -7103,12 +7103,8 @@ namespace SecretsManagerV2 {
      *  `false` for the certificate file to contain only the issued certificate.
      */
     bundle_certs?: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically.
-     *
-     *  For public certificates, if `auto_rotate` is set to `true`, the service reorders your certificate for 31 days,
-     *  before it expires.
-     */
-    rotation?: PublicCertificateRotationPolicy;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
@@ -7129,7 +7125,7 @@ namespace SecretsManagerV2 {
      *  The default is `false`. If it is set to `true`, the service generates and stores a new private key for your
      *  rotated certificate.
      */
-    rotate_keys?: boolean;
+    rotate_keys: boolean;
   }
 
   /** Versions of your public certificate. */
