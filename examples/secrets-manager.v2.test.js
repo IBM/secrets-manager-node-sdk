@@ -256,10 +256,22 @@ describe('SecretsManagerV2', () => {
       config_type: 'private_cert_configuration_root_ca',
       name: 'example-root-CA',
       max_ttl: '43830h',
+      crl_expiry: '72h',
       crl_disable: false,
       crl_distribution_points_encoded: true,
       issuing_certificates_urls_encoded: true,
       common_name: 'example.com',
+      alt_names: ['alt-name-1', 'alt-name-2'],
+      ip_sans: '127.0.0.1',
+      uri_sans: 'https://www.example.com/test',
+      other_sans: ['1.2.3.5.4.3.201.10.4.3;utf8:test@example.com'],
+      ttl: '2190h',
+      format: 'pem',
+      private_key_format: 'der',
+      key_type: 'rsa',
+      key_bits: 4096,
+      max_path_length: -1,
+      exclude_cn_from_sans: false,
     };
 
     const params = {
