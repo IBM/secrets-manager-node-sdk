@@ -12,7 +12,10 @@
     ["@semantic-release/commit-analyzer", {
         "preset": "angular",
         "releaseRules": [
-            {"type": "release","release": "patch"}
+            {"type": "release","release": "patch"},
+            {"type": "major","release": "major"},
+            {"type": "minor","release": "minor"},
+            {"type": "patch","release": "patch"}
     ]}],
   ],
    "generateNotes": [
