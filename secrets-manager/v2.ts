@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
+ * IBM OpenAPI SDK Code Generator Version: 3.69.0-370d6400-20230329-174648
  */
 
 /* eslint-disable max-classes-per-file */
@@ -1410,19 +1410,19 @@ class SecretsManagerV2 extends BaseService {
    * Additionally, you can use this operation to clear any matching locks on a secret by using one of the following
    * optional lock modes:
    *
-   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the
+   * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
    * secret.\n
-   * - `exclusive_delete`: Carries out the same function as `exclusive`, but also permanently deletes the data of the
-   * previous secret version if it doesn't have any locks.
+   * - `remove_previous_and_delete`: Carries out the same function as `remove_previous`, but also permanently deletes
+   * the data of the previous secret version if it doesn't have any locks.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
    * @param {SecretLockPrototype[]} params.locks - The locks data to be attached to a secret version.
    * @param {string} [params.mode] - An optional lock mode. When you create a lock, you can set one of the following
    * modes to clear any matching locks on a secret version.
-   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
-   * - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of the
-   * previous secret version if it doesn't have any locks.
+   * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
+   * secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
+   * deletes the data of the previous secret version if it doesn't have any locks.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>>}
    */
@@ -1640,9 +1640,10 @@ class SecretsManagerV2 extends BaseService {
    * Additionally, you can use this operation to clear any matching locks on a secret by using one of the following
    * optional lock modes:
    *
-   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
-   * - `exclusive_delete`: Carries out the same function as `exclusive`, but also permanently deletes the data of the
-   * previous secret version if it doesn't have any locks.
+   * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
+   * secret.
+   * - `remove_previous_and_delete`: Carries out the same function as `remove_previous`, but also permanently deletes
+   * the data of the previous secret version if it doesn't have any locks.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
@@ -1651,9 +1652,9 @@ class SecretsManagerV2 extends BaseService {
    * @param {SecretLockPrototype[]} params.locks - The locks data to be attached to a secret version.
    * @param {string} [params.mode] - An optional lock mode. When you create a lock, you can set one of the following
    * modes to clear any matching locks on a secret version.
-   * - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret.
-   * - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of the
-   * previous secret version if it doesn't have any locks.
+   * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
+   * secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
+   * deletes the data of the previous secret version if it doesn't have any locks.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>>}
    */
@@ -2690,9 +2691,9 @@ namespace SecretsManagerV2 {
     locks: SecretLockPrototype[];
     /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching
      *  locks on a secret version.
-     *  - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the
-     *  secret. - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of
-     *  the previous secret version if it doesn't have any locks.
+     *  - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of
+     *  the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
+     *  deletes the data of the previous secret version if it doesn't have any locks.
      */
     mode?: CreateSecretLocksBulkConstants.Mode | string;
     headers?: OutgoingHttpHeaders;
@@ -2700,10 +2701,10 @@ namespace SecretsManagerV2 {
 
   /** Constants for the `createSecretLocksBulk` operation. */
   export namespace CreateSecretLocksBulkConstants {
-    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret. - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
     export enum Mode {
-      EXCLUSIVE = 'exclusive',
-      EXCLUSIVE_DELETE = 'exclusive_delete',
+      REMOVE_PREVIOUS = 'remove_previous',
+      REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
     }
   }
 
@@ -2768,9 +2769,9 @@ namespace SecretsManagerV2 {
     locks: SecretLockPrototype[];
     /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching
      *  locks on a secret version.
-     *  - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the
-     *  secret. - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of
-     *  the previous secret version if it doesn't have any locks.
+     *  - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of
+     *  the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
+     *  deletes the data of the previous secret version if it doesn't have any locks.
      */
     mode?: CreateSecretVersionLocksBulkConstants.Mode | string;
     headers?: OutgoingHttpHeaders;
@@ -2778,10 +2779,10 @@ namespace SecretsManagerV2 {
 
   /** Constants for the `createSecretVersionLocksBulk` operation. */
   export namespace CreateSecretVersionLocksBulkConstants {
-    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `exclusive`: Removes any other locks with matching names if they are found in the previous version of the secret. - `exclusive_delete`: Completes the same action as `exclusive`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
     export enum Mode {
-      EXCLUSIVE = 'exclusive',
-      EXCLUSIVE_DELETE = 'exclusive_delete',
+      REMOVE_PREVIOUS = 'remove_previous',
+      REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
     }
   }
 
@@ -3137,6 +3138,8 @@ namespace SecretsManagerV2 {
     description: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
   }
@@ -5195,16 +5198,37 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
-    /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
-    max_ttl_seconds?: number;
+    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
+    common_name: string;
+    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
+     *  certificates that are issued by this certificate authority.
+     */
+    crl_distribution_points_encoded?: boolean;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    expiration_date?: string;
+    /** The distinguished name that identifies the entity that signed and issued the certificate. */
+    issuer?: string;
+    /** The type of private key to generate. */
+    key_type?: string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
+     */
+    key_bits?: number;
     /** The signing method to use with this certificate authority to generate private certificates.
      *
      *  You can choose between internal or externally signed options. For more information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities).
      */
     signing_method: string;
-    /** The distinguished name that identifies the entity that signed and issued the certificate. */
-    issuer?: string;
+    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
+     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
+     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
+     */
+    status?: string;
+    /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
+    max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
     crl_expiry_seconds?: number;
     /** This field disables or enables certificate revocation list (CRL) building.
@@ -5213,16 +5237,10 @@ namespace SecretsManagerV2 {
      *  building is enabled, it rebuilds the CRL.
      */
     crl_disable?: boolean;
-    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
-     *  certificates that are issued by this certificate authority.
-     */
-    crl_distribution_points_encoded?: boolean;
     /** This field determines whether to encode the URL of the issuing certificate in the certificates that are
      *  issued by this certificate authority.
      */
     issuing_certificates_urls_encoded?: boolean;
-    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
-    common_name: string;
     /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
      *  SSL certificate.
      */
@@ -5243,14 +5261,6 @@ namespace SecretsManagerV2 {
     format?: string;
     /** The format of the generated private key. */
     private_key_format?: string;
-    /** The type of private key to generate. */
-    key_type?: string;
-    /** The number of bits to use to generate the private key.
-     *
-     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
-     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
-     */
-    key_bits?: number;
     /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
      *
      *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
@@ -5275,13 +5285,6 @@ namespace SecretsManagerV2 {
      *  this field.
      */
     serial_number?: string;
-    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
-     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
-     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
-     */
-    status?: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
-    expiration_date?: string;
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
@@ -5316,6 +5319,35 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
+    common_name: string;
+    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
+     *  certificates that are issued by this certificate authority.
+     */
+    crl_distribution_points_encoded?: boolean;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    expiration_date?: string;
+    /** The distinguished name that identifies the entity that signed and issued the certificate. */
+    issuer?: string;
+    /** The type of private key to generate. */
+    key_type?: string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
+     */
+    key_bits?: number;
+    /** The signing method to use with this certificate authority to generate private certificates.
+     *
+     *  You can choose between internal or externally signed options. For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities).
+     */
+    signing_method: string;
+    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
+     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
+     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
+     */
+    status?: string;
   }
 
   /** The configuration patch of the intermediate certificate authority. */
@@ -5471,6 +5503,27 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
+    common_name: string;
+    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
+     *  certificates that are issued by this certificate authority.
+     */
+    crl_distribution_points_encoded?: boolean;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    expiration_date?: string;
+    /** The type of private key to generate. */
+    key_type?: string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
+     */
+    key_bits?: number;
+    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
+     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
+     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
+     */
+    status?: string;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -5481,16 +5534,10 @@ namespace SecretsManagerV2 {
      *  building is enabled, it rebuilds the CRL.
      */
     crl_disable?: boolean;
-    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
-     *  certificates that are issued by this certificate authority.
-     */
-    crl_distribution_points_encoded?: boolean;
     /** This field determines whether to encode the URL of the issuing certificate in the certificates that are
      *  issued by this certificate authority.
      */
     issuing_certificates_urls_encoded?: boolean;
-    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
-    common_name: string;
     /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
      *  SSL certificate.
      */
@@ -5513,14 +5560,6 @@ namespace SecretsManagerV2 {
     format?: string;
     /** The format of the generated private key. */
     private_key_format?: string;
-    /** The type of private key to generate. */
-    key_type?: string;
-    /** The number of bits to use to generate the private key.
-     *
-     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
-     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
-     */
-    key_bits?: number;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -5555,13 +5594,6 @@ namespace SecretsManagerV2 {
      *  this field.
      */
     serial_number?: string;
-    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
-     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
-     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
-     */
-    status?: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
-    expiration_date?: string;
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
@@ -5582,6 +5614,27 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
+    common_name: string;
+    /** This field determines whether to encode the certificate revocation list (CRL) distribution points in the
+     *  certificates that are issued by this certificate authority.
+     */
+    crl_distribution_points_encoded?: boolean;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    expiration_date?: string;
+    /** The type of private key to generate. */
+    key_type?: string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
+     *  `521`. The default for RSA keys is `2048`. The default for EC keys is `256`.
+     */
+    key_bits?: number;
+    /** The status of the certificate authority. The status of a root certificate authority is either `configured`
+     *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
+     *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
+     */
+    status?: string;
   }
 
   /** The configuration of the metadata patch for the root certificate authority. */
@@ -5914,6 +5967,8 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** The name of the intermediate certificate authority. */
+    certificate_authority: string;
   }
 
   /** Properties that describe a certificate template. You can use a certificate template to control the parameters that are applied to your issued private certificates. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-certificate-templates). */
@@ -6647,9 +6702,9 @@ namespace SecretsManagerV2 {
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
     bundle_certs?: boolean;
-    /** The name that is assigned to the certificate authority configuration. */
+    /** The name of the certificate authority configuration. */
     ca?: string;
-    /** The name that is assigned to the DNS provider configuration. */
+    /** The name of the DNS provider configuration. */
     dns?: string;
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
     certificate?: string;
@@ -6693,14 +6748,14 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The configuration of the Let's Encrypt CA environment. */
     lets_encrypt_environment: string;
-    /** The PEM-encoded private key of your Let's Encrypt account. The data must be formatted on a single line with
-     *  embedded newline characters.
-     */
-    lets_encrypt_private_key: string;
     /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
      *  Name. If no match, the default offered chain will be used.
      */
     lets_encrypt_preferred_chain?: string;
+    /** The PEM-encoded private key of your Let's Encrypt account. The data must be formatted on a single line with
+     *  embedded newline characters.
+     */
+    lets_encrypt_private_key: string;
   }
 
   /** Your Let's Encrypt CA metadata properties. */
@@ -6719,6 +6774,12 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** The configuration of the Let's Encrypt CA environment. */
+    lets_encrypt_environment: string;
+    /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
+     *  Name. If no match, the default offered chain will be used.
+     */
+    lets_encrypt_preferred_chain?: string;
   }
 
   /** The configuration update of the Let's Encrypt Certificate Authority. */
@@ -7017,9 +7078,9 @@ namespace SecretsManagerV2 {
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
     bundle_certs?: boolean;
-    /** The name that is assigned to the certificate authority configuration. */
+    /** The name of the certificate authority configuration. */
     ca?: string;
-    /** The name that is assigned to the DNS provider configuration. */
+    /** The name of the DNS provider configuration. */
     dns?: string;
   }
 

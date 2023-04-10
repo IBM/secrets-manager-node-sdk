@@ -134,7 +134,7 @@ describe('SecretsManagerV2_integration', () => {
     const params = {
       id: secretIdForGetSecretLink,
       locks: [secretLockPrototypeModel],
-      mode: 'exclusive',
+      mode: 'remove_previous',
     };
 
     const res = await secretsManagerService.createSecretLocksBulk(params);
@@ -469,7 +469,7 @@ describe('SecretsManagerV2_integration', () => {
       secretId: secretIdForCreateSecretVersionLocksLink,
       id: secretVersionIdForCreateSecretVersionLocksLink,
       locks: [secretLockPrototypeModel],
-      mode: 'exclusive',
+      mode: 'remove_previous',
     };
 
     const res = await secretsManagerService.createSecretVersionLocksBulk(params);

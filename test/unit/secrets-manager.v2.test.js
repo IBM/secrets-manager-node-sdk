@@ -2156,7 +2156,7 @@ describe('SecretsManagerV2', () => {
         // Construct the params object for operation createSecretLocksBulk
         const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const locks = [secretLockPrototypeModel];
-        const mode = 'exclusive';
+        const mode = 'remove_previous';
         const createSecretLocksBulkParams = {
           id,
           locks,
@@ -2502,7 +2502,7 @@ describe('SecretsManagerV2', () => {
         const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
         const locks = [secretLockPrototypeModel];
-        const mode = 'exclusive';
+        const mode = 'remove_previous';
         const createSecretVersionLocksBulkParams = {
           secretId,
           id,
