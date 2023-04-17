@@ -18,7 +18,7 @@ jobs:
       - name: setup nodejs
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: release using semantic-release
         env:
@@ -30,11 +30,12 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
           sudo apt-get update
-          sudo apt-get install python
+          sudo apt-get install python3
           pip install --user bumpversion
           npm install @semantic-release/changelog
           npm install @semantic-release/git
           npm install @semantic-release/github
           npm install @semantic-release/npm
+          npm install @semantic-release/release-notes-generator -D
           npx semantic-release
 
