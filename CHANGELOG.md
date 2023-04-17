@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/IBM/secrets-manager-node-sdk/compare/v1.0.44...v2.0.0) (2023-04-17)
+
+
+### Features
+
+* new SM v2 API release ([abd88e0](https://github.com/IBM/secrets-manager-node-sdk/commit/abd88e0825bd524f6601d7b682dd79e69323e7d6))
+
+
+### BREAKING CHANGES
+
+* new v2 API.
+
+Signed-off-by: yuval-shlomo-dekel <yuval.shlomo.dekel@ibm.com>
+
 ## [1.0.44](https://github.com/IBM/secrets-manager-node-sdk/compare/v1.0.43...v1.0.44) (2023-02-15)
 
 ## [1.0.43](https://github.com/IBM/secrets-manager-node-sdk/compare/v1.0.42...v1.0.43) (2023-01-08)
