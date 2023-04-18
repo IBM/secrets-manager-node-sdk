@@ -1,6 +1,6 @@
 ![tests](https://github.com/IBM/secrets-manager-node-sdk/workflows/run-tests/badge.svg)
 
-# IBM Cloud Secrets Manager Node.js SDK v2
+# IBM Cloud Secrets Manager Node.js SDK
 
 A Node.js client library to interact with
 the [IBM Cloud® Secrets Manager APIs](https://cloud.ibm.com/apidocs/secrets-manager).
@@ -28,7 +28,7 @@ services:
 
 | Service name                                                     | Import path                                   |
 |------------------------------------------------------------------|-----------------------------------------------|
-| [Secrets Manager](https://cloud.ibm.com/apidocs/secrets-manager) | @ibm-cloud/secrets-manager/secrets-manager/v1 |
+| [Secrets Manager](https://cloud.ibm.com/apidocs/secrets-manager) | @ibm-cloud/secrets-manager/secrets-manager/v2 |
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ the [IBM Node.js SDK Core documentation](https://github.com/IBM/node-sdk-core/bl
 Construct a service client and use it to create and retrieve a secret from your Secrets Manager instance.
 
 ```js
-const SecretsManager = require('@ibm-cloud/secrets-manager/secrets-manager/v1');
+const SecretsManager = require('@ibm-cloud/secrets-manager/secrets-manager/v2');
 const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
 
 
@@ -117,46 +117,40 @@ async function secretsManagerSdkExample() {
 
   // Use the Secrets Manager API to create a secret
   let res = await secretsManager.createSecret({
-    secretType: 'username_password',
-    'metadata': {
-      'collection_type': 'application/vnd.ibm.secrets-manager.secret+json',
-      'collection_total': 1,
-    },
-    'resources': [
-      {
-        'name': 'example-username-password-secret',
-        'description': 'Extended description for this secret.',
-        'username': 'user123',
-        'password': '123456789',
-        'labels': ['label1', 'label2'],
-        'expiration_date': '2030-04-01T09:30:00Z',
-      },
-    ],
+    secretPrototype:  {
+      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+      description: 'Description of my arbitrary secret.',
+      expiration_date: '2023-10-05T11:49:42Z',
+      labels: ['dev', 'us-south'],
+      name: 'example-arbitrary-secret',
+      secret_group_id: 'default',
+      secret_type: 'arbitrary',
+      payload: 'secret-data',
+      version_custom_metadata: { custom_version_key: 'custom_version_value' },
+    }
   });
 
-  console.log('Secret created:\n' + JSON.stringify(res.result.resources[0], null, 2));
+  console.log('Secret created:\n' + JSON.stringify(res.result, null, 2));
 
   // Get the ID of the newly created secret
-  const secretId = res.result.resources[0].id;
+  const secretId = res.result.id;
 
   // Use the Secrets Manager API to get the secret using the secret ID
   res = await secretsManager.getSecret({
-    secretType: 'username_password',
     id: secretId,
   });
 
-  console.log('Get secret:\n', JSON.stringify(res.result.resources, null, 2));
+  console.log('Get secret:\n', JSON.stringify(res.result, null, 2));
 }
 
 secretsManagerSdkExample();
 
 ```
 
-To delete a secret, specify the `secretType` and its `id`.
+To delete a secret, specify its `id`.
 
 ```js
   res = await secretsManager.deleteSecret({
-    secretType: 'username_password',
     id: secretId,
   });
 
@@ -168,26 +162,14 @@ Create a secret group, and then add a new secret to this group.
 
 ```js
  // Create a secret group
-    const createGroupParams = {
-      metadata: {
-        collection_type: 'application/vnd.ibm.secrets-manager.secret.group+json',
-        collection_total: 1,
-      },
-      resources: [{ name: 'Test Group', description: 'Group my test secrets' }],
-    };
+    const createGroupParams = { name: 'Test Group', description: 'Group my test secrets' };
 
     let res = await secretsManager.createSecretGroup(createGroupParams);
-    const secretGroupId = res.result.resources[0].id;
+    const secretGroupId = res.result.id;
 
     // Create a secret and associate it with your secret group
     res = await secretsManager.createSecret({
-      metadata: {
-        collection_type: 'application/vnd.ibm.secrets-manager.secret+json',
-        collection_total: 1,
-      },
-      secretType: 'username_password',
-      resources: [
-        {
+      secretPrototype: {
           secret_group_id: secretGroupId,
           name: "Test secret",
           description: 'Secret used for testing.',
@@ -195,31 +177,31 @@ Create a secret group, and then add a new secret to this group.
           password: 'test_password',
           labels: ['label1'],
           expiration_date: '2030-04-01T09:30:00Z',
-        },
-      ],
+        }
     });
 ```
 
 Create a rotation policy of one month for a secret.
 
 ```js
-    let res = await secretsManager.putPolicy({
-      metadata: {
-        collection_type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
-        collection_total: 1,
-      },
-      secretType: 'username_password',
-      id: secretId,
-      resources: [
-        {
-          type: 'application/vnd.ibm.secrets-manager.secret.policy+json',
-          rotation: {
-            interval: 1,
-            unit: 'month',
-          },
-        },
-      ],
-    });
+    let res = await secretsManager.createSecret({
+  secretPrototype:  {
+    custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+    description: 'Description of my arbitrary secret.',
+    expiration_date: '2023-10-05T11:49:42Z',
+    labels: ['dev', 'us-south'],
+    name: 'example-arbitrary-secret',
+    secret_group_id: 'default',
+    secret_type: 'arbitrary',
+    payload: 'secret-data',
+    version_custom_metadata: { custom_version_key: 'custom_version_value' },
+    rotation: {
+      auto_rotate: true,
+      interval: 1,
+      unit: month,
+    }
+  }
+});
 ```
 
 For more information and IBM Cloud SDK usage examples for Node.js, see
@@ -264,5 +246,3 @@ For general contribution guidelines, see [CONTRIBUTING](CONTRIBUTING.md).
 ## License
 
 This SDK project is released under the Apache 2.0 license. The license's full text can be found in [LICENSE](LICENSE).
-
-dummy PR #1
