@@ -17,8 +17,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
 const authHelper = require('../resources/auth-helper.js');
 
 // testcase timeout value (200s).
@@ -44,6 +44,7 @@ describe('SecretsManagerV2_integration', () => {
   let secretIdForGetSecretVersionLink;
   let secretIdForListSecretLocksLink;
   let secretIdForListSecretVersionLocksLink;
+  let secretNameLink;
   let secretVersionIdForCreateSecretVersionLocksLink;
   let secretVersionIdForDeleteSecretVersionLocksLink;
   let secretVersionIdForGetSecretVersionLink;
@@ -58,7 +59,7 @@ describe('SecretsManagerV2_integration', () => {
 
     const config = readExternalSources(SecretsManagerV2.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-  
+
     secretsManagerService.enableRetries();
   });
 
@@ -101,6 +102,30 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
     secretIdForGetSecretLink = res.result.id;
     secretIdForGetSecretVersionLink = res.result.id;
+  });
+
+  test('updateSecretMetadata()', async () => {
+    // Request models needed by this operation.
+
+    // ArbitrarySecretMetadataPatch
+    const secretMetadataPatchModel = {
+      name: 'updated-arbitrary-secret-name-example',
+      description: 'updated Arbitrary Secret description',
+      labels: ['dev', 'us-south'],
+      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+      expiration_date: '2033-04-12T23:20:50.520Z',
+    };
+
+    const params = {
+      id: secretIdForGetSecretLink,
+      secretMetadataPatch: secretMetadataPatchModel,
+    };
+
+    const res = await secretsManagerService.updateSecretMetadata(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    secretNameLink = res.result.name;
   });
 
   test('listSecretVersions()', async () => {
@@ -226,10 +251,10 @@ describe('SecretsManagerV2_integration', () => {
   test('listSecrets()', async () => {
     const params = {
       offset: 0,
-      limit: 1,
+      limit: 200,
       sort: 'created_at',
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const res = await secretsManagerService.listSecrets(params);
@@ -243,7 +268,7 @@ describe('SecretsManagerV2_integration', () => {
       limit: 10,
       sort: 'created_at',
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const allResults = [];
@@ -286,32 +311,22 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('updateSecretMetadata()', async () => {
-    // Request models needed by this operation.
+  // The integration test for createSecretAction has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('createSecretAction()', async () => {});
 
-    // ArbitrarySecretMetadataPatch
-    const secretMetadataPatchModel = {
-      name: 'updated-arbitrary-secret-name',
-      description: 'updated Arbitrary Secret description',
-      labels: ['dev', 'us-south'],
-      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
-      expiration_date: '2033-04-12T23:20:50.520Z',
-    };
-
+  test('getSecretByNameType()', async () => {
     const params = {
-      id: secretIdForGetSecretLink,
-      secretMetadataPatch: secretMetadataPatchModel,
+      secretType: 'arbitrary',
+      name: secretNameLink,
+      secretGroupName: 'default',
     };
 
-    const res = await secretsManagerService.updateSecretMetadata(params);
+    const res = await secretsManagerService.getSecretByNameType(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
-
-  // The integration test for createSecretAction has been explicitly excluded from generation.
-  // A test for this operation must be developed manually.
-  // test('createSecretAction()', async () => {});
 
   test('createSecretVersion()', async () => {
     // Request models needed by this operation.
@@ -324,7 +339,7 @@ describe('SecretsManagerV2_integration', () => {
     };
 
     const params = {
-      secretId: secretIdForCreateSecretVersionLink,
+      secretId: secretIdForGetSecretLink,
       secretVersionPrototype: secretVersionPrototypeModel,
     };
 
@@ -336,7 +351,7 @@ describe('SecretsManagerV2_integration', () => {
 
   test('getSecretVersion()', async () => {
     const params = {
-      secretId: secretIdForGetSecretVersionLink,
+      secretId: secretIdForGetSecretLink,
       id: secretVersionIdForGetSecretVersionLink,
     };
 
@@ -349,7 +364,7 @@ describe('SecretsManagerV2_integration', () => {
   test('getSecretVersionMetadata()', async () => {
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForGetSecretVersionMetadataLink,
+      id: secretVersionIdForGetSecretVersionLink,
     };
 
     const res = await secretsManagerService.getSecretVersionMetadata(params);
@@ -361,7 +376,7 @@ describe('SecretsManagerV2_integration', () => {
   test('updateSecretVersionMetadata()', async () => {
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForUpdateSecretVersionMetadataLink,
+      id: secretVersionIdForGetSecretVersionLink,
       versionCustomMetadata: { key: 'value' },
     };
 
@@ -378,9 +393,9 @@ describe('SecretsManagerV2_integration', () => {
   test('listSecretsLocks()', async () => {
     const params = {
       offset: 0,
-      limit: 1,
+      limit: 200,
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const res = await secretsManagerService.listSecretsLocks(params);
@@ -393,7 +408,7 @@ describe('SecretsManagerV2_integration', () => {
     const params = {
       limit: 10,
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const allResults = [];
@@ -416,9 +431,9 @@ describe('SecretsManagerV2_integration', () => {
 
   test('listSecretLocks()', async () => {
     const params = {
-      id: secretIdForListSecretLocksLink,
+      id: secretIdForGetSecretLink,
       offset: 0,
-      limit: 1,
+      limit: 25,
       sort: 'name',
       search: 'example',
     };
@@ -431,7 +446,7 @@ describe('SecretsManagerV2_integration', () => {
 
   test('listSecretLocks() via SecretLocksPager', async () => {
     const params = {
-      id: secretIdForListSecretLocksLink,
+      id: secretIdForGetSecretLink,
       limit: 10,
       sort: 'name',
       search: 'example',
@@ -466,8 +481,8 @@ describe('SecretsManagerV2_integration', () => {
     };
 
     const params = {
-      secretId: secretIdForCreateSecretVersionLocksLink,
-      id: secretVersionIdForCreateSecretVersionLocksLink,
+      secretId: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       locks: [secretLockPrototypeModel],
       mode: 'remove_previous',
     };
@@ -480,10 +495,10 @@ describe('SecretsManagerV2_integration', () => {
 
   test('listSecretVersionLocks()', async () => {
     const params = {
-      secretId: secretIdForListSecretVersionLocksLink,
-      id: secretVersionIdForListSecretVersionLocksLink,
+      secretId: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       offset: 0,
-      limit: 1,
+      limit: 25,
       sort: 'name',
       search: 'example',
     };
@@ -496,8 +511,8 @@ describe('SecretsManagerV2_integration', () => {
 
   test('listSecretVersionLocks() via SecretVersionLocksPager', async () => {
     const params = {
-      secretId: secretIdForListSecretVersionLocksLink,
-      id: secretVersionIdForListSecretVersionLocksLink,
+      secretId: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       limit: 10,
       sort: 'name',
       search: 'example',
@@ -524,7 +539,7 @@ describe('SecretsManagerV2_integration', () => {
   test('listConfigurations()', async () => {
     const params = {
       offset: 0,
-      limit: 1,
+      limit: 200,
       sort: 'config_type',
       search: 'example',
     };
@@ -666,7 +681,7 @@ describe('SecretsManagerV2_integration', () => {
   test('deleteSecretVersionLocksBulk()', async () => {
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForDeleteSecretVersionLocksLink,
+      id: secretVersionIdForGetSecretVersionLink,
       name: ['lock-example-1'],
     };
 

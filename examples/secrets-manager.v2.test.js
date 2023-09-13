@@ -64,6 +64,7 @@ describe('SecretsManagerV2', () => {
   let secretIdForGetSecretVersionLink;
   let secretIdForListSecretLocksLink;
   let secretIdForListSecretVersionLocksLink;
+  let secretNameLink;
   let secretVersionIdForCreateSecretVersionLocksLink;
   let secretVersionIdForDeleteSecretVersionLocksLink;
   let secretVersionIdForGetSecretVersionLink;
@@ -156,6 +157,47 @@ describe('SecretsManagerV2', () => {
     const responseBody = res.result;
     secretIdForGetSecretLink = responseBody.id;
     secretIdForGetSecretVersionLink = responseBody.id;
+  });
+
+  test('updateSecretMetadata request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateSecretMetadata() result:');
+    // begin-update_secret_metadata
+
+    // Request models needed by this operation.
+
+    // ArbitrarySecretMetadataPatch
+    const secretMetadataPatchModel = {
+      name: 'updated-arbitrary-secret-name-example',
+      description: 'updated Arbitrary Secret description',
+      labels: ['dev', 'us-south'],
+      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+    };
+
+    const params = {
+      id: secretIdForGetSecretLink,
+      secretMetadataPatch: secretMetadataPatchModel,
+    };
+
+    let res;
+    try {
+      res = await secretsManagerService.updateSecretMetadata(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_secret_metadata
+    const responseBody = res.result;
+    secretNameLink = responseBody.name;
   });
 
   test('listSecretVersions request example', async () => {
@@ -388,7 +430,7 @@ describe('SecretsManagerV2', () => {
       limit: 10,
       sort: 'created_at',
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const allResults = [];
@@ -463,45 +505,6 @@ describe('SecretsManagerV2', () => {
     // end-get_secret_metadata
   });
 
-  test('updateSecretMetadata request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('updateSecretMetadata() result:');
-    // begin-update_secret_metadata
-
-    // Request models needed by this operation.
-
-    // ArbitrarySecretMetadataPatch
-    const secretMetadataPatchModel = {
-      name: 'updated-arbitrary-secret-name',
-      description: 'updated Arbitrary Secret description',
-      labels: ['dev', 'us-south'],
-      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
-    };
-
-    const params = {
-      id: secretIdForGetSecretLink,
-      secretMetadataPatch: secretMetadataPatchModel,
-    };
-
-    let res;
-    try {
-      res = await secretsManagerService.updateSecretMetadata(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-update_secret_metadata
-  });
-
   test('createSecretAction request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -517,7 +520,7 @@ describe('SecretsManagerV2', () => {
 
     // Request models needed by this operation.
 
-    // PublicCertificateActionValidateManualDNSPrototype
+    // PrivateCertificateActionRevokePrototype
     const secretActionPrototypeModel = {
       action_type: 'private_cert_action_revoke_certificate',
     };
@@ -536,6 +539,36 @@ describe('SecretsManagerV2', () => {
     }
 
     // end-create_secret_action
+  });
+
+  test('getSecretByNameType request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getSecretByNameType() result:');
+    // begin-get_secret_by_name_type
+
+    const params = {
+      secretType: 'arbitrary',
+      name: secretNameLink,
+      secretGroupName: 'default',
+    };
+
+    let res;
+    try {
+      res = await secretsManagerService.getSecretByNameType(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_secret_by_name_type
   });
 
   test('createSecretVersion request example', async () => {
@@ -561,7 +594,7 @@ describe('SecretsManagerV2', () => {
     };
 
     const params = {
-      secretId: secretIdForCreateSecretVersionLink,
+      secretId: secretIdForGetSecretLink,
       secretVersionPrototype: secretVersionPrototypeModel,
     };
 
@@ -590,7 +623,7 @@ describe('SecretsManagerV2', () => {
     // begin-get_secret_version
 
     const params = {
-      secretId: secretIdForGetSecretVersionLink,
+      secretId: secretIdForGetSecretLink,
       id: secretVersionIdForGetSecretVersionLink,
     };
 
@@ -620,7 +653,7 @@ describe('SecretsManagerV2', () => {
 
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForGetSecretVersionMetadataLink,
+      id: secretVersionIdForGetSecretVersionLink,
     };
 
     let res;
@@ -649,7 +682,7 @@ describe('SecretsManagerV2', () => {
 
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForUpdateSecretVersionMetadataLink,
+      id: secretVersionIdForGetSecretVersionLink,
     };
 
     let res;
@@ -685,7 +718,7 @@ describe('SecretsManagerV2', () => {
 
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       secretVersionActionPrototype: secretVersionActionPrototypeModel,
     };
 
@@ -716,7 +749,7 @@ describe('SecretsManagerV2', () => {
     const params = {
       limit: 10,
       search: 'example',
-      groups: ['default'],
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
     };
 
     const allResults = [];
@@ -749,7 +782,7 @@ describe('SecretsManagerV2', () => {
     // begin-list_secret_locks
 
     const params = {
-      id: secretIdForListSecretLocksLink,
+      id: secretIdForGetSecretLink,
       limit: 10,
       sort: 'name',
       search: 'example',
@@ -794,8 +827,8 @@ describe('SecretsManagerV2', () => {
     };
 
     const params = {
-      secretId: secretIdForCreateSecretVersionLocksLink,
-      id: secretVersionIdForCreateSecretVersionLocksLink,
+      secretId: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       locks: [secretLockPrototypeModel],
     };
 
@@ -824,8 +857,8 @@ describe('SecretsManagerV2', () => {
     // begin-list_secret_version_locks
 
     const params = {
-      secretId: secretIdForListSecretVersionLocksLink,
-      id: secretVersionIdForListSecretVersionLocksLink,
+      secretId: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
       limit: 10,
       sort: 'name',
       search: 'example',
@@ -1099,7 +1132,7 @@ describe('SecretsManagerV2', () => {
 
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
+      id: secretVersionIdForGetSecretVersionLink,
     };
 
     try {
@@ -1155,7 +1188,7 @@ describe('SecretsManagerV2', () => {
 
     const params = {
       secretId: secretIdForGetSecretLink,
-      id: secretVersionIdForDeleteSecretVersionLocksLink,
+      id: secretVersionIdForGetSecretVersionLink,
       name: ['lock-example-1'],
     };
 

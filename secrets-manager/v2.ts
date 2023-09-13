@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.69.0-370d6400-20230329-174648
+ * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
  */
 
 /* eslint-disable max-classes-per-file */
@@ -26,13 +26,13 @@ import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
-  getAuthenticatorFromEnvironment,
-  validateParams,
   UserOptions,
+  constructServiceUrl,
+  getAuthenticatorFromEnvironment,
+  getQueryParam,
+  validateParams,
 } from 'ibm-cloud-sdk-core';
-import { constructServiceUrl } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
-import { getQueryParam } from 'ibm-cloud-sdk-core';
 
 /**
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
@@ -167,11 +167,7 @@ class SecretsManagerV2 extends BaseService {
       'description': _params.description,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretGroup'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretGroup');
 
     const parameters = {
       options: {
@@ -215,11 +211,7 @@ class SecretsManagerV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecretGroups'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretGroups');
 
     const parameters = {
       options: {
@@ -266,11 +258,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getSecretGroup'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretGroup');
 
     const parameters = {
       options: {
@@ -328,11 +316,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateSecretGroup'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretGroup');
 
     const parameters = {
       options: {
@@ -385,11 +369,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteSecretGroup'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretGroup');
 
     const parameters = {
       options: {
@@ -444,11 +424,7 @@ class SecretsManagerV2 extends BaseService {
     }
 
     const body = _params.secretPrototype;
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecret');
 
     const parameters = {
       options: {
@@ -532,11 +508,7 @@ class SecretsManagerV2 extends BaseService {
       'groups': _params.groups,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecrets'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecrets');
 
     const parameters = {
       options: {
@@ -588,11 +560,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecret');
 
     const parameters = {
       options: {
@@ -640,11 +608,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteSecret'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecret');
 
     const parameters = {
       options: {
@@ -691,11 +655,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getSecretMetadata'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretMetadata');
 
     const parameters = {
       options: {
@@ -745,11 +705,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateSecretMetadata'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretMetadata');
 
     const parameters = {
       options: {
@@ -801,11 +757,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretAction'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretAction');
 
     const parameters = {
       options: {
@@ -821,6 +773,64 @@ class SecretsManagerV2 extends BaseService {
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a secret by name.
+   *
+   * Get a secret and its details by specifying the Name and Type of the secret.
+   *
+   * A successful request returns the secret data that is associated with your secret, along with other metadata. To
+   * view only the details of a specified secret without retrieving its value, use the [Get secret
+   * metadata](#get-secret-metadata) operation.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretType - The secret type. Supported types are arbitrary, certificates (imported, public,
+   * and private), IAM credentials, key-value, and user credentials.
+   * @param {string} params.name - A human-readable name to assign to your secret. To protect your privacy, do not use
+   * personal data, such as your name or location, as a name for your secret.
+   * @param {string} params.secretGroupName - The name of your secret group.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>>}
+   */
+  public getSecretByNameType(
+    params: SecretsManagerV2.GetSecretByNameTypeParams
+  ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretType', 'name', 'secretGroupName'];
+    const _validParams = ['secretType', 'name', 'secretGroupName', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'secret_type': _params.secretType,
+      'name': _params.name,
+      'secret_group_name': _params.secretGroupName,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretByNameType');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
           },
           _params.headers
         ),
@@ -860,11 +870,7 @@ class SecretsManagerV2 extends BaseService {
       'secret_id': _params.secretId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretVersion'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersion');
 
     const parameters = {
       options: {
@@ -916,11 +922,7 @@ class SecretsManagerV2 extends BaseService {
       'secret_id': _params.secretId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecretVersions'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretVersions');
 
     const parameters = {
       options: {
@@ -975,11 +977,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getSecretVersion'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretVersion');
 
     const parameters = {
       options: {
@@ -1032,11 +1030,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteSecretVersionData'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretVersionData');
 
     const parameters = {
       options: {
@@ -1089,11 +1083,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getSecretVersionMetadata'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretVersionMetadata');
 
     const parameters = {
       options: {
@@ -1149,11 +1139,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateSecretVersionMetadata'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretVersionMetadata');
 
     const parameters = {
       options: {
@@ -1210,11 +1196,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretVersionAction'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersionAction');
 
     const parameters = {
       options: {
@@ -1291,11 +1273,7 @@ class SecretsManagerV2 extends BaseService {
       'groups': _params.groups,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecretsLocks'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretsLocks');
 
     const parameters = {
       options: {
@@ -1372,11 +1350,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecretLocks'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretLocks');
 
     const parameters = {
       options: {
@@ -1449,11 +1423,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretLocksBulk'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretLocksBulk');
 
     const parameters = {
       options: {
@@ -1517,11 +1487,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteSecretLocksBulk'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretLocksBulk');
 
     const parameters = {
       options: {
@@ -1602,11 +1568,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listSecretVersionLocks'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretVersionLocks');
 
     const parameters = {
       options: {
@@ -1682,11 +1644,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createSecretVersionLocksBulk'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersionLocksBulk');
 
     const parameters = {
       options: {
@@ -1753,11 +1711,7 @@ class SecretsManagerV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteSecretVersionLocksBulk'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretVersionLocksBulk');
 
     const parameters = {
       options: {
@@ -1818,11 +1772,7 @@ class SecretsManagerV2 extends BaseService {
     }
 
     const body = _params.configurationPrototype;
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createConfiguration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createConfiguration');
 
     const parameters = {
       options: {
@@ -1877,7 +1827,7 @@ class SecretsManagerV2 extends BaseService {
    * more of the fields: `name`, `config_type`, `secret_type`.
    *
    * **Usage:** If you want to list only the configurations that contain the string `text`, use
-   * `../secrets?search=text`.
+   * `../configurations?search=text`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationMetadataPaginatedCollection>>}
    */
@@ -1899,11 +1849,7 @@ class SecretsManagerV2 extends BaseService {
       'search': _params.search,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listConfigurations'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listConfigurations');
 
     const parameters = {
       options: {
@@ -1955,11 +1901,7 @@ class SecretsManagerV2 extends BaseService {
       'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getConfiguration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getConfiguration');
 
     const parameters = {
       options: {
@@ -2012,11 +1954,7 @@ class SecretsManagerV2 extends BaseService {
       'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateConfiguration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateConfiguration');
 
     const parameters = {
       options: {
@@ -2069,11 +2007,7 @@ class SecretsManagerV2 extends BaseService {
       'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteConfiguration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteConfiguration');
 
     const parameters = {
       options: {
@@ -2133,11 +2067,7 @@ class SecretsManagerV2 extends BaseService {
       'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createConfigurationAction'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createConfigurationAction');
 
     const parameters = {
       options: {
@@ -2202,11 +2132,7 @@ class SecretsManagerV2 extends BaseService {
       'event_notifications_source_description': _params.eventNotificationsSourceDescription,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createNotificationsRegistration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createNotificationsRegistration');
 
     const parameters = {
       options: {
@@ -2250,11 +2176,7 @@ class SecretsManagerV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getNotificationsRegistration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getNotificationsRegistration');
 
     const parameters = {
       options: {
@@ -2298,11 +2220,7 @@ class SecretsManagerV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteNotificationsRegistration'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteNotificationsRegistration');
 
     const parameters = {
       options: {
@@ -2348,11 +2266,7 @@ class SecretsManagerV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(
-      SecretsManagerV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getNotificationsRegistrationTest'
-    );
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getNotificationsRegistrationTest');
 
     const parameters = {
       options: {
@@ -2537,6 +2451,35 @@ namespace SecretsManagerV2 {
     id: string;
     secretActionPrototype: SecretActionPrototype;
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getSecretByNameType` operation. */
+  export interface GetSecretByNameTypeParams {
+    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
+     *  credentials, key-value, and user credentials.
+     */
+    secretType: GetSecretByNameTypeConstants.SecretType | string;
+    /** A human-readable name to assign to your secret. To protect your privacy, do not use personal data, such as
+     *  your name or location, as a name for your secret.
+     */
+    name: string;
+    /** The name of your secret group. */
+    secretGroupName: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getSecretByNameType` operation. */
+  export namespace GetSecretByNameTypeConstants {
+    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM credentials, key-value, and user credentials. */
+    export enum SecretType {
+      ARBITRARY = 'arbitrary',
+      IMPORTED_CERT = 'imported_cert',
+      PUBLIC_CERT = 'public_cert',
+      IAM_CREDENTIALS = 'iam_credentials',
+      KV = 'kv',
+      USERNAME_PASSWORD = 'username_password',
+      PRIVATE_CERT = 'private_cert',
+    }
   }
 
   /** Parameters for the `createSecretVersion` operation. */
@@ -2837,7 +2780,7 @@ namespace SecretsManagerV2 {
      *  `name`, `config_type`, `secret_type`.
      *
      *  **Usage:** If you want to list only the configurations that contain the string `text`, use
-     *  `../secrets?search=text`.
+     *  `../configurations?search=text`.
      */
     search?: string;
     headers?: OutgoingHttpHeaders;
@@ -3108,7 +3051,7 @@ namespace SecretsManagerV2 {
     rotate_keys?: boolean;
   }
 
-  /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+  /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types: username_password, private_cert, public_cert, iam_credentials. */
   export interface RotationPolicy {
   }
 
@@ -3403,7 +3346,9 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
@@ -3458,7 +3403,9 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
   }
 
@@ -3484,7 +3431,9 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
   }
 
@@ -3498,7 +3447,9 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -3556,7 +3507,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
@@ -3594,7 +3547,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
   }
 
@@ -3638,10 +3593,10 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
-    /** The API key that is generated for this secret.
-     *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
-     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
+    /** An IBM Cloud API key that can create and manage service IDs. The API key must be assigned the Editor
+     *  platform role on the Access Groups Service and the Operator platform role on the IAM Identity Service.  For more
+     *  information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
      */
     api_key?: string;
   }
@@ -3666,10 +3621,10 @@ namespace SecretsManagerV2 {
 
   /** The configuration update of the IAM Credentials engine. */
   export interface IAMCredentialsConfigurationPatch extends ConfigurationPatch {
-    /** The API key that is generated for this secret.
-     *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
-     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
+    /** An IBM Cloud API key that can create and manage service IDs. The API key must be assigned the Editor
+     *  platform role on the Access Groups Service and the Operator platform role on the IAM Identity Service.  For more
+     *  information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
      */
     api_key: string;
   }
@@ -3683,11 +3638,7 @@ namespace SecretsManagerV2 {
     name: string;
     /** The configuration type. */
     config_type: string;
-    /** The API key that is generated for this secret.
-     *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
-     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
-     */
+    /** The API key that is used to set the iam_credentials engine. */
     api_key: string;
   }
 
@@ -3779,7 +3730,9 @@ namespace SecretsManagerV2 {
      *  and API key are generated each time that the secret is read or accessed.
      */
     reuse_api_key: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The date that the secret is scheduled for automatic rotation.
      *
@@ -3883,7 +3836,9 @@ namespace SecretsManagerV2 {
      *  and API key are generated each time that the secret is read or accessed.
      */
     reuse_api_key: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The date that the secret is scheduled for automatic rotation.
      *
@@ -3924,7 +3879,9 @@ namespace SecretsManagerV2 {
      *  The minimum duration is 1 minute. The maximum is 90 days.
      */
     ttl?: string;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
   }
 
@@ -3985,7 +3942,9 @@ namespace SecretsManagerV2 {
      *  and API key are generated each time that the secret is read or accessed.
      */
     reuse_api_key: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
@@ -4168,7 +4127,9 @@ namespace SecretsManagerV2 {
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
     intermediate_included: boolean;
@@ -4255,7 +4216,9 @@ namespace SecretsManagerV2 {
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
     intermediate_included: boolean;
@@ -4371,7 +4334,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -4421,7 +4386,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -4752,7 +4719,9 @@ namespace SecretsManagerV2 {
     certificate_template: string;
     /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
     common_name: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer: string;
@@ -4766,7 +4735,9 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -4898,7 +4869,7 @@ namespace SecretsManagerV2 {
      *  1) Subject information, including names and alternate names, are preserved from the CSR rather than by using the
      *  values that are provided in the other parameters to this operation.
      *
-     *  2) Any key usage, for example, nonrepudiation, that is requested in the CSR are added to the basic set of key
+     *  2) Any key usage, for example, non-repudiation, that is requested in the CSR are added to the basic set of key
      *  usages used for CA certificates that are signed by the intermediate authority.
      *
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
@@ -4918,8 +4889,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
     /** The type of configuration action. */
@@ -4980,7 +4954,7 @@ namespace SecretsManagerV2 {
      *  1) Subject information, including names and alternate names, are preserved from the CSR rather than by using the
      *  values that are provided in the other parameters to this operation.
      *
-     *  2) Any key usage, for example, nonrepudiation, that is requested in the CSR are added to the basic set of key
+     *  2) Any key usage, for example, non-repudiation, that is requested in the CSR are added to the basic set of key
      *  usages used for CA certificates that are signed by the intermediate authority.
      *
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
@@ -5000,8 +4974,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
     /** The type of configuration action. */
@@ -5060,7 +5037,7 @@ namespace SecretsManagerV2 {
      *  1) Subject information, including names and alternate names, are preserved from the CSR rather than by using the
      *  values that are provided in the other parameters to this operation.
      *
-     *  2) Any key usage, for example, nonrepudiation, that is requested in the CSR are added to the basic set of key
+     *  2) Any key usage, for example, non-repudiation, that is requested in the CSR are added to the basic set of key
      *  usages used for CA certificates that are signed by the intermediate authority.
      *
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
@@ -5080,8 +5057,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
     /** The type of configuration action. */
@@ -5140,7 +5120,7 @@ namespace SecretsManagerV2 {
      *  1) Subject information, including names and alternate names, are preserved from the CSR rather than by using the
      *  values that are provided in the other parameters to this operation.
      *
-     *  2) Any key usage, for example, nonrepudiation, that is requested in the CSR are added to the basic set of key
+     *  2) Any key usage, for example, non-repudiation, that is requested in the CSR are added to the basic set of key
      *  usages used for CA certificates that are signed by the intermediate authority.
      *
      *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
@@ -5160,8 +5140,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
     /** The type of configuration action. */
@@ -5204,7 +5187,9 @@ namespace SecretsManagerV2 {
      *  certificates that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
@@ -5281,9 +5266,7 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
-     */
+    /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
@@ -5325,7 +5308,9 @@ namespace SecretsManagerV2 {
      *  certificates that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
@@ -5481,8 +5466,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
   }
@@ -5509,7 +5497,9 @@ namespace SecretsManagerV2 {
      *  certificates that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The type of private key to generate. */
     key_type?: string;
@@ -5590,9 +5580,7 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
-     */
+    /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
@@ -5620,7 +5608,9 @@ namespace SecretsManagerV2 {
      *  certificates that are issued by this certificate authority.
      */
     crl_distribution_points_encoded?: boolean;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The type of private key to generate. */
     key_type?: string;
@@ -5777,8 +5767,11 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
      */
     serial_number?: string;
   }
@@ -5931,9 +5924,7 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
-     */
+    /** This field is deprecated. You can ignore its value. */
     serial_number?: string;
     /** This field indicates whether to require a common name to create a private certificate.
      *
@@ -6114,9 +6105,7 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
-     */
+    /** This field is deprecated. You can ignore its value. */
     serial_number?: string;
     /** This field indicates whether to require a common name to create a private certificate.
      *
@@ -6296,9 +6285,7 @@ namespace SecretsManagerV2 {
     street_address?: string[];
     /** The postal code values to define in the subject field of the resulting certificate. */
     postal_code?: string[];
-    /** The serial number to assign to the generated certificate. To assign a random serial number, you can omit
-     *  this field.
-     */
+    /** This field is deprecated. You can ignore its value. */
     serial_number?: string;
     /** This field indicates whether to require a common name to create a private certificate.
      *
@@ -6383,7 +6370,9 @@ namespace SecretsManagerV2 {
     certificate_template: string;
     /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
     common_name: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer: string;
@@ -6397,7 +6386,9 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -6431,7 +6422,9 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
   }
 
@@ -6499,7 +6492,9 @@ namespace SecretsManagerV2 {
      *  exceed the `max_ttl` that is defined in the associated certificate template.
      */
     ttl?: string;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
@@ -6539,7 +6534,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -6603,7 +6600,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
@@ -6680,7 +6679,9 @@ namespace SecretsManagerV2 {
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** Issuance information that is associated with your certificate. */
     issuance_info?: CertificateIssuanceInfo;
@@ -6691,14 +6692,16 @@ namespace SecretsManagerV2 {
      *
      *  The algorithm that you select determines the encryption algorithm (`RSA` or `ECDSA`) and key size to be used to
      *  generate keys and sign certificates. For longer living certificates, it is recommended to use longer keys to
-     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `EC256`, and `EC384`.
+     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `ECDSA256`, and `ECDSA384`.
      */
     key_algorithm: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
     bundle_certs?: boolean;
@@ -7056,7 +7059,9 @@ namespace SecretsManagerV2 {
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** Issuance information that is associated with your certificate. */
     issuance_info?: CertificateIssuanceInfo;
@@ -7067,14 +7072,16 @@ namespace SecretsManagerV2 {
      *
      *  The algorithm that you select determines the encryption algorithm (`RSA` or `ECDSA`) and key size to be used to
      *  generate keys and sign certificates. For longer living certificates, it is recommended to use longer keys to
-     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `EC256`, and `EC384`.
+     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `ECDSA256`, and `ECDSA384`.
      */
     key_algorithm: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
     bundle_certs?: boolean;
@@ -7106,7 +7113,9 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
   }
 
@@ -7147,24 +7156,20 @@ namespace SecretsManagerV2 {
      *
      *  The algorithm that you select determines the encryption algorithm (`RSA` or `ECDSA`) and key size to be used to
      *  generate keys and sign certificates. For longer living certificates, it is recommended to use longer keys to
-     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `EC256`, and `EC384`.
+     *  provide more encryption protection. Allowed values:  `RSA2048`, `RSA4096`, `ECDSA256`, and `ECDSA384`.
      */
     key_algorithm?: string;
-    /** A human-readable unique name to assign to your configuration.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
-     */
+    /** The name of the certificate authority configuration. */
     ca: string;
-    /** A human-readable unique name to assign to your configuration.
-     *
-     *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
-     */
+    /** The name of the DNS provider configuration. */
     dns: string;
     /** This field indicates whether your issued certificate is bundled with intermediate certificates. Set to
      *  `false` for the certificate file to contain only the issued certificate.
      */
     bundle_certs?: boolean;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
@@ -7221,7 +7226,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
@@ -7271,7 +7278,9 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number?: string;
@@ -7338,9 +7347,13 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation: RotationPolicy;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The date that the secret is scheduled for automatic rotation.
      *
@@ -7403,9 +7416,13 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation: RotationPolicy;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The date that the secret is scheduled for automatic rotation.
      *
@@ -7437,9 +7454,13 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
   }
 
@@ -7473,13 +7494,17 @@ namespace SecretsManagerV2 {
     username: string;
     /** The password that is assigned to an `username_password` secret. */
     password: string;
-    /** The date when the secret material expires. The date format follows the `RFC 3339` format. */
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
     expiration_date?: string;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** This field indicates whether Secrets Manager rotates your secrets automatically. */
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
     rotation?: RotationPolicy;
   }
 
@@ -7558,7 +7583,7 @@ namespace SecretsManagerV2 {
   /** UsernamePasswordSecretVersionPrototype. */
   export interface UsernamePasswordSecretVersionPrototype extends SecretVersionPrototype {
     /** The password that is assigned to an `username_password` secret. */
-    password: string;
+    password?: string;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
@@ -7574,6 +7599,7 @@ namespace SecretsManagerV2 {
    */
   export class SecretsPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: SecretsManagerV2;
@@ -7588,10 +7614,7 @@ namespace SecretsManagerV2 {
      * @constructor
      * @returns {SecretsPager}
      */
-    constructor(
-      client: SecretsManagerV2,
-      params?: SecretsManagerV2.ListSecretsParams
-    ) {
+    constructor(client: SecretsManagerV2, params?: SecretsManagerV2.ListSecretsParams) {
       if (params && params.offset) {
         throw new Error(`the params.offset field should not be set`);
       }
@@ -7625,7 +7648,7 @@ namespace SecretsManagerV2 {
       const response = await this.client.listSecrets(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'offset');
@@ -7657,6 +7680,7 @@ namespace SecretsManagerV2 {
    */
   export class SecretsLocksPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: SecretsManagerV2;
@@ -7671,10 +7695,7 @@ namespace SecretsManagerV2 {
      * @constructor
      * @returns {SecretsLocksPager}
      */
-    constructor(
-      client: SecretsManagerV2,
-      params?: SecretsManagerV2.ListSecretsLocksParams
-    ) {
+    constructor(client: SecretsManagerV2, params?: SecretsManagerV2.ListSecretsLocksParams) {
       if (params && params.offset) {
         throw new Error(`the params.offset field should not be set`);
       }
@@ -7708,7 +7729,7 @@ namespace SecretsManagerV2 {
       const response = await this.client.listSecretsLocks(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'offset');
@@ -7740,6 +7761,7 @@ namespace SecretsManagerV2 {
    */
   export class SecretLocksPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: SecretsManagerV2;
@@ -7754,10 +7776,7 @@ namespace SecretsManagerV2 {
      * @constructor
      * @returns {SecretLocksPager}
      */
-    constructor(
-      client: SecretsManagerV2,
-      params: SecretsManagerV2.ListSecretLocksParams
-    ) {
+    constructor(client: SecretsManagerV2, params: SecretsManagerV2.ListSecretLocksParams) {
       if (params && params.offset) {
         throw new Error(`the params.offset field should not be set`);
       }
@@ -7791,7 +7810,7 @@ namespace SecretsManagerV2 {
       const response = await this.client.listSecretLocks(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'offset');
@@ -7823,6 +7842,7 @@ namespace SecretsManagerV2 {
    */
   export class SecretVersionLocksPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: SecretsManagerV2;
@@ -7837,10 +7857,7 @@ namespace SecretsManagerV2 {
      * @constructor
      * @returns {SecretVersionLocksPager}
      */
-    constructor(
-      client: SecretsManagerV2,
-      params: SecretsManagerV2.ListSecretVersionLocksParams
-    ) {
+    constructor(client: SecretsManagerV2, params: SecretsManagerV2.ListSecretVersionLocksParams) {
       if (params && params.offset) {
         throw new Error(`the params.offset field should not be set`);
       }
@@ -7874,7 +7891,7 @@ namespace SecretsManagerV2 {
       const response = await this.client.listSecretVersionLocks(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'offset');
@@ -7906,6 +7923,7 @@ namespace SecretsManagerV2 {
    */
   export class ConfigurationsPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: SecretsManagerV2;
@@ -7920,10 +7938,7 @@ namespace SecretsManagerV2 {
      * @constructor
      * @returns {ConfigurationsPager}
      */
-    constructor(
-      client: SecretsManagerV2,
-      params?: SecretsManagerV2.ListConfigurationsParams
-    ) {
+    constructor(client: SecretsManagerV2, params?: SecretsManagerV2.ListConfigurationsParams) {
       if (params && params.offset) {
         throw new Error(`the params.offset field should not be set`);
       }
@@ -7957,7 +7972,7 @@ namespace SecretsManagerV2 {
       const response = await this.client.listConfigurations(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'offset');
