@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
+/* eslint-disable no-await-in-loop */
+
+const nock = require('nock');
+
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
-
 const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
-const nock = require('nock');
-
-/* eslint-disable no-await-in-loop */
 
 const {
   getOptions,
@@ -59,7 +59,6 @@ const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnv
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('SecretsManagerV2', () => {
-
   beforeEach(() => {
     mock_createRequest();
   });
@@ -70,7 +69,7 @@ describe('SecretsManagerV2', () => {
     }
     getAuthenticatorMock.mockClear();
   });
-  
+
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = SecretsManagerV2.newInstance();
@@ -553,7 +552,7 @@ describe('SecretsManagerV2', () => {
 
       // ArbitrarySecretPrototype
       const secretPrototypeModel = {
-        custom_metadata: { foo: 'bar' },
+        custom_metadata: { anyKey: 'anyValue' },
         description: 'Description of my arbitrary secret.',
         expiration_date: '2023-10-05T11:49:42Z',
         labels: ['dev', 'us-south'],
@@ -561,7 +560,7 @@ describe('SecretsManagerV2', () => {
         secret_group_id: 'default',
         secret_type: 'arbitrary',
         payload: 'secret-data',
-        version_custom_metadata: { foo: 'bar' },
+        version_custom_metadata: { anyKey: 'anyValue' },
       };
 
       function __createSecretTest() {
@@ -651,10 +650,10 @@ describe('SecretsManagerV2', () => {
       function __listSecretsTest() {
         // Construct the params object for operation listSecrets
         const offset = 0;
-        const limit = 1;
+        const limit = 200;
         const sort = 'created_at';
         const search = 'example';
-        const groups = ['default'];
+        const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
         const listSecretsParams = {
           offset,
           limit,
@@ -725,16 +724,16 @@ describe('SecretsManagerV2', () => {
       const serviceUrl = secretsManagerServiceOptions.url;
       const path = '/api/v2/secrets';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"imported_cert","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"signing_algorithm":"SHA256-RSA","alt_names":["alt_names"],"common_name":"example.com","expiration_date":"2033-04-12T23:20:50.520Z","intermediate_included":false,"issuer":"Lets Encrypt","key_algorithm":"RSA2048","private_key_included":true,"serial_number":"38:eb:01:a3:22:e9:de:55:24:56:9b:14:cb:e2:f3:e3:e2:fb:f5:18","validity":{"not_before":"2025-04-12T23:20:50.000Z","not_after":"2025-04-12T23:20:50.000Z"}}]}';
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"imported_cert","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"signing_algorithm":"SHA256-RSA","alt_names":["alt_names"],"common_name":"example.com","expiration_date":"2033-04-12T23:20:50.520Z","intermediate_included":false,"issuer":"Lets Encrypt","key_algorithm":"RSA2048","private_key_included":true,"serial_number":"38:eb:01:a3:22:e9:de:55:24:56:9b:14:cb:e2:f3:e3:e2:fb:f5:18","validity":{"not_before":"2025-04-12T23:20:50.000Z","not_after":"2025-04-12T23:20:50.000Z"}}]}';
+        '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -748,7 +747,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'created_at',
           search: 'example',
-          groups: ['default'],
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
         };
         const allResults = [];
         const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
@@ -766,7 +765,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'created_at',
           search: 'example',
-          groups: ['default'],
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
         };
         const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
         const allResults = await pager.getAll();
@@ -1034,10 +1033,10 @@ describe('SecretsManagerV2', () => {
 
       // ArbitrarySecretMetadataPatch
       const secretMetadataPatchModel = {
-        name: 'updated-arbitrary-secret-name',
+        name: 'updated-arbitrary-secret-name-example',
         description: 'updated Arbitrary Secret description',
         labels: ['dev', 'us-south'],
-        custom_metadata: { foo: 'bar' },
+        custom_metadata: { anyKey: 'anyValue' },
         expiration_date: '2033-04-12T23:20:50.520Z',
       };
 
@@ -1132,9 +1131,9 @@ describe('SecretsManagerV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // PublicCertificateActionValidateManualDNSPrototype
+      // PrivateCertificateActionRevokePrototype
       const secretActionPrototypeModel = {
-        action_type: 'public_cert_action_validate_dns_challenge',
+        action_type: 'private_cert_action_revoke_certificate',
       };
 
       function __createSecretActionTest() {
@@ -1224,6 +1223,100 @@ describe('SecretsManagerV2', () => {
     });
   });
 
+  describe('getSecretByNameType', () => {
+    describe('positive tests', () => {
+      function __getSecretByNameTypeTest() {
+        // Construct the params object for operation getSecretByNameType
+        const secretType = 'arbitrary';
+        const name = 'my-secret';
+        const secretGroupName = 'default';
+        const getSecretByNameTypeParams = {
+          secretType,
+          name,
+          secretGroupName,
+        };
+
+        const getSecretByNameTypeResult = secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getSecretByNameTypeResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.name).toEqual(name);
+        expect(mockRequestOptions.path.secret_group_name).toEqual(secretGroupName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretByNameTypeTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretByNameTypeTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretByNameTypeTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const name = 'my-secret';
+        const secretGroupName = 'default';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretByNameTypeParams = {
+          secretType,
+          name,
+          secretGroupName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretByNameType({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretByNameType();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('createSecretVersion', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1231,8 +1324,8 @@ describe('SecretsManagerV2', () => {
       // ArbitrarySecretVersionPrototype
       const secretVersionPrototypeModel = {
         payload: 'updated secret credentials',
-        custom_metadata: { foo: 'bar' },
-        version_custom_metadata: { foo: 'bar' },
+        custom_metadata: { anyKey: 'anyValue' },
+        version_custom_metadata: { anyKey: 'anyValue' },
       };
 
       function __createSecretVersionTest() {
@@ -1679,7 +1772,7 @@ describe('SecretsManagerV2', () => {
         // Construct the params object for operation updateSecretVersionMetadata
         const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-        const versionCustomMetadata = { foo: 'bar' };
+        const versionCustomMetadata = { anyKey: 'anyValue' };
         const updateSecretVersionMetadataParams = {
           secretId,
           id,
@@ -1871,9 +1964,9 @@ describe('SecretsManagerV2', () => {
       function __listSecretsLocksTest() {
         // Construct the params object for operation listSecretsLocks
         const offset = 0;
-        const limit = 1;
+        const limit = 200;
         const search = 'example';
-        const groups = ['default'];
+        const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
         const listSecretsLocksParams = {
           offset,
           limit,
@@ -1949,9 +2042,9 @@ describe('SecretsManagerV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -1964,7 +2057,7 @@ describe('SecretsManagerV2', () => {
         const params = {
           limit: 10,
           search: 'example',
-          groups: ['default'],
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
         };
         const allResults = [];
         const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
@@ -1981,7 +2074,7 @@ describe('SecretsManagerV2', () => {
         const params = {
           limit: 10,
           search: 'example',
-          groups: ['default'],
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
         };
         const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
         const allResults = await pager.getAll();
@@ -1997,7 +2090,7 @@ describe('SecretsManagerV2', () => {
         // Construct the params object for operation listSecretLocks
         const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const offset = 0;
-        const limit = 1;
+        const limit = 25;
         const sort = 'name';
         const search = 'example';
         const listSecretLocksParams = {
@@ -2097,9 +2190,9 @@ describe('SecretsManagerV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -2149,7 +2242,7 @@ describe('SecretsManagerV2', () => {
       const secretLockPrototypeModel = {
         name: 'lock-example-1',
         description: 'lock for consumer 1',
-        attributes: { foo: 'bar' },
+        attributes: { anyKey: 'anyValue' },
       };
 
       function __createSecretLocksBulkTest() {
@@ -2336,7 +2429,7 @@ describe('SecretsManagerV2', () => {
         const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
         const offset = 0;
-        const limit = 1;
+        const limit = 25;
         const sort = 'name';
         const search = 'example';
         const listSecretVersionLocksParams = {
@@ -2440,9 +2533,9 @@ describe('SecretsManagerV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -2494,7 +2587,7 @@ describe('SecretsManagerV2', () => {
       const secretLockPrototypeModel = {
         name: 'lock-example-1',
         description: 'lock for consumer 1',
-        attributes: { foo: 'bar' },
+        attributes: { anyKey: 'anyValue' },
       };
 
       function __createSecretVersionLocksBulkTest() {
@@ -2807,7 +2900,7 @@ describe('SecretsManagerV2', () => {
       function __listConfigurationsTest() {
         // Construct the params object for operation listConfigurations
         const offset = 0;
-        const limit = 1;
+        const limit = 200;
         const sort = 'config_type';
         const search = 'example';
         const listConfigurationsParams = {
@@ -2885,9 +2978,9 @@ describe('SecretsManagerV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
