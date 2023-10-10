@@ -554,7 +554,7 @@ describe('SecretsManagerV2', () => {
       const secretPrototypeModel = {
         custom_metadata: { anyKey: 'anyValue' },
         description: 'Description of my arbitrary secret.',
-        expiration_date: '2023-10-05T11:49:42Z',
+        expiration_date: '2030-10-05T11:49:42Z',
         labels: ['dev', 'us-south'],
         name: 'example-arbitrary-secret',
         secret_group_id: 'default',
