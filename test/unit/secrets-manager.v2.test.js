@@ -552,7 +552,7 @@ describe('SecretsManagerV2', () => {
 
       // ArbitrarySecretPrototype
       const secretPrototypeModel = {
-        custom_metadata: { anyKey: 'anyValue' },
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
         description: 'Description of my arbitrary secret.',
         expiration_date: '2030-10-05T11:49:42Z',
         labels: ['dev', 'us-south'],
@@ -560,7 +560,7 @@ describe('SecretsManagerV2', () => {
         secret_group_id: 'default',
         secret_type: 'arbitrary',
         payload: 'secret-data',
-        version_custom_metadata: { anyKey: 'anyValue' },
+        version_custom_metadata: { custom_version_key: 'custom_version_value' },
       };
 
       function __createSecretTest() {
@@ -1036,7 +1036,7 @@ describe('SecretsManagerV2', () => {
         name: 'updated-arbitrary-secret-name-example',
         description: 'updated Arbitrary Secret description',
         labels: ['dev', 'us-south'],
-        custom_metadata: { anyKey: 'anyValue' },
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
         expiration_date: '2033-04-12T23:20:50.520Z',
       };
 
@@ -1324,8 +1324,8 @@ describe('SecretsManagerV2', () => {
       // ArbitrarySecretVersionPrototype
       const secretVersionPrototypeModel = {
         payload: 'updated secret credentials',
-        custom_metadata: { anyKey: 'anyValue' },
-        version_custom_metadata: { anyKey: 'anyValue' },
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+        version_custom_metadata: { custom_version_key: 'custom_version_value' },
       };
 
       function __createSecretVersionTest() {
@@ -1772,7 +1772,7 @@ describe('SecretsManagerV2', () => {
         // Construct the params object for operation updateSecretVersionMetadata
         const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
         const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-        const versionCustomMetadata = { anyKey: 'anyValue' };
+        const versionCustomMetadata = { key: 'value' };
         const updateSecretVersionMetadataParams = {
           secretId,
           id,
@@ -2242,7 +2242,7 @@ describe('SecretsManagerV2', () => {
       const secretLockPrototypeModel = {
         name: 'lock-example-1',
         description: 'lock for consumer 1',
-        attributes: { anyKey: 'anyValue' },
+        attributes: { key: 'value' },
       };
 
       function __createSecretLocksBulkTest() {
@@ -2587,7 +2587,7 @@ describe('SecretsManagerV2', () => {
       const secretLockPrototypeModel = {
         name: 'lock-example-1',
         description: 'lock for consumer 1',
-        attributes: { anyKey: 'anyValue' },
+        attributes: { key: 'value' },
       };
 
       function __createSecretVersionLocksBulkTest() {

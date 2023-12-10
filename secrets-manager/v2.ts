@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
+ * IBM OpenAPI SDK Code Generator Version: 3.82.1-2082d402-20231115-195014
  */
 
 /* eslint-disable max-classes-per-file */
@@ -792,8 +792,8 @@ class SecretsManagerV2 extends BaseService {
    * metadata](#get-secret-metadata) operation.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretType - The secret type. Supported types are arbitrary, certificates (imported, public,
-   * and private), IAM credentials, key-value, and user credentials.
+   * @param {string} params.secretType - The secret type. Supported types are arbitrary, imported_cert, public_cert,
+   * private_cert, iam_credentials, service_credentials, kv, and username_password.
    * @param {string} params.name - A human-readable name to assign to your secret. To protect your privacy, do not use
    * personal data, such as your name or location, as a name for your secret.
    * @param {string} params.secretGroupName - The name of your secret group.
@@ -2455,8 +2455,8 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `getSecretByNameType` operation. */
   export interface GetSecretByNameTypeParams {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
     secretType: GetSecretByNameTypeConstants.SecretType | string;
     /** A human-readable name to assign to your secret. To protect your privacy, do not use personal data, such as
@@ -2470,15 +2470,16 @@ namespace SecretsManagerV2 {
 
   /** Constants for the `getSecretByNameType` operation. */
   export namespace GetSecretByNameTypeConstants {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM credentials, key-value, and user credentials. */
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
     export enum SecretType {
       ARBITRARY = 'arbitrary',
-      IMPORTED_CERT = 'imported_cert',
-      PUBLIC_CERT = 'public_cert',
       IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
       KV = 'kv',
-      USERNAME_PASSWORD = 'username_password',
       PRIVATE_CERT = 'private_cert',
+      PUBLIC_CERT = 'public_cert',
+      SERVICE_CREDENTIALS = 'service_credentials',
+      USERNAME_PASSWORD = 'username_password',
     }
   }
 
@@ -2937,7 +2938,19 @@ namespace SecretsManagerV2 {
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: CertificateIssuanceInfo.Constants.StateDescription | string;
+  }
+  export namespace CertificateIssuanceInfo {
+    export namespace Constants {
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** The date and time that the certificate validity period begins and ends. */
@@ -3004,6 +3017,14 @@ namespace SecretsManagerV2 {
 
   /** The details of your configuration. */
   export interface ConfigurationPrototype {
+  }
+
+  /** The Cloud Object Storage HMAC keys that are returned after you create a service credentials secret. */
+  export interface CosHmacKeys {
+    /** The access key ID for Cloud Object Storage HMAC credentials. */
+    access_key_id?: string;
+    /** The secret access key ID for Cloud Object Storage HMAC credentials. */
+    secret_access_key?: string;
   }
 
   /** The details of the Event Notifications registration. */
@@ -3126,7 +3147,16 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    secret_version_alias: string;
+    secret_version_alias: SecretLock.Constants.SecretVersionAlias | string;
+  }
+  export namespace SecretLock {
+    export namespace Constants {
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum SecretVersionAlias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** SecretLockPrototype. */
@@ -3153,14 +3183,29 @@ namespace SecretsManagerV2 {
     secret_id: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type?: string;
+    secret_type?: SecretLocks.Constants.SecretType | string;
     /** The human-readable name of your secret. */
     secret_name?: string;
     /** A collection of locks that are attached to a secret. */
     versions: SecretVersionLocks[];
+  }
+  export namespace SecretLocks {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** Properties that describe a paginated collection of your secret locks. */
@@ -3230,11 +3275,20 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    version_alias: string;
+    version_alias: SecretVersionLocks.Constants.VersionAlias | string;
     /** The names of all locks that are associated with this secret version. */
     locks: string[];
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available?: boolean;
+  }
+  export namespace SecretVersionLocks {
+    export namespace Constants {
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum VersionAlias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** Properties that describe a paginated collection of your secret version locks. */
@@ -3293,6 +3347,114 @@ namespace SecretsManagerV2 {
     secrets_locks: SecretLocks[];
   }
 
+  /** The source service resource key data of the generated service credentials. */
+  export interface ServiceCredentialsResourceKey {
+    /** The resource key CRN of the generated service credentials. */
+    crn?: string;
+    /** The resource key name of the generated service credentials. */
+    name?: string;
+  }
+
+  /** The properties of the service credentials secret payload. */
+  export interface ServiceCredentialsSecretCredentials {
+    /** The API key that is generated for this secret.
+     *
+     *  After the secret reaches the end of its lease, the API key is deleted automatically. See the `time-to-live`
+     *  field to understand the duration of the lease.
+     */
+    apikey?: string;
+    /** The Cloud Object Storage HMAC keys that are returned after you create a service credentials secret. */
+    cos_hmac_keys?: CosHmacKeys;
+    /** The endpoints that are returned after you create a service credentials secret. */
+    endpoints?: string;
+    /** The IAM API key description for the generated service credentials. */
+    iam_apikey_description?: string;
+    /** The IAM API key id for the generated service credentials. */
+    iam_apikey_id?: string;
+    /** The IAM API key name for the generated service credentials. */
+    iam_apikey_name?: string;
+    /** The IAM role CRN assigned to the generated service credentials. */
+    iam_role_crn?: string;
+    /** The IAM Service ID CRN. */
+    iam_serviceid_crn?: string;
+    /** The resource instance CRN that is returned after you create a service credentials secret. */
+    resource_instance_id?: string;
+  }
+
+  /** The properties that are required to create the service credentials for the specified source service instance. */
+  export interface ServiceCredentialsSecretSourceService {
+    /** The source service instance identifier. */
+    instance: ServiceCredentialsSourceServiceInstance;
+    /** Configuration options represented as key-value pairs. Service-defined options are used in the generation of
+     *  credentials for some services. For example, Cloud Object Storage accepts the optional boolean parameter HMAC for
+     *  creating specific kind of credentials.
+     */
+    parameters?: ServiceCredentialsSourceServiceParameters;
+    /** The service-specific custom role. CRN is accepted. The role is assigned as part of an access policy to any
+     *  auto-generated IAM service ID.  If you provide an existing service ID, it is added to the access policy for that
+     *  ID.  If a role is not provided, any new service IDs that are autogenerated, will not have an assigned access
+     *  policy and provided service IDs are not changed in any way.  Refer to the service documentation for supported
+     *  roles.
+     */
+    role?: ServiceCredentialsSourceServiceRole;
+    /** The source service IAM data is returned in case IAM credentials where created for this secret. */
+    iam?: ServiceCredentialsSourceServiceIam;
+    /** The source service resource key data of the generated service credentials. */
+    resource_key?: ServiceCredentialsResourceKey;
+  }
+
+  /** The source service IAM data is returned in case IAM credentials where created for this secret. */
+  export interface ServiceCredentialsSourceServiceIam {
+    /** The IAM apikey metadata for the IAM credentials that were generated. */
+    apikey?: ServiceCredentialsSourceServiceIamApikey;
+    /** The IAM role for the generate service credentials. */
+    role?: ServiceCredentialsSourceServiceIamRole;
+    /** The IAM serviceid for the generated service credentials. */
+    serviceid?: ServiceCredentialsSourceServiceIamServiceid;
+  }
+
+  /** The IAM apikey metadata for the IAM credentials that were generated. */
+  export interface ServiceCredentialsSourceServiceIamApikey {
+    /** The IAM API key description for the generated service credentials. */
+    description?: string;
+    /** The IAM API key id for the generated service credentials. */
+    id?: string;
+    /** The IAM API key name for the generated service credentials. */
+    name?: string;
+  }
+
+  /** The IAM role for the generate service credentials. */
+  export interface ServiceCredentialsSourceServiceIamRole {
+    /** The IAM role CRN assigned to the generated service credentials. */
+    crn?: string;
+  }
+
+  /** The IAM serviceid for the generated service credentials. */
+  export interface ServiceCredentialsSourceServiceIamServiceid {
+    /** The IAM Service ID CRN. */
+    crn?: string;
+  }
+
+  /** The source service instance identifier. */
+  export interface ServiceCredentialsSourceServiceInstance {
+    /** A CRN that uniquely identifies a service credentials source. */
+    crn?: string;
+  }
+
+  /** Configuration options represented as key-value pairs. Service-defined options are used in the generation of credentials for some services. For example, Cloud Object Storage accepts the optional boolean parameter HMAC for creating specific kind of credentials. */
+  export interface ServiceCredentialsSourceServiceParameters {
+    /** An optional platform defined option to reuse an existing IAM Service ID for the role assignment. */
+    serviceid_crn?: string;
+    /** ServiceCredentialsSourceServiceParameters accepts additional properties. */
+    [propName: string]: any;
+  }
+
+  /** The service-specific custom role. CRN is accepted. The role is assigned as part of an access policy to any auto-generated IAM service ID.  If you provide an existing service ID, it is added to the access policy for that ID.  If a role is not provided, any new service IDs that are autogenerated, will not have an assigned access policy and provided service IDs are not changed in any way.  Refer to the service documentation for supported roles. */
+  export interface ServiceCredentialsSourceServiceRole {
+    /** The service role CRN. */
+    crn: string;
+  }
+
   /** The request body to specify the properties of the action to create a secret version. */
   export interface VersionAction {
   }
@@ -3332,16 +3494,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ArbitrarySecret.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: ArbitrarySecret.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -3352,6 +3514,29 @@ namespace SecretsManagerV2 {
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
+  }
+  export namespace ArbitrarySecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** Properties of the metadata of your arbitrary secret.. */
@@ -3389,16 +3574,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ArbitrarySecretMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: ArbitrarySecretMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -3407,6 +3592,29 @@ namespace SecretsManagerV2 {
      *  types: Arbitrary, username_password.
      */
     expiration_date?: string;
+  }
+  export namespace ArbitrarySecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** ArbitrarySecretMetadataPatch. */
@@ -3465,14 +3673,29 @@ namespace SecretsManagerV2 {
     name: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ArbitrarySecretPrototype.Constants.SecretType | string;
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload: string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
+  }
+  export namespace ArbitrarySecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** Your arbitrary secret version. */
@@ -3491,10 +3714,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ArbitrarySecretVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -3502,7 +3725,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: ArbitrarySecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -3513,6 +3736,26 @@ namespace SecretsManagerV2 {
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
+  }
+  export namespace ArbitrarySecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** Properties of the version metadata of your arbitrary secret. */
@@ -3531,10 +3774,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ArbitrarySecretVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -3542,7 +3785,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: ArbitrarySecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -3551,6 +3794,26 @@ namespace SecretsManagerV2 {
      *  types: Arbitrary, username_password.
      */
     expiration_date?: string;
+  }
+  export namespace ArbitrarySecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** ArbitrarySecretVersionPrototype. */
@@ -3574,19 +3837,32 @@ namespace SecretsManagerV2 {
     /** The length of the secret rotation time interval. */
     interval?: number;
     /** The units for the secret rotation time interval. */
-    unit?: string;
+    unit?: CommonRotationPolicy.Constants.Unit | string;
+  }
+  export namespace CommonRotationPolicy {
+    export namespace Constants {
+      /** The units for the secret rotation time interval. */
+      export enum Unit {
+        DAY = 'day',
+        MONTH = 'month',
+      }
+    }
   }
 
   /** Properties that describe a Classic Infrastructure DNS configuration. */
   export interface IAMCredentialsConfiguration extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: IAMCredentialsConfiguration.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsConfiguration.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -3600,23 +3876,77 @@ namespace SecretsManagerV2 {
      */
     api_key?: string;
   }
+  export namespace IAMCredentialsConfiguration {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Your IAMCredentials Configuration metadata properties. */
   export interface IAMCredentialsConfigurationMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: IAMCredentialsConfigurationMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsConfigurationMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+  }
+  export namespace IAMCredentialsConfigurationMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** The configuration update of the IAM Credentials engine. */
@@ -3636,10 +3966,28 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: IAMCredentialsConfigurationPrototype.Constants.ConfigType | string;
     /** The API key that is used to set the iam_credentials engine. */
     api_key: string;
+  }
+  export namespace IAMCredentialsConfigurationPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+    }
   }
 
   /** Your IAM credentials secret. */
@@ -3677,27 +4025,26 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsSecret.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: IAMCredentialsSecret.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
-     *  `120m` or `24h`.
-     *
-     *  The minimum duration is 1 minute. The maximum is 90 days.
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -3742,10 +4089,34 @@ namespace SecretsManagerV2 {
     next_rotation_date?: string;
     /** The API key that is generated for this secret.
      *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
-     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
+     *  After the secret reaches the end of its lease, the API key is deleted automatically. See the `time-to-live`
+     *  field to understand the duration of the lease. If you want to continue to use the same API key for future read
+     *  operations, see the `reuse_api_key` field.
      */
     api_key?: string;
+  }
+  export namespace IAMCredentialsSecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** Properties of the metadata of your IAM credentials secret. */
@@ -3783,27 +4154,26 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsSecretMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: IAMCredentialsSecretMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
-     *  `120m` or `24h`.
-     *
-     *  The minimum duration is 1 minute. The maximum is 90 days.
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -3847,6 +4217,29 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
   }
+  export namespace IAMCredentialsSecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** IAMCredentialsSecretMetadataPatch. */
   export interface IAMCredentialsSecretMetadataPatch extends SecretMetadataPatch {
@@ -3870,13 +4263,12 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
-    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
-     *  `120m` or `24h`.
-     *
-     *  The minimum duration is 1 minute. The maximum is 90 days.
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
@@ -3887,10 +4279,10 @@ namespace SecretsManagerV2 {
 
   /** IAMCredentialsSecretPrototype. */
   export interface IAMCredentialsSecretPrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsSecretPrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -3911,13 +4303,12 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
     labels?: string[];
-    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated.
-     *
-     *  For `iam_credentials` secrets, the TTL defines for how long each generated API key remains valid. The value can
-     *  be either an integer that specifies the number of seconds, or the string representation of a duration, such as
-     *  `120m` or `24h`.
-     *
-     *  The minimum duration is 1 minute. The maximum is 90 days.
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -3951,6 +4342,21 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
+  export namespace IAMCredentialsSecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** IAMCredentialsSecretRestoreFromVersionPrototype. */
   export interface IAMCredentialsSecretRestoreFromVersionPrototype extends SecretVersionPrototype {
@@ -3978,10 +4384,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsSecretVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -3989,7 +4395,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: IAMCredentialsSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -4008,10 +4414,31 @@ namespace SecretsManagerV2 {
     service_id?: string;
     /** The API key that is generated for this secret.
      *
-     *  After the secret reaches the end of its lease (see the `ttl` field), the API key is deleted automatically. If
-     *  you want to continue to use the same API key for future read operations, see the `reuse_api_key` field.
+     *  After the secret reaches the end of its lease, the API key is deleted automatically. See the `time-to-live`
+     *  field to understand the duration of the lease. If you want to continue to use the same API key for future read
+     *  operations, see the `reuse_api_key` field.
      */
     api_key?: string;
+  }
+  export namespace IAMCredentialsSecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** Properties of the version metadata of your IAM credentials secret. */
@@ -4030,10 +4457,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: IAMCredentialsSecretVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -4041,7 +4468,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: IAMCredentialsSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -4058,6 +4485,26 @@ namespace SecretsManagerV2 {
      *  include the `access_groups` parameter.
      */
     service_id?: string;
+  }
+  export namespace IAMCredentialsSecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** IAMCredentialsSecretVersionPrototype. */
@@ -4103,16 +4550,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ImportedCertificate.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: ImportedCertificate.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -4155,6 +4602,29 @@ namespace SecretsManagerV2 {
      *  line with embedded newline characters.
      */
     private_key?: string;
+  }
+  export namespace ImportedCertificate {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** Properties of the secret metadata of your imported certificate. */
@@ -4192,16 +4662,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ImportedCertificateMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: ImportedCertificateMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -4235,6 +4705,29 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
   }
+  export namespace ImportedCertificateMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** ImportedCertificateMetadataPatch. */
   export interface ImportedCertificateMetadataPatch extends SecretMetadataPatch {
@@ -4262,10 +4755,10 @@ namespace SecretsManagerV2 {
 
   /** ImportedCertificatePrototype. */
   export interface ImportedCertificatePrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ImportedCertificatePrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -4301,6 +4794,21 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
+  export namespace ImportedCertificatePrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Versions of your imported certificate. */
   export interface ImportedCertificateVersion extends SecretVersion {
@@ -4318,10 +4826,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ImportedCertificateVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -4329,7 +4837,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: ImportedCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -4353,6 +4861,26 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
+  export namespace ImportedCertificateVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
 
   /** Properties of the version metadata of your imported certificate. */
   export interface ImportedCertificateVersionMetadata extends SecretVersionMetadata {
@@ -4370,10 +4898,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: ImportedCertificateVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -4381,7 +4909,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: ImportedCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -4394,6 +4922,26 @@ namespace SecretsManagerV2 {
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
+  }
+  export namespace ImportedCertificateVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** ImportedCertificateVersionPrototype. */
@@ -4449,22 +4997,45 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: KVSecret.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: KVSecret.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
     /** The payload data of a key-value secret. */
     data: JsonObject;
+  }
+  export namespace KVSecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** Properties of the metadata of your key-value secret metadata. */
@@ -4502,20 +5073,43 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: KVSecretMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: KVSecretMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+  }
+  export namespace KVSecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** KVSecretMetadataPatch. */
@@ -4544,10 +5138,10 @@ namespace SecretsManagerV2 {
 
   /** KVSecretPrototype. */
   export interface KVSecretPrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: KVSecretPrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -4575,6 +5169,21 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
+  export namespace KVSecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Your key-value secret version. */
   export interface KVSecretVersion extends SecretVersion {
@@ -4592,10 +5201,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: KVSecretVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -4603,13 +5212,33 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: KVSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
     /** The payload data of a key-value secret. */
     data: JsonObject;
+  }
+  export namespace KVSecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** Properties of the version metadata of your key-value secret. */
@@ -4628,10 +5257,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: KVSecretVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -4639,11 +5268,31 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: KVSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+  }
+  export namespace KVSecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** KVSecretVersionPrototype. */
@@ -4691,16 +5340,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificate.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: PrivateCertificate.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -4758,65 +5407,178 @@ namespace SecretsManagerV2 {
     /** The chain of certificate authorities that are associated with the certificate. */
     ca_chain?: string[];
   }
+  export namespace PrivateCertificate {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** The response body of the action to revoke the private certificate. */
   export interface PrivateCertificateActionRevoke extends SecretAction {
     /** The type of secret action. */
-    action_type: string;
+    action_type: PrivateCertificateActionRevoke.Constants.ActionType | string;
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
+  }
+  export namespace PrivateCertificateActionRevoke {
+    export namespace Constants {
+      /** The type of secret action. */
+      export enum ActionType {
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to revoke the private certificate. */
   export interface PrivateCertificateActionRevokePrototype extends SecretActionPrototype {
     /** The type of secret action. */
-    action_type: string;
+    action_type: PrivateCertificateActionRevokePrototype.Constants.ActionType | string;
+  }
+  export namespace PrivateCertificateActionRevokePrototype {
+    export namespace Constants {
+      /** The type of secret action. */
+      export enum ActionType {
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** The response body to specify the properties of the action to revoke the private certificate. */
   export interface PrivateCertificateConfigurationActionRevoke extends ConfigurationAction {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionRevoke.Constants.ActionType | string;
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
+  }
+  export namespace PrivateCertificateConfigurationActionRevoke {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to revoke the private certificate configuration. */
   export interface PrivateCertificateConfigurationActionRevokePrototype extends ConfigurationActionPrototype {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionRevokePrototype.Constants.ActionType | string;
+  }
+  export namespace PrivateCertificateConfigurationActionRevokePrototype {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The response body of the action to rotate the CRL of an intermediate certificate authority for the private certificate configuration. */
   export interface PrivateCertificateConfigurationActionRotateCRL extends ConfigurationAction {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionRotateCRL.Constants.ActionType | string;
     /** This field indicates whether the request to rotate the CRL for the private certificate configuration was
      *  successful.
      */
     success: boolean;
   }
+  export namespace PrivateCertificateConfigurationActionRotateCRL {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
+  }
 
   /** The request body of the action to rotate the CRL of an intermediate certificate authority for the private certificate configuration. */
   export interface PrivateCertificateConfigurationActionRotateCRLPrototype extends ConfigurationActionPrototype {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionRotateCRLPrototype.Constants.ActionType | string;
+  }
+  export namespace PrivateCertificateConfigurationActionRotateCRLPrototype {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The response body of the action to set a signed intermediate certificate authority for the private certificate configuration. */
   export interface PrivateCertificateConfigurationActionSetSigned extends ConfigurationAction {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSetSigned.Constants.ActionType | string;
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
     certificate: string;
+  }
+  export namespace PrivateCertificateConfigurationActionSetSigned {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The request body of the action to set a signed intermediate certificate authority for the private certificate consideration. */
   export interface PrivateCertificateConfigurationActionSetSignedPrototype extends ConfigurationActionPrototype {
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSetSignedPrototype.Constants.ActionType | string;
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
     certificate: string;
+  }
+  export namespace PrivateCertificateConfigurationActionSetSignedPrototype {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The response body of the action to sign the CSR for the private certificate configuration. */
@@ -4846,7 +5608,7 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationActionSignCSR.Constants.Format | string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -4897,11 +5659,28 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSignCSR.Constants.ActionType | string;
     /** The certificate signing request. */
     csr: string;
     /** The data that is associated with the root certificate authority. */
     data?: PrivateCertificateConfigurationCACertificate;
+  }
+  export namespace PrivateCertificateConfigurationActionSignCSR {
+    export namespace Constants {
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to sign a CSR for the private certificate configuration. */
@@ -4931,7 +5710,7 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationActionSignCSRPrototype.Constants.Format | string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -4982,9 +5761,26 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSignCSRPrototype.Constants.ActionType | string;
     /** The certificate signing request. */
     csr: string;
+  }
+  export namespace PrivateCertificateConfigurationActionSignCSRPrototype {
+    export namespace Constants {
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The response body of the action to sign the intermediate certificate authority for the private certificate configuration. */
@@ -5014,7 +5810,7 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationActionSignIntermediate.Constants.Format | string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -5065,9 +5861,26 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSignIntermediate.Constants.ActionType | string;
     /** The unique name of your configuration. */
     intermediate_certificate_authority: string;
+  }
+  export namespace PrivateCertificateConfigurationActionSignIntermediate {
+    export namespace Constants {
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to sign an intermediate certificate authority for the private certificate configuration. */
@@ -5097,7 +5910,7 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationActionSignIntermediatePrototype.Constants.Format | string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -5148,9 +5961,26 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
     /** The type of configuration action. */
-    action_type: string;
+    action_type: PrivateCertificateConfigurationActionSignIntermediatePrototype.Constants.ActionType | string;
     /** The unique name of your configuration. */
     intermediate_certificate_authority: string;
+  }
+  export namespace PrivateCertificateConfigurationActionSignIntermediatePrototype {
+    export namespace Constants {
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+      }
+    }
   }
 
   /** The data that is associated with the root certificate authority. */
@@ -5167,14 +5997,18 @@ namespace SecretsManagerV2 {
 
   /** The configuration of the root certificate authority. */
   export interface PrivateCertificateConfigurationIntermediateCA extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationIntermediateCA.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationIntermediateCA.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5194,7 +6028,7 @@ namespace SecretsManagerV2 {
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationIntermediateCA.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5206,12 +6040,12 @@ namespace SecretsManagerV2 {
      *  You can choose between internal or externally signed options. For more information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities).
      */
-    signing_method: string;
+    signing_method: PrivateCertificateConfigurationIntermediateCA.Constants.SigningMethod | string;
     /** The status of the certificate authority. The status of a root certificate authority is either `configured`
      *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
-    status?: string;
+    status?: PrivateCertificateConfigurationIntermediateCA.Constants.Status | string;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -5243,9 +6077,9 @@ namespace SecretsManagerV2 {
      */
     other_sans?: string[];
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationIntermediateCA.Constants.Format | string;
     /** The format of the generated private key. */
-    private_key_format?: string;
+    private_key_format?: PrivateCertificateConfigurationIntermediateCA.Constants.PrivateKeyFormat | string;
     /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
      *
      *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
@@ -5271,6 +6105,60 @@ namespace SecretsManagerV2 {
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
+  export namespace PrivateCertificateConfigurationIntermediateCA {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+      /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
+      export enum SigningMethod {
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
+      }
+      /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
+      export enum Status {
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
+      }
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The format of the generated private key. */
+      export enum PrivateKeyFormat {
+        DER = 'der',
+        PKCS8 = 'pkcs8',
+      }
+    }
+  }
 
   /** The data that is associated with the intermediate certificate authority. */
   export interface PrivateCertificateConfigurationIntermediateCACSR extends PrivateCertificateCAData {
@@ -5281,21 +6169,34 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
     /** The type of private key to generate. */
-    private_key_type?: string;
+    private_key_type?: PrivateCertificateConfigurationIntermediateCACSR.Constants.PrivateKeyType | string;
     /** The certificate expiration time. */
     expiration?: number;
+  }
+  export namespace PrivateCertificateConfigurationIntermediateCACSR {
+    export namespace Constants {
+      /** The type of private key to generate. */
+      export enum PrivateKeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
   }
 
   /** The configuration of the metadata properties of the intermediate certificate authority. */
   export interface PrivateCertificateConfigurationIntermediateCAMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5315,7 +6216,7 @@ namespace SecretsManagerV2 {
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5327,12 +6228,56 @@ namespace SecretsManagerV2 {
      *  You can choose between internal or externally signed options. For more information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities).
      */
-    signing_method: string;
+    signing_method: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.SigningMethod | string;
     /** The status of the certificate authority. The status of a root certificate authority is either `configured`
      *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
-    status?: string;
+    status?: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.Status | string;
+  }
+  export namespace PrivateCertificateConfigurationIntermediateCAMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+      /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
+      export enum SigningMethod {
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
+      }
+      /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
+      export enum Status {
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
+      }
+    }
   }
 
   /** The configuration patch of the intermediate certificate authority. */
@@ -5371,8 +6316,12 @@ namespace SecretsManagerV2 {
 
   /** The configuration of the intermediate certificate authority. */
   export interface PrivateCertificateConfigurationIntermediateCAPrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
@@ -5391,7 +6340,7 @@ namespace SecretsManagerV2 {
      *  You can choose between internal or externally signed options. For more information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities).
      */
-    signing_method: string;
+    signing_method: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.SigningMethod | string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer?: string;
     /** The time until the certificate revocation list (CRL) expires.
@@ -5435,11 +6384,11 @@ namespace SecretsManagerV2 {
      */
     other_sans?: string[];
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.Format | string;
     /** The format of the generated private key. */
-    private_key_format?: string;
+    private_key_format?: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.PrivateKeyFormat | string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5474,17 +6423,55 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
   }
+  export namespace PrivateCertificateConfigurationIntermediateCAPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
+      export enum SigningMethod {
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
+      }
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The format of the generated private key. */
+      export enum PrivateKeyFormat {
+        DER = 'der',
+        PKCS8 = 'pkcs8',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
+  }
 
   /** The root certificate authority . */
   export interface PrivateCertificateConfigurationRootCA extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationRootCA.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationRootCA.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5502,7 +6489,7 @@ namespace SecretsManagerV2 {
      */
     expiration_date?: string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationRootCA.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5513,7 +6500,7 @@ namespace SecretsManagerV2 {
      *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
-    status?: string;
+    status?: PrivateCertificateConfigurationRootCA.Constants.Status | string;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -5547,9 +6534,9 @@ namespace SecretsManagerV2 {
     /** he requested TTL, after which the certificate expires. */
     ttl_seconds?: number;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationRootCA.Constants.Format | string;
     /** The format of the generated private key. */
-    private_key_format?: string;
+    private_key_format?: PrivateCertificateConfigurationRootCA.Constants.PrivateKeyFormat | string;
     /** The maximum path length to encode in the generated certificate. `-1` means no limit.
      *
      *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
@@ -5585,17 +6572,70 @@ namespace SecretsManagerV2 {
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
+  export namespace PrivateCertificateConfigurationRootCA {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+      /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
+      export enum Status {
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
+      }
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The format of the generated private key. */
+      export enum PrivateKeyFormat {
+        DER = 'der',
+        PKCS8 = 'pkcs8',
+      }
+    }
+  }
 
   /** The configuration of the metadata properties of the root certificate authority. */
   export interface PrivateCertificateConfigurationRootCAMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationRootCAMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationRootCAMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5613,7 +6653,7 @@ namespace SecretsManagerV2 {
      */
     expiration_date?: string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationRootCAMetadata.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5624,7 +6664,46 @@ namespace SecretsManagerV2 {
      *  or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`,
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
-    status?: string;
+    status?: PrivateCertificateConfigurationRootCAMetadata.Constants.Status | string;
+  }
+  export namespace PrivateCertificateConfigurationRootCAMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+      /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
+      export enum Status {
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
+      }
+    }
   }
 
   /** The configuration of the metadata patch for the root certificate authority. */
@@ -5663,8 +6742,12 @@ namespace SecretsManagerV2 {
 
   /** The configuration of the root certificate authority. */
   export interface PrivateCertificateConfigurationRootCAPrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationRootCAPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
@@ -5726,11 +6809,11 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificateConfigurationRootCAPrototype.Constants.Format | string;
     /** The format of the generated private key. */
-    private_key_format?: string;
+    private_key_format?: PrivateCertificateConfigurationRootCAPrototype.Constants.PrivateKeyFormat | string;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationRootCAPrototype.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5775,17 +6858,50 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
   }
+  export namespace PrivateCertificateConfigurationRootCAPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The format of the generated private key. */
+      export enum PrivateKeyFormat {
+        DER = 'der',
+        PKCS8 = 'pkcs8',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
+  }
 
   /** The configuration of the private certificate template. */
   export interface PrivateCertificateConfigurationTemplate extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationTemplate.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationTemplate.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5870,7 +6986,7 @@ namespace SecretsManagerV2 {
     /** This field indicates whether private certificates are flagged for email protection use. */
     email_protection_flag?: boolean;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationTemplate.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -5941,17 +7057,51 @@ namespace SecretsManagerV2 {
     /** The duration in seconds by which to backdate the `not_before` property of an issued private certificate. */
     not_before_duration_seconds?: number;
   }
+  export namespace PrivateCertificateConfigurationTemplate {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
+  }
 
   /** The metadata properties of the configuration of the private certificate template. */
   export interface PrivateCertificateConfigurationTemplateMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationTemplateMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateConfigurationTemplateMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -5960,6 +7110,31 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The name of the intermediate certificate authority. */
     certificate_authority: string;
+  }
+  export namespace PrivateCertificateConfigurationTemplateMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** Properties that describe a certificate template. You can use a certificate template to control the parameters that are applied to your issued private certificates. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-certificate-templates). */
@@ -6051,7 +7226,7 @@ namespace SecretsManagerV2 {
     /** This field indicates whether private certificates are flagged for email protection use. */
     email_protection_flag?: boolean;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationTemplatePatch.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -6126,11 +7301,24 @@ namespace SecretsManagerV2 {
      */
     not_before_duration?: string;
   }
+  export namespace PrivateCertificateConfigurationTemplatePatch {
+    export namespace Constants {
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
+  }
 
   /** Properties that describe a certificate template. You can use a certificate template to control the parameters that are applied to your issued private certificates. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-certificate-templates). */
   export interface PrivateCertificateConfigurationTemplatePrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PrivateCertificateConfigurationTemplatePrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
@@ -6231,7 +7419,7 @@ namespace SecretsManagerV2 {
     /** This field indicates whether private certificates are flagged for email protection use. */
     email_protection_flag?: boolean;
     /** The type of private key to generate. */
-    key_type?: string;
+    key_type?: PrivateCertificateConfigurationTemplatePrototype.Constants.KeyType | string;
     /** The number of bits to use to generate the private key.
      *
      *  Allowable values for RSA keys are: `2048` and `4096`. Allowable values for EC keys are: `224`, `256`, `384`, and
@@ -6306,6 +7494,25 @@ namespace SecretsManagerV2 {
      */
     not_before_duration?: string;
   }
+  export namespace PrivateCertificateConfigurationTemplatePrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+      }
+    }
+  }
 
   /** Properties of the metadata of your private certificate. */
   export interface PrivateCertificateMetadata extends SecretMetadata {
@@ -6342,16 +7549,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: PrivateCertificateMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -6399,6 +7606,29 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate was revoked. The date format follows `RFC 3339`. */
     revocation_time_rfc3339?: string;
   }
+  export namespace PrivateCertificateMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** PrivateCertificateMetadataPatch. */
   export interface PrivateCertificateMetadataPatch extends SecretMetadataPatch {
@@ -6430,10 +7660,10 @@ namespace SecretsManagerV2 {
 
   /** PrivateCertificatePrototype. */
   export interface PrivateCertificatePrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificatePrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -6477,9 +7707,9 @@ namespace SecretsManagerV2 {
     /** The certificate signing request. */
     csr?: string;
     /** The format of the returned data. */
-    format?: string;
+    format?: PrivateCertificatePrototype.Constants.Format | string;
     /** The format of the generated private key. */
-    private_key_format?: string;
+    private_key_format?: PrivateCertificatePrototype.Constants.PrivateKeyFormat | string;
     /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
      *
      *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
@@ -6501,6 +7731,31 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
+  export namespace PrivateCertificatePrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+      /** The format of the generated private key. */
+      export enum PrivateKeyFormat {
+        DER = 'der',
+        PKCS8 = 'pkcs8',
+      }
+    }
+  }
 
   /** Your private certificate version. */
   export interface PrivateCertificateVersion extends SecretVersion {
@@ -6518,10 +7773,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -6529,7 +7784,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: PrivateCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -6553,19 +7808,55 @@ namespace SecretsManagerV2 {
     /** The chain of certificate authorities that are associated with the certificate. */
     ca_chain?: string[];
   }
+  export namespace PrivateCertificateVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
 
   /** The response body to specify the properties of the action to revoke the private certificate. */
   export interface PrivateCertificateVersionActionRevoke extends VersionAction {
     /** The type of secret version action. */
-    action_type: string;
+    action_type: PrivateCertificateVersionActionRevoke.Constants.ActionType | string;
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
+  }
+  export namespace PrivateCertificateVersionActionRevoke {
+    export namespace Constants {
+      /** The type of secret version action. */
+      export enum ActionType {
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to revoke the private certificate. */
   export interface PrivateCertificateVersionActionRevokePrototype extends SecretVersionActionPrototype {
     /** The type of secret version action. */
-    action_type: string;
+    action_type: PrivateCertificateVersionActionRevokePrototype.Constants.ActionType | string;
+  }
+  export namespace PrivateCertificateVersionActionRevokePrototype {
+    export namespace Constants {
+      /** The type of secret version action. */
+      export enum ActionType {
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** Properties of the version metadata of your private certificate. */
@@ -6584,10 +7875,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PrivateCertificateVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -6595,7 +7886,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: PrivateCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -6608,6 +7899,26 @@ namespace SecretsManagerV2 {
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
+  }
+  export namespace PrivateCertificateVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** PrivateCertificateVersionPrototype. */
@@ -6655,16 +7966,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificate.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: PublicCertificate.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -6720,29 +8031,74 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
+  export namespace PublicCertificate {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** The response body of the action to validate manual DNS challenges for the public certificate. */
   export interface PublicCertificateActionValidateManualDNS extends SecretAction {
     /** The type of secret action. */
-    action_type: string;
+    action_type: PublicCertificateActionValidateManualDNS.Constants.ActionType | string;
+  }
+  export namespace PublicCertificateActionValidateManualDNS {
+    export namespace Constants {
+      /** The type of secret action. */
+      export enum ActionType {
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** The request body to specify the properties of the action to validate manual DNS challenges for the public certificate. */
   export interface PublicCertificateActionValidateManualDNSPrototype extends SecretActionPrototype {
     /** The type of secret action. */
-    action_type: string;
+    action_type: PublicCertificateActionValidateManualDNSPrototype.Constants.ActionType | string;
+  }
+  export namespace PublicCertificateActionValidateManualDNSPrototype {
+    export namespace Constants {
+      /** The type of secret action. */
+      export enum ActionType {
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
+      }
+    }
   }
 
   /** Properties that describe a Let's Encrypt CA configuration. */
   export interface PublicCertificateConfigurationCALetsEncrypt extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationCALetsEncrypt.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationCALetsEncrypt.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -6750,7 +8106,7 @@ namespace SecretsManagerV2 {
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The configuration of the Let's Encrypt CA environment. */
-    lets_encrypt_environment: string;
+    lets_encrypt_environment: PublicCertificateConfigurationCALetsEncrypt.Constants.LetsEncryptEnvironment | string;
     /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
      *  Name. If no match, the default offered chain will be used.
      */
@@ -6760,17 +8116,51 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_private_key: string;
   }
+  export namespace PublicCertificateConfigurationCALetsEncrypt {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The configuration of the Let's Encrypt CA environment. */
+      export enum LetsEncryptEnvironment {
+        PRODUCTION = 'production',
+        STAGING = 'staging',
+      }
+    }
+  }
 
   /** Your Let's Encrypt CA metadata properties. */
   export interface PublicCertificateConfigurationCALetsEncryptMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationCALetsEncryptMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationCALetsEncryptMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -6778,17 +8168,47 @@ namespace SecretsManagerV2 {
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The configuration of the Let's Encrypt CA environment. */
-    lets_encrypt_environment: string;
+    lets_encrypt_environment: PublicCertificateConfigurationCALetsEncryptMetadata.Constants.LetsEncryptEnvironment | string;
     /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
      *  Name. If no match, the default offered chain will be used.
      */
     lets_encrypt_preferred_chain?: string;
   }
+  export namespace PublicCertificateConfigurationCALetsEncryptMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** The configuration of the Let's Encrypt CA environment. */
+      export enum LetsEncryptEnvironment {
+        PRODUCTION = 'production',
+        STAGING = 'staging',
+      }
+    }
+  }
 
   /** The configuration update of the Let's Encrypt Certificate Authority. */
   export interface PublicCertificateConfigurationCALetsEncryptPatch extends ConfigurationPatch {
     /** The configuration of the Let's Encrypt CA environment. */
-    lets_encrypt_environment: string;
+    lets_encrypt_environment: PublicCertificateConfigurationCALetsEncryptPatch.Constants.LetsEncryptEnvironment | string;
     /** The PEM-encoded private key of your Let's Encrypt account. The data must be formatted on a single line with
      *  embedded newline characters.
      */
@@ -6798,18 +8218,31 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_preferred_chain?: string;
   }
+  export namespace PublicCertificateConfigurationCALetsEncryptPatch {
+    export namespace Constants {
+      /** The configuration of the Let's Encrypt CA environment. */
+      export enum LetsEncryptEnvironment {
+        PRODUCTION = 'production',
+        STAGING = 'staging',
+      }
+    }
+  }
 
   /** The properties of the Let's Encrypt CA configuration. */
   export interface PublicCertificateConfigurationCALetsEncryptPrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationCALetsEncryptPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
     /** The configuration of the Let's Encrypt CA environment. */
-    lets_encrypt_environment: string;
+    lets_encrypt_environment: PublicCertificateConfigurationCALetsEncryptPrototype.Constants.LetsEncryptEnvironment | string;
     /** The PEM-encoded private key of your Let's Encrypt account. The data must be formatted on a single line with
      *  embedded newline characters.
      */
@@ -6819,17 +8252,40 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_preferred_chain?: string;
   }
+  export namespace PublicCertificateConfigurationCALetsEncryptPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The configuration of the Let's Encrypt CA environment. */
+      export enum LetsEncryptEnvironment {
+        PRODUCTION = 'production',
+        STAGING = 'staging',
+      }
+    }
+  }
 
   /** Properties that describe a Classic Infrastructure DNS configuration. */
   export interface PublicCertificateConfigurationDNSClassicInfrastructure extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSClassicInfrastructure.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationDNSClassicInfrastructure.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -6849,23 +8305,77 @@ namespace SecretsManagerV2 {
      */
     classic_infrastructure_password: string;
   }
+  export namespace PublicCertificateConfigurationDNSClassicInfrastructure {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Your Classic Infrastructure DNS metadata properties. */
   export interface PublicCertificateConfigurationDNSClassicInfrastructureMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSClassicInfrastructureMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationDNSClassicInfrastructureMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+  }
+  export namespace PublicCertificateConfigurationDNSClassicInfrastructureMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** Properties that describe the configuration update of an IBM Cloud classic infrastructure (SoftLayer). */
@@ -6886,8 +8396,12 @@ namespace SecretsManagerV2 {
 
   /** PublicCertificateConfigurationDNSClassicInfrastructurePrototype. */
   export interface PublicCertificateConfigurationDNSClassicInfrastructurePrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSClassicInfrastructurePrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
@@ -6906,17 +8420,35 @@ namespace SecretsManagerV2 {
      */
     classic_infrastructure_password: string;
   }
+  export namespace PublicCertificateConfigurationDNSClassicInfrastructurePrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+    }
+  }
 
   /** Properties that describe a Cloud Internet Services DNS configuration. */
   export interface PublicCertificateConfigurationDNSCloudInternetServices extends Configuration {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSCloudInternetServices.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationDNSCloudInternetServices.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
@@ -6938,23 +8470,77 @@ namespace SecretsManagerV2 {
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     cloud_internet_services_crn: string;
   }
+  export namespace PublicCertificateConfigurationDNSCloudInternetServices {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Your Cloud Internet Services DNS metadata properties. */
   export interface PublicCertificateConfigurationDNSCloudInternetServicesMetadata extends ConfigurationMetadata {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSCloudInternetServicesMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
     name: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateConfigurationDNSCloudInternetServicesMetadata.Constants.SecretType | string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+  }
+  export namespace PublicCertificateConfigurationDNSCloudInternetServicesMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
   }
 
   /** The configuration update of the Cloud Internet Services DNS. */
@@ -6977,8 +8563,12 @@ namespace SecretsManagerV2 {
 
   /** Specify the properties for Cloud Internet Services DNS configuration. */
   export interface PublicCertificateConfigurationDNSCloudInternetServicesPrototype extends ConfigurationPrototype {
-    /** The configuration type. */
-    config_type: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     */
+    config_type: PublicCertificateConfigurationDNSCloudInternetServicesPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
@@ -6998,6 +8588,20 @@ namespace SecretsManagerV2 {
     cloud_internet_services_apikey?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     cloud_internet_services_crn: string;
+  }
+  export namespace PublicCertificateConfigurationDNSCloudInternetServicesPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      }
+    }
   }
 
   /** Properties of the metadata of your public certificate. */
@@ -7035,16 +8639,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: PublicCertificateMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -7090,6 +8694,29 @@ namespace SecretsManagerV2 {
     /** The name of the DNS provider configuration. */
     dns?: string;
   }
+  export namespace PublicCertificateMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
 
   /** PublicCertificateMetadataPatch. */
   export interface PublicCertificateMetadataPatch extends SecretMetadataPatch {
@@ -7121,10 +8748,10 @@ namespace SecretsManagerV2 {
 
   /** PublicCertificatePrototype. */
   export interface PublicCertificatePrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificatePrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -7176,6 +8803,21 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
+  export namespace PublicCertificatePrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** This field indicates whether Secrets Manager rotates your secrets automatically. For public certificates, if `auto_rotate` is set to `true`, the service reorders your certificate for 31 days, before it expires. */
   export interface PublicCertificateRotationPolicy extends RotationPolicy {
@@ -7210,10 +8852,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -7221,7 +8863,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: PublicCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -7245,6 +8887,26 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
+  export namespace PublicCertificateVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
 
   /** Properties of the version metadata of your public certificate. */
   export interface PublicCertificateVersionMetadata extends SecretVersionMetadata {
@@ -7262,10 +8924,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: PublicCertificateVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -7273,7 +8935,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: PublicCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -7287,11 +8949,454 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
   }
+  export namespace PublicCertificateVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
 
   /** PublicCertificateVersionPrototype. */
   export interface PublicCertificateVersionPrototype extends SecretVersionPrototype {
     /** Defines the rotation object that is used to manually rotate public certificates. */
     rotation: PublicCertificateRotationObject;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+  }
+
+  /** Your service credentials secret. */
+  export interface ServiceCredentialsSecret extends Secret {
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** A CRN that uniquely identifies an IBM Cloud resource. */
+    crn: string;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A v4 UUID identifier. */
+    id: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-30 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The number of locks of the secret. */
+    locks_total?: number;
+    /** The human-readable name of your secret. */
+    name?: string;
+    /** A v4 UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: ServiceCredentialsSecret.Constants.SecretType | string;
+    /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
+     *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: ServiceCredentialsSecret.Constants.StateDescription | string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The number of versions of your secret. */
+    versions_total: number;
+    /** The date that the secret is scheduled for automatic rotation.
+     *
+     *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
+     *  for secrets that can be auto-rotated and an existing rotation policy.
+     */
+    next_rotation_date?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     */
+    ttl?: string;
+    /** The properties that are required to create the service credentials for the specified source service
+     *  instance.
+     */
+    source_service: ServiceCredentialsSecretSourceService;
+    /** The properties of the service credentials secret payload. */
+    credentials: ServiceCredentialsSecretCredentials;
+  }
+  export namespace ServiceCredentialsSecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
+
+  /** The metadata properties for your service credentials secret. */
+  export interface ServiceCredentialsSecretMetadata extends SecretMetadata {
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** A CRN that uniquely identifies an IBM Cloud resource. */
+    crn: string;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A v4 UUID identifier. */
+    id: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-30 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The number of locks of the secret. */
+    locks_total?: number;
+    /** The human-readable name of your secret. */
+    name?: string;
+    /** A v4 UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: ServiceCredentialsSecretMetadata.Constants.SecretType | string;
+    /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
+     *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: ServiceCredentialsSecretMetadata.Constants.StateDescription | string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The number of versions of your secret. */
+    versions_total: number;
+    /** The date that the secret is scheduled for automatic rotation.
+     *
+     *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
+     *  for secrets that can be auto-rotated and an existing rotation policy.
+     */
+    next_rotation_date?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     */
+    ttl?: string;
+    /** The properties that are required to create the service credentials for the specified source service
+     *  instance.
+     */
+    source_service: ServiceCredentialsSecretSourceService;
+  }
+  export namespace ServiceCredentialsSecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
+
+  /** ServiceCredentialsSecretMetadataPatch. */
+  export interface ServiceCredentialsSecretMetadataPatch extends SecretMetadataPatch {
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-30 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable name to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
+     */
+    name?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     */
+    ttl?: string;
+  }
+
+  /** ServiceCredentialsSecretPrototype. */
+  export interface ServiceCredentialsSecretPrototype extends SecretPrototype {
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-30 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable name to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
+     */
+    name: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** A v4 UUID identifier, or `default` secret group. */
+    secret_group_id?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: ServiceCredentialsSecretPrototype.Constants.SecretType | string;
+    /** The properties that are required to create the service credentials for the specified source service
+     *  instance.
+     */
+    source_service: ServiceCredentialsSecretSourceService;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
+     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
+     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
+     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
+     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     */
+    ttl?: string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+  }
+  export namespace ServiceCredentialsSecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
+
+  /** Your service credentials secret version. */
+  export interface ServiceCredentialsSecretVersion extends SecretVersion {
+    /** Indicates whether the version of the secret was created by automatic rotation. */
+    auto_rotated?: boolean;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A v4 UUID identifier. */
+    id: string;
+    /** The human-readable name of your secret. */
+    secret_name?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: ServiceCredentialsSecretVersion.Constants.SecretType | string;
+    /** A v4 UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** Indicates whether the secret payload is available in this secret version. */
+    payload_available: boolean;
+    /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
+     *  is used for version `n-1`.
+     */
+    alias?: ServiceCredentialsSecretVersion.Constants.Alias | string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+    /** A v4 UUID identifier. */
+    secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
+    /** The source service resource key data of the generated service credentials. */
+    resource_key?: ServiceCredentialsResourceKey;
+    /** The properties of the service credentials secret payload. */
+    credentials: ServiceCredentialsSecretCredentials;
+  }
+  export namespace ServiceCredentialsSecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
+
+  /** The version metadata properties for your service credentials secret. */
+  export interface ServiceCredentialsSecretVersionMetadata extends SecretVersionMetadata {
+    /** Indicates whether the version of the secret was created by automatic rotation. */
+    auto_rotated?: boolean;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A v4 UUID identifier. */
+    id: string;
+    /** The human-readable name of your secret. */
+    secret_name?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: ServiceCredentialsSecretVersionMetadata.Constants.SecretType | string;
+    /** A v4 UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** Indicates whether the secret payload is available in this secret version. */
+    payload_available: boolean;
+    /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
+     *  is used for version `n-1`.
+     */
+    alias?: ServiceCredentialsSecretVersionMetadata.Constants.Alias | string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+    /** A v4 UUID identifier. */
+    secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
+    /** The source service resource key data of the generated service credentials. */
+    resource_key?: ServiceCredentialsResourceKey;
+  }
+  export namespace ServiceCredentialsSecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
+
+  /** ServiceCredentialsSecretVersionPrototype. */
+  export interface ServiceCredentialsSecretVersionPrototype extends SecretVersionPrototype {
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
@@ -7333,16 +9438,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: UsernamePasswordSecret.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: UsernamePasswordSecret.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -7365,6 +9470,29 @@ namespace SecretsManagerV2 {
     username: string;
     /** The password that is assigned to an `username_password` secret. */
     password: string;
+  }
+  export namespace UsernamePasswordSecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** Properties of the metadata of your user credentials secret. */
@@ -7402,16 +9530,16 @@ namespace SecretsManagerV2 {
     name?: string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: UsernamePasswordSecretMetadata.Constants.SecretType | string;
     /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
      *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
      */
     state?: number;
     /** A text representation of the secret state. */
-    state_description?: string;
+    state_description?: UsernamePasswordSecretMetadata.Constants.StateDescription | string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
     /** The number of versions of your secret. */
@@ -7430,6 +9558,29 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
+  }
+  export namespace UsernamePasswordSecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
   }
 
   /** UsernamePasswordSecretMetadataPatch. */
@@ -7466,10 +9617,10 @@ namespace SecretsManagerV2 {
 
   /** UsernamePasswordSecretPrototype. */
   export interface UsernamePasswordSecretPrototype extends SecretPrototype {
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: UsernamePasswordSecretPrototype.Constants.SecretType | string;
     /** A human-readable name to assign to your secret.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
@@ -7507,6 +9658,21 @@ namespace SecretsManagerV2 {
      */
     rotation?: RotationPolicy;
   }
+  export namespace UsernamePasswordSecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+    }
+  }
 
   /** Your user credentials secret version. */
   export interface UsernamePasswordSecretVersion extends SecretVersion {
@@ -7524,10 +9690,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: UsernamePasswordSecretVersion.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -7535,7 +9701,7 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: UsernamePasswordSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
@@ -7544,6 +9710,26 @@ namespace SecretsManagerV2 {
     username: string;
     /** The password that is assigned to an `username_password` secret. */
     password: string;
+  }
+  export namespace UsernamePasswordSecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** Properties of the version metadata of your user credentials secret. */
@@ -7562,10 +9748,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
-    /** The secret type. Supported types are arbitrary, certificates (imported, public, and private), IAM
-     *  credentials, key-value, and user credentials.
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
      */
-    secret_type: string;
+    secret_type: UsernamePasswordSecretVersionMetadata.Constants.SecretType | string;
     /** A v4 UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
@@ -7573,11 +9759,31 @@ namespace SecretsManagerV2 {
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
      */
-    alias?: string;
+    alias?: UsernamePasswordSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+  }
+  export namespace UsernamePasswordSecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
   }
 
   /** UsernamePasswordSecretVersionPrototype. */
