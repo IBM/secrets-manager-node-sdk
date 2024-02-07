@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.82.1-2082d402-20231115-195014
+ * IBM OpenAPI SDK Code Generator Version: 3.84.2-a032c73d-20240125-175315
  */
 
 /* eslint-disable max-classes-per-file */
@@ -87,7 +87,7 @@ class SecretsManagerV2 extends BaseService {
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
-   * @param {string} [options.serviceUrl] - The URL for the service
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @returns {SecretsManagerV2}
    */
 
@@ -112,7 +112,7 @@ class SecretsManagerV2 extends BaseService {
    * Construct a SecretsManagerV2 object.
    *
    * @param {Object} options - Options for the service.
-   * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
@@ -3019,14 +3019,6 @@ namespace SecretsManagerV2 {
   export interface ConfigurationPrototype {
   }
 
-  /** The Cloud Object Storage HMAC keys that are returned after you create a service credentials secret. */
-  export interface CosHmacKeys {
-    /** The access key ID for Cloud Object Storage HMAC credentials. */
-    access_key_id?: string;
-    /** The secret access key ID for Cloud Object Storage HMAC credentials. */
-    secret_access_key?: string;
-  }
-
   /** The details of the Event Notifications registration. */
   export interface NotificationsRegistration {
     /** A CRN that uniquely identifies an IBM Cloud resource. */
@@ -3055,6 +3047,42 @@ namespace SecretsManagerV2 {
   export interface PaginatedCollectionPrevious {
     /** A URL that points to a page in a collection. */
     href: string;
+  }
+
+  /** Policy for auto-generated passwords. */
+  export interface PasswordGenerationPolicy {
+    /** The length of auto-generated passwords. */
+    length?: number;
+    /** Include digits in auto-generated passwords. */
+    include_digits?: boolean;
+    /** Include symbols in auto-generated passwords. */
+    include_symbols?: boolean;
+    /** Include uppercase letters in auto-generated passwords. */
+    include_uppercase?: boolean;
+  }
+
+  /** Policy patch for auto-generated passwords. Policy properties that are included in the patch are updated. Properties that are not included in the patch remain unchanged. */
+  export interface PasswordGenerationPolicyPatch {
+    /** The length of auto-generated passwords. */
+    length?: number;
+    /** Include digits in auto-generated passwords. */
+    include_digits?: boolean;
+    /** Include symbols in auto-generated passwords. */
+    include_symbols?: boolean;
+    /** Include uppercase letters in auto-generated passwords. */
+    include_uppercase?: boolean;
+  }
+
+  /** Policy for auto-generated passwords. */
+  export interface PasswordGenerationPolicyRO {
+    /** The length of auto-generated passwords. */
+    length?: number;
+    /** Include digits in auto-generated passwords. */
+    include_digits?: boolean;
+    /** Include symbols in auto-generated passwords. */
+    include_symbols?: boolean;
+    /** Include uppercase letters in auto-generated passwords. */
+    include_uppercase?: boolean;
   }
 
   /** The configuration data of your Private Certificate. */
@@ -3363,10 +3391,6 @@ namespace SecretsManagerV2 {
      *  field to understand the duration of the lease.
      */
     apikey?: string;
-    /** The Cloud Object Storage HMAC keys that are returned after you create a service credentials secret. */
-    cos_hmac_keys?: CosHmacKeys;
-    /** The endpoints that are returned after you create a service credentials secret. */
-    endpoints?: string;
     /** The IAM API key description for the generated service credentials. */
     iam_apikey_description?: string;
     /** The IAM API key id for the generated service credentials. */
@@ -3377,12 +3401,30 @@ namespace SecretsManagerV2 {
     iam_role_crn?: string;
     /** The IAM Service ID CRN. */
     iam_serviceid_crn?: string;
-    /** The resource instance CRN that is returned after you create a service credentials secret. */
-    resource_instance_id?: string;
+    /** ServiceCredentialsSecretCredentials accepts additional properties. */
+    [propName: string]: any;
   }
 
   /** The properties that are required to create the service credentials for the specified source service instance. */
   export interface ServiceCredentialsSecretSourceService {
+    /** The source service instance identifier. */
+    instance: ServiceCredentialsSourceServiceInstance;
+    /** Configuration options represented as key-value pairs. Service-defined options are used in the generation of
+     *  credentials for some services. For example, Cloud Object Storage accepts the optional boolean parameter HMAC for
+     *  creating specific kind of credentials.
+     */
+    parameters?: ServiceCredentialsSourceServiceParameters;
+    /** The service-specific custom role. CRN is accepted. The role is assigned as part of an access policy to any
+     *  auto-generated IAM service ID.  If you provide an existing service ID, it is added to the access policy for that
+     *  ID.  If a role is not provided, any new service IDs that are autogenerated, will not have an assigned access
+     *  policy and provided service IDs are not changed in any way.  Refer to the service documentation for supported
+     *  roles.
+     */
+    role?: ServiceCredentialsSourceServiceRole;
+  }
+
+  /** The properties of the resource key that was created for this source service instance. */
+  export interface ServiceCredentialsSecretSourceServiceRO {
     /** The source service instance identifier. */
     instance: ServiceCredentialsSourceServiceInstance;
     /** Configuration options represented as key-value pairs. Service-defined options are used in the generation of
@@ -5862,7 +5904,7 @@ namespace SecretsManagerV2 {
     serial_number?: string;
     /** The type of configuration action. */
     action_type: PrivateCertificateConfigurationActionSignIntermediate.Constants.ActionType | string;
-    /** The unique name of your configuration. */
+    /** The name of the intermediate certificate authority configuration. */
     intermediate_certificate_authority: string;
   }
   export namespace PrivateCertificateConfigurationActionSignIntermediate {
@@ -5962,7 +6004,7 @@ namespace SecretsManagerV2 {
     serial_number?: string;
     /** The type of configuration action. */
     action_type: PrivateCertificateConfigurationActionSignIntermediatePrototype.Constants.ActionType | string;
-    /** The unique name of your configuration. */
+    /** The name of the intermediate certificate authority configuration. */
     intermediate_certificate_authority: string;
   }
   export namespace PrivateCertificateConfigurationActionSignIntermediatePrototype {
@@ -8107,8 +8149,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The configuration of the Let's Encrypt CA environment. */
     lets_encrypt_environment: PublicCertificateConfigurationCALetsEncrypt.Constants.LetsEncryptEnvironment | string;
-    /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
-     *  Name. If no match, the default offered chain will be used.
+    /** This field supports only the chains that Let's Encrypt provides. Keep empty to use the default or supply a
+     *  valid Let's Encrypt-provided value. For a list of supported chains, see: https://letsencrypt.org/certificates/.
      */
     lets_encrypt_preferred_chain?: string;
     /** The PEM-encoded private key of your Let's Encrypt account. The data must be formatted on a single line with
@@ -8169,8 +8211,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The configuration of the Let's Encrypt CA environment. */
     lets_encrypt_environment: PublicCertificateConfigurationCALetsEncryptMetadata.Constants.LetsEncryptEnvironment | string;
-    /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
-     *  Name. If no match, the default offered chain will be used.
+    /** This field supports only the chains that Let's Encrypt provides. Keep empty to use the default or supply a
+     *  valid Let's Encrypt-provided value. For a list of supported chains, see: https://letsencrypt.org/certificates/.
      */
     lets_encrypt_preferred_chain?: string;
   }
@@ -8213,8 +8255,8 @@ namespace SecretsManagerV2 {
      *  embedded newline characters.
      */
     lets_encrypt_private_key?: string;
-    /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
-     *  Name. If no match, the default offered chain will be used.
+    /** This field supports only the chains that Let's Encrypt provides. Keep empty to use the default or supply a
+     *  valid Let's Encrypt-provided value. For a list of supported chains, see: https://letsencrypt.org/certificates/.
      */
     lets_encrypt_preferred_chain?: string;
   }
@@ -8247,8 +8289,8 @@ namespace SecretsManagerV2 {
      *  embedded newline characters.
      */
     lets_encrypt_private_key: string;
-    /** If the CA offers multiple certificate chains, prefer the chain with an issuer matching this Subject Common
-     *  Name. If no match, the default offered chain will be used.
+    /** This field supports only the chains that Let's Encrypt provides. Keep empty to use the default or supply a
+     *  valid Let's Encrypt-provided value. For a list of supported chains, see: https://letsencrypt.org/certificates/.
      */
     lets_encrypt_preferred_chain?: string;
   }
@@ -8455,16 +8497,22 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
-    /** An IBM Cloud API key that can to list domains in your Cloud Internet Services instance.
+    /** An IBM Cloud API key that can list domains in your Cloud Internet Services instance and add DNS records.
      *
      *  To grant Secrets Manager the ability to view the Cloud Internet Services instance and all of its domains, the
-     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`).
+     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`). In order to add DNS
+     *  records you need to assign the Manager role.
      *
-     *  If you need to manage specific domains, you can assign the Manager role. For production environments, it is
-     *  recommended that you assign the Reader access role, and then use the
+     *  If you want to manage specific domains, you can assign the Manager role for this specific domain.  For
+     *  production environments, it is recommended that you assign the Reader access role, and then use the
      *  [IAM Policy Management API](https://cloud.ibm.com/apidocs/iam-policy-management#create-policy) to control
-     *  specific domains. For more information, see the
-     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-specific-domains).
+     *  specific domains.
+     *
+     *  If an IBM Cloud API key value is empty Secrets Manager tries to access your Cloud Internet Services instance
+     *  with service-to-service authorization.
+     *
+     *  For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-cis).
      */
     cloud_internet_services_apikey?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
@@ -8545,16 +8593,22 @@ namespace SecretsManagerV2 {
 
   /** The configuration update of the Cloud Internet Services DNS. */
   export interface PublicCertificateConfigurationDNSCloudInternetServicesPatch extends ConfigurationPatch {
-    /** An IBM Cloud API key that can to list domains in your Cloud Internet Services instance.
+    /** An IBM Cloud API key that can list domains in your Cloud Internet Services instance and add DNS records.
      *
      *  To grant Secrets Manager the ability to view the Cloud Internet Services instance and all of its domains, the
-     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`).
+     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`). In order to add DNS
+     *  records you need to assign the Manager role.
      *
-     *  If you need to manage specific domains, you can assign the Manager role. For production environments, it is
-     *  recommended that you assign the Reader access role, and then use the
+     *  If you want to manage specific domains, you can assign the Manager role for this specific domain.  For
+     *  production environments, it is recommended that you assign the Reader access role, and then use the
      *  [IAM Policy Management API](https://cloud.ibm.com/apidocs/iam-policy-management#create-policy) to control
-     *  specific domains. For more information, see the
-     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-specific-domains).
+     *  specific domains.
+     *
+     *  If an IBM Cloud API key value is empty Secrets Manager tries to access your Cloud Internet Services instance
+     *  with service-to-service authorization.
+     *
+     *  For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-cis).
      */
     cloud_internet_services_apikey: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
@@ -8574,16 +8628,22 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
-    /** An IBM Cloud API key that can to list domains in your Cloud Internet Services instance.
+    /** An IBM Cloud API key that can list domains in your Cloud Internet Services instance and add DNS records.
      *
      *  To grant Secrets Manager the ability to view the Cloud Internet Services instance and all of its domains, the
-     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`).
+     *  API key must be assigned the Reader service role on Internet Services (`internet-svcs`). In order to add DNS
+     *  records you need to assign the Manager role.
      *
-     *  If you need to manage specific domains, you can assign the Manager role. For production environments, it is
-     *  recommended that you assign the Reader access role, and then use the
+     *  If you want to manage specific domains, you can assign the Manager role for this specific domain.  For
+     *  production environments, it is recommended that you assign the Reader access role, and then use the
      *  [IAM Policy Management API](https://cloud.ibm.com/apidocs/iam-policy-management#create-policy) to control
-     *  specific domains. For more information, see the
-     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-specific-domains).
+     *  specific domains.
+     *
+     *  If an IBM Cloud API key value is empty Secrets Manager tries to access your Cloud Internet Services instance
+     *  with service-to-service authorization.
+     *
+     *  For more information, see the
+     *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-prepare-order-certificates#authorize-cis).
      */
     cloud_internet_services_apikey?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
@@ -9047,10 +9107,8 @@ namespace SecretsManagerV2 {
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl?: string;
-    /** The properties that are required to create the service credentials for the specified source service
-     *  instance.
-     */
-    source_service: ServiceCredentialsSecretSourceService;
+    /** The properties of the resource key that was created for this source service instance. */
+    source_service: ServiceCredentialsSecretSourceServiceRO;
     /** The properties of the service credentials secret payload. */
     credentials: ServiceCredentialsSecretCredentials;
   }
@@ -9145,10 +9203,8 @@ namespace SecretsManagerV2 {
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl?: string;
-    /** The properties that are required to create the service credentials for the specified source service
-     *  instance.
-     */
-    source_service: ServiceCredentialsSecretSourceService;
+    /** The properties of the resource key that was created for this source service instance. */
+    source_service: ServiceCredentialsSecretSourceServiceRO;
   }
   export namespace ServiceCredentialsSecretMetadata {
     export namespace Constants {
@@ -9466,6 +9522,8 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
+    /** Policy for auto-generated passwords. */
+    password_generation_policy?: PasswordGenerationPolicyRO;
     /** The username that is assigned to an `username_password` secret. */
     username: string;
     /** The password that is assigned to an `username_password` secret. */
@@ -9558,6 +9616,8 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
+    /** Policy for auto-generated passwords. */
+    password_generation_policy?: PasswordGenerationPolicyRO;
   }
   export namespace UsernamePasswordSecretMetadata {
     export namespace Constants {
@@ -9613,6 +9673,10 @@ namespace SecretsManagerV2 {
      *  types: Arbitrary, username_password.
      */
     expiration_date?: string;
+    /** Policy patch for auto-generated passwords. Policy properties that are included in the patch are updated.
+     *  Properties that are not included in the patch remain unchanged.
+     */
+    password_generation_policy?: PasswordGenerationPolicyPatch;
   }
 
   /** UsernamePasswordSecretPrototype. */
@@ -9643,8 +9707,10 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The username that is assigned to an `username_password` secret. */
     username: string;
-    /** The password that is assigned to an `username_password` secret. */
-    password: string;
+    /** The password that is assigned to an `username_password` secret. If you omit this parameter, Secrets Manager
+     *  generates a new random password for your secret.
+     */
+    password?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -9657,6 +9723,8 @@ namespace SecretsManagerV2 {
      *  username_password, private_cert, public_cert, iam_credentials.
      */
     rotation?: RotationPolicy;
+    /** Policy for auto-generated passwords. */
+    password_generation_policy?: PasswordGenerationPolicy;
   }
   export namespace UsernamePasswordSecretPrototype {
     export namespace Constants {
@@ -9788,7 +9856,9 @@ namespace SecretsManagerV2 {
 
   /** UsernamePasswordSecretVersionPrototype. */
   export interface UsernamePasswordSecretVersionPrototype extends SecretVersionPrototype {
-    /** The password that is assigned to an `username_password` secret. */
+    /** The password that is assigned to an `username_password` secret. If you omit this parameter, Secrets Manager
+     *  generates a new random password for your secret.
+     */
     password?: string;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
