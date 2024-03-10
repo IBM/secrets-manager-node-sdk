@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.84.2-a032c73d-20240125-175315
+ * IBM OpenAPI SDK Code Generator Version: 3.86.1-c3d7bcef-20240308-215042
  */
 
 /* eslint-disable max-classes-per-file */
@@ -486,6 +486,18 @@ class SecretsManagerV2 extends BaseService {
    *
    * **Usage:** To retrieve a list of secrets that are associated with an existing secret group or the default group,
    * use `..?groups={secret_group_ID},default`.
+   * @param {string[]} [params.secretTypes] - Filter secrets by types.
+   *
+   * You can apply multiple filters by using a comma-separated list of secret types.
+   *
+   * **Usage:** To retrieve a list of imported certificates and public certificates use
+   * `..?secret_types=imported_cert,public_cert`.
+   * @param {string[]} [params.matchAllLabels] - Filter secrets by labels.
+   *
+   * You can use a comma-separated list of labels to filter secrets that include all of the labels in the list.
+   *
+   * **Usage:** To retrieve a list of secrets that include both the label "dev" and the label "us-south" in their list
+   * of labels, use `..?labels=dev,us-south`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadataPaginatedCollection>>}
    */
@@ -494,7 +506,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadataPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['offset', 'limit', 'sort', 'search', 'groups', 'headers'];
+    const _validParams = ['offset', 'limit', 'sort', 'search', 'groups', 'secretTypes', 'matchAllLabels', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -506,6 +518,8 @@ class SecretsManagerV2 extends BaseService {
       'sort': _params.sort,
       'search': _params.search,
       'groups': _params.groups,
+      'secret_types': _params.secretTypes,
+      'match_all_labels': _params.matchAllLabels,
     };
 
     const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecrets');
@@ -2413,7 +2427,38 @@ namespace SecretsManagerV2 {
      *  use `..?groups={secret_group_ID},default`.
      */
     groups?: string[];
+    /** Filter secrets by types.
+     *
+     *  You can apply multiple filters by using a comma-separated list of secret types.
+     *
+     *  **Usage:** To retrieve a list of imported certificates and public certificates use
+     *  `..?secret_types=imported_cert,public_cert`.
+     */
+    secretTypes?: ListSecretsConstants.SecretTypes[] | string[];
+    /** Filter secrets by labels.
+     *
+     *  You can use a comma-separated list of labels to filter secrets that include all of the labels in the list.
+     *
+     *  **Usage:** To retrieve a list of secrets that include both the label "dev" and the label "us-south" in their
+     *  list of labels, use `..?labels=dev,us-south`.
+     */
+    matchAllLabels?: string[];
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `listSecrets` operation. */
+  export namespace ListSecretsConstants {
+    /** Filter secrets by types. You can apply multiple filters by using a comma-separated list of secret types. **Usage:** To retrieve a list of imported certificates and public certificates use `..?secret_types=imported_cert,public_cert`. */
+    export enum SecretTypes {
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      KV = 'kv',
+      PRIVATE_CERT = 'private_cert',
+      PUBLIC_CERT = 'public_cert',
+      SERVICE_CREDENTIALS = 'service_credentials',
+      USERNAME_PASSWORD = 'username_password',
+    }
   }
 
   /** Parameters for the `getSecret` operation. */
@@ -3525,7 +3570,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -3605,7 +3650,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -3674,7 +3719,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -3703,7 +3748,7 @@ namespace SecretsManagerV2 {
     expiration_date?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4056,7 +4101,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4129,6 +4174,10 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The API key that is generated for this secret.
      *
      *  After the secret reaches the end of its lease, the API key is deleted automatically. See the `time-to-live`
@@ -4185,7 +4234,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4258,6 +4307,10 @@ namespace SecretsManagerV2 {
      *  for secrets that can be auto-rotated and an existing rotation policy.
      */
     next_rotation_date?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
   }
   export namespace IAMCredentialsSecretMetadata {
     export namespace Constants {
@@ -4298,7 +4351,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4340,7 +4393,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4581,7 +4634,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4693,7 +4746,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4786,7 +4839,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -4816,7 +4869,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -5028,7 +5081,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -5104,7 +5157,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -5169,7 +5222,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -5199,7 +5252,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -5371,7 +5424,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -7580,7 +7633,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -7687,7 +7740,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -7721,7 +7774,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -7997,7 +8050,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -8688,7 +8741,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -8793,7 +8846,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -8827,7 +8880,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9064,7 +9117,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9107,6 +9160,10 @@ namespace SecretsManagerV2 {
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The properties of the resource key that was created for this source service instance. */
     source_service: ServiceCredentialsSecretSourceServiceRO;
     /** The properties of the service credentials secret payload. */
@@ -9160,7 +9217,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9203,6 +9260,10 @@ namespace SecretsManagerV2 {
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
      */
     ttl?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The properties of the resource key that was created for this source service instance. */
     source_service: ServiceCredentialsSecretSourceServiceRO;
   }
@@ -9242,7 +9303,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9278,7 +9339,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9483,7 +9544,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9577,7 +9638,7 @@ namespace SecretsManagerV2 {
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9658,7 +9719,7 @@ namespace SecretsManagerV2 {
     description?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
@@ -9700,7 +9761,7 @@ namespace SecretsManagerV2 {
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
-     *  Label can be between 2-30 characters, including spaces.
+     *  Label can be between 2-64 characters, including spaces.
      *
      *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
      */
