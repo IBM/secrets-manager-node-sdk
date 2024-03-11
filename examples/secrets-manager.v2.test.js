@@ -431,6 +431,8 @@ describe('SecretsManagerV2', () => {
       sort: 'created_at',
       search: 'example',
       groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+      secretTypes: ['arbitrary', 'kv'],
+      matchAllLabels: ['dev', 'us-south'],
     };
 
     const allResults = [];

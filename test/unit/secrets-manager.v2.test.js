@@ -654,12 +654,16 @@ describe('SecretsManagerV2', () => {
         const sort = 'created_at';
         const search = 'example';
         const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
+        const secretTypes = ['arbitrary', 'kv'];
+        const matchAllLabels = ['dev', 'us-south'];
         const listSecretsParams = {
           offset,
           limit,
           sort,
           search,
           groups,
+          secretTypes,
+          matchAllLabels,
         };
 
         const listSecretsResult = secretsManagerService.listSecrets(listSecretsParams);
@@ -681,6 +685,8 @@ describe('SecretsManagerV2', () => {
         expect(mockRequestOptions.qs.sort).toEqual(sort);
         expect(mockRequestOptions.qs.search).toEqual(search);
         expect(mockRequestOptions.qs.groups).toEqual(groups);
+        expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
+        expect(mockRequestOptions.qs.match_all_labels).toEqual(matchAllLabels);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -748,6 +754,8 @@ describe('SecretsManagerV2', () => {
           sort: 'created_at',
           search: 'example',
           groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+          secretTypes: ['arbitrary', 'kv'],
+          matchAllLabels: ['dev', 'us-south'],
         };
         const allResults = [];
         const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
@@ -766,6 +774,8 @@ describe('SecretsManagerV2', () => {
           sort: 'created_at',
           search: 'example',
           groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+          secretTypes: ['arbitrary', 'kv'],
+          matchAllLabels: ['dev', 'us-south'],
         };
         const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
         const allResults = await pager.getAll();
