@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.86.1-c3d7bcef-20240308-215042
+ * IBM OpenAPI SDK Code Generator Version: 3.92.0-af5c89a5-20240617-153232
  */
 
 /* eslint-disable max-classes-per-file */
@@ -4132,6 +4132,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4265,6 +4266,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4364,6 +4366,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
@@ -4404,6 +4407,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -9158,6 +9162,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9258,6 +9263,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9323,6 +9329,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
   }
@@ -9369,6 +9376,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The secret version metadata that a user can customize. */
