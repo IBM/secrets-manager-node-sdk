@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,36 +174,12 @@ describe('SecretsManagerV2_integration', () => {
   test('createConfiguration()', async () => {
     // Request models needed by this operation.
 
-    // PrivateCertificateConfigurationRootCAPrototype
+    // PublicCertificateConfigurationDNSCloudInternetServicesPrototype
     const configurationPrototypeModel = {
-      config_type: 'private_cert_configuration_root_ca',
-      name: 'example-root-CA',
-      max_ttl: '43830h',
-      crl_expiry: '72h',
-      crl_disable: false,
-      crl_distribution_points_encoded: true,
-      issuing_certificates_urls_encoded: true,
-      common_name: 'example.com',
-      alt_names: ['alt-name-1', 'alt-name-2'],
-      ip_sans: '127.0.0.1',
-      uri_sans: 'https://www.example.com/test',
-      other_sans: ['1.2.3.5.4.3.201.10.4.3;utf8:test@example.com'],
-      ttl: '2190h',
-      format: 'pem',
-      private_key_format: 'der',
-      key_type: 'rsa',
-      key_bits: 4096,
-      max_path_length: -1,
-      exclude_cn_from_sans: false,
-      permitted_dns_domains: ['testString'],
-      ou: ['testString'],
-      organization: ['testString'],
-      country: ['testString'],
-      locality: ['testString'],
-      province: ['testString'],
-      street_address: ['testString'],
-      postal_code: ['testString'],
-      serial_number: 'd9:be:fe:35:ba:09:42:b5:35:ba:09:42:b5',
+      config_type: 'public_cert_configuration_dns_cloud_internet_services',
+      name: 'example-cloud-internet-services-config',
+      cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+      cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
     };
 
     const params = {
@@ -255,6 +231,8 @@ describe('SecretsManagerV2_integration', () => {
       sort: 'created_at',
       search: 'example',
       groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+      secretTypes: ['arbitrary', 'kv'],
+      matchAllLabels: ['dev', 'us-south'],
     };
 
     const res = await secretsManagerService.listSecrets(params);
@@ -269,6 +247,8 @@ describe('SecretsManagerV2_integration', () => {
       sort: 'created_at',
       search: 'example',
       groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+      secretTypes: ['arbitrary', 'kv'],
+      matchAllLabels: ['dev', 'us-south'],
     };
 
     const allResults = [];
@@ -578,7 +558,7 @@ describe('SecretsManagerV2_integration', () => {
   test('getConfiguration()', async () => {
     const params = {
       name: configurationNameForGetConfigurationLink,
-      xSmAcceptConfigurationType: 'private_cert_configuration_root_ca',
+      xSmAcceptConfigurationType: 'public_cert_configuration_dns_cloud_internet_services',
     };
 
     const res = await secretsManagerService.getConfiguration(params);
@@ -590,15 +570,16 @@ describe('SecretsManagerV2_integration', () => {
   test('updateConfiguration()', async () => {
     // Request models needed by this operation.
 
-    // IAMCredentialsConfigurationPatch
+    // PublicCertificateConfigurationDNSCloudInternetServicesPatch
     const configurationPatchModel = {
-      api_key: 'RmnPBn6n1dzoo0v3kyznKEpg0WzdTpW9lW7FtKa017_u',
+      cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+      cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
     };
 
     const params = {
       name: configurationNameForGetConfigurationLink,
       configurationPatch: configurationPatchModel,
-      xSmAcceptConfigurationType: 'private_cert_configuration_root_ca',
+      xSmAcceptConfigurationType: 'public_cert_configuration_dns_cloud_internet_services',
     };
 
     const res = await secretsManagerService.updateConfiguration(params);
@@ -607,25 +588,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('createConfigurationAction()', async () => {
-    // Request models needed by this operation.
-
-    // PrivateCertificateConfigurationActionRotateCRLPrototype
-    const configurationActionPrototypeModel = {
-      action_type: 'private_cert_configuration_action_rotate_crl',
-    };
-
-    const params = {
-      name: configurationNameForGetConfigurationLink,
-      configActionPrototype: configurationActionPrototypeModel,
-      xSmAcceptConfigurationType: 'private_cert_configuration_root_ca',
-    };
-
-    const res = await secretsManagerService.createConfigurationAction(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for createConfigurationAction has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('createConfigurationAction()', async () => {});
 
   test('createNotificationsRegistration()', async () => {
     const params = {
@@ -705,7 +670,7 @@ describe('SecretsManagerV2_integration', () => {
   test('deleteConfiguration()', async () => {
     const params = {
       name: configurationNameForGetConfigurationLink,
-      xSmAcceptConfigurationType: 'private_cert_configuration_root_ca',
+      xSmAcceptConfigurationType: 'public_cert_configuration_dns_cloud_internet_services',
     };
 
     const res = await secretsManagerService.deleteConfiguration(params);

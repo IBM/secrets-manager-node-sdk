@@ -17,19 +17,19 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const { readExternalSources } = require('ibm-cloud-sdk-core');
-const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
-const authHelper = require('../resources/auth-helper.js');
+const SecretsManagerV2 = require("../../dist/secrets-manager/v2");
+const { readExternalSources } = require("ibm-cloud-sdk-core");
+const authHelper = require("../resources/auth-helper.js");
 
 // testcase timeout value (200s).
 const timeout = 200000;
 
 // Location of our config file.
-const configFile = 'secrets_manager_v2.env';
+const configFile = "secrets_manager_v2.env";
 
 const describe = authHelper.prepareTests(configFile);
 
-describe('SecretsManagerV2_integration', () => {
+describe("SecretsManagerV2_integration", () => {
   jest.setTimeout(timeout);
   // Service instance
   let secretsManagerService;
@@ -37,22 +37,24 @@ describe('SecretsManagerV2_integration', () => {
   let iamCredSecretId;
   let config;
 
-  const privateCertSecretName1 = 'integration-js-private-certificate1';
-  const privateCertSecretName2 = 'integration-js-private-certificate2';
-  const rootCaConfigType = 'private_cert_configuration_root_ca';
-  const rootCaConfigName = 'root-CA-integration-js';
-  const interCaConfigType = 'private_cert_configuration_intermediate_ca';
-  const interCaConfigName = 'intermediate-CA-integration-js';
-  const templateConfigType = 'private_cert_configuration_template';
-  const templateConfigName1 = 'template1-integration-js';
-  const templateConfigName2 = 'template1-integration-js';
-  const iamConfigType = 'iam_credentials_configuration';
-  const iamConfigName = 'iam-config-integration';
+  const privateCertSecretName1 = "integration-js-private-certificate1";
+  const privateCertSecretName2 = "integration-js-private-certificate2";
+  const rootCaConfigType = "private_cert_configuration_root_ca";
+  const rootCaConfigName = "root-CA-integration-js";
+  const interCaConfigType = "private_cert_configuration_intermediate_ca";
+  const interCaConfigName = "intermediate-CA-integration-js";
+  const templateConfigType = "private_cert_configuration_template";
+  const templateConfigName1 = "template1-integration-js";
+  const templateConfigName2 = "template1-integration-js";
+  const iamConfigType = "iam_credentials_configuration";
+  const iamConfigName = "iam-config-integration";
   let cleanupFunc = async () => {};
 
-  afterEach(async () => await cleanupFunc());
+  afterEach(async () => {
+    return await cleanupFunc();
+  });
 
-  test('Initialize service', async () => {
+  test("Initialize service", async () => {
     secretsManagerService = SecretsManagerV2.newInstance();
 
     expect(secretsManagerService).not.toBeNull();
@@ -63,7 +65,7 @@ describe('SecretsManagerV2_integration', () => {
     secretsManagerService.enableRetries();
   });
 
-  test('createSecretAction()', async () => {
+  test("createSecretAction()", async () => {
     cleanupFunc = async () => {
       await deleteSecret(privateCertSecretId);
       await deleteConfig(templateConfigName1, templateConfigType);
@@ -79,21 +81,22 @@ describe('SecretsManagerV2_integration', () => {
 
     // PublicCertificateActionValidateManualDNSPrototype
     const secretActionPrototypeModel = {
-      action_type: 'private_cert_action_revoke_certificate',
+      action_type: "private_cert_action_revoke_certificate"
     };
 
     const params = {
       id: privateCertSecretId,
-      secretActionPrototype: secretActionPrototypeModel,
+      secretActionPrototype: secretActionPrototypeModel
     };
 
     const res = await secretsManagerService.createSecretAction(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
+
   });
 
-  test('createSecretVersionAction()', async () => {
+  test("createSecretVersionAction()", async () => {
     cleanupFunc = async () => {
       await deleteSecret(privateCertSecretId);
       await deleteConfig(templateConfigName2, templateConfigType);
@@ -109,22 +112,47 @@ describe('SecretsManagerV2_integration', () => {
 
     // PrivateCertificateVersionActionRevokePrototype
     const secretVersionActionPrototypeModel = {
-      action_type: 'private_cert_action_revoke_certificate',
+      action_type: "private_cert_action_revoke_certificate"
     };
 
     const params = {
       secretId: privateCertSecretId,
-      id: 'current',
-      secretVersionActionPrototype: secretVersionActionPrototypeModel,
+      id: "current",
+      secretVersionActionPrototype: secretVersionActionPrototypeModel
     };
 
     const res = await secretsManagerService.createSecretVersionAction(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
+
   });
 
-  test('deleteSecretVersionData()', async () => {
+  test("createConfigurationAction()", async () => {
+    cleanupFunc = async () => {
+      await deleteConfig(rootCaConfigName, rootCaConfigType);
+    };
+    // Prepare models needed by this operation.
+    await createRootCaConfig();
+
+    // PrivateCertificateConfigurationActionRotateCRLPrototype
+    const configurationActionPrototypeModel = {
+      action_type: "private_cert_configuration_action_rotate_crl"
+    };
+
+    const params = {
+      name: rootCaConfigName,
+      configActionPrototype: configurationActionPrototypeModel,
+      xSmAcceptConfigurationType: "private_cert_configuration_root_ca"
+    };
+
+    const res = await secretsManagerService.createConfigurationAction(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test("deleteSecretVersionData()", async () => {
     cleanupFunc = async () => {
       await deleteSecret(iamCredSecretId);
     };
@@ -135,21 +163,22 @@ describe('SecretsManagerV2_integration', () => {
 
     const params = {
       secretId: iamCredSecretId,
-      id: 'current',
+      id: "current"
     };
 
     const res = await secretsManagerService.deleteSecretVersionData(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
+
   });
 
   async function createRootCaConfig() {
     const configurationPrototypeModel = {
       config_type: rootCaConfigType,
       name: rootCaConfigName,
-      max_ttl: '43830h',
-      common_name: 'ibm.com',
+      max_ttl: "43830h",
+      common_name: "ibm.com"
     };
     await createConfiguration(configurationPrototypeModel);
   }
@@ -158,11 +187,11 @@ describe('SecretsManagerV2_integration', () => {
     const configurationPrototypeModel = {
       config_type: interCaConfigType,
       name: interCaConfigName,
-      max_ttl: '87600h',
-      common_name: 'ibm.com',
+      max_ttl: "87600h",
+      common_name: "ibm.com",
       issuer: rootCaConfigName,
-      signing_method: 'internal',
-      issuing_certificates_urls_encoded: true,
+      signing_method: "internal",
+      issuing_certificates_urls_encoded: true
     };
     await createConfiguration(configurationPrototypeModel);
   }
@@ -170,13 +199,13 @@ describe('SecretsManagerV2_integration', () => {
   async function signIntermediate() {
     // PrivateCertificateConfigurationActionRotateCRLPrototype
     const configurationActionPrototypeModel = {
-      action_type: 'private_cert_configuration_action_sign_intermediate',
-      intermediate_certificate_authority: interCaConfigName,
+      action_type: "private_cert_configuration_action_sign_intermediate",
+      intermediate_certificate_authority: interCaConfigName
     };
     const params = {
       name: rootCaConfigName,
       configActionPrototype: configurationActionPrototypeModel,
-      xSmAcceptConfigurationType: rootCaConfigType,
+      xSmAcceptConfigurationType: rootCaConfigType
     };
     try {
       const res = await secretsManagerService.createConfigurationAction(params);
@@ -193,7 +222,7 @@ describe('SecretsManagerV2_integration', () => {
       config_type: templateConfigType,
       name: configName,
       allow_any_name: true,
-      certificate_authority: interCaConfigName,
+      certificate_authority: interCaConfigName
     };
     await createConfiguration(configurationPrototypeModel);
   }
@@ -201,20 +230,14 @@ describe('SecretsManagerV2_integration', () => {
   async function createConfiguration(configurationPrototypeModel) {
     const params = { configurationPrototype: configurationPrototypeModel };
     try {
-      const res = await secretsManagerService.createConfiguration(params);
+      let res = await secretsManagerService.createConfiguration(params);
       expect(res).toBeDefined();
       expect(res.status).toBe(201);
       expect(res.result).toBeDefined();
     } catch (err) {
-      if (
-        err.status === 400 &&
-        (err.message.includes('already exists') ||
-          (err.message.includes('reached the maximum') &&
-            configurationPrototypeModel.config_type == iamConfigType))
-      ) {
-        console.log(
-          `Config of type ${configurationPrototypeModel.config_type} with name ${configurationPrototypeModel.name} already exists`
-        );
+      if (err.status === 400 && (err.message.includes("already exists") ||
+        err.message.includes("reached the maximum") && configurationPrototypeModel.config_type == iamConfigType)) {
+        console.log(`Config of type ${configurationPrototypeModel.config_type} with name ${configurationPrototypeModel.name} already exists`);
         return;
       }
       expect(err).toBeNull();
@@ -223,7 +246,7 @@ describe('SecretsManagerV2_integration', () => {
 
   async function createSecret(secretPrototypeModel) {
     const params = {
-      secretPrototype: secretPrototypeModel,
+      secretPrototype: secretPrototypeModel
     };
 
     const res = await secretsManagerService.createSecret(params);
@@ -235,15 +258,15 @@ describe('SecretsManagerV2_integration', () => {
 
   async function createPrivateCert(secretName, templateName) {
     const secretPrototypeModel = {
-      description: 'Description of my private certificate',
-      labels: ['integration', 'test'],
+      description: "Description of my private certificate",
+      labels: ["integration", "test"],
       name: secretName,
-      secret_type: 'private_cert',
+      secret_type: "private_cert",
       certificate_template: templateName,
-      common_name: 'localhost',
-      ttl: '1h',
-      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
-      version_custom_metadata: { custom_version_key: 'custom_version_value' },
+      common_name: "localhost",
+      ttl: "1h",
+      custom_metadata: { metadata_custom_key: "metadata_custom_value" },
+      version_custom_metadata: { custom_version_key: "custom_version_value" }
     };
     privateCertSecretId = await createSecret(secretPrototypeModel);
   }
@@ -252,29 +275,29 @@ describe('SecretsManagerV2_integration', () => {
     const configurationPrototypeModel = {
       name: iamConfigName,
       config_type: iamConfigType,
-      api_key: config.apikey,
+      api_key: config["apikey"]
     };
     await createConfiguration(configurationPrototypeModel);
   }
 
   async function createIAMCredSecret() {
     const secretPrototypeModel = {
-      description: 'Description of my iam credentials',
-      labels: ['integration', 'test'],
-      name: 'integration-iam-credentials',
-      secret_type: 'iam_credentials',
-      ttl: '1h',
+      description: "Description of my iam credentials",
+      labels: ["integration", "test"],
+      name: "integration-iam-credentials",
+      secret_type: "iam_credentials",
+      ttl: "1h",
       reuse_api_key: false,
-      access_groups: [config.accessGroup],
-      custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
-      version_custom_metadata: { custom_version_key: 'custom_version_value' },
+      access_groups: [config["accessGroup"]],
+      custom_metadata: { metadata_custom_key: "metadata_custom_value" },
+      version_custom_metadata: { custom_version_key: "custom_version_value" }
     };
     iamCredSecretId = await createSecret(secretPrototypeModel);
   }
 
   async function getIAMCredSecret() {
     const params = {
-      id: iamCredSecretId,
+      id: iamCredSecretId
     };
     const res = await secretsManagerService.getSecret(params);
     expect(res).toBeDefined();
@@ -284,7 +307,7 @@ describe('SecretsManagerV2_integration', () => {
 
   async function deleteSecret(secretId) {
     const params = {
-      id: secretId,
+      id: secretId
     };
     const res = await secretsManagerService.deleteSecret(params);
     expect(res).toBeDefined();
@@ -294,8 +317,8 @@ describe('SecretsManagerV2_integration', () => {
 
   async function deleteConfig(name, type) {
     const params = {
-      name,
-      xSmAcceptConfigurationType: type,
+      name: name,
+      xSmAcceptConfigurationType: type
     };
 
     const res = await secretsManagerService.deleteConfiguration(params);
