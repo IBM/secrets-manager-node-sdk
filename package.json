@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/secrets-manager",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "description": "Client library for IBM Cloud Secrets Manager",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^4.1.2"
+    "ibm-cloud-sdk-core": "^4.2.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -49,7 +49,7 @@
     "@types/node": "^12.0.8",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
-    "axios": "^0.26.1",
+    "axios": "^1.6.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",

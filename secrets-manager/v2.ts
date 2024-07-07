@@ -15,14 +15,14 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
+ * IBM OpenAPI SDK Code Generator Version: 3.86.1-c3d7bcef-20240308-215042
  */
 
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-await-in-loop */
 
-import * as extend from "extend";
-import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+import * as extend from 'extend';
+import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
@@ -30,9 +30,9 @@ import {
   constructServiceUrl,
   getAuthenticatorFromEnvironment,
   getQueryParam,
-  validateParams
-} from "ibm-cloud-sdk-core";
-import { getSdkHeaders } from "../lib/common";
+  validateParams,
+} from 'ibm-cloud-sdk-core';
+import { getSdkHeaders } from '../lib/common';
 
 /**
  * With IBM Cloud® Secrets Manager, you can create, lease, and centrally manage secrets that are used in IBM Cloud
@@ -43,15 +43,15 @@ import { getSdkHeaders } from "../lib/common";
  */
 
 class SecretsManagerV2 extends BaseService {
-  static DEFAULT_SERVICE_URL: string = "https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud";
+  static DEFAULT_SERVICE_URL: string = 'https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud';
 
-  static DEFAULT_SERVICE_NAME: string = "secrets_manager";
+  static DEFAULT_SERVICE_NAME: string = 'secrets_manager';
 
-  static PARAMETERIZED_SERVICE_URL: string = "https://{instance_id}.{region}.secrets-manager.appdomain.cloud";
+  static PARAMETERIZED_SERVICE_URL: string = 'https://{instance_id}.{region}.secrets-manager.appdomain.cloud';
 
   private static defaultUrlVariables = new Map([
-    ["instance_id", "provide-here-your-smgr-instanceuuid"],
-    ["region", "us-south"]
+    ['instance_id', 'provide-here-your-smgr-instanceuuid'],
+    ['region', 'us-south'],
   ]);
 
   /**
@@ -71,8 +71,8 @@ class SecretsManagerV2 extends BaseService {
    */
   static constructServiceUrl(providedUrlVariables: Map<string, string> | null): string {
     return constructServiceUrl(
-      SecretsManagerV2.PARAMETERIZED_SERVICE_URL,
-      SecretsManagerV2.defaultUrlVariables,
+      SecretsManagerV2.PARAMETERIZED_SERVICE_URL, 
+      SecretsManagerV2.defaultUrlVariables, 
       providedUrlVariables
     );
   }
@@ -155,37 +155,37 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretGroupParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
-    const _requiredParams = ["name"];
-    const _validParams = ["name", "description", "headers"];
+    const _requiredParams = ['name'];
+    const _validParams = ['name', 'description', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "name": _params.name,
-      "description": _params.description
+      'name': _params.name,
+      'description': _params.description,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretGroup");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretGroup');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups",
-        method: "POST",
-        body
+        url: '/api/v2/secret_groups',
+        method: 'POST',
+        body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -205,29 +205,29 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroupCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["headers"];
+    const _validParams = ['headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecretGroups");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretGroups');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups",
-        method: "GET"
+        url: '/api/v2/secret_groups',
+        method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -247,35 +247,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretGroupParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecretGroup");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretGroup');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups/{id}",
-        method: "GET",
-        path
+        url: '/api/v2/secret_groups/{id}',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -300,42 +300,42 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.UpdateSecretGroupParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "name", "description", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'name', 'description', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "name": _params.name,
-      "description": _params.description
+      'name': _params.name,
+      'description': _params.description,
     };
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "updateSecretGroup");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretGroup');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups/{id}",
-        method: "PATCH",
+        url: '/api/v2/secret_groups/{id}',
+        method: 'PATCH',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/merge-patch+json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -358,38 +358,38 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteSecretGroupParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteSecretGroup");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretGroup');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups/{id}",
-        method: "DELETE",
-        path
+        url: '/api/v2/secret_groups/{id}',
+        method: 'DELETE',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
-          {},
+          {
+          },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
   }
-
   /*************************
    * secrets
    ************************/
@@ -416,33 +416,33 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
-    const _requiredParams = ["secretPrototype"];
-    const _validParams = ["secretPrototype", "headers"];
+    const _requiredParams = ['secretPrototype'];
+    const _validParams = ['secretPrototype', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = _params.secretPrototype;
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecret");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecret');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets",
-        method: "POST",
-        body
+        url: '/api/v2/secrets',
+        method: 'POST',
+        body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -506,40 +506,40 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadataPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["offset", "limit", "sort", "search", "groups", "secretTypes", "matchAllLabels", "headers"];
+    const _validParams = ['offset', 'limit', 'sort', 'search', 'groups', 'secretTypes', 'matchAllLabels', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "offset": _params.offset,
-      "limit": _params.limit,
-      "sort": _params.sort,
-      "search": _params.search,
-      "groups": _params.groups,
-      "secret_types": _params.secretTypes,
-      "match_all_labels": _params.matchAllLabels
+      'offset': _params.offset,
+      'limit': _params.limit,
+      'sort': _params.sort,
+      'search': _params.search,
+      'groups': _params.groups,
+      'secret_types': _params.secretTypes,
+      'match_all_labels': _params.matchAllLabels,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecrets");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecrets');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets",
-        method: "GET",
-        qs: query
+        url: '/api/v2/secrets',
+        method: 'GET',
+        qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -563,35 +563,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecret");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecret');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}",
-        method: "GET",
-        path
+        url: '/api/v2/secrets/{id}',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -611,33 +611,34 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteSecretParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteSecret");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecret');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}",
-        method: "DELETE",
-        path
+        url: '/api/v2/secrets/{id}',
+        method: 'DELETE',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
-          {},
+          {
+          },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -657,35 +658,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretMetadataParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecretMetadata");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretMetadata');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/metadata",
-        method: "GET",
-        path
+        url: '/api/v2/secrets/{id}/metadata',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -706,8 +707,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.UpdateSecretMetadataParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>> {
     const _params = { ...params };
-    const _requiredParams = ["id", "secretMetadataPatch"];
-    const _validParams = ["id", "secretMetadataPatch", "headers"];
+    const _requiredParams = ['id', 'secretMetadataPatch'];
+    const _validParams = ['id', 'secretMetadataPatch', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -715,29 +716,29 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.secretMetadataPatch;
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "updateSecretMetadata");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretMetadata');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/metadata",
-        method: "PATCH",
+        url: '/api/v2/secrets/{id}/metadata',
+        method: 'PATCH',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/merge-patch+json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -758,8 +759,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretActionParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretAction>> {
     const _params = { ...params };
-    const _requiredParams = ["id", "secretActionPrototype"];
-    const _validParams = ["id", "secretActionPrototype", "headers"];
+    const _requiredParams = ['id', 'secretActionPrototype'];
+    const _validParams = ['id', 'secretActionPrototype', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -767,29 +768,29 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.secretActionPrototype;
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretAction");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretAction');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/actions",
-        method: "POST",
+        url: '/api/v2/secrets/{id}/actions',
+        method: 'POST',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -817,42 +818,41 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretByNameTypeParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
-    const _requiredParams = ["secretType", "name", "secretGroupName"];
-    const _validParams = ["secretType", "name", "secretGroupName", "headers"];
+    const _requiredParams = ['secretType', 'name', 'secretGroupName'];
+    const _validParams = ['secretType', 'name', 'secretGroupName', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "secret_type": _params.secretType,
-      "name": _params.name,
-      "secret_group_name": _params.secretGroupName
+      'secret_type': _params.secretType,
+      'name': _params.name,
+      'secret_group_name': _params.secretGroupName,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecretByNameType");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretByNameType');
 
     const parameters = {
       options: {
-        url: "/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}",
-        method: "GET",
-        path
+        url: '/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
   }
-
   /*************************
    * secretVersions
    ************************/
@@ -872,8 +872,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretVersionParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "secretVersionPrototype"];
-    const _validParams = ["secretId", "secretVersionPrototype", "headers"];
+    const _requiredParams = ['secretId', 'secretVersionPrototype'];
+    const _validParams = ['secretId', 'secretVersionPrototype', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -881,29 +881,29 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.secretVersionPrototype;
     const path = {
-      "secret_id": _params.secretId
+      'secret_id': _params.secretId,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretVersion");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersion');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions",
-        method: "POST",
+        url: '/api/v2/secrets/{secret_id}/versions',
+        method: 'POST',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -925,35 +925,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.ListSecretVersionsParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadataCollection>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId"];
-    const _validParams = ["secretId", "headers"];
+    const _requiredParams = ['secretId'];
+    const _validParams = ['secretId', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "secret_id": _params.secretId
+      'secret_id': _params.secretId,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecretVersions");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretVersions');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions",
-        method: "GET",
-        path
+        url: '/api/v2/secrets/{secret_id}/versions',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -979,36 +979,36 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretVersionParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecretVersion");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretVersion');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}",
-        method: "GET",
-        path
+        url: '/api/v2/secrets/{secret_id}/versions/{id}',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1032,34 +1032,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteSecretVersionDataParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteSecretVersionData");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretVersionData');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/secret_data",
-        method: "DELETE",
-        path
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/secret_data',
+        method: 'DELETE',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
-          {},
+          {
+          },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1084,36 +1085,36 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetSecretVersionMetadataParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadata>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getSecretVersionMetadata");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretVersionMetadata');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/metadata",
-        method: "GET",
-        path
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/metadata',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1136,42 +1137,42 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.UpdateSecretVersionMetadataParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadata>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "versionCustomMetadata", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'versionCustomMetadata', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "version_custom_metadata": _params.versionCustomMetadata
+      'version_custom_metadata': _params.versionCustomMetadata,
     };
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "updateSecretVersionMetadata");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateSecretVersionMetadata');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/metadata",
-        method: "PATCH",
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/metadata',
+        method: 'PATCH',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/merge-patch+json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1196,8 +1197,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretVersionActionParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.VersionAction>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id", "secretVersionActionPrototype"];
-    const _validParams = ["secretId", "id", "secretVersionActionPrototype", "headers"];
+    const _requiredParams = ['secretId', 'id', 'secretVersionActionPrototype'];
+    const _validParams = ['secretId', 'id', 'secretVersionActionPrototype', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1205,35 +1206,34 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.secretVersionActionPrototype;
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretVersionAction");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersionAction');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/actions",
-        method: "POST",
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/actions',
+        method: 'POST',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
   }
-
   /*************************
    * secretLocks
    ************************/
@@ -1274,37 +1274,37 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretsLocksPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["offset", "limit", "search", "groups", "headers"];
+    const _validParams = ['offset', 'limit', 'search', 'groups', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "offset": _params.offset,
-      "limit": _params.limit,
-      "search": _params.search,
-      "groups": _params.groups
+      'offset': _params.offset,
+      'limit': _params.limit,
+      'search': _params.search,
+      'groups': _params.groups,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecretsLocks");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretsLocks');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets_locks",
-        method: "GET",
-        qs: query
+        url: '/api/v2/secrets_locks',
+        method: 'GET',
+        qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1346,43 +1346,43 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.ListSecretLocksParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocksPaginatedCollection>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "offset", "limit", "sort", "search", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'offset', 'limit', 'sort', 'search', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "offset": _params.offset,
-      "limit": _params.limit,
-      "sort": _params.sort,
-      "search": _params.search
+      'offset': _params.offset,
+      'limit': _params.limit,
+      'sort': _params.sort,
+      'search': _params.search,
     };
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecretLocks");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretLocks');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/locks",
-        method: "GET",
+        url: '/api/v2/secrets/{id}/locks',
+        method: 'GET',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1418,46 +1418,46 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretLocksBulkParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
-    const _requiredParams = ["id", "locks"];
-    const _validParams = ["id", "locks", "mode", "headers"];
+    const _requiredParams = ['id', 'locks'];
+    const _validParams = ['id', 'locks', 'mode', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "locks": _params.locks
+      'locks': _params.locks,
     };
 
     const query = {
-      "mode": _params.mode
+      'mode': _params.mode,
     };
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretLocksBulk");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretLocksBulk');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/locks_bulk",
-        method: "POST",
+        url: '/api/v2/secrets/{id}/locks_bulk',
+        method: 'POST',
         body,
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1486,40 +1486,40 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteSecretLocksBulkParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
-    const _requiredParams = ["id"];
-    const _validParams = ["id", "name", "headers"];
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'name', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "name": _params.name
+      'name': _params.name,
     };
 
     const path = {
-      "id": _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteSecretLocksBulk");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretLocksBulk');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{id}/locks_bulk",
-        method: "DELETE",
+        url: '/api/v2/secrets/{id}/locks_bulk',
+        method: 'DELETE',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1563,44 +1563,44 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.ListSecretVersionLocksParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionLocksPaginatedCollection>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "offset", "limit", "sort", "search", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'offset', 'limit', 'sort', 'search', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "offset": _params.offset,
-      "limit": _params.limit,
-      "sort": _params.sort,
-      "search": _params.search
+      'offset': _params.offset,
+      'limit': _params.limit,
+      'sort': _params.sort,
+      'search': _params.search,
     };
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listSecretVersionLocks");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretVersionLocks');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/locks",
-        method: "GET",
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/locks',
+        method: 'GET',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1638,47 +1638,47 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateSecretVersionLocksBulkParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id", "locks"];
-    const _validParams = ["secretId", "id", "locks", "mode", "headers"];
+    const _requiredParams = ['secretId', 'id', 'locks'];
+    const _validParams = ['secretId', 'id', 'locks', 'mode', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "locks": _params.locks
+      'locks': _params.locks,
     };
 
     const query = {
-      "mode": _params.mode
+      'mode': _params.mode,
     };
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createSecretVersionLocksBulk");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createSecretVersionLocksBulk');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk",
-        method: "POST",
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk',
+        method: 'POST',
         body,
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1709,46 +1709,45 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteSecretVersionLocksBulkParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
-    const _requiredParams = ["secretId", "id"];
-    const _validParams = ["secretId", "id", "name", "headers"];
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'name', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "name": _params.name
+      'name': _params.name,
     };
 
     const path = {
-      "secret_id": _params.secretId,
-      "id": _params.id
+      'secret_id': _params.secretId,
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteSecretVersionLocksBulk");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretVersionLocksBulk');
 
     const parameters = {
       options: {
-        url: "/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk",
-        method: "DELETE",
+        url: '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk',
+        method: 'DELETE',
         qs: query,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
   }
-
   /*************************
    * configurations
    ************************/
@@ -1779,33 +1778,33 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateConfigurationParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
-    const _requiredParams = ["configurationPrototype"];
-    const _validParams = ["configurationPrototype", "headers"];
+    const _requiredParams = ['configurationPrototype'];
+    const _validParams = ['configurationPrototype', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = _params.configurationPrototype;
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createConfiguration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createConfiguration');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations",
-        method: "POST",
-        body
+        url: '/api/v2/configurations',
+        method: 'POST',
+        body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1851,37 +1850,37 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationMetadataPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["offset", "limit", "sort", "search", "headers"];
+    const _validParams = ['offset', 'limit', 'sort', 'search', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
-      "offset": _params.offset,
-      "limit": _params.limit,
-      "sort": _params.sort,
-      "search": _params.search
+      'offset': _params.offset,
+      'limit': _params.limit,
+      'sort': _params.sort,
+      'search': _params.search,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "listConfigurations");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listConfigurations');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations",
-        method: "GET",
-        qs: query
+        url: '/api/v2/configurations',
+        method: 'GET',
+        qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1905,36 +1904,36 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.GetConfigurationParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
-    const _requiredParams = ["name"];
-    const _validParams = ["name", "xSmAcceptConfigurationType", "headers"];
+    const _requiredParams = ['name'];
+    const _validParams = ['name', 'xSmAcceptConfigurationType', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "name": _params.name
+      'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getConfiguration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getConfiguration');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations/{name}",
-        method: "GET",
-        path
+        url: '/api/v2/configurations/{name}',
+        method: 'GET',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "X-Sm-Accept-Configuration-Type": _params.xSmAcceptConfigurationType
+            'Accept': 'application/json',
+            'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -1957,8 +1956,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.UpdateConfigurationParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
-    const _requiredParams = ["name", "configurationPatch"];
-    const _validParams = ["name", "configurationPatch", "xSmAcceptConfigurationType", "headers"];
+    const _requiredParams = ['name', 'configurationPatch'];
+    const _validParams = ['name', 'configurationPatch', 'xSmAcceptConfigurationType', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1966,30 +1965,30 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.configurationPatch;
     const path = {
-      "name": _params.name
+      'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "updateConfiguration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'updateConfiguration');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations/{name}",
-        method: "PATCH",
+        url: '/api/v2/configurations/{name}',
+        method: 'PATCH',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/merge-patch+json",
-            "X-Sm-Accept-Configuration-Type": _params.xSmAcceptConfigurationType
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
+            'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2011,35 +2010,35 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.DeleteConfigurationParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
-    const _requiredParams = ["name"];
-    const _validParams = ["name", "xSmAcceptConfigurationType", "headers"];
+    const _requiredParams = ['name'];
+    const _validParams = ['name', 'xSmAcceptConfigurationType', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const path = {
-      "name": _params.name
+      'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteConfiguration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteConfiguration');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations/{name}",
-        method: "DELETE",
-        path
+        url: '/api/v2/configurations/{name}',
+        method: 'DELETE',
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "X-Sm-Accept-Configuration-Type": _params.xSmAcceptConfigurationType
+            'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2070,8 +2069,8 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateConfigurationActionParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationAction>> {
     const _params = { ...params };
-    const _requiredParams = ["name", "configActionPrototype"];
-    const _validParams = ["name", "configActionPrototype", "xSmAcceptConfigurationType", "headers"];
+    const _requiredParams = ['name', 'configActionPrototype'];
+    const _validParams = ['name', 'configActionPrototype', 'xSmAcceptConfigurationType', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2079,35 +2078,34 @@ class SecretsManagerV2 extends BaseService {
 
     const body = _params.configActionPrototype;
     const path = {
-      "name": _params.name
+      'name': _params.name,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createConfigurationAction");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createConfigurationAction');
 
     const parameters = {
       options: {
-        url: "/api/v2/configurations/{name}/actions",
-        method: "POST",
+        url: '/api/v2/configurations/{name}/actions',
+        method: 'POST',
         body,
-        path
+        path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "X-Sm-Accept-Configuration-Type": _params.xSmAcceptConfigurationType
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
   }
-
   /*************************
    * notifications
    ************************/
@@ -2135,38 +2133,38 @@ class SecretsManagerV2 extends BaseService {
     params: SecretsManagerV2.CreateNotificationsRegistrationParams
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.NotificationsRegistration>> {
     const _params = { ...params };
-    const _requiredParams = ["eventNotificationsInstanceCrn", "eventNotificationsSourceName"];
-    const _validParams = ["eventNotificationsInstanceCrn", "eventNotificationsSourceName", "eventNotificationsSourceDescription", "headers"];
+    const _requiredParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName'];
+    const _validParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName', 'eventNotificationsSourceDescription', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      "event_notifications_instance_crn": _params.eventNotificationsInstanceCrn,
-      "event_notifications_source_name": _params.eventNotificationsSourceName,
-      "event_notifications_source_description": _params.eventNotificationsSourceDescription
+      'event_notifications_instance_crn': _params.eventNotificationsInstanceCrn,
+      'event_notifications_source_name': _params.eventNotificationsSourceName,
+      'event_notifications_source_description': _params.eventNotificationsSourceDescription,
     };
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "createNotificationsRegistration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'createNotificationsRegistration');
 
     const parameters = {
       options: {
-        url: "/api/v2/notifications/registration",
-        method: "POST",
-        body
+        url: '/api/v2/notifications/registration',
+        method: 'POST',
+        body,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2186,29 +2184,29 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.NotificationsRegistration>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["headers"];
+    const _validParams = ['headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getNotificationsRegistration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getNotificationsRegistration');
 
     const parameters = {
       options: {
-        url: "/api/v2/notifications/registration",
-        method: "GET"
+        url: '/api/v2/notifications/registration',
+        method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
           {
-            "Accept": "application/json"
+            'Accept': 'application/json',
           },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2230,27 +2228,28 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["headers"];
+    const _validParams = ['headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "deleteNotificationsRegistration");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteNotificationsRegistration');
 
     const parameters = {
       options: {
-        url: "/api/v2/notifications/registration",
-        method: "DELETE"
+        url: '/api/v2/notifications/registration',
+        method: 'DELETE',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
-          {},
+          {
+          },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2275,27 +2274,28 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ["headers"];
+    const _validParams = ['headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
-    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, "v2", "getNotificationsRegistrationTest");
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getNotificationsRegistrationTest');
 
     const parameters = {
       options: {
-        url: "/api/v2/notifications/registration/test",
-        method: "GET"
+        url: '/api/v2/notifications/registration/test',
+        method: 'GET',
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
           true,
           sdkHeaders,
-          {},
+          {
+          },
           _params.headers
-        )
-      })
+        ),
+      }),
     };
 
     return this.createRequest(parameters);
@@ -2319,8 +2319,7 @@ namespace SecretsManagerV2 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface EmptyObject {
-  }
+  export interface EmptyObject {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -2451,14 +2450,14 @@ namespace SecretsManagerV2 {
   export namespace ListSecretsConstants {
     /** Filter secrets by types. You can apply multiple filters by using a comma-separated list of secret types. **Usage:** To retrieve a list of imported certificates and public certificates use `..?secret_types=imported_cert,public_cert`. */
     export enum SecretTypes {
-      ARBITRARY = "arbitrary",
-      IAM_CREDENTIALS = "iam_credentials",
-      IMPORTED_CERT = "imported_cert",
-      KV = "kv",
-      PRIVATE_CERT = "private_cert",
-      PUBLIC_CERT = "public_cert",
-      SERVICE_CREDENTIALS = "service_credentials",
-      USERNAME_PASSWORD = "username_password",
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      KV = 'kv',
+      PRIVATE_CERT = 'private_cert',
+      PUBLIC_CERT = 'public_cert',
+      SERVICE_CREDENTIALS = 'service_credentials',
+      USERNAME_PASSWORD = 'username_password',
     }
   }
 
@@ -2518,14 +2517,14 @@ namespace SecretsManagerV2 {
   export namespace GetSecretByNameTypeConstants {
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
     export enum SecretType {
-      ARBITRARY = "arbitrary",
-      IAM_CREDENTIALS = "iam_credentials",
-      IMPORTED_CERT = "imported_cert",
-      KV = "kv",
-      PRIVATE_CERT = "private_cert",
-      PUBLIC_CERT = "public_cert",
-      SERVICE_CREDENTIALS = "service_credentials",
-      USERNAME_PASSWORD = "username_password",
+      ARBITRARY = 'arbitrary',
+      IAM_CREDENTIALS = 'iam_credentials',
+      IMPORTED_CERT = 'imported_cert',
+      KV = 'kv',
+      PRIVATE_CERT = 'private_cert',
+      PUBLIC_CERT = 'public_cert',
+      SERVICE_CREDENTIALS = 'service_credentials',
+      USERNAME_PASSWORD = 'username_password',
     }
   }
 
@@ -2693,8 +2692,8 @@ namespace SecretsManagerV2 {
   export namespace CreateSecretLocksBulkConstants {
     /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
     export enum Mode {
-      REMOVE_PREVIOUS = "remove_previous",
-      REMOVE_PREVIOUS_AND_DELETE = "remove_previous_and_delete",
+      REMOVE_PREVIOUS = 'remove_previous',
+      REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
     }
   }
 
@@ -2771,8 +2770,8 @@ namespace SecretsManagerV2 {
   export namespace CreateSecretVersionLocksBulkConstants {
     /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
     export enum Mode {
-      REMOVE_PREVIOUS = "remove_previous",
-      REMOVE_PREVIOUS_AND_DELETE = "remove_previous_and_delete",
+      REMOVE_PREVIOUS = 'remove_previous',
+      REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
     }
   }
 
@@ -2846,13 +2845,13 @@ namespace SecretsManagerV2 {
   export namespace GetConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-      PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-      PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-      IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+      PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
     }
   }
 
@@ -2870,13 +2869,13 @@ namespace SecretsManagerV2 {
   export namespace UpdateConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-      PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-      PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-      IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+      PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
     }
   }
 
@@ -2893,13 +2892,13 @@ namespace SecretsManagerV2 {
   export namespace DeleteConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-      PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-      PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-      IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+      PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
     }
   }
 
@@ -2917,13 +2916,13 @@ namespace SecretsManagerV2 {
   export namespace CreateConfigurationActionConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-      PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-      PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-      IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+      PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+      PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
     }
   }
 
@@ -2986,16 +2985,15 @@ namespace SecretsManagerV2 {
     /** A text representation of the secret state. */
     state_description?: CertificateIssuanceInfo.Constants.StateDescription | string;
   }
-
   export namespace CertificateIssuanceInfo {
     export namespace Constants {
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -3136,28 +3134,6 @@ namespace SecretsManagerV2 {
   export interface PrivateCertificateCAData {
   }
 
-  /** The data that is associated with a cryptographic key. */
-  export interface PrivateCertificateCryptoKey {
-    /** The id of a PKCS#11 key to use. If the key does not exist and generation is enabled, this is the ID that
-     *  will  be given to the generated key. If the key exists, and generation is disabled, then this id will be used to
-     *  look up the key. This value and/or crypto_key_label must be specified.
-     */
-    id?: string;
-    /** The label of the key to use. If the key does not exist and generation is enabled, this is the label that
-     *  will  be given to the generated key. If the key exists, and generation is disabled, then this label will be used
-     *  to  look up the key. This value and/or crypto_key_id must be specified.
-     */
-    label?: string;
-    /** Indicates whether a new key is generated by the crypto peovider if the given key name cannot be found. */
-    allow_generate_key?: boolean;
-    /** The data that is associated with a cryptographic provider. */
-    provider: PrivateCertificateCryptoProvider;
-  }
-
-  /** The data that is associated with a cryptographic provider. */
-  export interface PrivateCertificateCryptoProvider {
-  }
-
   /** Defines the rotation object that is used to manually rotate public certificates. */
   export interface PublicCertificateRotationObject {
     /** This field indicates whether Secrets Manager rotates the private key for your public certificate
@@ -3246,13 +3222,12 @@ namespace SecretsManagerV2 {
      */
     secret_version_alias: SecretLock.Constants.SecretVersionAlias | string;
   }
-
   export namespace SecretLock {
     export namespace Constants {
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum SecretVersionAlias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -3290,19 +3265,18 @@ namespace SecretsManagerV2 {
     /** A collection of locks that are attached to a secret. */
     versions: SecretVersionLocks[];
   }
-
   export namespace SecretLocks {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -3380,13 +3354,12 @@ namespace SecretsManagerV2 {
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available?: boolean;
   }
-
   export namespace SecretVersionLocks {
     export namespace Constants {
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum VersionAlias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -3473,7 +3446,6 @@ namespace SecretsManagerV2 {
     iam_role_crn?: string;
     /** The IAM Service ID CRN. */
     iam_serviceid_crn?: string;
-
     /** ServiceCredentialsSecretCredentials accepts additional properties. */
     [propName: string]: any;
   }
@@ -3560,7 +3532,6 @@ namespace SecretsManagerV2 {
   export interface ServiceCredentialsSourceServiceParameters {
     /** An optional platform defined option to reuse an existing IAM Service ID for the role assignment. */
     serviceid_crn?: string;
-
     /** ServiceCredentialsSourceServiceParameters accepts additional properties. */
     [propName: string]: any;
   }
@@ -3624,8 +3595,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -3633,28 +3602,26 @@ namespace SecretsManagerV2 {
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
   }
-
   export namespace ArbitrarySecret {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -3708,35 +3675,31 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
     expiration_date?: string;
   }
-
   export namespace ArbitrarySecretMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -3806,19 +3769,18 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace ArbitrarySecretPrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -3862,25 +3824,23 @@ namespace SecretsManagerV2 {
     /** The secret data that is assigned to an `arbitrary` secret. */
     payload?: string;
   }
-
   export namespace ArbitrarySecretVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -3922,25 +3882,23 @@ namespace SecretsManagerV2 {
      */
     expiration_date?: string;
   }
-
   export namespace ArbitrarySecretVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -3968,13 +3926,12 @@ namespace SecretsManagerV2 {
     /** The units for the secret rotation time interval. */
     unit?: CommonRotationPolicy.Constants.Unit | string;
   }
-
   export namespace CommonRotationPolicy {
     export namespace Constants {
       /** The units for the secret rotation time interval. */
       export enum Unit {
-        DAY = "day",
-        MONTH = "month",
+        DAY = 'day',
+        MONTH = 'month',
       }
     }
   }
@@ -4006,30 +3963,28 @@ namespace SecretsManagerV2 {
      */
     api_key?: string;
   }
-
   export namespace IAMCredentialsConfiguration {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -4055,30 +4010,28 @@ namespace SecretsManagerV2 {
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
   }
-
   export namespace IAMCredentialsConfigurationMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -4109,18 +4062,17 @@ namespace SecretsManagerV2 {
     /** The API key that is used to set the iam_credentials engine. */
     api_key: string;
   }
-
   export namespace IAMCredentialsConfigurationPrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
     }
   }
@@ -4174,15 +4126,12 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
      *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
      *  value can be either an integer that specifies the number of seconds, or the string  representation of a
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4237,28 +4186,26 @@ namespace SecretsManagerV2 {
      */
     api_key?: string;
   }
-
   export namespace IAMCredentialsSecret {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -4312,15 +4259,12 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
      *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
      *  value can be either an integer that specifies the number of seconds, or the string  representation of a
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4368,28 +4312,26 @@ namespace SecretsManagerV2 {
      */
     expiration_date?: string;
   }
-
   export namespace IAMCredentialsSecretMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -4422,7 +4364,6 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
@@ -4463,7 +4404,6 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4497,19 +4437,18 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace IAMCredentialsSecretPrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -4576,25 +4515,23 @@ namespace SecretsManagerV2 {
      */
     api_key?: string;
   }
-
   export namespace IAMCredentialsSecretVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -4644,25 +4581,23 @@ namespace SecretsManagerV2 {
      */
     service_id?: string;
   }
-
   export namespace IAMCredentialsSecretVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -4724,8 +4659,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -4765,28 +4698,26 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
-
   export namespace ImportedCertificate {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -4840,8 +4771,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -4871,28 +4800,26 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
   }
-
   export namespace ImportedCertificateMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -4962,19 +4889,18 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace ImportedCertificatePrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -5030,25 +4956,23 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
-
   export namespace ImportedCertificateVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -5094,25 +5018,23 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
   }
-
   export namespace ImportedCertificateVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -5184,33 +5106,29 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The payload data of a key-value secret. */
     data: JsonObject;
   }
-
   export namespace KVSecret {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -5264,31 +5182,27 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
   }
-
   export namespace KVSecretMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -5350,19 +5264,18 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace KVSecretPrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -5402,25 +5315,23 @@ namespace SecretsManagerV2 {
     /** The payload data of a key-value secret. */
     data: JsonObject;
   }
-
   export namespace KVSecretVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -5458,25 +5369,23 @@ namespace SecretsManagerV2 {
     /** A v4 UUID identifier. */
     secret_id: string;
   }
-
   export namespace KVSecretVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -5540,8 +5449,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -5595,28 +5502,26 @@ namespace SecretsManagerV2 {
     /** The chain of certificate authorities that are associated with the certificate. */
     ca_chain?: string[];
   }
-
   export namespace PrivateCertificate {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -5628,13 +5533,12 @@ namespace SecretsManagerV2 {
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
   }
-
   export namespace PrivateCertificateActionRevoke {
     export namespace Constants {
       /** The type of secret action. */
       export enum ActionType {
-        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = "public_cert_action_validate_dns_challenge",
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -5644,13 +5548,12 @@ namespace SecretsManagerV2 {
     /** The type of secret action. */
     action_type: PrivateCertificateActionRevokePrototype.Constants.ActionType | string;
   }
-
   export namespace PrivateCertificateActionRevokePrototype {
     export namespace Constants {
       /** The type of secret action. */
       export enum ActionType {
-        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = "public_cert_action_validate_dns_challenge",
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -5662,16 +5565,15 @@ namespace SecretsManagerV2 {
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
   }
-
   export namespace PrivateCertificateConfigurationActionRevoke {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5681,16 +5583,15 @@ namespace SecretsManagerV2 {
     /** The type of configuration action. */
     action_type: PrivateCertificateConfigurationActionRevokePrototype.Constants.ActionType | string;
   }
-
   export namespace PrivateCertificateConfigurationActionRevokePrototype {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5704,16 +5605,15 @@ namespace SecretsManagerV2 {
      */
     success: boolean;
   }
-
   export namespace PrivateCertificateConfigurationActionRotateCRL {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5723,16 +5623,15 @@ namespace SecretsManagerV2 {
     /** The type of configuration action. */
     action_type: PrivateCertificateConfigurationActionRotateCRLPrototype.Constants.ActionType | string;
   }
-
   export namespace PrivateCertificateConfigurationActionRotateCRLPrototype {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5744,16 +5643,15 @@ namespace SecretsManagerV2 {
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
     certificate: string;
   }
-
   export namespace PrivateCertificateConfigurationActionSetSigned {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5765,16 +5663,15 @@ namespace SecretsManagerV2 {
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
     certificate: string;
   }
-
   export namespace PrivateCertificateConfigurationActionSetSignedPrototype {
     export namespace Constants {
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5863,22 +5760,20 @@ namespace SecretsManagerV2 {
     /** The data that is associated with the root certificate authority. */
     data?: PrivateCertificateConfigurationCACertificate;
   }
-
   export namespace PrivateCertificateConfigurationActionSignCSR {
     export namespace Constants {
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -5965,22 +5860,20 @@ namespace SecretsManagerV2 {
     /** The certificate signing request. */
     csr: string;
   }
-
   export namespace PrivateCertificateConfigurationActionSignCSRPrototype {
     export namespace Constants {
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -6067,22 +5960,20 @@ namespace SecretsManagerV2 {
     /** The name of the intermediate certificate authority configuration. */
     intermediate_certificate_authority: string;
   }
-
   export namespace PrivateCertificateConfigurationActionSignIntermediate {
     export namespace Constants {
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -6169,22 +6060,20 @@ namespace SecretsManagerV2 {
     /** The name of the intermediate certificate authority configuration. */
     intermediate_certificate_authority: string;
   }
-
   export namespace PrivateCertificateConfigurationActionSignIntermediatePrototype {
     export namespace Constants {
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The type of configuration action. */
       export enum ActionType {
-        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = "private_cert_configuration_action_rotate_crl",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = "private_cert_configuration_action_sign_intermediate",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = "private_cert_configuration_action_sign_csr",
-        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = "private_cert_configuration_action_set_signed",
-        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = "private_cert_configuration_action_revoke_ca_certificate",
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
       }
     }
   }
@@ -6252,8 +6141,6 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationIntermediateCA.Constants.Status | string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -6313,64 +6200,57 @@ namespace SecretsManagerV2 {
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
-
   export namespace PrivateCertificateConfigurationIntermediateCA {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
-
       /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
       export enum SigningMethod {
-        INTERNAL = "internal",
-        EXTERNAL = "external",
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
       }
-
       /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
       export enum Status {
-        SIGNING_REQUIRED = "signing_required",
-        SIGNED_CERTIFICATE_REQUIRED = "signed_certificate_required",
-        CERTIFICATE_TEMPLATE_REQUIRED = "certificate_template_required",
-        CONFIGURED = "configured",
-        EXPIRED = "expired",
-        REVOKED = "revoked",
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
       }
-
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The format of the generated private key. */
       export enum PrivateKeyFormat {
-        DER = "der",
-        PKCS8 = "pkcs8",
+        DER = 'der',
+        PKCS8 = 'pkcs8',
       }
     }
   }
@@ -6388,13 +6268,12 @@ namespace SecretsManagerV2 {
     /** The certificate expiration time. */
     expiration?: number;
   }
-
   export namespace PrivateCertificateConfigurationIntermediateCACSR {
     export namespace Constants {
       /** The type of private key to generate. */
       export enum PrivateKeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -6450,55 +6329,48 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.Status | string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
   }
-
   export namespace PrivateCertificateConfigurationIntermediateCAMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
-
       /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
       export enum SigningMethod {
-        INTERNAL = "internal",
-        EXTERNAL = "external",
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
       }
-
       /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
       export enum Status {
-        SIGNING_REQUIRED = "signing_required",
-        SIGNED_CERTIFICATE_REQUIRED = "signed_certificate_required",
-        CERTIFICATE_TEMPLATE_REQUIRED = "certificate_template_required",
-        CONFIGURED = "configured",
-        EXPIRED = "expired",
-        REVOKED = "revoked",
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
       }
     }
   }
@@ -6550,8 +6422,6 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA.
      *
      *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
@@ -6648,42 +6518,37 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
   }
-
   export namespace PrivateCertificateConfigurationIntermediateCAPrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
       export enum SigningMethod {
-        INTERNAL = "internal",
-        EXTERNAL = "external",
+        INTERNAL = 'internal',
+        EXTERNAL = 'external',
       }
-
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The format of the generated private key. */
       export enum PrivateKeyFormat {
-        DER = "der",
-        PKCS8 = "pkcs8",
+        DER = 'der',
+        PKCS8 = 'pkcs8',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -6731,8 +6596,6 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationRootCA.Constants.Status | string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -6804,58 +6667,52 @@ namespace SecretsManagerV2 {
     /** The configuration data of your Private Certificate. */
     data?: PrivateCertificateCAData;
   }
-
   export namespace PrivateCertificateConfigurationRootCA {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
-
       /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
       export enum Status {
-        SIGNING_REQUIRED = "signing_required",
-        SIGNED_CERTIFICATE_REQUIRED = "signed_certificate_required",
-        CERTIFICATE_TEMPLATE_REQUIRED = "certificate_template_required",
-        CONFIGURED = "configured",
-        EXPIRED = "expired",
-        REVOKED = "revoked",
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
       }
-
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The format of the generated private key. */
       export enum PrivateKeyFormat {
-        DER = "der",
-        PKCS8 = "pkcs8",
+        DER = 'der',
+        PKCS8 = 'pkcs8',
       }
     }
   }
@@ -6903,49 +6760,43 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationRootCAMetadata.Constants.Status | string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
   }
-
   export namespace PrivateCertificateConfigurationRootCAMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
-
       /** The status of the certificate authority. The status of a root certificate authority is either `configured` or `expired`. For intermediate certificate authorities, possible statuses include `signing_required`, `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`. */
       export enum Status {
-        SIGNING_REQUIRED = "signing_required",
-        SIGNED_CERTIFICATE_REQUIRED = "signed_certificate_required",
-        CERTIFICATE_TEMPLATE_REQUIRED = "certificate_template_required",
-        CONFIGURED = "configured",
-        EXPIRED = "expired",
-        REVOKED = "revoked",
+        SIGNING_REQUIRED = 'signing_required',
+        SIGNED_CERTIFICATE_REQUIRED = 'signed_certificate_required',
+        CERTIFICATE_TEMPLATE_REQUIRED = 'certificate_template_required',
+        CONFIGURED = 'configured',
+        EXPIRED = 'expired',
+        REVOKED = 'revoked',
       }
     }
   }
@@ -6997,8 +6848,6 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
-    /** The data that is associated with a cryptographic key. */
-    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA.
      *
      *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
@@ -7104,36 +6953,32 @@ namespace SecretsManagerV2 {
      */
     serial_number?: string;
   }
-
   export namespace PrivateCertificateConfigurationRootCAPrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The format of the generated private key. */
       export enum PrivateKeyFormat {
-        DER = "der",
-        PKCS8 = "pkcs8",
+        DER = 'der',
+        PKCS8 = 'pkcs8',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -7307,36 +7152,33 @@ namespace SecretsManagerV2 {
     /** The duration in seconds by which to backdate the `not_before` property of an issued private certificate. */
     not_before_duration_seconds?: number;
   }
-
   export namespace PrivateCertificateConfigurationTemplate {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -7364,30 +7206,28 @@ namespace SecretsManagerV2 {
     /** The name of the intermediate certificate authority. */
     certificate_authority: string;
   }
-
   export namespace PrivateCertificateConfigurationTemplateMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -7556,13 +7396,12 @@ namespace SecretsManagerV2 {
      */
     not_before_duration?: string;
   }
-
   export namespace PrivateCertificateConfigurationTemplatePatch {
     export namespace Constants {
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -7750,45 +7589,22 @@ namespace SecretsManagerV2 {
      */
     not_before_duration?: string;
   }
-
   export namespace PrivateCertificateConfigurationTemplatePrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The type of private key to generate. */
       export enum KeyType {
-        RSA = "rsa",
-        EC = "ec",
-      }
-    }
-  }
-
-  /** The data that is associated with Hyper Protect Crypto Services as the cryptographic provider. */
-  export interface PrivateCertificateCryptoProviderHPCS extends PrivateCertificateCryptoProvider {
-    /** The type of cryptographic provider. */
-    type: PrivateCertificateCryptoProviderHPCS.Constants.Type | string;
-    /** The HPCS instance CRN. */
-    instance_crn: string;
-    /** The secret Id of iam credentials with api key to access HPCS instance. */
-    pin_iam_credentials_secret_id: string;
-    /** The HPCS private key store space id. */
-    private_keystore_id: string;
-  }
-
-  export namespace PrivateCertificateCryptoProviderHPCS {
-    export namespace Constants {
-      /** The type of cryptographic provider. */
-      export enum Type {
-        HYPER_PROTECT_CRYPTO_SERVICES = "hyper_protect_crypto_services",
+        RSA = 'rsa',
+        EC = 'ec',
       }
     }
   }
@@ -7842,8 +7658,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -7887,28 +7701,26 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate was revoked. The date format follows `RFC 3339`. */
     revocation_time_rfc3339?: string;
   }
-
   export namespace PrivateCertificateMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -8014,31 +7826,28 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace PrivateCertificatePrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The format of the returned data. */
       export enum Format {
-        PEM = "pem",
-        PEM_BUNDLE = "pem_bundle",
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
       }
-
       /** The format of the generated private key. */
       export enum PrivateKeyFormat {
-        DER = "der",
-        PKCS8 = "pkcs8",
+        DER = 'der',
+        PKCS8 = 'pkcs8',
       }
     }
   }
@@ -8094,25 +7903,23 @@ namespace SecretsManagerV2 {
     /** The chain of certificate authorities that are associated with the certificate. */
     ca_chain?: string[];
   }
-
   export namespace PrivateCertificateVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -8124,12 +7931,11 @@ namespace SecretsManagerV2 {
     /** The timestamp of the certificate revocation. */
     revocation_time_seconds?: number;
   }
-
   export namespace PrivateCertificateVersionActionRevoke {
     export namespace Constants {
       /** The type of secret version action. */
       export enum ActionType {
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -8139,12 +7945,11 @@ namespace SecretsManagerV2 {
     /** The type of secret version action. */
     action_type: PrivateCertificateVersionActionRevokePrototype.Constants.ActionType | string;
   }
-
   export namespace PrivateCertificateVersionActionRevokePrototype {
     export namespace Constants {
       /** The type of secret version action. */
       export enum ActionType {
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -8190,25 +7995,23 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
   }
-
   export namespace PrivateCertificateVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -8272,8 +8075,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -8325,28 +8126,26 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
-
   export namespace PublicCertificate {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -8356,13 +8155,12 @@ namespace SecretsManagerV2 {
     /** The type of secret action. */
     action_type: PublicCertificateActionValidateManualDNS.Constants.ActionType | string;
   }
-
   export namespace PublicCertificateActionValidateManualDNS {
     export namespace Constants {
       /** The type of secret action. */
       export enum ActionType {
-        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = "public_cert_action_validate_dns_challenge",
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -8372,13 +8170,12 @@ namespace SecretsManagerV2 {
     /** The type of secret action. */
     action_type: PublicCertificateActionValidateManualDNSPrototype.Constants.ActionType | string;
   }
-
   export namespace PublicCertificateActionValidateManualDNSPrototype {
     export namespace Constants {
       /** The type of secret action. */
       export enum ActionType {
-        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = "public_cert_action_validate_dns_challenge",
-        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = "private_cert_action_revoke_certificate",
+        PUBLIC_CERT_ACTION_VALIDATE_DNS_CHALLENGE = 'public_cert_action_validate_dns_challenge',
+        PRIVATE_CERT_ACTION_REVOKE_CERTIFICATE = 'private_cert_action_revoke_certificate',
       }
     }
   }
@@ -8414,36 +8211,33 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_private_key: string;
   }
-
   export namespace PublicCertificateConfigurationCALetsEncrypt {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
-        PRODUCTION = "production",
-        STAGING = "staging",
+        PRODUCTION = 'production',
+        STAGING = 'staging',
       }
     }
   }
@@ -8475,36 +8269,33 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_preferred_chain?: string;
   }
-
   export namespace PublicCertificateConfigurationCALetsEncryptMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
-        PRODUCTION = "production",
-        STAGING = "staging",
+        PRODUCTION = 'production',
+        STAGING = 'staging',
       }
     }
   }
@@ -8522,13 +8313,12 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_preferred_chain?: string;
   }
-
   export namespace PublicCertificateConfigurationCALetsEncryptPatch {
     export namespace Constants {
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
-        PRODUCTION = "production",
-        STAGING = "staging",
+        PRODUCTION = 'production',
+        STAGING = 'staging',
       }
     }
   }
@@ -8557,24 +8347,22 @@ namespace SecretsManagerV2 {
      */
     lets_encrypt_preferred_chain?: string;
   }
-
   export namespace PublicCertificateConfigurationCALetsEncryptPrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
-        PRODUCTION = "production",
-        STAGING = "staging",
+        PRODUCTION = 'production',
+        STAGING = 'staging',
       }
     }
   }
@@ -8612,30 +8400,28 @@ namespace SecretsManagerV2 {
      */
     classic_infrastructure_password: string;
   }
-
   export namespace PublicCertificateConfigurationDNSClassicInfrastructure {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -8661,30 +8447,28 @@ namespace SecretsManagerV2 {
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
   }
-
   export namespace PublicCertificateConfigurationDNSClassicInfrastructureMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -8731,18 +8515,17 @@ namespace SecretsManagerV2 {
      */
     classic_infrastructure_password: string;
   }
-
   export namespace PublicCertificateConfigurationDNSClassicInfrastructurePrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
     }
   }
@@ -8788,30 +8571,28 @@ namespace SecretsManagerV2 {
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     cloud_internet_services_crn: string;
   }
-
   export namespace PublicCertificateConfigurationDNSCloudInternetServices {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -8837,30 +8618,28 @@ namespace SecretsManagerV2 {
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
   }
-
   export namespace PublicCertificateConfigurationDNSCloudInternetServicesMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
-
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -8923,18 +8702,17 @@ namespace SecretsManagerV2 {
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     cloud_internet_services_crn: string;
   }
-
   export namespace PublicCertificateConfigurationDNSCloudInternetServicesPrototype {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = "public_cert_configuration_dns_cloud_internet_services",
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = "public_cert_configuration_dns_classic_infrastructure",
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = "public_cert_configuration_ca_lets_encrypt",
-        PRIVATE_CERT_CONFIGURATION_ROOT_CA = "private_cert_configuration_root_ca",
-        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = "private_cert_configuration_intermediate_ca",
-        PRIVATE_CERT_CONFIGURATION_TEMPLATE = "private_cert_configuration_template",
-        IAM_CREDENTIALS_CONFIGURATION = "iam_credentials_configuration",
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       }
     }
   }
@@ -8988,8 +8766,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -9031,28 +8807,26 @@ namespace SecretsManagerV2 {
     /** The name of the DNS provider configuration. */
     dns?: string;
   }
-
   export namespace PublicCertificateMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -9142,19 +8916,18 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace PublicCertificatePrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -9227,25 +9000,23 @@ namespace SecretsManagerV2 {
      */
     private_key?: string;
   }
-
   export namespace PublicCertificateVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -9291,25 +9062,23 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
   }
-
   export namespace PublicCertificateVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -9373,8 +9142,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The date that the secret is scheduled for automatic rotation.
      *
      *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
@@ -9391,7 +9158,6 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9403,28 +9169,26 @@ namespace SecretsManagerV2 {
     /** The properties of the service credentials secret payload. */
     credentials: ServiceCredentialsSecretCredentials;
   }
-
   export namespace ServiceCredentialsSecret {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -9478,8 +9242,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** The date that the secret is scheduled for automatic rotation.
      *
      *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
@@ -9496,7 +9258,6 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9506,28 +9267,26 @@ namespace SecretsManagerV2 {
     /** The properties of the resource key that was created for this source service instance. */
     source_service: ServiceCredentialsSecretSourceServiceRO;
   }
-
   export namespace ServiceCredentialsSecretMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -9564,7 +9323,6 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
   }
@@ -9611,25 +9369,23 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
   }
-
   export namespace ServiceCredentialsSecretPrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -9675,25 +9431,23 @@ namespace SecretsManagerV2 {
     /** The properties of the service credentials secret payload. */
     credentials: ServiceCredentialsSecretCredentials;
   }
-
   export namespace ServiceCredentialsSecretVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -9737,25 +9491,23 @@ namespace SecretsManagerV2 {
     /** The source service resource key data of the generated service credentials. */
     resource_key?: ServiceCredentialsResourceKey;
   }
-
   export namespace ServiceCredentialsSecretVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -9817,8 +9569,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
      *  username_password, private_cert, public_cert, iam_credentials.
      */
@@ -9840,28 +9590,26 @@ namespace SecretsManagerV2 {
     /** The password that is assigned to an `username_password` secret. */
     password: string;
   }
-
   export namespace UsernamePasswordSecret {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -9915,8 +9663,6 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
-    /** List of configurations that have reference to the secret. */
-    referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
      *  username_password, private_cert, public_cert, iam_credentials.
      */
@@ -9934,28 +9680,26 @@ namespace SecretsManagerV2 {
     /** Policy for auto-generated passwords. */
     password_generation_policy?: PasswordGenerationPolicyRO;
   }
-
   export namespace UsernamePasswordSecretMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A text representation of the secret state. */
       export enum StateDescription {
-        PRE_ACTIVATION = "pre_activation",
-        ACTIVE = "active",
-        SUSPENDED = "suspended",
-        DEACTIVATED = "deactivated",
-        DESTROYED = "destroyed",
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
       }
     }
   }
@@ -10043,19 +9787,18 @@ namespace SecretsManagerV2 {
     /** Policy for auto-generated passwords. */
     password_generation_policy?: PasswordGenerationPolicy;
   }
-
   export namespace UsernamePasswordSecretPrototype {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
     }
   }
@@ -10097,25 +9840,23 @@ namespace SecretsManagerV2 {
     /** The password that is assigned to an `username_password` secret. */
     password: string;
   }
-
   export namespace UsernamePasswordSecretVersion {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -10153,25 +9894,23 @@ namespace SecretsManagerV2 {
     /** A v4 UUID identifier. */
     secret_id: string;
   }
-
   export namespace UsernamePasswordSecretVersionMetadata {
     export namespace Constants {
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
-        ARBITRARY = "arbitrary",
-        IAM_CREDENTIALS = "iam_credentials",
-        IMPORTED_CERT = "imported_cert",
-        KV = "kv",
-        PRIVATE_CERT = "private_cert",
-        PUBLIC_CERT = "public_cert",
-        SERVICE_CREDENTIALS = "service_credentials",
-        USERNAME_PASSWORD = "username_password",
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
       }
-
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
-        CURRENT = "current",
-        PREVIOUS = "previous",
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
       }
     }
   }
@@ -10237,7 +9976,7 @@ namespace SecretsManagerV2 {
      */
     public async getNext(): Promise<SecretsManagerV2.SecretMetadata[]> {
       if (!this.hasNext()) {
-        throw new Error("No more results available");
+        throw new Error('No more results available');
       }
 
       if (this.pageContext.next) {
@@ -10249,7 +9988,7 @@ namespace SecretsManagerV2 {
       let next;
       if (result && result.next) {
         if (result.next.href) {
-          next = getQueryParam(result.next.href, "offset");
+          next = getQueryParam(result.next.href, 'offset');
         }
       }
       this.pageContext.next = next;
@@ -10318,7 +10057,7 @@ namespace SecretsManagerV2 {
      */
     public async getNext(): Promise<SecretsManagerV2.SecretLocks[]> {
       if (!this.hasNext()) {
-        throw new Error("No more results available");
+        throw new Error('No more results available');
       }
 
       if (this.pageContext.next) {
@@ -10330,7 +10069,7 @@ namespace SecretsManagerV2 {
       let next;
       if (result && result.next) {
         if (result.next.href) {
-          next = getQueryParam(result.next.href, "offset");
+          next = getQueryParam(result.next.href, 'offset');
         }
       }
       this.pageContext.next = next;
@@ -10399,7 +10138,7 @@ namespace SecretsManagerV2 {
      */
     public async getNext(): Promise<SecretsManagerV2.SecretLock[]> {
       if (!this.hasNext()) {
-        throw new Error("No more results available");
+        throw new Error('No more results available');
       }
 
       if (this.pageContext.next) {
@@ -10411,7 +10150,7 @@ namespace SecretsManagerV2 {
       let next;
       if (result && result.next) {
         if (result.next.href) {
-          next = getQueryParam(result.next.href, "offset");
+          next = getQueryParam(result.next.href, 'offset');
         }
       }
       this.pageContext.next = next;
@@ -10480,7 +10219,7 @@ namespace SecretsManagerV2 {
      */
     public async getNext(): Promise<SecretsManagerV2.SecretLock[]> {
       if (!this.hasNext()) {
-        throw new Error("No more results available");
+        throw new Error('No more results available');
       }
 
       if (this.pageContext.next) {
@@ -10492,7 +10231,7 @@ namespace SecretsManagerV2 {
       let next;
       if (result && result.next) {
         if (result.next.href) {
-          next = getQueryParam(result.next.href, "offset");
+          next = getQueryParam(result.next.href, 'offset');
         }
       }
       this.pageContext.next = next;
@@ -10561,7 +10300,7 @@ namespace SecretsManagerV2 {
      */
     public async getNext(): Promise<SecretsManagerV2.ConfigurationMetadata[]> {
       if (!this.hasNext()) {
-        throw new Error("No more results available");
+        throw new Error('No more results available');
       }
 
       if (this.pageContext.next) {
@@ -10573,7 +10312,7 @@ namespace SecretsManagerV2 {
       let next;
       if (result && result.next) {
         if (result.next.href) {
-          next = getQueryParam(result.next.href, "offset");
+          next = getQueryParam(result.next.href, 'offset');
         }
       }
       this.pageContext.next = next;
