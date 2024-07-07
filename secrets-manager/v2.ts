@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.86.1-c3d7bcef-20240308-215042
+ * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
  */
 
 /* eslint-disable max-classes-per-file */
@@ -2845,13 +2845,13 @@ namespace SecretsManagerV2 {
   export namespace GetConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
       PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
       PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
     }
   }
 
@@ -2869,13 +2869,13 @@ namespace SecretsManagerV2 {
   export namespace UpdateConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
       PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
       PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
     }
   }
 
@@ -2892,13 +2892,13 @@ namespace SecretsManagerV2 {
   export namespace DeleteConfigurationConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
       PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
       PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
     }
   }
 
@@ -2916,13 +2916,13 @@ namespace SecretsManagerV2 {
   export namespace CreateConfigurationActionConstants {
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     export enum XSmAcceptConfigurationType {
-      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
       PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+      PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
       PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+      IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
     }
   }
 
@@ -3132,6 +3132,28 @@ namespace SecretsManagerV2 {
 
   /** The configuration data of your Private Certificate. */
   export interface PrivateCertificateCAData {
+  }
+
+  /** The data that is associated with a cryptographic key. */
+  export interface PrivateCertificateCryptoKey {
+    /** The id of a PKCS#11 key to use. If the key does not exist and generation is enabled, this is the ID that
+     *  will  be given to the generated key. If the key exists, and generation is disabled, then this id will be used to
+     *  look up the key. This value and/or crypto_key_label must be specified.
+     */
+    id?: string;
+    /** The label of the key to use. If the key does not exist and generation is enabled, this is the label that
+     *  will  be given to the generated key. If the key exists, and generation is disabled, then this label will be used
+     *  to  look up the key. This value and/or crypto_key_id must be specified.
+     */
+    label?: string;
+    /** Indicates whether a new key is generated by the crypto peovider if the given key name cannot be found. */
+    allow_generate_key?: boolean;
+    /** The data that is associated with a cryptographic provider. */
+    provider: PrivateCertificateCryptoProvider;
+  }
+
+  /** The data that is associated with a cryptographic provider. */
+  export interface PrivateCertificateCryptoProvider {
   }
 
   /** Defines the rotation object that is used to manually rotate public certificates. */
@@ -3595,6 +3617,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -3675,6 +3699,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -3967,13 +3993,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -4014,13 +4040,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -4066,13 +4092,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
     }
   }
@@ -4126,12 +4152,15 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
      *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
      *  value can be either an integer that specifies the number of seconds, or the string  representation of a
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4259,12 +4288,15 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
      *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
      *  value can be either an integer that specifies the number of seconds, or the string  representation of a
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4364,6 +4396,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
@@ -4404,6 +4437,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4659,6 +4693,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -4771,6 +4807,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -5106,6 +5144,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The payload data of a key-value secret. */
     data: JsonObject;
   }
@@ -5182,6 +5222,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
   }
   export namespace KVSecretMetadata {
     export namespace Constants {
@@ -5449,6 +5491,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -6141,6 +6185,8 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationIntermediateCA.Constants.Status | string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -6204,13 +6250,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -6329,18 +6375,20 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.Status | string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
   }
   export namespace PrivateCertificateConfigurationIntermediateCAMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -6422,6 +6470,8 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA.
      *
      *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
@@ -6522,13 +6572,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
       export enum SigningMethod {
@@ -6596,6 +6646,8 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationRootCA.Constants.Status | string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA in seconds. */
     max_ttl_seconds?: number;
     /** The time until the certificate revocation list (CRL) expires, in seconds. */
@@ -6671,13 +6723,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -6760,18 +6812,20 @@ namespace SecretsManagerV2 {
      *  `signed_certificate_required`, `certificate_template_required`, `configured`, `expired` or `revoked`.
      */
     status?: PrivateCertificateConfigurationRootCAMetadata.Constants.Status | string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
   }
   export namespace PrivateCertificateConfigurationRootCAMetadata {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -6848,6 +6902,8 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
      */
     name: string;
+    /** The data that is associated with a cryptographic key. */
+    crypto_key?: PrivateCertificateCryptoKey;
     /** The maximum time-to-live (TTL) for certificates that are created by this CA.
      *
      *  The value can be supplied as a string representation of a duration in hours, for example '8760h'. In the API
@@ -6957,13 +7013,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The format of the returned data. */
       export enum Format {
@@ -7156,13 +7212,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7210,13 +7266,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7593,18 +7649,38 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The type of private key to generate. */
       export enum KeyType {
         RSA = 'rsa',
         EC = 'ec',
+      }
+    }
+  }
+
+  /** The data that is associated with Hyper Protect Crypto Services as the cryptographic provider. */
+  export interface PrivateCertificateCryptoProviderHPCS extends PrivateCertificateCryptoProvider {
+    /** The type of cryptographic provider. */
+    type: PrivateCertificateCryptoProviderHPCS.Constants.Type | string;
+    /** The HPCS instance CRN. */
+    instance_crn: string;
+    /** The secret Id of iam credentials with api key to access HPCS instance. */
+    pin_iam_credentials_secret_id: string;
+    /** The HPCS private key store space id. */
+    private_keystore_id: string;
+  }
+  export namespace PrivateCertificateCryptoProviderHPCS {
+    export namespace Constants {
+      /** The type of cryptographic provider. */
+      export enum Type {
+        HYPER_PROTECT_CRYPTO_SERVICES = 'hyper_protect_crypto_services',
       }
     }
   }
@@ -7658,6 +7734,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -8075,6 +8153,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -8215,13 +8295,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8273,13 +8353,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8351,13 +8431,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
@@ -8404,13 +8484,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8451,13 +8531,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8519,13 +8599,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
     }
   }
@@ -8575,13 +8655,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8622,13 +8702,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8706,13 +8786,13 @@ namespace SecretsManagerV2 {
     export namespace Constants {
       /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
       export enum ConfigType {
-        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
-        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
-        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
         PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
       }
     }
   }
@@ -8766,6 +8846,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
@@ -9142,6 +9224,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The date that the secret is scheduled for automatic rotation.
      *
      *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
@@ -9158,6 +9242,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9242,6 +9327,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** The date that the secret is scheduled for automatic rotation.
      *
      *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
@@ -9258,6 +9345,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -9323,6 +9411,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
   }
@@ -9369,6 +9458,7 @@ namespace SecretsManagerV2 {
      *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
      *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
      *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
+     *  After the TTL is modified, it will be applied only on the next secret rotation.
      */
     ttl?: string;
     /** The secret version metadata that a user can customize. */
@@ -9569,6 +9659,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
      *  username_password, private_cert, public_cert, iam_credentials.
      */
@@ -9663,6 +9755,8 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The number of versions of your secret. */
     versions_total: number;
+    /** List of configurations that have reference to the secret. */
+    referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
      *  username_password, private_cert, public_cert, iam_credentials.
      */
