@@ -2889,11 +2889,13 @@ describe('SecretsManagerV2', () => {
         const limit = 200;
         const sort = 'config_type';
         const search = 'example';
+        const secretTypes = ['iam_credentials', 'public_cert', 'private_cert'];
         const listConfigurationsParams = {
           offset,
           limit,
           sort,
           search,
+          secretTypes,
         };
 
         const listConfigurationsResult = secretsManagerService.listConfigurations(listConfigurationsParams);
@@ -2914,6 +2916,7 @@ describe('SecretsManagerV2', () => {
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.sort).toEqual(sort);
         expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -2980,6 +2983,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'config_type',
           search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
         };
         const allResults = [];
         const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
@@ -2997,6 +3001,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'config_type',
           search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
         };
         const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
         const allResults = await pager.getAll();

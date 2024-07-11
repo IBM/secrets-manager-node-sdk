@@ -522,6 +522,7 @@ describe('SecretsManagerV2_integration', () => {
       limit: 200,
       sort: 'config_type',
       search: 'example',
+      secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
     };
 
     const res = await secretsManagerService.listConfigurations(params);
@@ -535,6 +536,7 @@ describe('SecretsManagerV2_integration', () => {
       limit: 10,
       sort: 'config_type',
       search: 'example',
+      secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
     };
 
     const allResults = [];

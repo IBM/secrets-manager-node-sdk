@@ -884,6 +884,7 @@ describe('SecretsManagerV2', () => {
       limit: 10,
       sort: 'config_type',
       search: 'example',
+      secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
     };
 
     const allResults = [];
