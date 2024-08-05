@@ -21,7 +21,7 @@ const nock = require('nock');
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
+const { NoAuthAuthenticator } = sdkCorePackage;
 const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
 
 const {
@@ -31,7 +31,7 @@ const {
   expectToBePromise,
   checkUserHeader,
   checkForSuccessfulExecution,
-} = unitTestUtils;
+} = require('@ibm-cloud/sdk-test-utilities');
 
 const secretsManagerServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
@@ -730,9 +730,9 @@ describe('SecretsManagerV2', () => {
       const serviceUrl = secretsManagerServiceOptions.url;
       const path = '/api/v2/secrets';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
+        '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2791,36 +2791,12 @@ describe('SecretsManagerV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // PrivateCertificateConfigurationRootCAPrototype
+      // PublicCertificateConfigurationDNSCloudInternetServicesPrototype
       const configurationPrototypeModel = {
-        config_type: 'private_cert_configuration_root_ca',
-        name: 'example-root-CA',
-        max_ttl: '43830h',
-        crl_expiry: '72h',
-        crl_disable: false,
-        crl_distribution_points_encoded: true,
-        issuing_certificates_urls_encoded: true,
-        common_name: 'example.com',
-        alt_names: ['alt-name-1', 'alt-name-2'],
-        ip_sans: '127.0.0.1',
-        uri_sans: 'https://www.example.com/test',
-        other_sans: ['1.2.3.5.4.3.201.10.4.3;utf8:test@example.com'],
-        ttl: '2190h',
-        format: 'pem',
-        private_key_format: 'der',
-        key_type: 'rsa',
-        key_bits: 4096,
-        max_path_length: -1,
-        exclude_cn_from_sans: false,
-        permitted_dns_domains: ['testString'],
-        ou: ['testString'],
-        organization: ['testString'],
-        country: ['testString'],
-        locality: ['testString'],
-        province: ['testString'],
-        street_address: ['testString'],
-        postal_code: ['testString'],
-        serial_number: 'd9:be:fe:35:ba:09:42:b5:35:ba:09:42:b5',
+        config_type: 'public_cert_configuration_dns_cloud_internet_services',
+        name: 'example-cloud-internet-services-config',
+        cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+        cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
       };
 
       function __createConfigurationTest() {
@@ -2913,11 +2889,13 @@ describe('SecretsManagerV2', () => {
         const limit = 200;
         const sort = 'config_type';
         const search = 'example';
+        const secretTypes = ['iam_credentials', 'public_cert', 'private_cert'];
         const listConfigurationsParams = {
           offset,
           limit,
           sort,
           search,
+          secretTypes,
         };
 
         const listConfigurationsResult = secretsManagerService.listConfigurations(listConfigurationsParams);
@@ -2938,6 +2916,7 @@ describe('SecretsManagerV2', () => {
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.sort).toEqual(sort);
         expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -3004,6 +2983,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'config_type',
           search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
         };
         const allResults = [];
         const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
@@ -3021,6 +3001,7 @@ describe('SecretsManagerV2', () => {
           limit: 10,
           sort: 'config_type',
           search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
         };
         const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
         const allResults = await pager.getAll();
@@ -3035,7 +3016,7 @@ describe('SecretsManagerV2', () => {
       function __getConfigurationTest() {
         // Construct the params object for operation getConfiguration
         const name = 'configuration-name';
-        const xSmAcceptConfigurationType = 'private_cert_configuration_root_ca';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
         const getConfigurationParams = {
           name,
           xSmAcceptConfigurationType,
@@ -3121,16 +3102,17 @@ describe('SecretsManagerV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // IAMCredentialsConfigurationPatch
+      // PublicCertificateConfigurationDNSCloudInternetServicesPatch
       const configurationPatchModel = {
-        api_key: 'RmnPBn6n1dzoo0v3kyznKEpg0WzdTpW9lW7FtKa017_u',
+        cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+        cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
       };
 
       function __updateConfigurationTest() {
         // Construct the params object for operation updateConfiguration
         const name = 'configuration-name';
         const configurationPatch = configurationPatchModel;
-        const xSmAcceptConfigurationType = 'private_cert_configuration_root_ca';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
         const updateConfigurationParams = {
           name,
           configurationPatch,
@@ -3221,7 +3203,7 @@ describe('SecretsManagerV2', () => {
       function __deleteConfigurationTest() {
         // Construct the params object for operation deleteConfiguration
         const name = 'configuration-name';
-        const xSmAcceptConfigurationType = 'private_cert_configuration_root_ca';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
         const deleteConfigurationParams = {
           name,
           xSmAcceptConfigurationType,
@@ -3316,7 +3298,7 @@ describe('SecretsManagerV2', () => {
         // Construct the params object for operation createConfigurationAction
         const name = 'configuration-name';
         const configActionPrototype = configurationActionPrototypeModel;
-        const xSmAcceptConfigurationType = 'private_cert_configuration_root_ca';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
         const createConfigurationActionParams = {
           name,
           configActionPrototype,
