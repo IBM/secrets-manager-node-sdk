@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.93.0-c40121e6-20240729-182103
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 /* eslint-disable max-classes-per-file */
@@ -347,7 +347,7 @@ class SecretsManagerV2 extends BaseService {
    * Delete a secret group by specifying the ID of the secret group.
    *
    * **Note:** To delete a secret group, it must be empty. If you need to remove a secret group that contains secrets,
-   * you must first [delete the secrets](#delete-secret) that are associated with the group.
+   * you must first delete the secrets that are associated with the group.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies your secret group.
@@ -551,8 +551,7 @@ class SecretsManagerV2 extends BaseService {
    * Get a secret and its details by specifying the ID of the secret.
    *
    * A successful request returns the secret data that is associated with your secret, along with other metadata. To
-   * view only the details of a specified secret without retrieving its value, use the [Get secret
-   * metadata](#get-secret-metadata) operation.
+   * view only the details of a specified secret without retrieving its value, use the Get secret metadata operation.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
@@ -802,8 +801,7 @@ class SecretsManagerV2 extends BaseService {
    * Get a secret and its details by specifying the Name and Type of the secret.
    *
    * A successful request returns the secret data that is associated with your secret, along with other metadata. To
-   * view only the details of a specified secret without retrieving its value, use the [Get secret
-   * metadata](#get-secret-metadata) operation.
+   * view only the details of a specified secret without retrieving its value, use the Get secret metadata operation.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretType - The secret type. Supported types are arbitrary, imported_cert, public_cert,
@@ -4722,6 +4720,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The ID of the API key that is generated for this secret. */
     api_key_id?: string;
     /** The service ID under which the API key (see the `api_key` field) is created.
@@ -4797,6 +4799,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The ID of the API key that is generated for this secret. */
     api_key_id?: string;
     /** The service ID under which the API key (see the `api_key` field) is created.
@@ -5185,7 +5191,7 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
@@ -5259,7 +5265,7 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
@@ -5575,6 +5581,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The payload data of a key-value secret. */
     data: JsonObject;
   }
@@ -5633,6 +5643,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
   }
   export namespace KVSecretVersionMetadata {
     export namespace Constants {
@@ -8264,7 +8278,7 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
@@ -8372,7 +8386,7 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
     serial_number: string;
     /** The date and time that the certificate validity period begins and ends. */
@@ -10308,6 +10322,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
     /** The username that is assigned to an `username_password` secret. */
     username: string;
     /** The password that is assigned to an `username_password` secret. */
@@ -10368,6 +10386,10 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** A v4 UUID identifier. */
     secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: Arbitrary, username_password.
+     */
+    expiration_date?: string;
   }
   export namespace UsernamePasswordSecretVersionMetadata {
     export namespace Constants {
