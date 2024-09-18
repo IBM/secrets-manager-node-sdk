@@ -4155,14 +4155,14 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** This parameter indicates whether the API key configuration is disabled. */
+    disabled?: boolean;
     /** An IBM Cloud API key that can create and manage service IDs. The API key must be assigned the Editor
      *  platform role on the Access Groups Service and the Operator platform role on the IAM Identity Service.  For more
      *  information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
      */
     api_key?: string;
-    /** This parameter indicates whether the API key configuration is disabled. */
-    disabled: boolean;
   }
   export namespace IAMCredentialsConfiguration {
     export namespace Constants {
@@ -4212,6 +4212,8 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** This parameter indicates whether the API key configuration is disabled. */
+    disabled?: boolean;
   }
   export namespace IAMCredentialsConfigurationMetadata {
     export namespace Constants {
