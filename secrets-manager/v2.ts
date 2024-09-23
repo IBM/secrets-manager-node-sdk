@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
+ * IBM OpenAPI SDK Code Generator Version: 3.95.0-d0e386be-20240906-183310
  */
 
 /* eslint-disable max-classes-per-file */
@@ -4155,6 +4155,8 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** This parameter indicates whether the API key configuration is disabled. */
+    disabled?: boolean;
     /** An IBM Cloud API key that can create and manage service IDs. The API key must be assigned the Editor
      *  platform role on the Access Groups Service and the Operator platform role on the IAM Identity Service.  For more
      *  information, see the
@@ -4210,6 +4212,8 @@ namespace SecretsManagerV2 {
     created_at: string;
     /** The date when a resource was modified. The date format follows `RFC 3339`. */
     updated_at: string;
+    /** This parameter indicates whether the API key configuration is disabled. */
+    disabled?: boolean;
   }
   export namespace IAMCredentialsConfigurationMetadata {
     export namespace Constants {
@@ -4246,7 +4250,13 @@ namespace SecretsManagerV2 {
      *  information, see the
      *  [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-configure-iam-engine).
      */
-    api_key: string;
+    api_key?: string;
+    /** This parameter indicates whether the API key configuration is disabled.
+     *
+     *  If it is set to `disabled`, the IAM credentials engine doesn't use the configured API key for credentials
+     *  management.
+     */
+    disabled?: boolean;
   }
 
   /**
@@ -4266,6 +4276,12 @@ namespace SecretsManagerV2 {
     config_type: IAMCredentialsConfigurationPrototype.Constants.ConfigType | string;
     /** The API key that is used to set the iam_credentials engine. */
     api_key: string;
+    /** This parameter indicates whether the API key configuration is disabled.
+     *
+     *  If it is set to `true`, the IAM credentials engine doesn't use the configured API key for credentials
+     *  management.
+     */
+    disabled?: boolean;
   }
   export namespace IAMCredentialsConfigurationPrototype {
     export namespace Constants {
@@ -4361,6 +4377,10 @@ namespace SecretsManagerV2 {
      *  include the `access_groups` parameter.
      */
     service_id?: string;
+    /** The ID of the account in which the IAM credentials are created. Use this field only if the target account is
+     *  not the same as the account of the Secrets Manager instance. Otherwise, the field can be omitted.
+     */
+    account_id?: string;
     /** Indicates whether an `iam_credentials` secret was created with a static service ID.
      *
      *  If it is set to `true`, the service ID for the secret was provided by the user at secret creation. If it is set
@@ -4499,6 +4519,10 @@ namespace SecretsManagerV2 {
      *  include the `access_groups` parameter.
      */
     service_id?: string;
+    /** The ID of the account in which the IAM credentials are created. Use this field only if the target account is
+     *  not the same as the account of the Secrets Manager instance. Otherwise, the field can be omitted.
+     */
+    account_id?: string;
     /** Indicates whether an `iam_credentials` secret was created with a static service ID.
      *
      *  If it is set to `true`, the service ID for the secret was provided by the user at secret creation. If it is set
@@ -4642,6 +4666,10 @@ namespace SecretsManagerV2 {
      *  include the `access_groups` parameter.
      */
     service_id?: string;
+    /** The ID of the account in which the IAM credentials are created. Use this field only if the target account is
+     *  not the same as the account of the Secrets Manager instance. Otherwise, the field can be omitted.
+     */
+    account_id?: string;
     /** (IAM credentials) This parameter indicates whether to reuse the service ID and API key for future read
      *  operations.
      *
