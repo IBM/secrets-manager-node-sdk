@@ -20,7 +20,6 @@ A Node.js client library to interact with the [IBM Cloud® Secrets Manager APIs]
 </details>
 
 ## Overview
-
 The IBM Cloud Secrets Manager Node.js SDK allows developers to programmatically interact with the following IBM Cloud
 services:
 
