@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.95.0-d0e386be-20240906-183310
+ * IBM OpenAPI SDK Code Generator Version: 3.95.2-120e65bc-20240924-152329
  */
 
 /* eslint-disable max-classes-per-file */
@@ -2062,6 +2062,8 @@ class SecretsManagerV2 extends BaseService {
    * authority certificate.
    * - `private_cert_configuration_action_rotate_crl`: Rotate the certificate revocation list (CRL) of an intermediate
    * certificate authority.
+   * - `private_cert_configuration_action_rotate_intermediate`: Rotate an internally signed intermediate certificate
+   * authority certificate.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.name - The name that uniquely identifies a configuration.
@@ -3195,6 +3197,97 @@ namespace SecretsManagerV2 {
    * The configuration data of your Private Certificate.
    */
   export interface PrivateCertificateCAData {
+  }
+
+  /**
+   * The response body of the action to rotate an intermediate certificate authority for the private certificate
+   * configuration.
+   */
+  export interface PrivateCertificateConfigurationRotateAction {
+    /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
+    common_name?: string;
+    /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
+     *  SSL certificate.
+     */
+    alt_names?: string[];
+    /** The IP Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
+    ip_sans?: string;
+    /** The URI Subject Alternative Names to define for the CA certificate, in a comma-delimited list. */
+    uri_sans?: string;
+    /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the CA
+     *  certificate.
+     *
+     *  The alternative names must match the values that are specified in the `allowed_other_sans` field in the
+     *  associated certificate template. The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current
+     *  valid type is `UTF8`.
+     */
+    other_sans?: string[];
+    /** he requested TTL, after which the certificate expires. */
+    ttl?: number;
+    /** The format of the returned data. */
+    format?: PrivateCertificateConfigurationRotateAction.Constants.Format | string;
+    /** The maximum path length to encode in the generated certificate. `-1` means no limit.
+     *
+     *  If the signing certificate has a maximum path length set, the path length is set to one less than that of the
+     *  signing certificate. A limit of `0` means a literal path length of zero.
+     */
+    max_path_length?: number;
+    /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
+     *
+     *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
+     *  useful if the common name is a human-readable identifier, instead of a hostname or an email address.
+     */
+    exclude_cn_from_sans?: boolean;
+    /** The allowed DNS domains or subdomains for the certificates that are to be signed and issued by this CA
+     *  certificate.
+     */
+    permitted_dns_domains?: string[];
+    /** This field indicates whether to use values from a certificate signing request (CSR) to complete a
+     *  `private_cert_configuration_action_sign_csr` action. If it is set to `true`, then:
+     *
+     *  1) Subject information, including names and alternate names, are preserved from the CSR rather than by using the
+     *  values that are provided in the other parameters to this operation.
+     *
+     *  2) Any key usage, for example, non-repudiation, that is requested in the CSR are added to the basic set of key
+     *  usages used for CA certificates that are signed by the intermediate authority.
+     *
+     *  3) Extensions that are requested in the CSR are copied into the issued private certificate.
+     */
+    use_csr_values?: boolean;
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
+    ou?: string[];
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
+    organization?: string[];
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
+    country?: string[];
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
+    locality?: string[];
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
+    province?: string[];
+    /** The street address values to define in the subject field of the resulting certificate. */
+    street_address?: string[];
+    /** The postal code values to define in the subject field of the resulting certificate. */
+    postal_code?: string[];
+    /** The requested value for the [`serialNumber`](https://datatracker.ietf.org/doc/html/rfc4519#section-2.31)
+     *  attribute that is in the certificate's distinguished name (DN).
+     *
+     *  **Note:** This field is not related to the `serial_number` field that is returned in the API response. The
+     *  `serial_number` field represents the certificate's randomly assigned serial number.
+     */
+    serial_number?: string;
+    /** The certificate signing request. */
+    csr?: string;
+    /** The data that is associated with the root certificate authority. */
+    data?: PrivateCertificateConfigurationCACertificate;
+  }
+  export namespace PrivateCertificateConfigurationRotateAction {
+    export namespace Constants {
+      /** The format of the returned data. */
+      export enum Format {
+        PEM = 'pem',
+        PEM_BUNDLE = 'pem_bundle',
+      }
+    }
   }
 
   /**
@@ -5893,6 +5986,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -5913,6 +6007,34 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
+      }
+    }
+  }
+
+  /**
+   * The response body to specify the properties of the action to rotate the private certificate.
+   */
+  export interface PrivateCertificateConfigurationActionRotate extends ConfigurationAction {
+    /** The type of configuration action. */
+    action_type: PrivateCertificateConfigurationActionRotate.Constants.ActionType | string;
+    /** The name of the intermediate certificate authority configuration. */
+    name: string;
+    /** The response body of the action to rotate an intermediate certificate authority for the private certificate
+     *  configuration.
+     */
+    config: PrivateCertificateConfigurationRotateAction;
+  }
+  export namespace PrivateCertificateConfigurationActionRotate {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -5938,6 +6060,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -5959,6 +6082,28 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
+      }
+    }
+  }
+
+  /**
+   * The request body to specify the properties of the action to rotate the private certificate configuration.
+   */
+  export interface PrivateCertificateConfigurationActionRotatePrototype extends ConfigurationActionPrototype {
+    /** The type of configuration action. */
+    action_type: PrivateCertificateConfigurationActionRotatePrototype.Constants.ActionType | string;
+  }
+  export namespace PrivateCertificateConfigurationActionRotatePrototype {
+    export namespace Constants {
+      /** The type of configuration action. */
+      export enum ActionType {
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_CRL = 'private_cert_configuration_action_rotate_crl',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_INTERMEDIATE = 'private_cert_configuration_action_sign_intermediate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
+        PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
+        PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -5982,6 +6127,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -6005,6 +6151,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -6109,6 +6256,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -6211,6 +6359,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -6314,6 +6463,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
@@ -6417,6 +6567,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_ACTION_SIGN_CSR = 'private_cert_configuration_action_sign_csr',
         PRIVATE_CERT_CONFIGURATION_ACTION_SET_SIGNED = 'private_cert_configuration_action_set_signed',
         PRIVATE_CERT_CONFIGURATION_ACTION_REVOKE_CA_CERTIFICATE = 'private_cert_configuration_action_revoke_ca_certificate',
+        PRIVATE_CERT_CONFIGURATION_ACTION_ROTATE_INTERMEDIATE = 'private_cert_configuration_action_rotate_intermediate',
       }
     }
   }
