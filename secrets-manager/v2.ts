@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.95.2-120e65bc-20240924-152329
+ * IBM OpenAPI SDK Code Generator Version: 3.98.0-8be2046a-20241205-162752
  */
 
 /* eslint-disable max-classes-per-file */
@@ -239,7 +239,7 @@ class SecretsManagerV2 extends BaseService {
    * Get the properties of an existing secret group by specifying the ID of the group.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret group.
+   * @param {string} params.id - The UUID that uniquely identifies your secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>>}
    */
@@ -287,7 +287,7 @@ class SecretsManagerV2 extends BaseService {
    * Update the properties of an existing secret group, such as its name or description.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret group.
+   * @param {string} params.id - The UUID that uniquely identifies your secret group.
    * @param {string} [params.name] - The name of your secret group.
    * @param {string} [params.description] - An extended description of your secret group.
    *
@@ -350,7 +350,7 @@ class SecretsManagerV2 extends BaseService {
    * you must first delete the secrets that are associated with the group.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret group.
+   * @param {string} params.id - The UUID that uniquely identifies your secret group.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>>}
    */
@@ -554,7 +554,7 @@ class SecretsManagerV2 extends BaseService {
    * view only the details of a specified secret without retrieving its value, use the Get secret metadata operation.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>>}
    */
@@ -602,7 +602,7 @@ class SecretsManagerV2 extends BaseService {
    * Delete a secret by specifying the ID of the secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>>}
    */
@@ -649,7 +649,7 @@ class SecretsManagerV2 extends BaseService {
    * Get the metadata of a secret by specifying the ID of the secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>>}
    */
@@ -697,7 +697,7 @@ class SecretsManagerV2 extends BaseService {
    * Update the metadata of a secret, such as its name or description.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {SecretMetadataPatch} params.secretMetadataPatch -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>>}
@@ -749,7 +749,7 @@ class SecretsManagerV2 extends BaseService {
    * Create a secret action. This operation supports the following actions:.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {SecretActionPrototype} params.secretActionPrototype -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretAction>>}
@@ -861,7 +861,7 @@ class SecretsManagerV2 extends BaseService {
    * Create a new secret version.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
    * @param {SecretVersionPrototype} params.secretVersionPrototype -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>>}
@@ -915,7 +915,7 @@ class SecretsManagerV2 extends BaseService {
    * A successful request returns the list of versions of a secret, along with the metadata of each version.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadataCollection>>}
    */
@@ -967,8 +967,8 @@ class SecretsManagerV2 extends BaseService {
    * with other metadata.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>>}
@@ -1020,8 +1020,8 @@ class SecretsManagerV2 extends BaseService {
    * This operation is available for secret type: iam_credentials current version.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>>}
@@ -1073,8 +1073,8 @@ class SecretsManagerV2 extends BaseService {
    * A successful request returns the metadata that is associated with the specified version of your secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadata>>}
@@ -1124,8 +1124,8 @@ class SecretsManagerV2 extends BaseService {
    * Update the custom metadata of a secret version.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {JsonObject} [params.versionCustomMetadata] - The secret version metadata that a user can customize.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1184,8 +1184,8 @@ class SecretsManagerV2 extends BaseService {
    * - `private_cert_action_revoke_certificate`: Revoke a version of a private certificate.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {SecretVersionActionPrototype} params.secretVersionActionPrototype -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1314,7 +1314,7 @@ class SecretsManagerV2 extends BaseService {
    * List the locks that are associated with a specified secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {number} [params.offset] - The number of locks to skip. By specifying `offset`, you retrieve a subset of
    * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
    *
@@ -1402,7 +1402,7 @@ class SecretsManagerV2 extends BaseService {
    * the data of the previous secret version if it doesn't have any locks.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {SecretLockPrototype[]} params.locks - The locks data to be attached to a secret version.
    * @param {string} [params.mode] - An optional lock mode. When you create a lock, you can set one of the following
    * modes to clear any matching locks on a secret version.
@@ -1475,7 +1475,7 @@ class SecretsManagerV2 extends BaseService {
    * of your secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret.
    * @param {string[]} [params.name] - Specify the names of the secret locks to be deleted.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>>}
@@ -1529,8 +1529,8 @@ class SecretsManagerV2 extends BaseService {
    * List the locks that are associated with a specified secret version.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {number} [params.offset] - The number of locks to skip. By specifying `offset`, you retrieve a subset of
    * items that starts with the `offset` value. Use `offset` with `limit` to page through your available resources.
@@ -1620,8 +1620,8 @@ class SecretsManagerV2 extends BaseService {
    * the data of the previous secret version if it doesn't have any locks.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {SecretLockPrototype[]} params.locks - The locks data to be attached to a secret version.
    * @param {string} [params.mode] - An optional lock mode. When you create a lock, you can set one of the following
@@ -1696,8 +1696,8 @@ class SecretsManagerV2 extends BaseService {
    * of your secret.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.secretId - The v4 UUID that uniquely identifies your secret.
-   * @param {string} params.id - The v4 UUID that uniquely identifies your secret version. You can use the `current` or
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The UUID that uniquely identifies your secret version. You can use the `current` or
    * `previous` aliases to refer to the current or previous secret version.
    * @param {string[]} [params.name] - Specify the names of the secret locks to be deleted.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -2358,14 +2358,14 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `getSecretGroup` operation. */
   export interface GetSecretGroupParams {
-    /** The v4 UUID that uniquely identifies your secret group. */
+    /** The UUID that uniquely identifies your secret group. */
     id: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateSecretGroup` operation. */
   export interface UpdateSecretGroupParams {
-    /** The v4 UUID that uniquely identifies your secret group. */
+    /** The UUID that uniquely identifies your secret group. */
     id: string;
     /** The name of your secret group. */
     name?: string;
@@ -2380,7 +2380,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `deleteSecretGroup` operation. */
   export interface DeleteSecretGroupParams {
-    /** The v4 UUID that uniquely identifies your secret group. */
+    /** The UUID that uniquely identifies your secret group. */
     id: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -2471,28 +2471,28 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `getSecret` operation. */
   export interface GetSecretParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteSecret` operation. */
   export interface DeleteSecretParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSecretMetadata` operation. */
   export interface GetSecretMetadataParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateSecretMetadata` operation. */
   export interface UpdateSecretMetadataParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     secretMetadataPatch: SecretMetadataPatch;
     headers?: OutgoingHttpHeaders;
@@ -2500,7 +2500,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `createSecretAction` operation. */
   export interface CreateSecretActionParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     secretActionPrototype: SecretActionPrototype;
     headers?: OutgoingHttpHeaders;
@@ -2538,7 +2538,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `createSecretVersion` operation. */
   export interface CreateSecretVersionParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
     secretVersionPrototype: SecretVersionPrototype;
     headers?: OutgoingHttpHeaders;
@@ -2546,16 +2546,16 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `listSecretVersions` operation. */
   export interface ListSecretVersionsParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSecretVersion` operation. */
   export interface GetSecretVersionParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2564,9 +2564,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `deleteSecretVersionData` operation. */
   export interface DeleteSecretVersionDataParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2575,9 +2575,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `getSecretVersionMetadata` operation. */
   export interface GetSecretVersionMetadataParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2586,9 +2586,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `updateSecretVersionMetadata` operation. */
   export interface UpdateSecretVersionMetadataParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2599,9 +2599,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `createSecretVersionAction` operation. */
   export interface CreateSecretVersionActionParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2646,7 +2646,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `listSecretLocks` operation. */
   export interface ListSecretLocksParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     /** The number of locks to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
@@ -2682,7 +2682,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `createSecretLocksBulk` operation. */
   export interface CreateSecretLocksBulkParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     /** The locks data to be attached to a secret version. */
     locks: SecretLockPrototype[];
@@ -2707,7 +2707,7 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `deleteSecretLocksBulk` operation. */
   export interface DeleteSecretLocksBulkParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     id: string;
     /** Specify the names of the secret locks to be deleted. */
     name?: string[];
@@ -2716,9 +2716,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `listSecretVersionLocks` operation. */
   export interface ListSecretVersionLocksParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2756,9 +2756,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `createSecretVersionLocksBulk` operation. */
   export interface CreateSecretVersionLocksBulkParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -2785,9 +2785,9 @@ namespace SecretsManagerV2 {
 
   /** Parameters for the `deleteSecretVersionLocksBulk` operation. */
   export interface DeleteSecretVersionLocksBulkParams {
-    /** The v4 UUID that uniquely identifies your secret. */
+    /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    /** The v4 UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
+    /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
@@ -3111,6 +3111,210 @@ namespace SecretsManagerV2 {
   }
 
   /**
+   * The data specified to create the CSR and the private key.
+   */
+  export interface ImportedCertificateManagedCsr {
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
+    ou?: string[];
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
+    organization?: string[];
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
+    country?: string[];
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
+    locality?: string[];
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
+    province?: string[];
+    /** The street address values to define in the subject field of the resulting certificate. */
+    street_address?: string[];
+    /** The postal code values to define in the subject field of the resulting certificate. */
+    postal_code?: string[];
+    /** If set to false, makes the common_name field optional while generating a certificate. */
+    require_cn?: boolean;
+    /** The Common Name (CN) represents the server name protected by the SSL certificate. */
+    common_name?: string;
+    /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
+     *  SSL certificate.
+     */
+    alt_names?: string;
+    /** The IP Subject Alternative Names to define for the certificate, in a comma-delimited list. */
+    ip_sans?: string;
+    /** The URI Subject Alternative Names to define for the certificate, in a comma-delimited list. */
+    uri_sans?: string;
+    /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the certificate,
+     *  in a comma-delimited list.
+     *
+     *  The alternative names must The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid
+     *  type is `UTF8`.
+     */
+    other_sans?: string;
+    /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
+     *
+     *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
+     *  useful if the common name is a human-readable identifier, instead of a hostname or an email address.
+     */
+    exclude_cn_from_sans?: boolean;
+    /** Specifies the list of requested User ID (OID 0.9.2342.19200300.100.1.1) Subject values to be placed on the
+     *  signed certificate.
+     */
+    user_ids?: string;
+    /** This field indicates whether certificate is flagged for server use. */
+    server_flag?: boolean;
+    /** This field indicates whether certificate is flagged for client use. */
+    client_flag?: boolean;
+    /** This field indicates whether certificate is flagged for code signing use. */
+    code_signing_flag?: boolean;
+    /** This field indicates whether certificate is flagged for email protection use. */
+    email_protection_flag?: boolean;
+    /** The type of private key to generate. */
+    key_type?: ImportedCertificateManagedCsr.Constants.KeyType | string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048`, `3072`, `4096` and `8192`. Allowable values for EC keys are: `224`,
+     *  `256`, `384`, and `521`. The default for RSA keys is `2048`. The default for EC keys is `256`. Ignored for
+     *  ed25519 key.
+     */
+    key_bits?: number;
+    /** The allowed key usage constraint to define for certificate, in a comma-delimited list.
+     *
+     *  You can find valid values in the [Go x509 package documentation](https://pkg.go.dev/crypto/x509#KeyUsage). Omit
+     *  the `KeyUsage` part of the value. Values are not case-sensitive. To specify no key usage constraints, set this
+     *  field to an empty string.
+     */
+    key_usage?: string;
+    /** The allowed extended key usage constraint on certificate, in a comma-delimited list.
+     *
+     *  You can find valid values in the [Go x509 package
+     *  documentation](https://golang.org/pkg/crypto/x509/#ExtKeyUsage). Omit the `ExtKeyUsage` part of the value.
+     *  Values are not case-sensitive. To specify no key usage constraints, set this field to an empty string.
+     */
+    ext_key_usage?: string;
+    /** A comma-delimited list of policy Object Identifiers (OIDs). */
+    policy_identifiers?: string;
+    /** A comma-delimited list of extended key usage Object Identifiers (OIDs). */
+    ext_key_usage_oids?: string;
+    /** This field indicates whether the private key will be rotated. */
+    rotate_keys?: boolean;
+    /** The certificate signing request. */
+    csr?: string;
+    /** The PEM-encoded private key that is associated with the certificate. The data must be formatted on a single
+     *  line with embedded newline characters.
+     */
+    private_key?: string;
+  }
+  export namespace ImportedCertificateManagedCsr {
+    export namespace Constants {
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+        ED25519 = 'ed25519',
+      }
+    }
+  }
+
+  /**
+   * The data specified to create the CSR and the private key.
+   */
+  export interface ImportedCertificateManagedCsrResponse {
+    /** The Organizational Unit (OU) values to define in the subject field of the resulting certificate. */
+    ou: string[];
+    /** The Organization (O) values to define in the subject field of the resulting certificate. */
+    organization: string[];
+    /** The Country (C) values to define in the subject field of the resulting certificate. */
+    country: string[];
+    /** The Locality (L) values to define in the subject field of the resulting certificate. */
+    locality: string[];
+    /** The Province (ST) values to define in the subject field of the resulting certificate. */
+    province: string[];
+    /** The street address values to define in the subject field of the resulting certificate. */
+    street_address: string[];
+    /** The postal code values to define in the subject field of the resulting certificate. */
+    postal_code: string[];
+    /** If set to false, makes the common_name field optional while generating a certificate. */
+    require_cn: boolean;
+    /** The Common Name (CN) represents the server name protected by the SSL certificate. */
+    common_name?: string;
+    /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
+     *  SSL certificate.
+     */
+    alt_names?: string;
+    /** The IP Subject Alternative Names to define for the certificate, in a comma-delimited list. */
+    ip_sans?: string;
+    /** The URI Subject Alternative Names to define for the certificate, in a comma-delimited list. */
+    uri_sans?: string;
+    /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the certificate,
+     *  in a comma-delimited list.
+     *
+     *  The alternative names must The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid
+     *  type is `UTF8`.
+     */
+    other_sans?: string;
+    /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
+     *
+     *  If the common name is set to `true`, it is not included in DNS, or email SANs if they apply. This field can be
+     *  useful if the common name is a human-readable identifier, instead of a hostname or an email address.
+     */
+    exclude_cn_from_sans: boolean;
+    /** Specifies the list of requested User ID (OID 0.9.2342.19200300.100.1.1) Subject values to be placed on the
+     *  signed certificate.
+     */
+    user_ids?: string;
+    /** This field indicates whether certificate is flagged for server use. */
+    server_flag: boolean;
+    /** This field indicates whether certificate is flagged for client use. */
+    client_flag: boolean;
+    /** This field indicates whether certificate is flagged for code signing use. */
+    code_signing_flag: boolean;
+    /** This field indicates whether certificate is flagged for email protection use. */
+    email_protection_flag: boolean;
+    /** The type of private key to generate. */
+    key_type: ImportedCertificateManagedCsrResponse.Constants.KeyType | string;
+    /** The number of bits to use to generate the private key.
+     *
+     *  Allowable values for RSA keys are: `2048`, `3072`, `4096` and `8192`. Allowable values for EC keys are: `224`,
+     *  `256`, `384`, and `521`. The default for RSA keys is `2048`. The default for EC keys is `256`. Ignored for
+     *  ed25519 key.
+     */
+    key_bits: number;
+    /** The allowed key usage constraint to define for certificate, in a comma-delimited list.
+     *
+     *  You can find valid values in the [Go x509 package documentation](https://pkg.go.dev/crypto/x509#KeyUsage). Omit
+     *  the `KeyUsage` part of the value. Values are not case-sensitive. To specify no key usage constraints, set this
+     *  field to an empty string.
+     */
+    key_usage?: string;
+    /** The allowed extended key usage constraint on certificate, in a comma-delimited list.
+     *
+     *  You can find valid values in the [Go x509 package
+     *  documentation](https://golang.org/pkg/crypto/x509/#ExtKeyUsage). Omit the `ExtKeyUsage` part of the value.
+     *  Values are not case-sensitive. To specify no key usage constraints, set this field to an empty string.
+     */
+    ext_key_usage?: string;
+    /** A comma-delimited list of policy Object Identifiers (OIDs). */
+    policy_identifiers?: string;
+    /** A comma-delimited list of extended key usage Object Identifiers (OIDs). */
+    ext_key_usage_oids?: string;
+    /** This field indicates whether the private key will be rotated. */
+    rotate_keys?: boolean;
+    /** The certificate signing request. */
+    csr: string;
+    /** The PEM-encoded private key that is associated with the certificate. The data must be formatted on a single
+     *  line with embedded newline characters.
+     */
+    private_key: string;
+  }
+  export namespace ImportedCertificateManagedCsrResponse {
+    export namespace Constants {
+      /** The type of private key to generate. */
+      export enum KeyType {
+        RSA = 'rsa',
+        EC = 'ec',
+        ED25519 = 'ed25519',
+      }
+    }
+  }
+
+  /**
    * The details of the Event Notifications registration.
    */
   export interface NotificationsRegistration {
@@ -3360,7 +3564,7 @@ namespace SecretsManagerV2 {
    * Properties that describe a secret group.
    */
   export interface SecretGroup {
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     id: string;
     /** The name of your existing secret group. */
     name?: string;
@@ -3412,11 +3616,11 @@ namespace SecretsManagerV2 {
     updated_at: string;
     /** The unique identifier that is associated with the entity that created the secret. */
     created_by: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_version_id: string;
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
@@ -3457,9 +3661,9 @@ namespace SecretsManagerV2 {
    * Create locks response body containing a collection of locks that are attached to a secret.
    */
   export interface SecretLocks {
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -3564,7 +3768,7 @@ namespace SecretsManagerV2 {
    * SecretVersionLocks.
    */
   export interface SecretVersionLocks {
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     version_id: string;
     /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
      *  is used for version `n-1`.
@@ -3838,7 +4042,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -3851,7 +4055,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -3922,7 +4126,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -3935,7 +4139,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -4040,7 +4244,7 @@ namespace SecretsManagerV2 {
      *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
      */
     name: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -4081,7 +4285,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -4089,7 +4293,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ArbitrarySecretVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -4099,7 +4303,7 @@ namespace SecretsManagerV2 {
     alias?: ArbitrarySecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -4143,7 +4347,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -4151,7 +4355,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ArbitrarySecretVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -4161,7 +4365,7 @@ namespace SecretsManagerV2 {
     alias?: ArbitrarySecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -4413,7 +4617,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -4426,7 +4630,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -4555,7 +4759,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -4568,7 +4772,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -4726,7 +4930,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -4799,7 +5003,7 @@ namespace SecretsManagerV2 {
    * IAMCredentialsSecretRestoreFromVersionPrototype.
    */
   export interface IAMCredentialsSecretRestoreFromVersionPrototype extends SecretVersionPrototype {
-    /** A v4 UUID identifier, or `current` or `previous` secret version aliases. */
+    /** A UUID identifier, or `current` or `previous` secret version aliases. */
     restore_from_version: string;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
@@ -4821,7 +5025,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -4829,7 +5033,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: IAMCredentialsSecretVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -4839,7 +5043,7 @@ namespace SecretsManagerV2 {
     alias?: IAMCredentialsSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -4900,7 +5104,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -4908,7 +5112,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: IAMCredentialsSecretVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -4918,7 +5122,7 @@ namespace SecretsManagerV2 {
     alias?: IAMCredentialsSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -4990,7 +5194,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5003,7 +5207,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -5024,7 +5228,7 @@ namespace SecretsManagerV2 {
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
-    signing_algorithm: string;
+    signing_algorithm?: string;
     /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
      *  SSL certificate.
      */
@@ -5034,23 +5238,25 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
-    intermediate_included: boolean;
+    intermediate_included?: boolean;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
-    issuer: string;
+    issuer?: string;
     /** The identifier for the cryptographic algorithm used to generate the public key that is associated with the
      *  certificate.
      */
     key_algorithm?: string;
     /** Indicates whether the certificate was imported with an associated private key. */
-    private_key_included: boolean;
+    private_key_included?: boolean;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
-    serial_number: string;
+    serial_number?: string;
     /** The date and time that the certificate validity period begins and ends. */
-    validity: CertificateValidity;
+    validity?: CertificateValidity;
+    /** The data specified to create the CSR and the private key. */
+    managed_csr?: ImportedCertificateManagedCsrResponse;
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
-    certificate: string;
+    certificate?: string;
     /** The PEM-encoded intermediate certificate that is associated with the root certificate. The data must be
      *  formatted on a single line with embedded newline characters.
      */
@@ -5059,6 +5265,8 @@ namespace SecretsManagerV2 {
      *  line with embedded newline characters.
      */
     private_key?: string;
+    /** The certificate signing request. */
+    csr?: string;
   }
   export namespace ImportedCertificate {
     export namespace Constants {
@@ -5106,7 +5314,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5119,7 +5327,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -5140,7 +5348,7 @@ namespace SecretsManagerV2 {
     /** The identifier for the cryptographic algorithm that is used by the issuing certificate authority to sign a
      *  certificate.
      */
-    signing_algorithm: string;
+    signing_algorithm?: string;
     /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
      *  SSL certificate.
      */
@@ -5150,21 +5358,23 @@ namespace SecretsManagerV2 {
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
-    intermediate_included: boolean;
+    intermediate_included?: boolean;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
-    issuer: string;
+    issuer?: string;
     /** The identifier for the cryptographic algorithm used to generate the public key that is associated with the
      *  certificate.
      */
     key_algorithm?: string;
     /** Indicates whether the certificate was imported with an associated private key. */
-    private_key_included: boolean;
+    private_key_included?: boolean;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
-    serial_number: string;
+    serial_number?: string;
     /** The date and time that the certificate validity period begins and ends. */
-    validity: CertificateValidity;
+    validity?: CertificateValidity;
+    /** The data specified to create the CSR and the private key. */
+    managed_csr?: ImportedCertificateManagedCsrResponse;
   }
   export namespace ImportedCertificateMetadata {
     export namespace Constants {
@@ -5214,6 +5424,8 @@ namespace SecretsManagerV2 {
     labels?: string[];
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
+    /** The data specified to create the CSR and the private key. */
+    managed_csr?: ImportedCertificateManagedCsr;
   }
 
   /**
@@ -5235,7 +5447,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5245,7 +5457,7 @@ namespace SecretsManagerV2 {
      */
     labels?: string[];
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
-    certificate: string;
+    certificate?: string;
     /** The PEM-encoded intermediate certificate that is associated with the root certificate. The data must be
      *  formatted on a single line with embedded newline characters.
      */
@@ -5254,6 +5466,8 @@ namespace SecretsManagerV2 {
      *  line with embedded newline characters.
      */
     private_key?: string;
+    /** The data specified to create the CSR and the private key. */
+    managed_csr?: ImportedCertificateManagedCsr;
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
@@ -5289,7 +5503,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -5297,7 +5511,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ImportedCertificateVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -5307,7 +5521,7 @@ namespace SecretsManagerV2 {
     alias?: ImportedCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -5318,7 +5532,7 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity: CertificateValidity;
     /** Your PEM-encoded certificate. The data must be formatted on a single line with embedded newline characters. */
-    certificate: string;
+    certificate?: string;
     /** The PEM-encoded intermediate certificate that is associated with the root certificate. The data must be
      *  formatted on a single line with embedded newline characters.
      */
@@ -5327,6 +5541,8 @@ namespace SecretsManagerV2 {
      *  line with embedded newline characters.
      */
     private_key?: string;
+    /** The certificate signing request. */
+    csr?: string;
   }
   export namespace ImportedCertificateVersion {
     export namespace Constants {
@@ -5363,7 +5579,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -5371,7 +5587,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ImportedCertificateVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -5381,7 +5597,7 @@ namespace SecretsManagerV2 {
     alias?: ImportedCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -5455,7 +5671,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5468,7 +5684,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -5535,7 +5751,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5548,7 +5764,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -5636,7 +5852,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5682,7 +5898,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -5690,7 +5906,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: KVSecretVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -5700,7 +5916,7 @@ namespace SecretsManagerV2 {
     alias?: KVSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -5744,7 +5960,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -5752,7 +5968,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: KVSecretVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -5762,7 +5978,7 @@ namespace SecretsManagerV2 {
     alias?: KVSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -5824,7 +6040,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -5837,7 +6053,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -6088,7 +6304,7 @@ namespace SecretsManagerV2 {
   }
 
   /**
-   * The request body to specify the properties of the action to rotate the private certificate configuration.
+   * The request body to specify the properties of the action to rotate an intermediate CA certificate.
    */
   export interface PrivateCertificateConfigurationActionRotatePrototype extends ConfigurationActionPrototype {
     /** The type of configuration action. */
@@ -8191,7 +8407,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -8204,7 +8420,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -8338,7 +8554,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -8434,7 +8650,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -8442,7 +8658,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: PrivateCertificateVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -8452,7 +8668,7 @@ namespace SecretsManagerV2 {
     alias?: PrivateCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -8542,7 +8758,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -8550,7 +8766,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: PrivateCertificateVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -8560,7 +8776,7 @@ namespace SecretsManagerV2 {
     alias?: PrivateCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -8626,7 +8842,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -8639,7 +8855,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -8666,7 +8882,7 @@ namespace SecretsManagerV2 {
      */
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
-    common_name: string;
+    common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -9350,7 +9566,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -9363,7 +9579,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -9390,7 +9606,7 @@ namespace SecretsManagerV2 {
      */
     alt_names?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
-    common_name: string;
+    common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
      */
@@ -9495,7 +9711,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -9505,7 +9721,7 @@ namespace SecretsManagerV2 {
      */
     labels?: string[];
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
-    common_name: string;
+    common_name?: string;
     /** With the Subject Alternative Name field, you can specify additional hostnames to be protected by a single
      *  SSL certificate.
      */
@@ -9587,7 +9803,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -9595,7 +9811,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: PublicCertificateVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -9605,7 +9821,7 @@ namespace SecretsManagerV2 {
     alias?: PublicCertificateVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -9661,7 +9877,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -9669,7 +9885,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: PublicCertificateVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -9679,7 +9895,7 @@ namespace SecretsManagerV2 {
     alias?: PublicCertificateVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -9745,7 +9961,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -9758,7 +9974,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -9850,7 +10066,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -9863,7 +10079,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -9998,7 +10214,7 @@ namespace SecretsManagerV2 {
      *  username_password, private_cert, public_cert, iam_credentials.
      */
     rotation?: RotationPolicy;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -10050,7 +10266,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -10058,7 +10274,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ServiceCredentialsSecretVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -10068,7 +10284,7 @@ namespace SecretsManagerV2 {
     alias?: ServiceCredentialsSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -10114,7 +10330,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -10122,7 +10338,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: ServiceCredentialsSecretVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -10132,7 +10348,7 @@ namespace SecretsManagerV2 {
     alias?: ServiceCredentialsSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -10194,7 +10410,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -10207,7 +10423,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -10292,7 +10508,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -10305,7 +10521,7 @@ namespace SecretsManagerV2 {
     locks_total?: number;
     /** The human-readable name of your secret. */
     name?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
@@ -10421,7 +10637,7 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id?: string;
     /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
      *
@@ -10481,7 +10697,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -10489,7 +10705,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: UsernamePasswordSecretVersion.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -10499,7 +10715,7 @@ namespace SecretsManagerV2 {
     alias?: UsernamePasswordSecretVersion.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.
@@ -10545,7 +10761,7 @@ namespace SecretsManagerV2 {
      *  call to the service API.
      */
     downloaded?: boolean;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     id: string;
     /** The human-readable name of your secret. */
     secret_name?: string;
@@ -10553,7 +10769,7 @@ namespace SecretsManagerV2 {
      *  service_credentials, kv, and username_password.
      */
     secret_type: UsernamePasswordSecretVersionMetadata.Constants.SecretType | string;
-    /** A v4 UUID identifier, or `default` secret group. */
+    /** A UUID identifier, or `default` secret group. */
     secret_group_id: string;
     /** Indicates whether the secret payload is available in this secret version. */
     payload_available: boolean;
@@ -10563,7 +10779,7 @@ namespace SecretsManagerV2 {
     alias?: UsernamePasswordSecretVersionMetadata.Constants.Alias | string;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
-    /** A v4 UUID identifier. */
+    /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
      *  types: Arbitrary, username_password.

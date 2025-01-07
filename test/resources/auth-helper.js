@@ -29,23 +29,23 @@ let configFileExists;
 // `filename` is the location of the credentials file
 // returns the appropriate "describe" to be used for the tests.
 module.exports.prepareTests = (filename) => {
-  // Save off the name of the config file.
-  configFilename = filename;
+    // Save off the name of the config file.
+    configFilename = filename;
 
-  configFileExists = fs.existsSync(filename);
+    configFileExists = fs.existsSync(filename);
 
-  if (configFileExists) {
-    // set the filepath as an environment variable so that the
-    // service factory can find it.
-    process.env.IBM_CREDENTIALS_FILE = filename;
+    if (configFileExists) {
+        // set the filepath as an environment variable so that the
+        // service factory can find it.
+        process.env.IBM_CREDENTIALS_FILE = filename;
 
-    describeToUse = describe;
-  } else {
-    describeToUse = describe.skip.bind(describe);
-    describeToUse.skip = describeToUse;
-  }
+        describeToUse = describe;
+    } else {
+        describeToUse = describe.skip.bind(describe);
+        describeToUse.skip = describeToUse;
+    }
 
-  return describeToUse;
+    return describeToUse;
 };
 
 module.exports.getDescribe = () => describeToUse;
@@ -53,16 +53,16 @@ module.exports.getDescribe = () => describeToUse;
 // This function will load the contents of "configFilename" and
 // set the properties as environment variables.
 module.exports.loadEnv = () => {
-  if (configFileExists) {
-    dotenv.config({ path: configFilename });
-  }
+    if (configFileExists) {
+        dotenv.config({path: configFilename});
+    }
 };
 
 // This function will load the contents of "configFilename" and return the
 // property/value pairs in an object.
 module.exports.loadConfig = () => {
-  if (configFileExists) {
-    return dotenv.parse(fs.readFileSync(configFilename));
-  }
-  return {};
+    if (configFileExists) {
+        return dotenv.parse(fs.readFileSync(configFilename));
+    }
+    return {};
 };
