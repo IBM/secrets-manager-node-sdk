@@ -3194,12 +3194,6 @@ namespace SecretsManagerV2 {
     ext_key_usage_oids?: string;
     /** This field indicates whether the private key will be rotated. */
     rotate_keys?: boolean;
-    /** The certificate signing request. */
-    csr?: string;
-    /** The PEM-encoded private key that is associated with the certificate. The data must be formatted on a single
-     *  line with embedded newline characters.
-     */
-    private_key?: string;
   }
   export namespace ImportedCertificateManagedCsr {
     export namespace Constants {
@@ -3668,7 +3662,7 @@ namespace SecretsManagerV2 {
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
      */
-    secret_type?: SecretLocks.Constants.SecretType | string;
+    secret_type: SecretLocks.Constants.SecretType | string;
     /** The human-readable name of your secret. */
     secret_name?: string;
     /** A collection of locks that are attached to a secret. */
