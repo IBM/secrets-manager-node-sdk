@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.98.0-8be2046a-20241205-162752
+ * IBM OpenAPI SDK Code Generator Version: 3.99.1-daeb6e46-20250131-173156
  */
 
 /* eslint-disable max-classes-per-file */
@@ -179,6 +179,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -222,6 +223,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -270,6 +272,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -329,6 +332,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -381,6 +385,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
           },
           _params.headers
@@ -436,6 +441,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -534,6 +540,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -585,6 +592,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -633,6 +641,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
           },
           _params.headers
@@ -680,6 +689,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -731,6 +741,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -783,6 +794,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -841,6 +853,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -895,6 +908,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -946,6 +960,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1001,6 +1016,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1054,6 +1070,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
           },
           _params.headers
@@ -1107,6 +1124,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1164,6 +1182,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -1221,6 +1240,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -1297,6 +1317,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1375,6 +1396,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1449,6 +1471,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -1512,6 +1535,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1593,6 +1617,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1670,6 +1695,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -1736,6 +1762,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1796,6 +1823,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -1881,6 +1909,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -1933,6 +1962,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
@@ -1987,6 +2017,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -2039,6 +2070,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'X-Sm-Accept-Configuration-Type': _params.xSmAcceptConfigurationType,
           },
@@ -2102,6 +2134,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -2166,6 +2199,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -2209,6 +2243,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
@@ -2253,6 +2288,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
           },
           _params.headers
@@ -2299,6 +2335,7 @@ class SecretsManagerV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
           },
           _params.headers
@@ -3143,8 +3180,7 @@ namespace SecretsManagerV2 {
     /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the certificate,
      *  in a comma-delimited list.
      *
-     *  The alternative names must The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid
-     *  type is `UTF8`.
+     *  The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid type is `UTF8`.
      */
     other_sans?: string;
     /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
@@ -3171,7 +3207,7 @@ namespace SecretsManagerV2 {
      *
      *  Allowable values for RSA keys are: `2048`, `3072`, `4096` and `8192`. Allowable values for EC keys are: `224`,
      *  `256`, `384`, and `521`. The default for RSA keys is `2048`. The default for EC keys is `256`. Ignored for
-     *  ed25519 key.
+     *  ed25519 keys.
      */
     key_bits?: number;
     /** The allowed key usage constraint to define for certificate, in a comma-delimited list.
@@ -3239,8 +3275,7 @@ namespace SecretsManagerV2 {
     /** The custom Object Identifier (OID) or UTF8-string Subject Alternative Names to define for the certificate,
      *  in a comma-delimited list.
      *
-     *  The alternative names must The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid
-     *  type is `UTF8`.
+     *  The format is the same as OpenSSL: `<oid>:<type>:<value>` where the current valid type is `UTF8`.
      */
     other_sans?: string;
     /** This parameter controls whether the common name is excluded from Subject Alternative Names (SANs).
@@ -3267,7 +3302,7 @@ namespace SecretsManagerV2 {
      *
      *  Allowable values for RSA keys are: `2048`, `3072`, `4096` and `8192`. Allowable values for EC keys are: `224`,
      *  `256`, `384`, and `521`. The default for RSA keys is `2048`. The default for EC keys is `256`. Ignored for
-     *  ed25519 key.
+     *  ed25519 keys.
      */
     key_bits: number;
     /** The allowed key usage constraint to define for certificate, in a comma-delimited list.
