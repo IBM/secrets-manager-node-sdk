@@ -55,7 +55,6 @@ using [IAM authenticators](https://github.com/IBM/ibm-cloud-sdk-common/blob/mast
 authenticators from `@ibm-cloud/secrets-manager/auth`.
 
 ### Examples
-
 #### Programmatic credentials
 
 ```js
