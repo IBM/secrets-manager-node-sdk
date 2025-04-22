@@ -374,17 +374,9 @@ describe('SecretsManagerV2_integration', () => {
   // A test for this operation must be developed manually.
   // test('listSecretTasks()', async () => {});
 
-  test('getSecretTask()', async () => {
-    const params = {
-      secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
-    };
-
-    const res = await secretsManagerService.getSecretTask(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for getSecretTask has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('getSecretTask()', async () => {});
 
   // The integration test for replaceSecretTask has been explicitly excluded from generation.
   // A test for this operation must be developed manually.
@@ -690,17 +682,9 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('deleteSecretTask()', async () => {
-    const params = {
-      secretId: secretIdForGetSecretLink,
-      id: secretIdForGetSecretLink,
-    };
-
-    const res = await secretsManagerService.deleteSecretTask(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(204);
-    expect(res.result).toBeDefined();
-  });
+  // The integration test for deleteSecretTask has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('deleteSecretTask()', async () => {});
 
   test('deleteConfiguration()', async () => {
     const params = {
