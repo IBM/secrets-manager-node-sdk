@@ -21,39 +21,37 @@ const nock = require('nock');
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const {NoAuthAuthenticator} = sdkCorePackage;
+const { NoAuthAuthenticator } = sdkCorePackage;
 const SecretsManagerV2 = require('../../dist/secrets-manager/v2');
 
 const {
-    getOptions,
-    checkUrlAndMethod,
-    checkMediaHeaders,
-    expectToBePromise,
-    checkUserHeader,
-    checkForSuccessfulExecution,
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+  checkUserHeader,
+  checkForSuccessfulExecution,
 } = require('@ibm-cloud/sdk-test-utilities');
 
 const secretsManagerServiceOptions = {
-    authenticator: new NoAuthAuthenticator(),
-    url: 'https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud',
+  authenticator: new NoAuthAuthenticator(),
+  url: 'https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud',
 };
 
 const secretsManagerService = new SecretsManagerV2(secretsManagerServiceOptions);
 
 let createRequestMock = null;
-
 function mock_createRequest() {
-    if (!createRequestMock) {
-        createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
-        createRequestMock.mockImplementation(() => Promise.resolve());
-    }
+  if (!createRequestMock) {
+    createRequestMock = jest.spyOn(secretsManagerService, 'createRequest');
+    createRequestMock.mockImplementation(() => Promise.resolve());
+  }
 }
-
 function unmock_createRequest() {
-    if (createRequestMock) {
-        createRequestMock.mockRestore();
-        createRequestMock = null;
-    }
+  if (createRequestMock) {
+    createRequestMock.mockRestore();
+    createRequestMock = null;
+  }
 }
 
 // dont actually construct an authenticator
@@ -61,3600 +59,3973 @@ const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnv
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('SecretsManagerV2', () => {
-    beforeEach(() => {
-        mock_createRequest();
+  beforeEach(() => {
+    mock_createRequest();
+  });
+
+  afterEach(() => {
+    if (createRequestMock) {
+      createRequestMock.mockClear();
+    }
+    getAuthenticatorMock.mockClear();
+  });
+
+  describe('the newInstance method', () => {
+    test('should use defaults when options not provided', () => {
+      const testInstance = SecretsManagerV2.newInstance();
+
+      expect(getAuthenticatorMock).toHaveBeenCalled();
+      expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
+      expect(testInstance.baseOptions.serviceName).toBe(SecretsManagerV2.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV2.DEFAULT_SERVICE_URL);
+      expect(testInstance).toBeInstanceOf(SecretsManagerV2);
     });
 
-    afterEach(() => {
-        if (createRequestMock) {
-            createRequestMock.mockClear();
+    test('should set serviceName, serviceUrl, and authenticator when provided', () => {
+      const options = {
+        authenticator: new NoAuthAuthenticator(),
+        serviceUrl: 'custom.com',
+        serviceName: 'my-service',
+      };
+
+      const testInstance = SecretsManagerV2.newInstance(options);
+
+      expect(getAuthenticatorMock).not.toHaveBeenCalled();
+      expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
+      expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
+      expect(testInstance.baseOptions.serviceName).toBe('my-service');
+      expect(testInstance).toBeInstanceOf(SecretsManagerV2);
+    });
+  });
+
+  describe('the constructor', () => {
+    test('use user-given service url', () => {
+      const options = {
+        authenticator: new NoAuthAuthenticator(),
+        serviceUrl: 'custom.com',
+      };
+
+      const testInstance = new SecretsManagerV2(options);
+
+      expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
+    });
+
+    test('use default service url', () => {
+      const options = {
+        authenticator: new NoAuthAuthenticator(),
+      };
+
+      const testInstance = new SecretsManagerV2(options);
+
+      expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV2.DEFAULT_SERVICE_URL);
+    });
+  });
+
+  describe('constructServiceUrl', () => {
+    describe('positive tests', () => {
+      test('should use all default variable values if null is passed', () => {
+        const defaultFormattedUrl = 'https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud';
+        const formattedUrl = SecretsManagerV2.constructServiceUrl(null);
+
+        expect(formattedUrl).toStrictEqual(defaultFormattedUrl);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should fail if an invalid variable name is provided', () => {
+        expect(() => {
+          const providedUrlVariables = new Map([['invalid_variable_name', 'value']]);
+          SecretsManagerV2.constructServiceUrl(providedUrlVariables);
+        }).toThrow();
+      });
+    });
+  });
+
+  describe('createSecretGroup', () => {
+    describe('positive tests', () => {
+      function __createSecretGroupTest() {
+        // Construct the params object for operation createSecretGroup
+        const name = 'my-secret-group';
+        const description = 'Extended description for this group.';
+        const createSecretGroupParams = {
+          name,
+          description,
+        };
+
+        const createSecretGroupResult = secretsManagerService.createSecretGroup(createSecretGroupParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createSecretGroupResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.description).toEqual(description);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretGroupTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const name = 'my-secret-group';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretGroupParams = {
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createSecretGroup(createSecretGroupParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretGroup({});
+        } catch (e) {
+          err = e;
         }
-        getAuthenticatorMock.mockClear();
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretGroup();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('listSecretGroups', () => {
+    describe('positive tests', () => {
+      function __listSecretGroupsTest() {
+        // Construct the params object for operation listSecretGroups
+        const listSecretGroupsParams = {};
+
+        const listSecretGroupsResult = secretsManagerService.listSecretGroups(listSecretGroupsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listSecretGroupsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretGroupsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretGroupsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretGroupsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretGroupsParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.listSecretGroups(listSecretGroupsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.listSecretGroups({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
+
+  describe('getSecretGroup', () => {
+    describe('positive tests', () => {
+      function __getSecretGroupTest() {
+        // Construct the params object for operation getSecretGroup
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const getSecretGroupParams = {
+          id,
+        };
+
+        const getSecretGroupResult = secretsManagerService.getSecretGroup(getSecretGroupParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getSecretGroupResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretGroupTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretGroupParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecretGroup(getSecretGroupParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('the newInstance method', () => {
-        test('should use defaults when options not provided', () => {
-            const testInstance = SecretsManagerV2.newInstance();
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretGroup({});
+        } catch (e) {
+          err = e;
+        }
 
-            expect(getAuthenticatorMock).toHaveBeenCalled();
-            expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-            expect(testInstance.baseOptions.serviceName).toBe(SecretsManagerV2.DEFAULT_SERVICE_NAME);
-            expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV2.DEFAULT_SERVICE_URL);
-            expect(testInstance).toBeInstanceOf(SecretsManagerV2);
-        });
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-        test('should set serviceName, serviceUrl, and authenticator when provided', () => {
-            const options = {
-                authenticator: new NoAuthAuthenticator(),
-                serviceUrl: 'custom.com',
-                serviceName: 'my-service',
-            };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretGroup();
+        } catch (e) {
+          err = e;
+        }
 
-            const testInstance = SecretsManagerV2.newInstance(options);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-            expect(getAuthenticatorMock).not.toHaveBeenCalled();
-            expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-            expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
-            expect(testInstance.baseOptions.serviceName).toBe('my-service');
-            expect(testInstance).toBeInstanceOf(SecretsManagerV2);
-        });
+  describe('updateSecretGroup', () => {
+    describe('positive tests', () => {
+      function __updateSecretGroupTest() {
+        // Construct the params object for operation updateSecretGroup
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const name = 'my-secret-group';
+        const description = 'Extended description for this group.';
+        const updateSecretGroupParams = {
+          id,
+          name,
+          description,
+        };
+
+        const updateSecretGroupResult = secretsManagerService.updateSecretGroup(updateSecretGroupParams);
+
+        // all methods should return a Promise
+        expectToBePromise(updateSecretGroupResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.description).toEqual(description);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretGroupTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateSecretGroupParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.updateSecretGroup(updateSecretGroupParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('the constructor', () => {
-        test('use user-given service url', () => {
-            const options = {
-                authenticator: new NoAuthAuthenticator(),
-                serviceUrl: 'custom.com',
-            };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretGroup({});
+        } catch (e) {
+          err = e;
+        }
 
-            const testInstance = new SecretsManagerV2(options);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
-        });
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretGroup();
+        } catch (e) {
+          err = e;
+        }
 
-        test('use default service url', () => {
-            const options = {
-                authenticator: new NoAuthAuthenticator(),
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-            const testInstance = new SecretsManagerV2(options);
+  describe('deleteSecretGroup', () => {
+    describe('positive tests', () => {
+      function __deleteSecretGroupTest() {
+        // Construct the params object for operation deleteSecretGroup
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const deleteSecretGroupParams = {
+          id,
+        };
 
-            expect(testInstance.baseOptions.serviceUrl).toBe(SecretsManagerV2.DEFAULT_SERVICE_URL);
-        });
+        const deleteSecretGroupResult = secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretGroupResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretGroupTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretGroupTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretGroupTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretGroupParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('constructServiceUrl', () => {
-        describe('positive tests', () => {
-            test('should use all default variable values if null is passed', () => {
-                const defaultFormattedUrl = 'https://provide-here-your-smgr-instanceuuid.us-south.secrets-manager.appdomain.cloud';
-                const formattedUrl = SecretsManagerV2.constructServiceUrl(null);
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretGroup({});
+        } catch (e) {
+          err = e;
+        }
 
-                expect(formattedUrl).toStrictEqual(defaultFormattedUrl);
-            });
-        });
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-        describe('negative tests', () => {
-            test('should fail if an invalid variable name is provided', () => {
-                expect(() => {
-                    const providedUrlVariables = new Map([['invalid_variable_name', 'value']]);
-                    SecretsManagerV2.constructServiceUrl(providedUrlVariables);
-                }).toThrow();
-            });
-        });
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretGroup();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('createSecret', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ArbitrarySecretPrototype
+      const secretPrototypeModel = {
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+        description: 'Description of my arbitrary secret.',
+        expiration_date: '2030-10-05T11:49:42Z',
+        labels: ['dev', 'us-south'],
+        name: 'example-arbitrary-secret',
+        secret_group_id: 'default',
+        secret_type: 'arbitrary',
+        payload: 'secret-data',
+        version_custom_metadata: { custom_version_key: 'custom_version_value' },
+      };
+
+      function __createSecretTest() {
+        // Construct the params object for operation createSecret
+        const secretPrototype = secretPrototypeModel;
+        const createSecretParams = {
+          secretPrototype,
+        };
+
+        const createSecretResult = secretsManagerService.createSecret(createSecretParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createSecretResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(secretPrototype);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretPrototype = secretPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretParams = {
+          secretPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createSecret(createSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createSecretGroup', () => {
-        describe('positive tests', () => {
-            function __createSecretGroupTest() {
-                // Construct the params object for operation createSecretGroup
-                const name = 'my-secret-group';
-                const description = 'Extended description for this group.';
-                const createSecretGroupParams = {
-                    name,
-                    description,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecret({});
+        } catch (e) {
+          err = e;
+        }
 
-                const createSecretGroupResult = secretsManagerService.createSecretGroup(createSecretGroupParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretGroupResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecret();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listSecrets', () => {
+    describe('positive tests', () => {
+      function __listSecretsTest() {
+        // Construct the params object for operation listSecrets
+        const offset = 0;
+        const limit = 200;
+        const sort = 'created_at';
+        const search = 'example';
+        const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
+        const secretTypes = ['arbitrary', 'kv'];
+        const matchAllLabels = ['dev', 'us-south'];
+        const listSecretsParams = {
+          offset,
+          limit,
+          sort,
+          search,
+          groups,
+          secretTypes,
+          matchAllLabels,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.name).toEqual(name);
-                expect(mockRequestOptions.body.description).toEqual(description);
-            }
+        const listSecretsResult = secretsManagerService.listSecrets(listSecretsParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretGroupTest();
+        // all methods should return a Promise
+        expectToBePromise(listSecretsResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretGroupTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretGroupTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const name = 'my-secret-group';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretGroupParams = {
-                    name,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.sort).toEqual(sort);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.groups).toEqual(groups);
+        expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
+        expect(mockRequestOptions.qs.match_all_labels).toEqual(matchAllLabels);
+      }
 
-                secretsManagerService.createSecretGroup(createSecretGroupParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretsTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretGroup({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretsTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretsTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretGroup();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretsParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecrets(listSecretsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.listSecrets({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
     });
 
-    describe('listSecretGroups', () => {
-        describe('positive tests', () => {
-            function __listSecretGroupsTest() {
-                // Construct the params object for operation listSecretGroups
-                const listSecretGroupsParams = {};
+    describe('SecretsPager tests', () => {
+      const serviceUrl = secretsManagerServiceOptions.url;
+      const path = '/api/v2/secrets';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
 
-                const listSecretGroupsResult = secretsManagerService.listSecretGroups(listSecretGroupsParams);
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretGroupsResult);
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      test('getNext()', async () => {
+        const params = {
+          limit: 10,
+          sort: 'created_at',
+          search: 'example',
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+          secretTypes: ['arbitrary', 'kv'],
+          matchAllLabels: ['dev', 'us-south'],
+        };
+        const allResults = [];
+        const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      test('getAll()', async () => {
+        const params = {
+          limit: 10,
+          sort: 'created_at',
+          search: 'example',
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+          secretTypes: ['arbitrary', 'kv'],
+          matchAllLabels: ['dev', 'us-south'],
+        };
+        const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-            }
+  describe('getSecret', () => {
+    describe('positive tests', () => {
+      function __getSecretTest() {
+        // Construct the params object for operation getSecret
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const getSecretParams = {
+          id,
+        };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretGroupsTest();
+        const getSecretResult = secretsManagerService.getSecret(getSecretParams);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretGroupsTest();
+        // all methods should return a Promise
+        expectToBePromise(getSecretResult);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretGroupsTest();
-            });
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretGroupsParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                secretsManagerService.listSecretGroups(listSecretGroupsParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.listSecretGroups({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getSecret(getSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecretGroup', () => {
-        describe('positive tests', () => {
-            function __getSecretGroupTest() {
-                // Construct the params object for operation getSecretGroup
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const getSecretGroupParams = {
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecret({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretGroupResult = secretsManagerService.getSecretGroup(getSecretGroupParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretGroupResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecret();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('deleteSecret', () => {
+    describe('positive tests', () => {
+      function __deleteSecretTest() {
+        // Construct the params object for operation deleteSecret
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const forceDelete = false;
+        const deleteSecretParams = {
+          id,
+          forceDelete,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const deleteSecretResult = secretsManagerService.deleteSecret(deleteSecretParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretGroupTest();
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretGroupTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretGroupTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretGroupParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.force_delete).toEqual(forceDelete);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.getSecretGroup(getSecretGroupParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretGroup({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretGroup();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteSecret(deleteSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('updateSecretGroup', () => {
-        describe('positive tests', () => {
-            function __updateSecretGroupTest() {
-                // Construct the params object for operation updateSecretGroup
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const name = 'my-secret-group';
-                const description = 'Extended description for this group.';
-                const updateSecretGroupParams = {
-                    id,
-                    name,
-                    description,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecret({});
+        } catch (e) {
+          err = e;
+        }
 
-                const updateSecretGroupResult = secretsManagerService.updateSecretGroup(updateSecretGroupParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(updateSecretGroupResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecret();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('getSecretMetadata', () => {
+    describe('positive tests', () => {
+      function __getSecretMetadataTest() {
+        // Construct the params object for operation getSecretMetadata
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const getSecretMetadataParams = {
+          id,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'PATCH');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/merge-patch+json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.name).toEqual(name);
-                expect(mockRequestOptions.body.description).toEqual(description);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const getSecretMetadataResult = secretsManagerService.getSecretMetadata(getSecretMetadataParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __updateSecretGroupTest();
+        // all methods should return a Promise
+        expectToBePromise(getSecretMetadataResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __updateSecretGroupTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __updateSecretGroupTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const updateSecretGroupParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/metadata', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.updateSecretGroup(updateSecretGroupParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretMetadataTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretGroup({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretMetadataTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretMetadataTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretGroup();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretMetadataParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.getSecretMetadata(getSecretMetadataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteSecretGroup', () => {
-        describe('positive tests', () => {
-            function __deleteSecretGroupTest() {
-                // Construct the params object for operation deleteSecretGroup
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const deleteSecretGroupParams = {
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretMetadata({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteSecretGroupResult = secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteSecretGroupResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretMetadata();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('updateSecretMetadata', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{id}', 'DELETE');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+      // ArbitrarySecretMetadataPatch
+      const secretMetadataPatchModel = {
+        name: 'updated-arbitrary-secret-name-example',
+        description: 'updated Arbitrary Secret description',
+        labels: ['dev', 'us-south'],
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+        expiration_date: '2033-04-12T23:20:50.520Z',
+      };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteSecretGroupTest();
+      function __updateSecretMetadataTest() {
+        // Construct the params object for operation updateSecretMetadata
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretMetadataPatch = secretMetadataPatchModel;
+        const updateSecretMetadataParams = {
+          id,
+          secretMetadataPatch,
+        };
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteSecretGroupTest();
+        const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(updateSecretMetadataParams);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteSecretGroupTest();
-            });
+        // all methods should return a Promise
+        expectToBePromise(updateSecretMetadataResult);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = 'd898bb90-82f6-4d61-b5cc-b079b66cfa76';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteSecretGroupParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                secretsManagerService.deleteSecretGroup(deleteSecretGroupParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretGroup({});
-                } catch (e) {
-                    err = e;
-                }
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/metadata', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(secretMetadataPatch);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretMetadataTest();
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretGroup();
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretMetadataTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretMetadataTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretMetadataPatch = secretMetadataPatchModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateSecretMetadataParams = {
+          id,
+          secretMetadataPatch,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.updateSecretMetadata(updateSecretMetadataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createSecret', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretMetadata({});
+        } catch (e) {
+          err = e;
+        }
 
-            // ArbitrarySecretPrototype
-            const secretPrototypeModel = {
-                custom_metadata: {metadata_custom_key: 'metadata_custom_value'},
-                description: 'Description of my arbitrary secret.',
-                expiration_date: '2030-10-05T11:49:42Z',
-                labels: ['dev', 'us-south'],
-                name: 'example-arbitrary-secret',
-                secret_group_id: 'default',
-                secret_type: 'arbitrary',
-                payload: 'secret-data',
-                version_custom_metadata: {custom_version_key: 'custom_version_value'},
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createSecretTest() {
-                // Construct the params object for operation createSecret
-                const secretPrototype = secretPrototypeModel;
-                const createSecretParams = {
-                    secretPrototype,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretMetadata();
+        } catch (e) {
+          err = e;
+        }
 
-                const createSecretResult = secretsManagerService.createSecret(createSecretParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretResult);
+  describe('createSecretAction', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      // PrivateCertificateActionRevokePrototype
+      const secretActionPrototypeModel = {
+        action_type: 'private_cert_action_revoke_certificate',
+      };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      function __createSecretActionTest() {
+        // Construct the params object for operation createSecretAction
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretActionPrototype = secretActionPrototypeModel;
+        const createSecretActionParams = {
+          id,
+          secretActionPrototype,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(secretPrototype);
-            }
+        const createSecretActionResult = secretsManagerService.createSecretAction(createSecretActionParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretTest();
+        // all methods should return a Promise
+        expectToBePromise(createSecretActionResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretPrototype = secretPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretParams = {
-                    secretPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/actions', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(secretActionPrototype);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.createSecret(createSecretParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretActionTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecret({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretActionTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretActionTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecret();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretActionPrototype = secretActionPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretActionParams = {
+          id,
+          secretActionPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.createSecretAction(createSecretActionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('listSecrets', () => {
-        describe('positive tests', () => {
-            function __listSecretsTest() {
-                // Construct the params object for operation listSecrets
-                const offset = 0;
-                const limit = 200;
-                const sort = 'created_at';
-                const search = 'example';
-                const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
-                const secretTypes = ['arbitrary', 'kv'];
-                const matchAllLabels = ['dev', 'us-south'];
-                const listSecretsParams = {
-                    offset,
-                    limit,
-                    sort,
-                    search,
-                    groups,
-                    secretTypes,
-                    matchAllLabels,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretAction({});
+        } catch (e) {
+          err = e;
+        }
 
-                const listSecretsResult = secretsManagerService.listSecrets(listSecretsParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretsResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretAction();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('getSecretByNameType', () => {
+    describe('positive tests', () => {
+      function __getSecretByNameTypeTest() {
+        // Construct the params object for operation getSecretByNameType
+        const secretType = 'arbitrary';
+        const name = 'my-secret';
+        const secretGroupName = 'default';
+        const getSecretByNameTypeParams = {
+          secretType,
+          name,
+          secretGroupName,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.offset).toEqual(offset);
-                expect(mockRequestOptions.qs.limit).toEqual(limit);
-                expect(mockRequestOptions.qs.sort).toEqual(sort);
-                expect(mockRequestOptions.qs.search).toEqual(search);
-                expect(mockRequestOptions.qs.groups).toEqual(groups);
-                expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
-                expect(mockRequestOptions.qs.match_all_labels).toEqual(matchAllLabels);
-            }
+        const getSecretByNameTypeResult = secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretsTest();
+        // all methods should return a Promise
+        expectToBePromise(getSecretByNameTypeResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretsTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretsTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretsParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_type).toEqual(secretType);
+        expect(mockRequestOptions.path.name).toEqual(name);
+        expect(mockRequestOptions.path.secret_group_name).toEqual(secretGroupName);
+      }
 
-                secretsManagerService.listSecrets(listSecretsParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretByNameTypeTest();
 
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.listSecrets({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretByNameTypeTest();
 
-        describe('SecretsPager tests', () => {
-            const serviceUrl = secretsManagerServiceOptions.url;
-            const path = '/api/v2/secrets';
-            const mockPagerResponse1 =
-                '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
-            const mockPagerResponse2 =
-                '{"total_count":2,"limit":1,"secrets":[{"created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","crn":"crn","custom_metadata":{"anyKey":"anyValue"},"description":"Extended description for this secret.","downloaded":true,"id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","labels":["my-label"],"locks_total":0,"name":"my-secret","secret_group_id":"default","secret_type":"arbitrary","state":0,"state_description":"active","updated_at":"2022-04-12T23:20:50.520Z","versions_total":0,"referenced_by":["my-example-engine-config"],"expiration_date":"2033-04-12T23:20:50.520Z"}]}';
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretByNameTypeTest();
+      });
 
-            beforeEach(() => {
-                unmock_createRequest();
-                const scope = nock(serviceUrl)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse1)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse2);
-            });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretType = 'arbitrary';
+        const name = 'my-secret';
+        const secretGroupName = 'default';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretByNameTypeParams = {
+          secretType,
+          name,
+          secretGroupName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-            afterEach(() => {
-                nock.cleanAll();
-                mock_createRequest();
-            });
-
-            test('getNext()', async () => {
-                const params = {
-                    limit: 10,
-                    sort: 'created_at',
-                    search: 'example',
-                    groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-                    secretTypes: ['arbitrary', 'kv'],
-                    matchAllLabels: ['dev', 'us-south'],
-                };
-                const allResults = [];
-                const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
-                while (pager.hasNext()) {
-                    const nextPage = await pager.getNext();
-                    expect(nextPage).not.toBeNull();
-                    allResults.push(...nextPage);
-                }
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-
-            test('getAll()', async () => {
-                const params = {
-                    limit: 10,
-                    sort: 'created_at',
-                    search: 'example',
-                    groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-                    secretTypes: ['arbitrary', 'kv'],
-                    matchAllLabels: ['dev', 'us-south'],
-                };
-                const pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
-                const allResults = await pager.getAll();
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-        });
+        secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecret', () => {
-        describe('positive tests', () => {
-            function __getSecretTest() {
-                // Construct the params object for operation getSecret
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const getSecretParams = {
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretByNameType({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretResult = secretsManagerService.getSecret(getSecretParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretByNameType();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('createSecretVersion', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+      // ArbitrarySecretVersionPrototype
+      const secretVersionPrototypeModel = {
+        payload: 'updated secret credentials',
+        custom_metadata: { metadata_custom_key: 'metadata_custom_value' },
+        version_custom_metadata: { custom_version_key: 'custom_version_value' },
+      };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretTest();
+      function __createSecretVersionTest() {
+        // Construct the params object for operation createSecretVersion
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretVersionPrototype = secretVersionPrototypeModel;
+        const createSecretVersionParams = {
+          secretId,
+          secretVersionPrototype,
+        };
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretTest();
+        const createSecretVersionResult = secretsManagerService.createSecretVersion(createSecretVersionParams);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretTest();
-            });
+        // all methods should return a Promise
+        expectToBePromise(createSecretVersionResult);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                secretsManagerService.getSecret(getSecretParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecret({});
-                } catch (e) {
-                    err = e;
-                }
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(secretVersionPrototype);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+      }
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretVersionTest();
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecret();
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretVersionTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretVersionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const secretVersionPrototype = secretVersionPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretVersionParams = {
+          secretId,
+          secretVersionPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createSecretVersion(createSecretVersionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteSecret', () => {
-        describe('positive tests', () => {
-            function __deleteSecretTest() {
-                // Construct the params object for operation deleteSecret
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const deleteSecretParams = {
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteSecretResult = secretsManagerService.deleteSecret(deleteSecretParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteSecretResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersion();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listSecretVersions', () => {
+    describe('positive tests', () => {
+      function __listSecretVersionsTest() {
+        // Construct the params object for operation listSecretVersions
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const listSecretVersionsParams = {
+          secretId,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}', 'DELETE');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const listSecretVersionsResult = secretsManagerService.listSecretVersions(listSecretVersionsParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteSecretTest();
+        // all methods should return a Promise
+        expectToBePromise(listSecretVersionsResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteSecretTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteSecretTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteSecretParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+      }
 
-                secretsManagerService.deleteSecret(deleteSecretParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretVersionsTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecret({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretVersionsTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretVersionsTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecret();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretVersionsParams = {
+          secretId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecretVersions(listSecretVersionsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecretMetadata', () => {
-        describe('positive tests', () => {
-            function __getSecretMetadataTest() {
-                // Construct the params object for operation getSecretMetadata
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const getSecretMetadataParams = {
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretVersions({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretMetadataResult = secretsManagerService.getSecretMetadata(getSecretMetadataParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretMetadataResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretVersions();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('getSecretVersion', () => {
+    describe('positive tests', () => {
+      function __getSecretVersionTest() {
+        // Construct the params object for operation getSecretVersion
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const getSecretVersionParams = {
+          secretId,
+          id,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/metadata', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const getSecretVersionResult = secretsManagerService.getSecretVersion(getSecretVersionParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretMetadataTest();
+        // all methods should return a Promise
+        expectToBePromise(getSecretVersionResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretMetadataTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretMetadataTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretMetadataParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.getSecretMetadata(getSecretMetadataParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretVersionTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretMetadata({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretVersionTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretVersionTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretMetadata();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretVersionParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.getSecretVersion(getSecretVersionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('updateSecretMetadata', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersion({});
+        } catch (e) {
+          err = e;
+        }
 
-            // ArbitrarySecretMetadataPatch
-            const secretMetadataPatchModel = {
-                name: 'updated-arbitrary-secret-name-example',
-                description: 'updated Arbitrary Secret description',
-                labels: ['dev', 'us-south'],
-                custom_metadata: {metadata_custom_key: 'metadata_custom_value'},
-                expiration_date: '2033-04-12T23:20:50.520Z',
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __updateSecretMetadataTest() {
-                // Construct the params object for operation updateSecretMetadata
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretMetadataPatch = secretMetadataPatchModel;
-                const updateSecretMetadataParams = {
-                    id,
-                    secretMetadataPatch,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersion();
+        } catch (e) {
+          err = e;
+        }
 
-                const updateSecretMetadataResult = secretsManagerService.updateSecretMetadata(updateSecretMetadataParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(updateSecretMetadataResult);
+  describe('deleteSecretVersionData', () => {
+    describe('positive tests', () => {
+      function __deleteSecretVersionDataTest() {
+        // Construct the params object for operation deleteSecretVersionData
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const deleteSecretVersionDataParams = {
+          secretId,
+          id,
+        };
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        const deleteSecretVersionDataResult = secretsManagerService.deleteSecretVersionData(deleteSecretVersionDataParams);
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretVersionDataResult);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/metadata', 'PATCH');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/merge-patch+json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(secretMetadataPatch);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __updateSecretMetadataTest();
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __updateSecretMetadataTest();
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/secret_data', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __updateSecretMetadataTest();
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretVersionDataTest();
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretMetadataPatch = secretMetadataPatchModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const updateSecretMetadataParams = {
-                    id,
-                    secretMetadataPatch,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretVersionDataTest();
 
-                secretsManagerService.updateSecretMetadata(updateSecretMetadataParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretVersionDataTest();
+      });
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretMetadata({});
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretVersionDataParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretMetadata();
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteSecretVersionData(deleteSecretVersionDataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createSecretAction', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretVersionData({});
+        } catch (e) {
+          err = e;
+        }
 
-            // PrivateCertificateActionRevokePrototype
-            const secretActionPrototypeModel = {
-                action_type: 'private_cert_action_revoke_certificate',
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createSecretActionTest() {
-                // Construct the params object for operation createSecretAction
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretActionPrototype = secretActionPrototypeModel;
-                const createSecretActionParams = {
-                    id,
-                    secretActionPrototype,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretVersionData();
+        } catch (e) {
+          err = e;
+        }
 
-                const createSecretActionResult = secretsManagerService.createSecretAction(createSecretActionParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretActionResult);
+  describe('getSecretVersionMetadata', () => {
+    describe('positive tests', () => {
+      function __getSecretVersionMetadataTest() {
+        // Construct the params object for operation getSecretVersionMetadata
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const getSecretVersionMetadataParams = {
+          secretId,
+          id,
+        };
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        const getSecretVersionMetadataResult = secretsManagerService.getSecretVersionMetadata(getSecretVersionMetadataParams);
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        // all methods should return a Promise
+        expectToBePromise(getSecretVersionMetadataResult);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/actions', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(secretActionPrototype);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretActionTest();
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretActionTest();
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/metadata', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretActionTest();
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretVersionMetadataTest();
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretActionPrototype = secretActionPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretActionParams = {
-                    id,
-                    secretActionPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretVersionMetadataTest();
 
-                secretsManagerService.createSecretAction(createSecretActionParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretVersionMetadataTest();
+      });
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretAction({});
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretVersionMetadataParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretAction();
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.getSecretVersionMetadata(getSecretVersionMetadataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecretByNameType', () => {
-        describe('positive tests', () => {
-            function __getSecretByNameTypeTest() {
-                // Construct the params object for operation getSecretByNameType
-                const secretType = 'arbitrary';
-                const name = 'my-secret';
-                const secretGroupName = 'default';
-                const getSecretByNameTypeParams = {
-                    secretType,
-                    name,
-                    secretGroupName,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersionMetadata({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretByNameTypeResult = secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretByNameTypeResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretVersionMetadata();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('updateSecretVersionMetadata', () => {
+    describe('positive tests', () => {
+      function __updateSecretVersionMetadataTest() {
+        // Construct the params object for operation updateSecretVersionMetadata
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const versionCustomMetadata = { key: 'value' };
+        const updateSecretVersionMetadataParams = {
+          secretId,
+          id,
+          versionCustomMetadata,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secret_groups/{secret_group_name}/secret_types/{secret_type}/secrets/{name}', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.secret_type).toEqual(secretType);
-                expect(mockRequestOptions.path.name).toEqual(name);
-                expect(mockRequestOptions.path.secret_group_name).toEqual(secretGroupName);
-            }
+        const updateSecretVersionMetadataResult = secretsManagerService.updateSecretVersionMetadata(updateSecretVersionMetadataParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretByNameTypeTest();
+        // all methods should return a Promise
+        expectToBePromise(updateSecretVersionMetadataResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretByNameTypeTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretByNameTypeTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretType = 'arbitrary';
-                const name = 'my-secret';
-                const secretGroupName = 'default';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretByNameTypeParams = {
-                    secretType,
-                    name,
-                    secretGroupName,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/metadata', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.version_custom_metadata).toEqual(versionCustomMetadata);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.getSecretByNameType(getSecretByNameTypeParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateSecretVersionMetadataTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretByNameType({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateSecretVersionMetadataTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateSecretVersionMetadataTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretByNameType();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateSecretVersionMetadataParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.updateSecretVersionMetadata(updateSecretVersionMetadataParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createSecretVersion', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersionMetadata({});
+        } catch (e) {
+          err = e;
+        }
 
-            // ArbitrarySecretVersionPrototype
-            const secretVersionPrototypeModel = {
-                payload: 'updated secret credentials',
-                custom_metadata: {metadata_custom_key: 'metadata_custom_value'},
-                version_custom_metadata: {custom_version_key: 'custom_version_value'},
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createSecretVersionTest() {
-                // Construct the params object for operation createSecretVersion
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretVersionPrototype = secretVersionPrototypeModel;
-                const createSecretVersionParams = {
-                    secretId,
-                    secretVersionPrototype,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateSecretVersionMetadata();
+        } catch (e) {
+          err = e;
+        }
 
-                const createSecretVersionResult = secretsManagerService.createSecretVersion(createSecretVersionParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretVersionResult);
+  describe('createSecretVersionAction', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      // PrivateCertificateVersionActionRevokePrototype
+      const secretVersionActionPrototypeModel = {
+        action_type: 'private_cert_action_revoke_certificate',
+      };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      function __createSecretVersionActionTest() {
+        // Construct the params object for operation createSecretVersionAction
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const secretVersionActionPrototype = secretVersionActionPrototypeModel;
+        const createSecretVersionActionParams = {
+          secretId,
+          id,
+          secretVersionActionPrototype,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(secretVersionPrototype);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-            }
+        const createSecretVersionActionResult = secretsManagerService.createSecretVersionAction(createSecretVersionActionParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretVersionTest();
+        // all methods should return a Promise
+        expectToBePromise(createSecretVersionActionResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretVersionTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretVersionTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const secretVersionPrototype = secretVersionPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretVersionParams = {
-                    secretId,
-                    secretVersionPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/actions', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(secretVersionActionPrototype);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.createSecretVersion(createSecretVersionParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretVersionActionTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersion({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretVersionActionTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretVersionActionTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersion();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const secretVersionActionPrototype = secretVersionActionPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretVersionActionParams = {
+          secretId,
+          id,
+          secretVersionActionPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.createSecretVersionAction(createSecretVersionActionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('listSecretVersions', () => {
-        describe('positive tests', () => {
-            function __listSecretVersionsTest() {
-                // Construct the params object for operation listSecretVersions
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const listSecretVersionsParams = {
-                    secretId,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersionAction({});
+        } catch (e) {
+          err = e;
+        }
 
-                const listSecretVersionsResult = secretsManagerService.listSecretVersions(listSecretVersionsParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretVersionsResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersionAction();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listSecretTasks', () => {
+    describe('positive tests', () => {
+      function __listSecretTasksTest() {
+        // Construct the params object for operation listSecretTasks
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const listSecretTasksParams = {
+          secretId,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-            }
+        const listSecretTasksResult = secretsManagerService.listSecretTasks(listSecretTasksParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretVersionsTest();
+        // all methods should return a Promise
+        expectToBePromise(listSecretTasksResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretVersionsTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretVersionsTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretVersionsParams = {
-                    secretId,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/tasks', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+      }
 
-                secretsManagerService.listSecretVersions(listSecretVersionsParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretTasksTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretVersions({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretTasksTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretTasksTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretVersions();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretTasksParams = {
+          secretId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecretTasks(listSecretTasksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecretVersion', () => {
-        describe('positive tests', () => {
-            function __getSecretVersionTest() {
-                // Construct the params object for operation getSecretVersion
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const getSecretVersionParams = {
-                    secretId,
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretTasks({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretVersionResult = secretsManagerService.getSecretVersion(getSecretVersionParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretVersionResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretTasks();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('getSecretTask', () => {
+    describe('positive tests', () => {
+      function __getSecretTaskTest() {
+        // Construct the params object for operation getSecretTask
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const getSecretTaskParams = {
+          secretId,
+          id,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const getSecretTaskResult = secretsManagerService.getSecretTask(getSecretTaskParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretVersionTest();
+        // all methods should return a Promise
+        expectToBePromise(getSecretTaskResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretVersionTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretVersionTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretVersionParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/tasks/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.getSecretVersion(getSecretVersionParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSecretTaskTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretVersion({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getSecretTaskTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getSecretTaskTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretVersion();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSecretTaskParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.getSecretTask(getSecretTaskParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteSecretVersionData', () => {
-        describe('positive tests', () => {
-            function __deleteSecretVersionDataTest() {
-                // Construct the params object for operation deleteSecretVersionData
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const deleteSecretVersionDataParams = {
-                    secretId,
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretTask({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteSecretVersionDataResult = secretsManagerService.deleteSecretVersionData(deleteSecretVersionDataParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteSecretVersionDataResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getSecretTask();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('replaceSecretTask', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/secret_data', 'DELETE');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+      // CustomCredentialsNewCredentials
+      const customCredentialsNewCredentialsModel = {
+        id: 'b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5',
+        payload: { token: 'xF9v7OztItL5DOnFgHfS9NCT1sLTUew8KYZcZfxI' },
+      };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteSecretVersionDataTest();
+      // SecretTaskPrototypeUpdateSecretTaskCredentialsCreated
+      const secretTaskPrototypeModel = {
+        status: 'credentials_created',
+        credentials: customCredentialsNewCredentialsModel,
+      };
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteSecretVersionDataTest();
+      function __replaceSecretTaskTest() {
+        // Construct the params object for operation replaceSecretTask
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const taskPut = secretTaskPrototypeModel;
+        const replaceSecretTaskParams = {
+          secretId,
+          id,
+          taskPut,
+        };
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteSecretVersionDataTest();
-            });
+        const replaceSecretTaskResult = secretsManagerService.replaceSecretTask(replaceSecretTaskParams);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteSecretVersionDataParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // all methods should return a Promise
+        expectToBePromise(replaceSecretTaskResult);
 
-                secretsManagerService.deleteSecretVersionData(deleteSecretVersionDataParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretVersionData({});
-                } catch (e) {
-                    err = e;
-                }
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/tasks/{id}', 'PUT');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(taskPut);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretVersionData();
-                } catch (e) {
-                    err = e;
-                }
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __replaceSecretTaskTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __replaceSecretTaskTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __replaceSecretTaskTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const taskPut = secretTaskPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const replaceSecretTaskParams = {
+          secretId,
+          id,
+          taskPut,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.replaceSecretTask(replaceSecretTaskParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getSecretVersionMetadata', () => {
-        describe('positive tests', () => {
-            function __getSecretVersionMetadataTest() {
-                // Construct the params object for operation getSecretVersionMetadata
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const getSecretVersionMetadataParams = {
-                    secretId,
-                    id,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.replaceSecretTask({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getSecretVersionMetadataResult = secretsManagerService.getSecretVersionMetadata(getSecretVersionMetadataParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getSecretVersionMetadataResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.replaceSecretTask();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('deleteSecretTask', () => {
+    describe('positive tests', () => {
+      function __deleteSecretTaskTest() {
+        // Construct the params object for operation deleteSecretTask
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const deleteSecretTaskParams = {
+          secretId,
+          id,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/metadata', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const deleteSecretTaskResult = secretsManagerService.deleteSecretTask(deleteSecretTaskParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getSecretVersionMetadataTest();
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretTaskResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getSecretVersionMetadataTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getSecretVersionMetadataTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getSecretVersionMetadataParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/tasks/{id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.getSecretVersionMetadata(getSecretVersionMetadataParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretTaskTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretVersionMetadata({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretTaskTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretTaskTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getSecretVersionMetadata();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'sm-task-a436bebd-dbbd-5c0d-ab35-1232f1234f95';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretTaskParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteSecretTask(deleteSecretTaskParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('updateSecretVersionMetadata', () => {
-        describe('positive tests', () => {
-            function __updateSecretVersionMetadataTest() {
-                // Construct the params object for operation updateSecretVersionMetadata
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const versionCustomMetadata = {key: 'value'};
-                const updateSecretVersionMetadataParams = {
-                    secretId,
-                    id,
-                    versionCustomMetadata,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretTask({});
+        } catch (e) {
+          err = e;
+        }
 
-                const updateSecretVersionMetadataResult = secretsManagerService.updateSecretVersionMetadata(updateSecretVersionMetadataParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(updateSecretVersionMetadataResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretTask();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listSecretsLocks', () => {
+    describe('positive tests', () => {
+      function __listSecretsLocksTest() {
+        // Construct the params object for operation listSecretsLocks
+        const offset = 0;
+        const limit = 200;
+        const search = 'example';
+        const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
+        const listSecretsLocksParams = {
+          offset,
+          limit,
+          search,
+          groups,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/metadata', 'PATCH');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/merge-patch+json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.version_custom_metadata).toEqual(versionCustomMetadata);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const listSecretsLocksResult = secretsManagerService.listSecretsLocks(listSecretsLocksParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __updateSecretVersionMetadataTest();
+        // all methods should return a Promise
+        expectToBePromise(listSecretsLocksResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __updateSecretVersionMetadataTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __updateSecretVersionMetadataTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const updateSecretVersionMetadataParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets_locks', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.groups).toEqual(groups);
+      }
 
-                secretsManagerService.updateSecretVersionMetadata(updateSecretVersionMetadataParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretsLocksTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretVersionMetadata({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretsLocksTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretsLocksTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateSecretVersionMetadata();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretsLocksParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecretsLocks(listSecretsLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.listSecretsLocks({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
     });
 
-    describe('createSecretVersionAction', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('SecretsLocksPager tests', () => {
+      const serviceUrl = secretsManagerServiceOptions.url;
+      const path = '/api/v2/secrets_locks';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"secrets_locks":[{"secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_group_id":"default","secret_type":"arbitrary","secret_name":"my-secret","versions":[{"version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","version_alias":"current","locks":["lock-example"],"payload_available":false}]}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"secrets_locks":[{"secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_group_id":"default","secret_type":"arbitrary","secret_name":"my-secret","versions":[{"version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","version_alias":"current","locks":["lock-example"],"payload_available":false}]}],"total_count":2,"limit":1}';
 
-            // PrivateCertificateVersionActionRevokePrototype
-            const secretVersionActionPrototypeModel = {
-                action_type: 'private_cert_action_revoke_certificate',
-            };
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
 
-            function __createSecretVersionActionTest() {
-                // Construct the params object for operation createSecretVersionAction
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const secretVersionActionPrototype = secretVersionActionPrototypeModel;
-                const createSecretVersionActionParams = {
-                    secretId,
-                    id,
-                    secretVersionActionPrototype,
-                };
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
 
-                const createSecretVersionActionResult = secretsManagerService.createSecretVersionAction(createSecretVersionActionParams);
+      test('getNext()', async () => {
+        const params = {
+          limit: 10,
+          search: 'example',
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+        };
+        const allResults = [];
+        const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretVersionActionResult);
+      test('getAll()', async () => {
+        const params = {
+          limit: 10,
+          search: 'example',
+          groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+        };
+        const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+  describe('listSecretLocks', () => {
+    describe('positive tests', () => {
+      function __listSecretLocksTest() {
+        // Construct the params object for operation listSecretLocks
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const offset = 0;
+        const limit = 25;
+        const sort = 'name';
+        const search = 'example';
+        const listSecretLocksParams = {
+          id,
+          offset,
+          limit,
+          sort,
+          search,
+        };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        const listSecretLocksResult = secretsManagerService.listSecretLocks(listSecretLocksParams);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/actions', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(secretVersionActionPrototype);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        // all methods should return a Promise
+        expectToBePromise(listSecretLocksResult);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretVersionActionTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretVersionActionTest();
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretVersionActionTest();
-            });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.sort).toEqual(sort);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const secretVersionActionPrototype = secretVersionActionPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretVersionActionParams = {
-                    secretId,
-                    id,
-                    secretVersionActionPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretLocksTest();
 
-                secretsManagerService.createSecretVersionAction(createSecretVersionActionParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretLocksTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersionAction({});
-                } catch (e) {
-                    err = e;
-                }
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretLocksTest();
+      });
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretLocksParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersionAction();
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecretLocks(listSecretLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('listSecretsLocks', () => {
-        describe('positive tests', () => {
-            function __listSecretsLocksTest() {
-                // Construct the params object for operation listSecretsLocks
-                const offset = 0;
-                const limit = 200;
-                const search = 'example';
-                const groups = ['default', 'cac40995-c37a-4dcb-9506-472869077634'];
-                const listSecretsLocksParams = {
-                    offset,
-                    limit,
-                    search,
-                    groups,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretLocks({});
+        } catch (e) {
+          err = e;
+        }
 
-                const listSecretsLocksResult = secretsManagerService.listSecretsLocks(listSecretsLocksParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretsLocksResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretLocks();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-                const mockRequestOptions = getOptions(createRequestMock);
-
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets_locks', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.offset).toEqual(offset);
-                expect(mockRequestOptions.qs.limit).toEqual(limit);
-                expect(mockRequestOptions.qs.search).toEqual(search);
-                expect(mockRequestOptions.qs.groups).toEqual(groups);
-            }
-
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretsLocksTest();
-
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretsLocksTest();
-
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretsLocksTest();
-            });
-
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretsLocksParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
-
-                secretsManagerService.listSecretsLocks(listSecretsLocksParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.listSecretsLocks({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
-
-        describe('SecretsLocksPager tests', () => {
-            const serviceUrl = secretsManagerServiceOptions.url;
-            const path = '/api/v2/secrets_locks';
-            const mockPagerResponse1 =
-                '{"next":{"href":"https://myhost.com/somePath?offset=1"},"secrets_locks":[{"secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_group_id":"default","secret_type":"arbitrary","secret_name":"my-secret","versions":[{"version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","version_alias":"current","locks":["lock-example"],"payload_available":false}]}],"total_count":2,"limit":1}';
-            const mockPagerResponse2 =
-                '{"secrets_locks":[{"secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_group_id":"default","secret_type":"arbitrary","secret_name":"my-secret","versions":[{"version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","version_alias":"current","locks":["lock-example"],"payload_available":false}]}],"total_count":2,"limit":1}';
-
-            beforeEach(() => {
-                unmock_createRequest();
-                const scope = nock(serviceUrl)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse1)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse2);
-            });
-
-            afterEach(() => {
-                nock.cleanAll();
-                mock_createRequest();
-            });
-
-            test('getNext()', async () => {
-                const params = {
-                    limit: 10,
-                    search: 'example',
-                    groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-                };
-                const allResults = [];
-                const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
-                while (pager.hasNext()) {
-                    const nextPage = await pager.getNext();
-                    expect(nextPage).not.toBeNull();
-                    allResults.push(...nextPage);
-                }
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-
-            test('getAll()', async () => {
-                const params = {
-                    limit: 10,
-                    search: 'example',
-                    groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-                };
-                const pager = new SecretsManagerV2.SecretsLocksPager(secretsManagerService, params);
-                const allResults = await pager.getAll();
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-        });
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
     });
 
-    describe('listSecretLocks', () => {
-        describe('positive tests', () => {
-            function __listSecretLocksTest() {
-                // Construct the params object for operation listSecretLocks
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const offset = 0;
-                const limit = 25;
-                const sort = 'name';
-                const search = 'example';
-                const listSecretLocksParams = {
-                    id,
-                    offset,
-                    limit,
-                    sort,
-                    search,
-                };
+    describe('SecretLocksPager tests', () => {
+      const serviceUrl = secretsManagerServiceOptions.url;
+      const path = '/api/v2/secrets/0b5571f7-21e6-42b7-91c5-3f5ac9793a46/locks';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
 
-                const listSecretLocksResult = secretsManagerService.listSecretLocks(listSecretLocksParams);
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretLocksResult);
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      test('getNext()', async () => {
+        const params = {
+          id: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
+          limit: 10,
+          sort: 'name',
+          search: 'example',
+        };
+        const allResults = [];
+        const pager = new SecretsManagerV2.SecretLocksPager(secretsManagerService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      test('getAll()', async () => {
+        const params = {
+          id: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
+          limit: 10,
+          sort: 'name',
+          search: 'example',
+        };
+        const pager = new SecretsManagerV2.SecretLocksPager(secretsManagerService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.offset).toEqual(offset);
-                expect(mockRequestOptions.qs.limit).toEqual(limit);
-                expect(mockRequestOptions.qs.sort).toEqual(sort);
-                expect(mockRequestOptions.qs.search).toEqual(search);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+  describe('createSecretLocksBulk', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretLocksTest();
+      // SecretLockPrototype
+      const secretLockPrototypeModel = {
+        name: 'lock-example-1',
+        description: 'lock for consumer 1',
+        attributes: { key: 'value' },
+      };
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretLocksTest();
+      function __createSecretLocksBulkTest() {
+        // Construct the params object for operation createSecretLocksBulk
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const locks = [secretLockPrototypeModel];
+        const mode = 'remove_previous';
+        const createSecretLocksBulkParams = {
+          id,
+          locks,
+          mode,
+        };
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretLocksTest();
-            });
+        const createSecretLocksBulkResult = secretsManagerService.createSecretLocksBulk(createSecretLocksBulkParams);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretLocksParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // all methods should return a Promise
+        expectToBePromise(createSecretLocksBulkResult);
 
-                secretsManagerService.listSecretLocks(listSecretLocksParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretLocks({});
-                } catch (e) {
-                    err = e;
-                }
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks_bulk', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.qs.mode).toEqual(mode);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretLocks();
-                } catch (e) {
-                    err = e;
-                }
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretLocksBulkTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretLocksBulkTest();
 
-        describe('SecretLocksPager tests', () => {
-            const serviceUrl = secretsManagerServiceOptions.url;
-            const path = '/api/v2/secrets/0b5571f7-21e6-42b7-91c5-3f5ac9793a46/locks';
-            const mockPagerResponse1 =
-                '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
-            const mockPagerResponse2 =
-                '{"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretLocksBulkTest();
+      });
 
-            beforeEach(() => {
-                unmock_createRequest();
-                const scope = nock(serviceUrl)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse1)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse2);
-            });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const locks = [secretLockPrototypeModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretLocksBulkParams = {
+          id,
+          locks,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-            afterEach(() => {
-                nock.cleanAll();
-                mock_createRequest();
-            });
-
-            test('getNext()', async () => {
-                const params = {
-                    id: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
-                    limit: 10,
-                    sort: 'name',
-                    search: 'example',
-                };
-                const allResults = [];
-                const pager = new SecretsManagerV2.SecretLocksPager(secretsManagerService, params);
-                while (pager.hasNext()) {
-                    const nextPage = await pager.getNext();
-                    expect(nextPage).not.toBeNull();
-                    allResults.push(...nextPage);
-                }
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-
-            test('getAll()', async () => {
-                const params = {
-                    id: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
-                    limit: 10,
-                    sort: 'name',
-                    search: 'example',
-                };
-                const pager = new SecretsManagerV2.SecretLocksPager(secretsManagerService, params);
-                const allResults = await pager.getAll();
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-        });
+        secretsManagerService.createSecretLocksBulk(createSecretLocksBulkParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createSecretLocksBulk', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretLocksBulk({});
+        } catch (e) {
+          err = e;
+        }
 
-            // SecretLockPrototype
-            const secretLockPrototypeModel = {
-                name: 'lock-example-1',
-                description: 'lock for consumer 1',
-                attributes: {key: 'value'},
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createSecretLocksBulkTest() {
-                // Construct the params object for operation createSecretLocksBulk
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const locks = [secretLockPrototypeModel];
-                const mode = 'remove_previous';
-                const createSecretLocksBulkParams = {
-                    id,
-                    locks,
-                    mode,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretLocksBulk();
+        } catch (e) {
+          err = e;
+        }
 
-                const createSecretLocksBulkResult = secretsManagerService.createSecretLocksBulk(createSecretLocksBulkParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretLocksBulkResult);
+  describe('deleteSecretLocksBulk', () => {
+    describe('positive tests', () => {
+      function __deleteSecretLocksBulkTest() {
+        // Construct the params object for operation deleteSecretLocksBulk
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const name = ['lock-example-1'];
+        const deleteSecretLocksBulkParams = {
+          id,
+          name,
+        };
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        const deleteSecretLocksBulkResult = secretsManagerService.deleteSecretLocksBulk(deleteSecretLocksBulkParams);
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretLocksBulkResult);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks_bulk', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.locks).toEqual(locks);
-                expect(mockRequestOptions.qs.mode).toEqual(mode);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretLocksBulkTest();
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretLocksBulkTest();
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks_bulk', 'DELETE');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.name).toEqual(name);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretLocksBulkTest();
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretLocksBulkTest();
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const locks = [secretLockPrototypeModel];
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretLocksBulkParams = {
-                    id,
-                    locks,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretLocksBulkTest();
 
-                secretsManagerService.createSecretLocksBulk(createSecretLocksBulkParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretLocksBulkTest();
+      });
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretLocksBulk({});
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretLocksBulkParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretLocksBulk();
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteSecretLocksBulk(deleteSecretLocksBulkParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteSecretLocksBulk', () => {
-        describe('positive tests', () => {
-            function __deleteSecretLocksBulkTest() {
-                // Construct the params object for operation deleteSecretLocksBulk
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const name = ['lock-example-1'];
-                const deleteSecretLocksBulkParams = {
-                    id,
-                    name,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretLocksBulk({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteSecretLocksBulkResult = secretsManagerService.deleteSecretLocksBulk(deleteSecretLocksBulkParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteSecretLocksBulkResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretLocksBulk();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listSecretVersionLocks', () => {
+    describe('positive tests', () => {
+      function __listSecretVersionLocksTest() {
+        // Construct the params object for operation listSecretVersionLocks
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const offset = 0;
+        const limit = 25;
+        const sort = 'name';
+        const search = 'example';
+        const listSecretVersionLocksParams = {
+          secretId,
+          id,
+          offset,
+          limit,
+          sort,
+          search,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{id}/locks_bulk', 'DELETE');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.name).toEqual(name);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const listSecretVersionLocksResult = secretsManagerService.listSecretVersionLocks(listSecretVersionLocksParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteSecretLocksBulkTest();
+        // all methods should return a Promise
+        expectToBePromise(listSecretVersionLocksResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteSecretLocksBulkTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteSecretLocksBulkTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const id = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteSecretLocksBulkParams = {
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.sort).toEqual(sort);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.deleteSecretLocksBulk(deleteSecretLocksBulkParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listSecretVersionLocksTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretLocksBulk({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listSecretVersionLocksTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listSecretVersionLocksTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretLocksBulk();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listSecretVersionLocksParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.listSecretVersionLocks(listSecretVersionLocksParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('listSecretVersionLocks', () => {
-        describe('positive tests', () => {
-            function __listSecretVersionLocksTest() {
-                // Construct the params object for operation listSecretVersionLocks
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const offset = 0;
-                const limit = 25;
-                const sort = 'name';
-                const search = 'example';
-                const listSecretVersionLocksParams = {
-                    secretId,
-                    id,
-                    offset,
-                    limit,
-                    sort,
-                    search,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretVersionLocks({});
+        } catch (e) {
+          err = e;
+        }
 
-                const listSecretVersionLocksResult = secretsManagerService.listSecretVersionLocks(listSecretVersionLocksParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listSecretVersionLocksResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.listSecretVersionLocks();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-                const mockRequestOptions = getOptions(createRequestMock);
-
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.offset).toEqual(offset);
-                expect(mockRequestOptions.qs.limit).toEqual(limit);
-                expect(mockRequestOptions.qs.sort).toEqual(sort);
-                expect(mockRequestOptions.qs.search).toEqual(search);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
-
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listSecretVersionLocksTest();
-
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listSecretVersionLocksTest();
-
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listSecretVersionLocksTest();
-            });
-
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listSecretVersionLocksParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
-
-                secretsManagerService.listSecretVersionLocks(listSecretVersionLocksParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
-
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretVersionLocks({});
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.listSecretVersionLocks();
-                } catch (e) {
-                    err = e;
-                }
-
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
-
-        describe('SecretVersionLocksPager tests', () => {
-            const serviceUrl = secretsManagerServiceOptions.url;
-            const path = '/api/v2/secrets/0b5571f7-21e6-42b7-91c5-3f5ac9793a46/versions/eb4cf24d-9cae-424b-945e-159788a5f535/locks';
-            const mockPagerResponse1 =
-                '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
-            const mockPagerResponse2 =
-                '{"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
-
-            beforeEach(() => {
-                unmock_createRequest();
-                const scope = nock(serviceUrl)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse1)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse2);
-            });
-
-            afterEach(() => {
-                nock.cleanAll();
-                mock_createRequest();
-            });
-
-            test('getNext()', async () => {
-                const params = {
-                    secretId: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
-                    id: 'eb4cf24d-9cae-424b-945e-159788a5f535',
-                    limit: 10,
-                    sort: 'name',
-                    search: 'example',
-                };
-                const allResults = [];
-                const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
-                while (pager.hasNext()) {
-                    const nextPage = await pager.getNext();
-                    expect(nextPage).not.toBeNull();
-                    allResults.push(...nextPage);
-                }
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-
-            test('getAll()', async () => {
-                const params = {
-                    secretId: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
-                    id: 'eb4cf24d-9cae-424b-945e-159788a5f535',
-                    limit: 10,
-                    sort: 'name',
-                    search: 'example',
-                };
-                const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
-                const allResults = await pager.getAll();
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-        });
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
     });
 
-    describe('createSecretVersionLocksBulk', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('SecretVersionLocksPager tests', () => {
+      const serviceUrl = secretsManagerServiceOptions.url;
+      const path = '/api/v2/secrets/0b5571f7-21e6-42b7-91c5-3f5ac9793a46/versions/eb4cf24d-9cae-424b-945e-159788a5f535/locks';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"limit":1,"locks":[{"name":"lock-example","description":"description","attributes":{"anyKey":"anyValue"},"created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","secret_group_id":"default","secret_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_id":"b49ad24d-81d4-5ebc-b9b9-b0937d1c84d5","secret_version_alias":"current"}]}';
 
-            // SecretLockPrototype
-            const secretLockPrototypeModel = {
-                name: 'lock-example-1',
-                description: 'lock for consumer 1',
-                attributes: {key: 'value'},
-            };
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
 
-            function __createSecretVersionLocksBulkTest() {
-                // Construct the params object for operation createSecretVersionLocksBulk
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const locks = [secretLockPrototypeModel];
-                const mode = 'remove_previous';
-                const createSecretVersionLocksBulkParams = {
-                    secretId,
-                    id,
-                    locks,
-                    mode,
-                };
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
 
-                const createSecretVersionLocksBulkResult = secretsManagerService.createSecretVersionLocksBulk(createSecretVersionLocksBulkParams);
+      test('getNext()', async () => {
+        const params = {
+          secretId: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
+          id: 'eb4cf24d-9cae-424b-945e-159788a5f535',
+          limit: 10,
+          sort: 'name',
+          search: 'example',
+        };
+        const allResults = [];
+        const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(createSecretVersionLocksBulkResult);
+      test('getAll()', async () => {
+        const params = {
+          secretId: '0b5571f7-21e6-42b7-91c5-3f5ac9793a46',
+          id: 'eb4cf24d-9cae-424b-945e-159788a5f535',
+          limit: 10,
+          sort: 'name',
+          search: 'example',
+        };
+        const pager = new SecretsManagerV2.SecretVersionLocksPager(secretsManagerService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+  describe('createSecretVersionLocksBulk', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      // SecretLockPrototype
+      const secretLockPrototypeModel = {
+        name: 'lock-example-1',
+        description: 'lock for consumer 1',
+        attributes: { key: 'value' },
+      };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.locks).toEqual(locks);
-                expect(mockRequestOptions.qs.mode).toEqual(mode);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+      function __createSecretVersionLocksBulkTest() {
+        // Construct the params object for operation createSecretVersionLocksBulk
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const locks = [secretLockPrototypeModel];
+        const mode = 'remove_previous';
+        const createSecretVersionLocksBulkParams = {
+          secretId,
+          id,
+          locks,
+          mode,
+        };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createSecretVersionLocksBulkTest();
+        const createSecretVersionLocksBulkResult = secretsManagerService.createSecretVersionLocksBulk(createSecretVersionLocksBulkParams);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createSecretVersionLocksBulkTest();
+        // all methods should return a Promise
+        expectToBePromise(createSecretVersionLocksBulkResult);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createSecretVersionLocksBulkTest();
-            });
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const locks = [secretLockPrototypeModel];
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createSecretVersionLocksBulkParams = {
-                    secretId,
-                    id,
-                    locks,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                secretsManagerService.createSecretVersionLocksBulk(createSecretVersionLocksBulkParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.locks).toEqual(locks);
+        expect(mockRequestOptions.qs.mode).toEqual(mode);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersionLocksBulk({});
-                } catch (e) {
-                    err = e;
-                }
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createSecretVersionLocksBulkTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createSecretVersionLocksBulkTest();
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createSecretVersionLocksBulk();
-                } catch (e) {
-                    err = e;
-                }
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createSecretVersionLocksBulkTest();
+      });
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const locks = [secretLockPrototypeModel];
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createSecretVersionLocksBulkParams = {
+          secretId,
+          id,
+          locks,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.createSecretVersionLocksBulk(createSecretVersionLocksBulkParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteSecretVersionLocksBulk', () => {
-        describe('positive tests', () => {
-            function __deleteSecretVersionLocksBulkTest() {
-                // Construct the params object for operation deleteSecretVersionLocksBulk
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const name = ['lock-example-1'];
-                const deleteSecretVersionLocksBulkParams = {
-                    secretId,
-                    id,
-                    name,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersionLocksBulk({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteSecretVersionLocksBulkResult = secretsManagerService.deleteSecretVersionLocksBulk(deleteSecretVersionLocksBulkParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteSecretVersionLocksBulkResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createSecretVersionLocksBulk();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('deleteSecretVersionLocksBulk', () => {
+    describe('positive tests', () => {
+      function __deleteSecretVersionLocksBulkTest() {
+        // Construct the params object for operation deleteSecretVersionLocksBulk
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const name = ['lock-example-1'];
+        const deleteSecretVersionLocksBulkParams = {
+          secretId,
+          id,
+          name,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk', 'DELETE');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.name).toEqual(name);
-                expect(mockRequestOptions.path.secret_id).toEqual(secretId);
-                expect(mockRequestOptions.path.id).toEqual(id);
-            }
+        const deleteSecretVersionLocksBulkResult = secretsManagerService.deleteSecretVersionLocksBulk(deleteSecretVersionLocksBulkParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteSecretVersionLocksBulkTest();
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretVersionLocksBulkResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteSecretVersionLocksBulkTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteSecretVersionLocksBulkTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
-                const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteSecretVersionLocksBulkParams = {
-                    secretId,
-                    id,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/secrets/{secret_id}/versions/{id}/locks_bulk', 'DELETE');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.name).toEqual(name);
+        expect(mockRequestOptions.path.secret_id).toEqual(secretId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
 
-                secretsManagerService.deleteSecretVersionLocksBulk(deleteSecretVersionLocksBulkParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretVersionLocksBulkTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretVersionLocksBulk({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteSecretVersionLocksBulkTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteSecretVersionLocksBulkTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteSecretVersionLocksBulk();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const secretId = '0b5571f7-21e6-42b7-91c5-3f5ac9793a46';
+        const id = 'eb4cf24d-9cae-424b-945e-159788a5f535';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretVersionLocksBulkParams = {
+          secretId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteSecretVersionLocksBulk(deleteSecretVersionLocksBulkParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createConfiguration', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretVersionLocksBulk({});
+        } catch (e) {
+          err = e;
+        }
 
-            // PublicCertificateConfigurationDNSCloudInternetServicesPrototype
-            const configurationPrototypeModel = {
-                config_type: 'public_cert_configuration_dns_cloud_internet_services',
-                name: 'example-cloud-internet-services-config',
-                cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
-                cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createConfigurationTest() {
-                // Construct the params object for operation createConfiguration
-                const configurationPrototype = configurationPrototypeModel;
-                const createConfigurationParams = {
-                    configurationPrototype,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteSecretVersionLocksBulk();
+        } catch (e) {
+          err = e;
+        }
 
-                const createConfigurationResult = secretsManagerService.createConfiguration(createConfigurationParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createConfigurationResult);
+  describe('createConfiguration', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      // PublicCertificateConfigurationDNSCloudInternetServicesPrototype
+      const configurationPrototypeModel = {
+        config_type: 'public_cert_configuration_dns_cloud_internet_services',
+        name: 'example-cloud-internet-services-config',
+        cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+        cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
+      };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      function __createConfigurationTest() {
+        // Construct the params object for operation createConfiguration
+        const configurationPrototype = configurationPrototypeModel;
+        const createConfigurationParams = {
+          configurationPrototype,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body).toEqual(configurationPrototype);
-            }
+        const createConfigurationResult = secretsManagerService.createConfiguration(createConfigurationParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createConfigurationTest();
+        // all methods should return a Promise
+        expectToBePromise(createConfigurationResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createConfigurationTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createConfigurationTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const configurationPrototype = configurationPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createConfigurationParams = {
-                    configurationPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(configurationPrototype);
+      }
 
-                secretsManagerService.createConfiguration(createConfigurationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createConfigurationTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createConfiguration({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createConfigurationTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createConfigurationTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createConfiguration();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const configurationPrototype = configurationPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createConfigurationParams = {
+          configurationPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.createConfiguration(createConfigurationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('listConfigurations', () => {
-        describe('positive tests', () => {
-            function __listConfigurationsTest() {
-                // Construct the params object for operation listConfigurations
-                const offset = 0;
-                const limit = 200;
-                const sort = 'config_type';
-                const search = 'example';
-                const secretTypes = ['iam_credentials', 'public_cert', 'private_cert'];
-                const listConfigurationsParams = {
-                    offset,
-                    limit,
-                    sort,
-                    search,
-                    secretTypes,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createConfiguration({});
+        } catch (e) {
+          err = e;
+        }
 
-                const listConfigurationsResult = secretsManagerService.listConfigurations(listConfigurationsParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(listConfigurationsResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createConfiguration();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('listConfigurations', () => {
+    describe('positive tests', () => {
+      function __listConfigurationsTest() {
+        // Construct the params object for operation listConfigurations
+        const offset = 0;
+        const limit = 200;
+        const sort = 'config_type';
+        const search = 'example';
+        const secretTypes = ['iam_credentials', 'public_cert', 'private_cert', 'custom_credentials'];
+        const listConfigurationsParams = {
+          offset,
+          limit,
+          sort,
+          search,
+          secretTypes,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.qs.offset).toEqual(offset);
-                expect(mockRequestOptions.qs.limit).toEqual(limit);
-                expect(mockRequestOptions.qs.sort).toEqual(sort);
-                expect(mockRequestOptions.qs.search).toEqual(search);
-                expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
-            }
+        const listConfigurationsResult = secretsManagerService.listConfigurations(listConfigurationsParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __listConfigurationsTest();
+        // all methods should return a Promise
+        expectToBePromise(listConfigurationsResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __listConfigurationsTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __listConfigurationsTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const listConfigurationsParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.offset).toEqual(offset);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.sort).toEqual(sort);
+        expect(mockRequestOptions.qs.search).toEqual(search);
+        expect(mockRequestOptions.qs.secret_types).toEqual(secretTypes);
+      }
 
-                secretsManagerService.listConfigurations(listConfigurationsParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listConfigurationsTest();
 
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.listConfigurations({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __listConfigurationsTest();
 
-        describe('ConfigurationsPager tests', () => {
-            const serviceUrl = secretsManagerServiceOptions.url;
-            const path = '/api/v2/configurations';
-            const mockPagerResponse1 =
-                '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"configurations":[{"config_type":"iam_credentials_configuration","name":"my-secret-engine-config","secret_type":"arbitrary","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","disabled":true}],"limit":1}';
-            const mockPagerResponse2 =
-                '{"total_count":2,"configurations":[{"config_type":"iam_credentials_configuration","name":"my-secret-engine-config","secret_type":"arbitrary","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","disabled":true}],"limit":1}';
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __listConfigurationsTest();
+      });
 
-            beforeEach(() => {
-                unmock_createRequest();
-                const scope = nock(serviceUrl)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse1)
-                    .get((uri) => uri.includes(path))
-                    .reply(200, mockPagerResponse2);
-            });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listConfigurationsParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-            afterEach(() => {
-                nock.cleanAll();
-                mock_createRequest();
-            });
+        secretsManagerService.listConfigurations(listConfigurationsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
 
-            test('getNext()', async () => {
-                const params = {
-                    limit: 10,
-                    sort: 'config_type',
-                    search: 'example',
-                    secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
-                };
-                const allResults = [];
-                const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
-                while (pager.hasNext()) {
-                    const nextPage = await pager.getNext();
-                    expect(nextPage).not.toBeNull();
-                    allResults.push(...nextPage);
-                }
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-
-            test('getAll()', async () => {
-                const params = {
-                    limit: 10,
-                    sort: 'config_type',
-                    search: 'example',
-                    secretTypes: ['iam_credentials', 'public_cert', 'private_cert'],
-                };
-                const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
-                const allResults = await pager.getAll();
-                expect(allResults).not.toBeNull();
-                expect(allResults).toHaveLength(2);
-            });
-        });
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.listConfigurations({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
     });
 
-    describe('getConfiguration', () => {
-        describe('positive tests', () => {
-            function __getConfigurationTest() {
-                // Construct the params object for operation getConfiguration
-                const name = 'configuration-name';
-                const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
-                const getConfigurationParams = {
-                    name,
-                    xSmAcceptConfigurationType,
-                };
+    describe('ConfigurationsPager tests', () => {
+      const serviceUrl = secretsManagerServiceOptions.url;
+      const path = '/api/v2/configurations';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"configurations":[{"config_type":"iam_credentials_configuration","name":"my-secret-engine-config","secret_type":"arbitrary","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","disabled":true}],"limit":1}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"configurations":[{"config_type":"iam_credentials_configuration","name":"my-secret-engine-config","secret_type":"arbitrary","created_by":"iam-ServiceId-e4a2f0a4-3c76-4bef-b1f2-fbeae11c0f21","created_at":"2022-04-12T23:20:50.520Z","updated_at":"2022-04-12T23:20:50.520Z","disabled":true}],"limit":1}';
 
-                const getConfigurationResult = secretsManagerService.getConfiguration(getConfigurationParams);
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getConfigurationResult);
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      test('getNext()', async () => {
+        const params = {
+          limit: 10,
+          sort: 'config_type',
+          search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert', 'custom_credentials'],
+        };
+        const allResults = [];
+        const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      test('getAll()', async () => {
+        const params = {
+          limit: 10,
+          sort: 'config_type',
+          search: 'example',
+          secretTypes: ['iam_credentials', 'public_cert', 'private_cert', 'custom_credentials'],
+        };
+        const pager = new SecretsManagerV2.ConfigurationsPager(secretsManagerService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
-                expect(mockRequestOptions.path.name).toEqual(name);
-            }
+  describe('getConfiguration', () => {
+    describe('positive tests', () => {
+      function __getConfigurationTest() {
+        // Construct the params object for operation getConfiguration
+        const name = 'configuration-name';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
+        const getConfigurationParams = {
+          name,
+          xSmAcceptConfigurationType,
+        };
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getConfigurationTest();
+        const getConfigurationResult = secretsManagerService.getConfiguration(getConfigurationParams);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getConfigurationTest();
+        // all methods should return a Promise
+        expectToBePromise(getConfigurationResult);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getConfigurationTest();
-            });
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const name = 'configuration-name';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getConfigurationParams = {
-                    name,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                secretsManagerService.getConfiguration(getConfigurationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getConfiguration({});
-                } catch (e) {
-                    err = e;
-                }
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getConfigurationTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getConfigurationTest();
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.getConfiguration();
-                } catch (e) {
-                    err = e;
-                }
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getConfigurationTest();
+      });
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const name = 'configuration-name';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getConfigurationParams = {
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getConfiguration(getConfigurationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('updateConfiguration', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.getConfiguration({});
+        } catch (e) {
+          err = e;
+        }
 
-            // PublicCertificateConfigurationDNSCloudInternetServicesPatch
-            const configurationPatchModel = {
-                cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
-                cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __updateConfigurationTest() {
-                // Construct the params object for operation updateConfiguration
-                const name = 'configuration-name';
-                const configurationPatch = configurationPatchModel;
-                const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
-                const updateConfigurationParams = {
-                    name,
-                    configurationPatch,
-                    xSmAcceptConfigurationType,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.getConfiguration();
+        } catch (e) {
+          err = e;
+        }
 
-                const updateConfigurationResult = secretsManagerService.updateConfiguration(updateConfigurationParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(updateConfigurationResult);
+  describe('updateConfiguration', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      // PublicCertificateConfigurationDNSCloudInternetServicesPatch
+      const configurationPatchModel = {
+        cloud_internet_services_apikey: '5ipu_ykv0PMp2MhxQnDMn7VzrkSlBwi3BOI8uthi_EXZ',
+        cloud_internet_services_crn: 'crn:v1:bluemix:public:internet-svcs:global:a/128e84fcca45c1224aae525d31ef2b52:009a0357-1460-42b4-b903-10580aba7dd8::',
+      };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      function __updateConfigurationTest() {
+        // Construct the params object for operation updateConfiguration
+        const name = 'configuration-name';
+        const configurationPatch = configurationPatchModel;
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
+        const updateConfigurationParams = {
+          name,
+          configurationPatch,
+          xSmAcceptConfigurationType,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'PATCH');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/merge-patch+json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
-                expect(mockRequestOptions.body).toEqual(configurationPatch);
-                expect(mockRequestOptions.path.name).toEqual(name);
-            }
+        const updateConfigurationResult = secretsManagerService.updateConfiguration(updateConfigurationParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __updateConfigurationTest();
+        // all methods should return a Promise
+        expectToBePromise(updateConfigurationResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __updateConfigurationTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __updateConfigurationTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const name = 'configuration-name';
-                const configurationPatch = configurationPatchModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const updateConfigurationParams = {
-                    name,
-                    configurationPatch,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
+        expect(mockRequestOptions.body).toEqual(configurationPatch);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
 
-                secretsManagerService.updateConfiguration(updateConfigurationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateConfigurationTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateConfiguration({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __updateConfigurationTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __updateConfigurationTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.updateConfiguration();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const name = 'configuration-name';
+        const configurationPatch = configurationPatchModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateConfigurationParams = {
+          name,
+          configurationPatch,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.updateConfiguration(updateConfigurationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('deleteConfiguration', () => {
-        describe('positive tests', () => {
-            function __deleteConfigurationTest() {
-                // Construct the params object for operation deleteConfiguration
-                const name = 'configuration-name';
-                const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
-                const deleteConfigurationParams = {
-                    name,
-                    xSmAcceptConfigurationType,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateConfiguration({});
+        } catch (e) {
+          err = e;
+        }
 
-                const deleteConfigurationResult = secretsManagerService.deleteConfiguration(deleteConfigurationParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(deleteConfigurationResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.updateConfiguration();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('deleteConfiguration', () => {
+    describe('positive tests', () => {
+      function __deleteConfigurationTest() {
+        // Construct the params object for operation deleteConfiguration
+        const name = 'configuration-name';
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
+        const deleteConfigurationParams = {
+          name,
+          xSmAcceptConfigurationType,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'DELETE');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
-                expect(mockRequestOptions.path.name).toEqual(name);
-            }
+        const deleteConfigurationResult = secretsManagerService.deleteConfiguration(deleteConfigurationParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteConfigurationTest();
+        // all methods should return a Promise
+        expectToBePromise(deleteConfigurationResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteConfigurationTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteConfigurationTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const name = 'configuration-name';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteConfigurationParams = {
-                    name,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
 
-                secretsManagerService.deleteConfiguration(deleteConfigurationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteConfigurationTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteConfiguration({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteConfigurationTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteConfigurationTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.deleteConfiguration();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const name = 'configuration-name';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteConfigurationParams = {
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.deleteConfiguration(deleteConfigurationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createConfigurationAction', () => {
-        describe('positive tests', () => {
-            // Request models needed by this operation.
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteConfiguration({});
+        } catch (e) {
+          err = e;
+        }
 
-            // PrivateCertificateConfigurationActionRotateCRLPrototype
-            const configurationActionPrototypeModel = {
-                action_type: 'private_cert_configuration_action_rotate_crl',
-            };
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-            function __createConfigurationActionTest() {
-                // Construct the params object for operation createConfigurationAction
-                const name = 'configuration-name';
-                const configActionPrototype = configurationActionPrototypeModel;
-                const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
-                const createConfigurationActionParams = {
-                    name,
-                    configActionPrototype,
-                    xSmAcceptConfigurationType,
-                };
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.deleteConfiguration();
+        } catch (e) {
+          err = e;
+        }
 
-                const createConfigurationActionResult = secretsManagerService.createConfigurationAction(createConfigurationActionParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                // all methods should return a Promise
-                expectToBePromise(createConfigurationActionResult);
+  describe('createConfigurationAction', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+      // PrivateCertificateConfigurationActionRotateCRLPrototype
+      const configurationActionPrototypeModel = {
+        action_type: 'private_cert_configuration_action_rotate_crl',
+      };
 
-                const mockRequestOptions = getOptions(createRequestMock);
+      function __createConfigurationActionTest() {
+        // Construct the params object for operation createConfigurationAction
+        const name = 'configuration-name';
+        const configActionPrototype = configurationActionPrototypeModel;
+        const xSmAcceptConfigurationType = 'public_cert_configuration_dns_cloud_internet_services';
+        const createConfigurationActionParams = {
+          name,
+          configActionPrototype,
+          xSmAcceptConfigurationType,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}/actions', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
-                expect(mockRequestOptions.body).toEqual(configActionPrototype);
-                expect(mockRequestOptions.path.name).toEqual(name);
-            }
+        const createConfigurationActionResult = secretsManagerService.createConfigurationAction(createConfigurationActionParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createConfigurationActionTest();
+        // all methods should return a Promise
+        expectToBePromise(createConfigurationActionResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createConfigurationActionTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createConfigurationActionTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const name = 'configuration-name';
-                const configActionPrototype = configurationActionPrototypeModel;
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createConfigurationActionParams = {
-                    name,
-                    configActionPrototype,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/configurations/{name}/actions', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'X-Sm-Accept-Configuration-Type', xSmAcceptConfigurationType);
+        expect(mockRequestOptions.body).toEqual(configActionPrototype);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
 
-                secretsManagerService.createConfigurationAction(createConfigurationActionParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createConfigurationActionTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createConfigurationAction({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createConfigurationActionTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createConfigurationActionTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createConfigurationAction();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const name = 'configuration-name';
+        const configActionPrototype = configurationActionPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createConfigurationActionParams = {
+          name,
+          configActionPrototype,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.createConfigurationAction(createConfigurationActionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('createNotificationsRegistration', () => {
-        describe('positive tests', () => {
-            function __createNotificationsRegistrationTest() {
-                // Construct the params object for operation createNotificationsRegistration
-                const eventNotificationsInstanceCrn = 'crn:v1:bluemix:public:event-notifications:us-south:a/22018f3c34ff4ff193698d15ca316946:578ad1a4-2fd8-4e66-95d5-79a842ba91f8::';
-                const eventNotificationsSourceName = 'My Secrets Manager';
-                const eventNotificationsSourceDescription = 'Optional description of this source in an Event Notifications instance.';
-                const createNotificationsRegistrationParams = {
-                    eventNotificationsInstanceCrn,
-                    eventNotificationsSourceName,
-                    eventNotificationsSourceDescription,
-                };
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createConfigurationAction({});
+        } catch (e) {
+          err = e;
+        }
 
-                const createNotificationsRegistrationResult = secretsManagerService.createNotificationsRegistration(createNotificationsRegistrationParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(createNotificationsRegistrationResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createConfigurationAction();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
 
-                const mockRequestOptions = getOptions(createRequestMock);
+  describe('createNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __createNotificationsRegistrationTest() {
+        // Construct the params object for operation createNotificationsRegistration
+        const eventNotificationsInstanceCrn = 'crn:v1:bluemix:public:event-notifications:us-south:a/22018f3c34ff4ff193698d15ca316946:578ad1a4-2fd8-4e66-95d5-79a842ba91f8::';
+        const eventNotificationsSourceName = 'My Secrets Manager';
+        const eventNotificationsSourceDescription = 'Optional description of this source in an Event Notifications instance.';
+        const createNotificationsRegistrationParams = {
+          eventNotificationsInstanceCrn,
+          eventNotificationsSourceName,
+          eventNotificationsSourceDescription,
+        };
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'POST');
-                const expectedAccept = 'application/json';
-                const expectedContentType = 'application/json';
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-                expect(mockRequestOptions.body.event_notifications_instance_crn).toEqual(eventNotificationsInstanceCrn);
-                expect(mockRequestOptions.body.event_notifications_source_name).toEqual(eventNotificationsSourceName);
-                expect(mockRequestOptions.body.event_notifications_source_description).toEqual(eventNotificationsSourceDescription);
-            }
+        const createNotificationsRegistrationResult = secretsManagerService.createNotificationsRegistration(createNotificationsRegistrationParams);
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __createNotificationsRegistrationTest();
+        // all methods should return a Promise
+        expectToBePromise(createNotificationsRegistrationResult);
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __createNotificationsRegistrationTest();
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __createNotificationsRegistrationTest();
-            });
+        const mockRequestOptions = getOptions(createRequestMock);
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const eventNotificationsInstanceCrn = 'crn:v1:bluemix:public:event-notifications:us-south:a/22018f3c34ff4ff193698d15ca316946:578ad1a4-2fd8-4e66-95d5-79a842ba91f8::';
-                const eventNotificationsSourceName = 'My Secrets Manager';
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const createNotificationsRegistrationParams = {
-                    eventNotificationsInstanceCrn,
-                    eventNotificationsSourceName,
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.event_notifications_instance_crn).toEqual(eventNotificationsInstanceCrn);
+        expect(mockRequestOptions.body.event_notifications_source_name).toEqual(eventNotificationsSourceName);
+        expect(mockRequestOptions.body.event_notifications_source_description).toEqual(eventNotificationsSourceDescription);
+      }
 
-                secretsManagerService.createNotificationsRegistration(createNotificationsRegistrationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-        });
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createNotificationsRegistrationTest();
 
-        describe('negative tests', () => {
-            test('should enforce required parameters', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createNotificationsRegistration({});
-                } catch (e) {
-                    err = e;
-                }
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __createNotificationsRegistrationTest();
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __createNotificationsRegistrationTest();
+      });
 
-            test('should reject promise when required params are not given', async () => {
-                let err;
-                try {
-                    await secretsManagerService.createNotificationsRegistration();
-                } catch (e) {
-                    err = e;
-                }
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const eventNotificationsInstanceCrn = 'crn:v1:bluemix:public:event-notifications:us-south:a/22018f3c34ff4ff193698d15ca316946:578ad1a4-2fd8-4e66-95d5-79a842ba91f8::';
+        const eventNotificationsSourceName = 'My Secrets Manager';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createNotificationsRegistrationParams = {
+          eventNotificationsInstanceCrn,
+          eventNotificationsSourceName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                expect(err.message).toMatch(/Missing required parameters/);
-            });
-        });
+        secretsManagerService.createNotificationsRegistration(createNotificationsRegistrationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
     });
 
-    describe('getNotificationsRegistration', () => {
-        describe('positive tests', () => {
-            function __getNotificationsRegistrationTest() {
-                // Construct the params object for operation getNotificationsRegistration
-                const getNotificationsRegistrationParams = {};
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await secretsManagerService.createNotificationsRegistration({});
+        } catch (e) {
+          err = e;
+        }
 
-                const getNotificationsRegistrationResult = secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
 
-                // all methods should return a Promise
-                expectToBePromise(getNotificationsRegistrationResult);
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await secretsManagerService.createNotificationsRegistration();
+        } catch (e) {
+          err = e;
+        }
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-                const mockRequestOptions = getOptions(createRequestMock);
-
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'GET');
-                const expectedAccept = 'application/json';
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-            }
-
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getNotificationsRegistrationTest();
-
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getNotificationsRegistrationTest();
-
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getNotificationsRegistrationTest();
-            });
-
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getNotificationsRegistrationParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
-
-                secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
-
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.getNotificationsRegistration({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
     });
+  });
 
-    describe('deleteNotificationsRegistration', () => {
-        describe('positive tests', () => {
-            function __deleteNotificationsRegistrationTest() {
-                // Construct the params object for operation deleteNotificationsRegistration
-                const deleteNotificationsRegistrationParams = {};
+  describe('getNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __getNotificationsRegistrationTest() {
+        // Construct the params object for operation getNotificationsRegistration
+        const getNotificationsRegistrationParams = {};
 
-                const deleteNotificationsRegistrationResult = secretsManagerService.deleteNotificationsRegistration(deleteNotificationsRegistrationParams);
+        const getNotificationsRegistrationResult = secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
 
-                // all methods should return a Promise
-                expectToBePromise(deleteNotificationsRegistrationResult);
+        // all methods should return a Promise
+        expectToBePromise(getNotificationsRegistrationResult);
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'DELETE');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-            }
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __deleteNotificationsRegistrationTest();
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getNotificationsRegistrationTest();
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __deleteNotificationsRegistrationTest();
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getNotificationsRegistrationTest();
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __deleteNotificationsRegistrationTest();
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getNotificationsRegistrationTest();
+      });
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const deleteNotificationsRegistrationParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getNotificationsRegistrationParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                secretsManagerService.deleteNotificationsRegistration(deleteNotificationsRegistrationParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
+        secretsManagerService.getNotificationsRegistration(getNotificationsRegistrationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
 
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.deleteNotificationsRegistration({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.getNotificationsRegistration({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
     });
+  });
 
-    describe('getNotificationsRegistrationTest', () => {
-        describe('positive tests', () => {
-            function __getNotificationsRegistrationTestTest() {
-                // Construct the params object for operation getNotificationsRegistrationTest
-                const getNotificationsRegistrationTestParams = {};
+  describe('deleteNotificationsRegistration', () => {
+    describe('positive tests', () => {
+      function __deleteNotificationsRegistrationTest() {
+        // Construct the params object for operation deleteNotificationsRegistration
+        const deleteNotificationsRegistrationParams = {};
 
-                const getNotificationsRegistrationTestResult = secretsManagerService.getNotificationsRegistrationTest(getNotificationsRegistrationTestParams);
+        const deleteNotificationsRegistrationResult = secretsManagerService.deleteNotificationsRegistration(deleteNotificationsRegistrationParams);
 
-                // all methods should return a Promise
-                expectToBePromise(getNotificationsRegistrationTestResult);
+        // all methods should return a Promise
+        expectToBePromise(deleteNotificationsRegistrationResult);
 
-                // assert that create request was called
-                expect(createRequestMock).toHaveBeenCalledTimes(1);
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-                const mockRequestOptions = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-                checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration/test', 'GET');
-                const expectedAccept = undefined;
-                const expectedContentType = undefined;
-                checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-            }
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
 
-            test('should pass the right params to createRequest with enable and disable retries', () => {
-                // baseline test
-                __getNotificationsRegistrationTestTest();
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteNotificationsRegistrationTest();
 
-                // enable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.enableRetries();
-                __getNotificationsRegistrationTestTest();
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __deleteNotificationsRegistrationTest();
 
-                // disable retries and test again
-                createRequestMock.mockClear();
-                secretsManagerService.disableRetries();
-                __getNotificationsRegistrationTestTest();
-            });
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __deleteNotificationsRegistrationTest();
+      });
 
-            test('should prioritize user-given headers', () => {
-                // parameters
-                const userAccept = 'fake/accept';
-                const userContentType = 'fake/contentType';
-                const getNotificationsRegistrationTestParams = {
-                    headers: {
-                        Accept: userAccept,
-                        'Content-Type': userContentType,
-                    },
-                };
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteNotificationsRegistrationParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
 
-                secretsManagerService.getNotificationsRegistrationTest(getNotificationsRegistrationTestParams);
-                checkMediaHeaders(createRequestMock, userAccept, userContentType);
-            });
+        secretsManagerService.deleteNotificationsRegistration(deleteNotificationsRegistrationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
 
-            test('should not have any problems when no parameters are passed in', () => {
-                // invoke the method with no parameters
-                secretsManagerService.getNotificationsRegistrationTest({});
-                checkForSuccessfulExecution(createRequestMock);
-            });
-        });
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.deleteNotificationsRegistration({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
     });
+  });
+
+  describe('getNotificationsRegistrationTest', () => {
+    describe('positive tests', () => {
+      function __getNotificationsRegistrationTestTest() {
+        // Construct the params object for operation getNotificationsRegistrationTest
+        const getNotificationsRegistrationTestParams = {};
+
+        const getNotificationsRegistrationTestResult = secretsManagerService.getNotificationsRegistrationTest(getNotificationsRegistrationTestParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getNotificationsRegistrationTestResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/api/v2/notifications/registration/test', 'GET');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getNotificationsRegistrationTestTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.enableRetries();
+        __getNotificationsRegistrationTestTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        secretsManagerService.disableRetries();
+        __getNotificationsRegistrationTestTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getNotificationsRegistrationTestParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        secretsManagerService.getNotificationsRegistrationTest(getNotificationsRegistrationTestParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        secretsManagerService.getNotificationsRegistrationTest({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
 });

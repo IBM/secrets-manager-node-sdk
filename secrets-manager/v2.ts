@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.99.1-daeb6e46-20250131-173156
+ * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
  */
 
 /* eslint-disable max-classes-per-file */
@@ -24,6 +24,7 @@
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
+  AbortSignal,
   Authenticator,
   BaseService,
   UserOptions,
@@ -156,7 +157,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
     const _requiredParams = ['name'];
-    const _validParams = ['name', 'description', 'headers'];
+    const _validParams = ['name', 'description', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -186,6 +187,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -206,7 +210,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroupCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['headers'];
+    const _validParams = ['signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -229,6 +233,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -250,7 +257,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -278,6 +285,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -304,7 +314,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretGroup>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'name', 'description', 'headers'];
+    const _validParams = ['id', 'name', 'description', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -339,6 +349,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -363,7 +376,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -390,6 +403,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -422,7 +438,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['secretPrototype'];
-    const _validParams = ['secretPrototype', 'headers'];
+    const _validParams = ['secretPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -448,6 +464,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -512,7 +531,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadataPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['offset', 'limit', 'sort', 'search', 'groups', 'secretTypes', 'matchAllLabels', 'headers'];
+    const _validParams = ['offset', 'limit', 'sort', 'search', 'groups', 'secretTypes', 'matchAllLabels', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -546,6 +565,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -570,7 +592,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -598,6 +620,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -611,6 +636,8 @@ class SecretsManagerV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - The UUID that uniquely identifies your secret.
+   * @param {boolean} [params.forceDelete] - Set to `true` to force delete the secret. Available only for custom
+   * credentials secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>>}
    */
@@ -619,11 +646,15 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'forceDelete', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
+
+    const query = {
+      'force_delete': _params.forceDelete,
+    };
 
     const path = {
       'id': _params.id,
@@ -635,6 +666,7 @@ class SecretsManagerV2 extends BaseService {
       options: {
         url: '/api/v2/secrets/{id}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -646,6 +678,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -667,7 +702,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -695,6 +730,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -717,7 +755,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretMetadata>> {
     const _params = { ...params };
     const _requiredParams = ['id', 'secretMetadataPatch'];
-    const _validParams = ['id', 'secretMetadataPatch', 'headers'];
+    const _validParams = ['id', 'secretMetadataPatch', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -748,6 +786,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -770,7 +811,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretAction>> {
     const _params = { ...params };
     const _requiredParams = ['id', 'secretActionPrototype'];
-    const _validParams = ['id', 'secretActionPrototype', 'headers'];
+    const _validParams = ['id', 'secretActionPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -801,6 +842,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -829,7 +873,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['secretType', 'name', 'secretGroupName'];
-    const _validParams = ['secretType', 'name', 'secretGroupName', 'headers'];
+    const _validParams = ['secretType', 'name', 'secretGroupName', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -859,6 +903,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -884,7 +931,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'secretVersionPrototype'];
-    const _validParams = ['secretId', 'secretVersionPrototype', 'headers'];
+    const _validParams = ['secretId', 'secretVersionPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -915,6 +962,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -938,7 +988,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadataCollection>> {
     const _params = { ...params };
     const _requiredParams = ['secretId'];
-    const _validParams = ['secretId', 'headers'];
+    const _validParams = ['secretId', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -966,6 +1016,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -993,7 +1046,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersion>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'headers'];
+    const _validParams = ['secretId', 'id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1022,6 +1075,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1047,7 +1103,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'headers'];
+    const _validParams = ['secretId', 'id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1075,6 +1131,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1101,7 +1160,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadata>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'headers'];
+    const _validParams = ['secretId', 'id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1130,6 +1189,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1154,7 +1216,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionMetadata>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'versionCustomMetadata', 'headers'];
+    const _validParams = ['secretId', 'id', 'versionCustomMetadata', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1189,6 +1251,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1215,7 +1280,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.VersionAction>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id', 'secretVersionActionPrototype'];
-    const _validParams = ['secretId', 'id', 'secretVersionActionPrototype', 'headers'];
+    const _validParams = ['secretId', 'id', 'secretVersionActionPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1247,6 +1312,239 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * secretTasks
+   ************************/
+
+  /**
+   * List secret tasks.
+   *
+   * List secret tasks.
+   *
+   * Supported secret types: `custom_credentials`.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTaskCollection>>}
+   */
+  public listSecretTasks(
+    params: SecretsManagerV2.ListSecretTasksParams
+  ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTaskCollection>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretId'];
+    const _validParams = ['secretId', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'secret_id': _params.secretId,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'listSecretTasks');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/secrets/{secret_id}/tasks',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a secret's task.
+   *
+   * Get a task of a secret and its details by specifying the ID of the task.
+   *
+   * A successful request returns the task that is associated with your secret.
+   *
+   * Supported secret types: `custom_credentials`.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The ID that uniquely identifies your task.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTask>>}
+   */
+  public getSecretTask(
+    params: SecretsManagerV2.GetSecretTaskParams
+  ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTask>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'secret_id': _params.secretId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'getSecretTask');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/secrets/{secret_id}/tasks/{id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update a secret's task.
+   *
+   * A callback endpoint for updating a task with results.
+   *
+   * Supported secret types: `custom_credentials`.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The ID that uniquely identifies your task.
+   * @param {SecretTaskPrototype} params.taskPut -
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTask>>}
+   */
+  public replaceSecretTask(
+    params: SecretsManagerV2.ReplaceSecretTaskParams
+  ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretTask>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretId', 'id', 'taskPut'];
+    const _validParams = ['secretId', 'id', 'taskPut', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = _params.taskPut;
+    const path = {
+      'secret_id': _params.secretId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'replaceSecretTask');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/secrets/{secret_id}/tasks/{id}',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a task.
+   *
+   * Delete a task by specifying the ID of the secret.
+   *
+   * Supported secret types: `custom_credentials`.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.secretId - The UUID that uniquely identifies your secret.
+   * @param {string} params.id - The ID that uniquely identifies your task.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>>}
+   */
+  public deleteSecretTask(
+    params: SecretsManagerV2.DeleteSecretTaskParams
+  ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['secretId', 'id'];
+    const _validParams = ['secretId', 'id', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'secret_id': _params.secretId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(SecretsManagerV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecretTask');
+
+    const parameters = {
+      options: {
+        url: '/api/v2/secrets/{secret_id}/tasks/{id}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1292,7 +1590,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretsLocksPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['offset', 'limit', 'search', 'groups', 'headers'];
+    const _validParams = ['offset', 'limit', 'search', 'groups', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1323,6 +1621,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1366,7 +1667,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocksPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'offset', 'limit', 'sort', 'search', 'headers'];
+    const _validParams = ['id', 'offset', 'limit', 'sort', 'search', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1402,6 +1703,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1430,7 +1734,8 @@ class SecretsManagerV2 extends BaseService {
    * modes to clear any matching locks on a secret version.
    * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
    * secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
-   * deletes the data of the previous secret version if it doesn't have any locks.
+   * deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom credentials
+   * secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>>}
    */
@@ -1439,7 +1744,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
     const _requiredParams = ['id', 'locks'];
-    const _validParams = ['id', 'locks', 'mode', 'headers'];
+    const _validParams = ['id', 'locks', 'mode', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1478,6 +1783,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1508,7 +1816,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'name', 'headers'];
+    const _validParams = ['id', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1541,6 +1849,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1586,7 +1897,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretVersionLocksPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'offset', 'limit', 'sort', 'search', 'headers'];
+    const _validParams = ['secretId', 'id', 'offset', 'limit', 'sort', 'search', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1623,6 +1934,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1653,7 +1967,8 @@ class SecretsManagerV2 extends BaseService {
    * modes to clear any matching locks on a secret version.
    * - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the
    * secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
-   * deletes the data of the previous secret version if it doesn't have any locks.
+   * deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom credentials
+   * secret type.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>>}
    */
@@ -1662,7 +1977,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id', 'locks'];
-    const _validParams = ['secretId', 'id', 'locks', 'mode', 'headers'];
+    const _validParams = ['secretId', 'id', 'locks', 'mode', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1702,6 +2017,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1734,7 +2052,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.SecretLocks>> {
     const _params = { ...params };
     const _requiredParams = ['secretId', 'id'];
-    const _validParams = ['secretId', 'id', 'name', 'headers'];
+    const _validParams = ['secretId', 'id', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1768,6 +2086,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1783,11 +2104,12 @@ class SecretsManagerV2 extends BaseService {
    * Add a configuration to the specified secret type.
    *
    * Use this operation to define the configurations that are required to create public certificates (`public_cert`),
-   * private certificates (`private_cert`) and IAM Credentials secrets (`iam_credentials`).
+   * private certificates (`private_cert`), IAM credentials secrets (`iam_credentials`) and custom credentials secrets
+   * (`custom_credentials`).
    *
    * You can add multiple configurations for your instance as follows:
    *
-   * - A single configuration for IAM Credentials.
+   * - A single configuration for IAM credentials.
    * - Up to 10 CA configurations for public certificates.
    * - Up to 10 DNS configurations for public certificates.
    * - Up to 10 Root CA configurations for private certificates.
@@ -1804,7 +2126,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
     const _requiredParams = ['configurationPrototype'];
-    const _validParams = ['configurationPrototype', 'headers'];
+    const _validParams = ['configurationPrototype', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1830,6 +2152,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1874,7 +2199,7 @@ class SecretsManagerV2 extends BaseService {
    * You can apply multiple filters by using a comma-separated list of secret types.
    *
    * **Usage:** To retrieve a list of configurations that are associated with all secret types, use
-   * `..?secret_types=iam_credentials,public_cert,private_cert`.
+   * `..?secret_types=iam_credentials,public_cert,private_cert,custom_credentials`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationMetadataPaginatedCollection>>}
    */
@@ -1883,7 +2208,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationMetadataPaginatedCollection>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['offset', 'limit', 'sort', 'search', 'secretTypes', 'headers'];
+    const _validParams = ['offset', 'limit', 'sort', 'search', 'secretTypes', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1915,6 +2240,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1940,7 +2268,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
     const _requiredParams = ['name'];
-    const _validParams = ['name', 'xSmAcceptConfigurationType', 'headers'];
+    const _validParams = ['name', 'xSmAcceptConfigurationType', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1969,6 +2297,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1993,7 +2324,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.Configuration>> {
     const _params = { ...params };
     const _requiredParams = ['name', 'configurationPatch'];
-    const _validParams = ['name', 'configurationPatch', 'xSmAcceptConfigurationType', 'headers'];
+    const _validParams = ['name', 'configurationPatch', 'xSmAcceptConfigurationType', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2025,6 +2356,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2048,7 +2382,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['name'];
-    const _validParams = ['name', 'xSmAcceptConfigurationType', 'headers'];
+    const _validParams = ['name', 'xSmAcceptConfigurationType', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2076,6 +2410,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2110,7 +2447,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.ConfigurationAction>> {
     const _params = { ...params };
     const _requiredParams = ['name', 'configActionPrototype'];
-    const _validParams = ['name', 'configActionPrototype', 'xSmAcceptConfigurationType', 'headers'];
+    const _validParams = ['name', 'configActionPrototype', 'xSmAcceptConfigurationType', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2142,6 +2479,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2175,7 +2515,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.NotificationsRegistration>> {
     const _params = { ...params };
     const _requiredParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName'];
-    const _validParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName', 'eventNotificationsSourceDescription', 'headers'];
+    const _validParams = ['eventNotificationsInstanceCrn', 'eventNotificationsSourceName', 'eventNotificationsSourceDescription', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2206,6 +2546,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2226,7 +2569,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.NotificationsRegistration>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['headers'];
+    const _validParams = ['signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2249,6 +2592,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2271,7 +2617,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['headers'];
+    const _validParams = ['signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2293,6 +2639,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2318,7 +2667,7 @@ class SecretsManagerV2 extends BaseService {
   ): Promise<SecretsManagerV2.Response<SecretsManagerV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['headers'];
+    const _validParams = ['signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2340,6 +2689,9 @@ class SecretsManagerV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2375,8 +2727,13 @@ namespace SecretsManagerV2 {
    * request interfaces
    ************************/
 
+   interface DefaultParams {
+     headers?: OutgoingHttpHeaders;
+     signal?: AbortSignal;
+   }
+
   /** Parameters for the `createSecretGroup` operation. */
-  export interface CreateSecretGroupParams {
+  export interface CreateSecretGroupParams extends DefaultParams {
     /** The name of your secret group. */
     name: string;
     /** An extended description of your secret group.
@@ -2385,23 +2742,20 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecretGroups` operation. */
-  export interface ListSecretGroupsParams {
-    headers?: OutgoingHttpHeaders;
+  export interface ListSecretGroupsParams extends DefaultParams {
   }
 
   /** Parameters for the `getSecretGroup` operation. */
-  export interface GetSecretGroupParams {
+  export interface GetSecretGroupParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret group. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateSecretGroup` operation. */
-  export interface UpdateSecretGroupParams {
+  export interface UpdateSecretGroupParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret group. */
     id: string;
     /** The name of your secret group. */
@@ -2412,24 +2766,21 @@ namespace SecretsManagerV2 {
      *  secret group.
      */
     description?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteSecretGroup` operation. */
-  export interface DeleteSecretGroupParams {
+  export interface DeleteSecretGroupParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret group. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createSecret` operation. */
-  export interface CreateSecretParams {
+  export interface CreateSecretParams extends DefaultParams {
     secretPrototype: SecretPrototype;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecrets` operation. */
-  export interface ListSecretsParams {
+  export interface ListSecretsParams extends DefaultParams {
     /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
@@ -2488,7 +2839,6 @@ namespace SecretsManagerV2 {
      *  list of labels, use `..?labels=dev,us-south`.
      */
     matchAllLabels?: string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `listSecrets` operation. */
@@ -2503,48 +2853,46 @@ namespace SecretsManagerV2 {
       PUBLIC_CERT = 'public_cert',
       SERVICE_CREDENTIALS = 'service_credentials',
       USERNAME_PASSWORD = 'username_password',
+      CUSTOM_CREDENTIALS = 'custom_credentials',
     }
   }
 
   /** Parameters for the `getSecret` operation. */
-  export interface GetSecretParams {
+  export interface GetSecretParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteSecret` operation. */
-  export interface DeleteSecretParams {
+  export interface DeleteSecretParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
-    headers?: OutgoingHttpHeaders;
+    /** Set to `true` to force delete the secret. Available only for custom credentials secret type. */
+    forceDelete?: boolean;
   }
 
   /** Parameters for the `getSecretMetadata` operation. */
-  export interface GetSecretMetadataParams {
+  export interface GetSecretMetadataParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateSecretMetadata` operation. */
-  export interface UpdateSecretMetadataParams {
+  export interface UpdateSecretMetadataParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
     secretMetadataPatch: SecretMetadataPatch;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createSecretAction` operation. */
-  export interface CreateSecretActionParams {
+  export interface CreateSecretActionParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
     secretActionPrototype: SecretActionPrototype;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSecretByNameType` operation. */
-  export interface GetSecretByNameTypeParams {
+  export interface GetSecretByNameTypeParams extends DefaultParams {
     /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
      *  service_credentials, kv, and username_password.
      */
@@ -2555,7 +2903,6 @@ namespace SecretsManagerV2 {
     name: string;
     /** The name of your secret group. */
     secretGroupName: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `getSecretByNameType` operation. */
@@ -2570,59 +2917,55 @@ namespace SecretsManagerV2 {
       PUBLIC_CERT = 'public_cert',
       SERVICE_CREDENTIALS = 'service_credentials',
       USERNAME_PASSWORD = 'username_password',
+      CUSTOM_CREDENTIALS = 'custom_credentials',
     }
   }
 
   /** Parameters for the `createSecretVersion` operation. */
-  export interface CreateSecretVersionParams {
+  export interface CreateSecretVersionParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     secretVersionPrototype: SecretVersionPrototype;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecretVersions` operation. */
-  export interface ListSecretVersionsParams {
+  export interface ListSecretVersionsParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSecretVersion` operation. */
-  export interface GetSecretVersionParams {
+  export interface GetSecretVersionParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteSecretVersionData` operation. */
-  export interface DeleteSecretVersionDataParams {
+  export interface DeleteSecretVersionDataParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSecretVersionMetadata` operation. */
-  export interface GetSecretVersionMetadataParams {
+  export interface GetSecretVersionMetadataParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
      *  refer to the current or previous secret version.
      */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateSecretVersionMetadata` operation. */
-  export interface UpdateSecretVersionMetadataParams {
+  export interface UpdateSecretVersionMetadataParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
@@ -2631,11 +2974,10 @@ namespace SecretsManagerV2 {
     id: string;
     /** The secret version metadata that a user can customize. */
     versionCustomMetadata?: JsonObject;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createSecretVersionAction` operation. */
-  export interface CreateSecretVersionActionParams {
+  export interface CreateSecretVersionActionParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
@@ -2643,11 +2985,41 @@ namespace SecretsManagerV2 {
      */
     id: string;
     secretVersionActionPrototype: SecretVersionActionPrototype;
-    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `listSecretTasks` operation. */
+  export interface ListSecretTasksParams extends DefaultParams {
+    /** The UUID that uniquely identifies your secret. */
+    secretId: string;
+  }
+
+  /** Parameters for the `getSecretTask` operation. */
+  export interface GetSecretTaskParams extends DefaultParams {
+    /** The UUID that uniquely identifies your secret. */
+    secretId: string;
+    /** The ID that uniquely identifies your task. */
+    id: string;
+  }
+
+  /** Parameters for the `replaceSecretTask` operation. */
+  export interface ReplaceSecretTaskParams extends DefaultParams {
+    /** The UUID that uniquely identifies your secret. */
+    secretId: string;
+    /** The ID that uniquely identifies your task. */
+    id: string;
+    taskPut: SecretTaskPrototype;
+  }
+
+  /** Parameters for the `deleteSecretTask` operation. */
+  export interface DeleteSecretTaskParams extends DefaultParams {
+    /** The UUID that uniquely identifies your secret. */
+    secretId: string;
+    /** The ID that uniquely identifies your task. */
+    id: string;
   }
 
   /** Parameters for the `listSecretsLocks` operation. */
-  export interface ListSecretsLocksParams {
+  export interface ListSecretsLocksParams extends DefaultParams {
     /** The number of secrets to skip. By specifying `offset`, you retrieve a subset of items that starts with the
      *  `offset` value. Use `offset` with `limit` to page through your available resources.
      *
@@ -2678,11 +3050,10 @@ namespace SecretsManagerV2 {
      *  use `..?groups={secret_group_ID},default`.
      */
     groups?: string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecretLocks` operation. */
-  export interface ListSecretLocksParams {
+  export interface ListSecretLocksParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
     /** The number of locks to skip. By specifying `offset`, you retrieve a subset of items that starts with the
@@ -2714,11 +3085,10 @@ namespace SecretsManagerV2 {
      *  `..?search=text`.
      */
     search?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createSecretLocksBulk` operation. */
-  export interface CreateSecretLocksBulkParams {
+  export interface CreateSecretLocksBulkParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
     /** The locks data to be attached to a secret version. */
@@ -2727,15 +3097,15 @@ namespace SecretsManagerV2 {
      *  locks on a secret version.
      *  - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of
      *  the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
-     *  deletes the data of the previous secret version if it doesn't have any locks.
+     *  deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom
+     *  credentials secret type.
      */
     mode?: CreateSecretLocksBulkConstants.Mode | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createSecretLocksBulk` operation. */
   export namespace CreateSecretLocksBulkConstants {
-    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom credentials secret type. */
     export enum Mode {
       REMOVE_PREVIOUS = 'remove_previous',
       REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
@@ -2743,16 +3113,15 @@ namespace SecretsManagerV2 {
   }
 
   /** Parameters for the `deleteSecretLocksBulk` operation. */
-  export interface DeleteSecretLocksBulkParams {
+  export interface DeleteSecretLocksBulkParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     id: string;
     /** Specify the names of the secret locks to be deleted. */
     name?: string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecretVersionLocks` operation. */
-  export interface ListSecretVersionLocksParams {
+  export interface ListSecretVersionLocksParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
@@ -2788,11 +3157,10 @@ namespace SecretsManagerV2 {
      *  `..?search=text`.
      */
     search?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createSecretVersionLocksBulk` operation. */
-  export interface CreateSecretVersionLocksBulkParams {
+  export interface CreateSecretVersionLocksBulkParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
@@ -2805,15 +3173,15 @@ namespace SecretsManagerV2 {
      *  locks on a secret version.
      *  - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of
      *  the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently
-     *  deletes the data of the previous secret version if it doesn't have any locks.
+     *  deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom
+     *  credentials secret type.
      */
     mode?: CreateSecretVersionLocksBulkConstants.Mode | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createSecretVersionLocksBulk` operation. */
   export namespace CreateSecretVersionLocksBulkConstants {
-    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. */
+    /** An optional lock mode. When you create a lock, you can set one of the following modes to clear any matching locks on a secret version. - `remove_previous`: Removes any other locks with matching names if they are found in the previous version of the secret. - `remove_previous_and_delete`: Completes the same action as `remove_previous`, but also permanently deletes the data of the previous secret version if it doesn't have any locks. Not supported for custom credentials secret type. */
     export enum Mode {
       REMOVE_PREVIOUS = 'remove_previous',
       REMOVE_PREVIOUS_AND_DELETE = 'remove_previous_and_delete',
@@ -2821,7 +3189,7 @@ namespace SecretsManagerV2 {
   }
 
   /** Parameters for the `deleteSecretVersionLocksBulk` operation. */
-  export interface DeleteSecretVersionLocksBulkParams {
+  export interface DeleteSecretVersionLocksBulkParams extends DefaultParams {
     /** The UUID that uniquely identifies your secret. */
     secretId: string;
     /** The UUID that uniquely identifies your secret version. You can use the `current` or `previous` aliases to
@@ -2830,17 +3198,15 @@ namespace SecretsManagerV2 {
     id: string;
     /** Specify the names of the secret locks to be deleted. */
     name?: string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createConfiguration` operation. */
-  export interface CreateConfigurationParams {
+  export interface CreateConfigurationParams extends DefaultParams {
     configurationPrototype: ConfigurationPrototype;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listConfigurations` operation. */
-  export interface ListConfigurationsParams {
+  export interface ListConfigurationsParams extends DefaultParams {
     /** The number of configurations to skip. By specifying `offset`, you retrieve a subset of items that starts
      *  with the `offset` value. Use `offset` with `limit` to page through your available resources.
      *
@@ -2879,29 +3245,28 @@ namespace SecretsManagerV2 {
      *  You can apply multiple filters by using a comma-separated list of secret types.
      *
      *  **Usage:** To retrieve a list of configurations that are associated with all secret types, use
-     *  `..?secret_types=iam_credentials,public_cert,private_cert`.
+     *  `..?secret_types=iam_credentials,public_cert,private_cert,custom_credentials`.
      */
     secretTypes?: ListConfigurationsConstants.SecretTypes[] | string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `listConfigurations` operation. */
   export namespace ListConfigurationsConstants {
-    /** Filter configurations by secret types, iam_credentials, public_cert or private_cert. You can apply multiple filters by using a comma-separated list of secret types. **Usage:** To retrieve a list of configurations that are associated with all secret types, use `..?secret_types=iam_credentials,public_cert,private_cert`. */
+    /** Filter configurations by secret types, iam_credentials, public_cert or private_cert. You can apply multiple filters by using a comma-separated list of secret types. **Usage:** To retrieve a list of configurations that are associated with all secret types, use `..?secret_types=iam_credentials,public_cert,private_cert,custom_credentials`. */
     export enum SecretTypes {
       IAM_CREDENTIALS = 'iam_credentials',
       PRIVATE_CERT = 'private_cert',
       PUBLIC_CERT = 'public_cert',
+      CUSTOM_CREDENTIALS = 'custom_credentials',
     }
   }
 
   /** Parameters for the `getConfiguration` operation. */
-  export interface GetConfigurationParams {
+  export interface GetConfigurationParams extends DefaultParams {
     /** The name that uniquely identifies a configuration. */
     name: string;
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     xSmAcceptConfigurationType?: GetConfigurationConstants.XSmAcceptConfigurationType | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `getConfiguration` operation. */
@@ -2915,17 +3280,17 @@ namespace SecretsManagerV2 {
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
     }
   }
 
   /** Parameters for the `updateConfiguration` operation. */
-  export interface UpdateConfigurationParams {
+  export interface UpdateConfigurationParams extends DefaultParams {
     /** The name that uniquely identifies a configuration. */
     name: string;
     configurationPatch: ConfigurationPatch;
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     xSmAcceptConfigurationType?: UpdateConfigurationConstants.XSmAcceptConfigurationType | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `updateConfiguration` operation. */
@@ -2939,16 +3304,16 @@ namespace SecretsManagerV2 {
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
     }
   }
 
   /** Parameters for the `deleteConfiguration` operation. */
-  export interface DeleteConfigurationParams {
+  export interface DeleteConfigurationParams extends DefaultParams {
     /** The name that uniquely identifies a configuration. */
     name: string;
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     xSmAcceptConfigurationType?: DeleteConfigurationConstants.XSmAcceptConfigurationType | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `deleteConfiguration` operation. */
@@ -2962,17 +3327,17 @@ namespace SecretsManagerV2 {
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
     }
   }
 
   /** Parameters for the `createConfigurationAction` operation. */
-  export interface CreateConfigurationActionParams {
+  export interface CreateConfigurationActionParams extends DefaultParams {
     /** The name that uniquely identifies a configuration. */
     name: string;
     configActionPrototype: ConfigurationActionPrototype;
     /** The configuration type of this configuration - use this header to resolve 300 error responses. */
     xSmAcceptConfigurationType?: CreateConfigurationActionConstants.XSmAcceptConfigurationType | string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createConfigurationAction` operation. */
@@ -2986,33 +3351,30 @@ namespace SecretsManagerV2 {
       PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
       PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
       IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+      CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
     }
   }
 
   /** Parameters for the `createNotificationsRegistration` operation. */
-  export interface CreateNotificationsRegistrationParams {
+  export interface CreateNotificationsRegistrationParams extends DefaultParams {
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     eventNotificationsInstanceCrn: string;
     /** The name that is displayed as a source that is in your Event Notifications instance. */
     eventNotificationsSourceName: string;
     /** An optional description for the source that is in your Event Notifications instance. */
     eventNotificationsSourceDescription?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getNotificationsRegistration` operation. */
-  export interface GetNotificationsRegistrationParams {
-    headers?: OutgoingHttpHeaders;
+  export interface GetNotificationsRegistrationParams extends DefaultParams {
   }
 
   /** Parameters for the `deleteNotificationsRegistration` operation. */
-  export interface DeleteNotificationsRegistrationParams {
-    headers?: OutgoingHttpHeaders;
+  export interface DeleteNotificationsRegistrationParams extends DefaultParams {
   }
 
   /** Parameters for the `getNotificationsRegistrationTest` operation. */
-  export interface GetNotificationsRegistrationTestParams {
-    headers?: OutgoingHttpHeaders;
+  export interface GetNotificationsRegistrationTestParams extends DefaultParams {
   }
 
   /*************************
@@ -3145,6 +3507,69 @@ namespace SecretsManagerV2 {
    * The details of your configuration.
    */
   export interface ConfigurationPrototype {
+  }
+
+  /**
+   * The parameters required to configure Code Engine.
+   */
+  export interface CustomCredentialsConfigurationCodeEngine {
+    /** The Code Engine Job name used by this custom credentials configuration. */
+    job_name: string;
+    /** The Project ID of your Code Engine project used by this custom credentials configuration. */
+    project_id: string;
+    /** The region of the Code Engine project. For example us-south. */
+    region: string;
+  }
+
+  /**
+   * The schema that defines by the Code Engine job to be used as input and output formats for this custom credentials
+   * configuration.
+   */
+  export interface CustomCredentialsConfigurationSchema {
+    /** custom credentials configuration schema parameter. */
+    parameters: CustomCredentialsConfigurationSchemaParameter[];
+    /** custom credentials configuration schema credentials format. */
+    credentials: CustomCredentialsConfigurationSchemaCredentials[];
+  }
+
+  /**
+   * The format of the credentials of a custom credentials schema, for example {"name":"access_token",
+   * "format":"type:string, required:true"}.
+   */
+  export interface CustomCredentialsConfigurationSchemaCredentials {
+    /** The name of a parameter. */
+    name: string;
+    /** The format of the custom credentials parameter, for example 'required:true, type:string', 'type:int,
+     *  required:false', 'type:enum[val1|val2|val3], required:true', 'required:true, type:boolean'.
+     */
+    format: string;
+  }
+
+  /**
+   * A parameter of a custom credentials schema, for example {"name":"user_name", "format":"type:string,
+   * required:true"}.
+   */
+  export interface CustomCredentialsConfigurationSchemaParameter {
+    /** The name of a parameter. */
+    name: string;
+    /** The format of the custom credentials parameter, for example 'required:true, type:string', 'type:int,
+     *  required:false', 'type:enum[val1|val2|val3], required:true', 'required:true, type:boolean'.
+     */
+    format: string;
+    /** The name of the environment variable of a custom credentials configuration schema parameter. */
+    env_variable_name?: string;
+  }
+
+  /**
+   * Newly created credentials provided by the credentials provider.
+   */
+  export interface CustomCredentialsNewCredentials {
+    /** An identifier of credentials in the credentials provider that is used by the custom credentials secret type. */
+    id: string;
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
+     *  'integer' and 'boolean'.
+     */
+    payload: JsonObject;
   }
 
   /**
@@ -3566,7 +3991,7 @@ namespace SecretsManagerV2 {
 
   /**
    * This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-   * username_password, private_cert, public_cert, iam_credentials.
+   * username_password, private_cert, public_cert, iam_credentials, custom_credentials.
    */
   export interface RotationPolicy {
   }
@@ -3715,6 +4140,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -3779,6 +4205,83 @@ namespace SecretsManagerV2 {
    * Specify the properties for your secret.
    */
   export interface SecretPrototype {
+  }
+
+  /**
+   * Properties of a Secret's task.
+   */
+  export interface SecretTask {
+    /** A Secret Manager task identifier. */
+    id: string;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    creation_date: string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    last_update_date: string;
+    /** The unique identifier that is associated with the entity that updated the resource. */
+    updated_by: string;
+    /** The type of the task, can be either "create_credentials" or "delete_credentials". */
+    type: SecretTask.Constants.Type | string;
+    /** The status of a task, could be one of: queued, processing, succeeded, failed. */
+    status: SecretTask.Constants.Status | string;
+    /** Information about what has initiated the task. */
+    trigger: SecretTask.Constants.Trigger | string;
+    /** A UUID identifier. */
+    secret_id: string;
+    /** A UUID identifier. */
+    secret_version_id?: string;
+    /** A collection of errors. */
+    errors?: SecretTaskError[];
+  }
+  export namespace SecretTask {
+    export namespace Constants {
+      /** The type of the task, can be either "create_credentials" or "delete_credentials". */
+      export enum Type {
+        CREATE_CREDENTIALS = 'create_credentials',
+        DELETE_CREDENTIALS = 'delete_credentials',
+      }
+      /** The status of a task, could be one of: queued, processing, succeeded, failed. */
+      export enum Status {
+        QUEUED = 'queued',
+        PROCESSING = 'processing',
+        CREDENTIALS_CREATED = 'credentials_created',
+        CREDENTIALS_DELETED = 'credentials_deleted',
+        FAILED = 'failed',
+      }
+      /** Information about what has initiated the task. */
+      export enum Trigger {
+        SECRET_CREATION = 'secret_creation',
+        MANUAL_SECRET_ROTATION = 'manual_secret_rotation',
+        AUTOMATIC_SECRET_ROTATION = 'automatic_secret_rotation',
+        SECRET_VERSION_EXPIRATION = 'secret_version_expiration',
+        SECRET_VERSION_DATA_DELETION = 'secret_version_data_deletion',
+      }
+    }
+  }
+
+  /**
+   * A collection of tasks that are associated with a secret.
+   */
+  export interface SecretTaskCollection {
+    /** A collection of secret metadata. */
+    tasks: SecretTask[];
+  }
+
+  /**
+   * API Error.
+   */
+  export interface SecretTaskError {
+    /** An error code identifier. */
+    code: string;
+    /** A human-readable message that provides details about the error. */
+    description: string;
+  }
+
+  /**
+   * The request body to specify the properties for your secret task update.
+   */
+  export interface SecretTaskPrototype {
   }
 
   /**
@@ -4103,7 +4606,8 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
@@ -4121,6 +4625,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -4187,7 +4692,8 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
   }
@@ -4203,6 +4709,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -4296,6 +4803,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -4335,7 +4843,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The secret data that is assigned to an `arbitrary` secret. */
@@ -4353,6 +4862,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -4397,7 +4907,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
   }
@@ -4413,6 +4924,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -4460,13 +4972,705 @@ namespace SecretsManagerV2 {
   }
 
   /**
+   * The configuration of custom credentials.
+   */
+  export interface CustomCredentialsConfiguration extends Configuration {
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
+     */
+    config_type: CustomCredentialsConfiguration.Constants.ConfigType | string;
+    /** The unique name of your configuration. */
+    name: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsConfiguration.Constants.SecretType | string;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The IAM API key used by the credentials provider to access this Secrets Manager instance. */
+    code_engine_key_ref?: string;
+    /** The IAM credentials secret ID that is used for setting up a custom credentials engine configuration. */
+    api_key_ref?: string;
+    /** The parameters required to configure Code Engine. */
+    code_engine: CustomCredentialsConfigurationCodeEngine;
+    /** The schema that defines by the Code Engine job to be used as input and output formats for this custom
+     *  credentials configuration.
+     */
+    schema: CustomCredentialsConfigurationSchema;
+    /** Specifies the maximum allowed time for a Code Engine task to be completed. After this time elapses, the task
+     *  state will changed to failed. The minimum value is 5 minutes and the maximum value is 24 hours. Default task
+     *  time out is 10 minutes.  The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `10m` or `2h`.
+     */
+    task_timeout?: string;
+  }
+  export namespace CustomCredentialsConfiguration {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+    }
+  }
+
+  /**
+   * Your custom credentials configuration metadata properties.
+   */
+  export interface CustomCredentialsConfigurationMetadata extends ConfigurationMetadata {
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
+     */
+    config_type: CustomCredentialsConfigurationMetadata.Constants.ConfigType | string;
+    /** The unique name of your configuration. */
+    name: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsConfigurationMetadata.Constants.SecretType | string;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The IAM API key used by the credentials provider to access this Secrets Manager instance. */
+    code_engine_key_ref?: string;
+    /** The IAM credentials secret ID that is used for setting up a custom credentials engine configuration. */
+    api_key_ref?: string;
+    /** The parameters required to configure Code Engine. */
+    code_engine: CustomCredentialsConfigurationCodeEngine;
+    /** The schema that defines by the Code Engine job to be used as input and output formats for this custom
+     *  credentials configuration.
+     */
+    schema: CustomCredentialsConfigurationSchema;
+    /** Specifies the maximum allowed time for a Code Engine task to be completed. After this time elapses, the task
+     *  state will changed to failed. The minimum value is 5 minutes and the maximum value is 24 hours. Default task
+     *  time out is 10 minutes.  The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `10m` or `2h`.
+     */
+    task_timeout?: string;
+  }
+  export namespace CustomCredentialsConfigurationMetadata {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
+      }
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+    }
+  }
+
+  /**
+   * The configuration update of the custom credentials engine.
+   */
+  export interface CustomCredentialsConfigurationPatch extends ConfigurationPatch {
+    /** Specifies the maximum allowed time for a Code Engine task to be completed. After this time elapses, the task
+     *  state will changed to failed. The minimum value is 5 minutes and the maximum value is 24 hours. Default task
+     *  time out is 10 minutes.  The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `10m` or `2h`.
+     */
+    task_timeout?: string;
+  }
+
+  /**
+   * CustomCredentialsConfigurationPrototype.
+   */
+  export interface CustomCredentialsConfigurationPrototype extends ConfigurationPrototype {
+    /** A human-readable unique name to assign to your configuration.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as an name for your secret.
+     */
+    name: string;
+    /** The configuration type. Can be one of: iam_credentials_configuration,
+     *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
+     *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
+     */
+    config_type: CustomCredentialsConfigurationPrototype.Constants.ConfigType | string;
+    /** The IAM credentials secret ID that is used for setting up a custom credentials engine configuration. */
+    api_key_ref?: string;
+    /** The parameters required to configure Code Engine. */
+    code_engine: CustomCredentialsConfigurationCodeEngine;
+    /** Specifies the maximum allowed time for a Code Engine task to be completed. After this time elapses, the task
+     *  state will changed to failed. The minimum value is 5 minutes and the maximum value is 24 hours. Default task
+     *  time out is 10 minutes.  The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `10m` or `2h`.
+     */
+    task_timeout?: string;
+  }
+  export namespace CustomCredentialsConfigurationPrototype {
+    export namespace Constants {
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
+      export enum ConfigType {
+        PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
+        PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
+        PUBLIC_CERT_CONFIGURATION_CA_LETS_ENCRYPT = 'public_cert_configuration_ca_lets_encrypt',
+        PRIVATE_CERT_CONFIGURATION_ROOT_CA = 'private_cert_configuration_root_ca',
+        PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
+        PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
+        IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
+      }
+    }
+  }
+
+  /**
+   * Your custom credentials secret.
+   */
+  export interface CustomCredentialsSecret extends Secret {
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** A CRN that uniquely identifies an IBM Cloud resource. */
+    crn: string;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A UUID identifier. */
+    id: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-64 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The number of locks of the secret. */
+    locks_total?: number;
+    /** The human-readable name of your secret. */
+    name?: string;
+    /** A UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsSecret.Constants.SecretType | string;
+    /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
+     *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: CustomCredentialsSecret.Constants.StateDescription | string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The number of versions of your secret. */
+    versions_total: number;
+    /** The list of configurations that have a reference to the secret. */
+    referenced_by?: string[];
+    /** The date that the secret is scheduled for automatic rotation.
+     *
+     *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
+     *  for secrets that can be auto-rotated and an existing rotation policy.
+     */
+    next_rotation_date?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
+     */
+    ttl?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
+     */
+    expiration_date?: string;
+    /** The number of tasks that were created for this secret. */
+    task_count?: number;
+    /** A Secret Manager task identifier. */
+    processing_task_id?: string;
+    /** Number of queued tasks for this secret. */
+    queued_task_count?: number;
+    /** A Secret Manager task identifier. */
+    last_failed_task_id?: string;
+    /** The name of the custom credentials configuration. */
+    configuration: string;
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
+     *  'integer' and 'boolean'.
+     */
+    parameters?: JsonObject;
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
+     *  'integer' and 'boolean'.
+     */
+    credentials_content: JsonObject;
+  }
+  export namespace CustomCredentialsSecret {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
+
+  /**
+   * The metadata properties for your custom credentials secret.
+   */
+  export interface CustomCredentialsSecretMetadata extends SecretMetadata {
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** A CRN that uniquely identifies an IBM Cloud resource. */
+    crn: string;
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A UUID identifier. */
+    id: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-64 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** The number of locks of the secret. */
+    locks_total?: number;
+    /** The human-readable name of your secret. */
+    name?: string;
+    /** A UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsSecretMetadata.Constants.SecretType | string;
+    /** The secret state that is based on `NIST SP 800-57`. States are integers and correspond to the
+     *  `Pre-activation = 0`, `Active = 1`,  `Suspended = 2`, `Deactivated = 3`, and `Destroyed = 5` values.
+     */
+    state?: number;
+    /** A text representation of the secret state. */
+    state_description?: CustomCredentialsSecretMetadata.Constants.StateDescription | string;
+    /** The date when a resource was modified. The date format follows `RFC 3339`. */
+    updated_at: string;
+    /** The number of versions of your secret. */
+    versions_total: number;
+    /** The list of configurations that have a reference to the secret. */
+    referenced_by?: string[];
+    /** The date that the secret is scheduled for automatic rotation.
+     *
+     *  The service automatically creates a new version of the secret on its next rotation date. This field exists only
+     *  for secrets that can be auto-rotated and an existing rotation policy.
+     */
+    next_rotation_date?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
+     */
+    ttl?: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
+     */
+    expiration_date?: string;
+    /** The number of tasks that were created for this secret. */
+    task_count?: number;
+    /** A Secret Manager task identifier. */
+    processing_task_id?: string;
+    /** Number of queued tasks for this secret. */
+    queued_task_count?: number;
+    /** A Secret Manager task identifier. */
+    last_failed_task_id?: string;
+    /** The name of the custom credentials configuration. */
+    configuration: string;
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
+     *  'integer' and 'boolean'.
+     */
+    parameters?: JsonObject;
+  }
+  export namespace CustomCredentialsSecretMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+      /** A text representation of the secret state. */
+      export enum StateDescription {
+        PRE_ACTIVATION = 'pre_activation',
+        ACTIVE = 'active',
+        SUSPENDED = 'suspended',
+        DEACTIVATED = 'deactivated',
+        DESTROYED = 'destroyed',
+      }
+    }
+  }
+
+  /**
+   * CustomCredentialsSecretMetadataPatch.
+   */
+  export interface CustomCredentialsSecretMetadataPatch extends SecretMetadataPatch {
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-64 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable name to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
+     */
+    name?: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
+     */
+    ttl?: string;
+    /** The parameters that are passed to custom credentials engine. Allowed types are 'string', 'integer' and
+     *  'boolean'.
+     */
+    parameters?: JsonObject;
+  }
+
+  /**
+   * CustomCredentialsSecretPrototype.
+   */
+  export interface CustomCredentialsSecretPrototype extends SecretPrototype {
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** An extended description of your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a description for your
+     *  secret group.
+     */
+    description?: string;
+    /** Labels that you can use to search secrets in your instance. Only 30 labels can be created.
+     *
+     *  Label can be between 2-64 characters, including spaces.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a label for your secret.
+     */
+    labels?: string[];
+    /** A human-readable name to assign to your secret.
+     *
+     *  To protect your privacy, do not use personal data, such as your name or location, as a name for your secret.
+     */
+    name: string;
+    /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
+     */
+    rotation?: RotationPolicy;
+    /** A UUID identifier, or `default` secret group. */
+    secret_group_id?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsSecretPrototype.Constants.SecretType | string;
+    /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
+     */
+    ttl?: string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+    /** The name of the custom credentials configuration. */
+    configuration: string;
+    /** The parameters that are passed to custom credentials engine. Allowed types are 'string', 'integer' and
+     *  'boolean'.
+     */
+    parameters?: JsonObject;
+  }
+  export namespace CustomCredentialsSecretPrototype {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+    }
+  }
+
+  /**
+   * Your custom credentials secret version.
+   */
+  export interface CustomCredentialsSecretVersion extends SecretVersion {
+    /** Indicates whether the version of the secret was created by automatic rotation. */
+    auto_rotated?: boolean;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A UUID identifier. */
+    id: string;
+    /** The human-readable name of your secret. */
+    secret_name?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsSecretVersion.Constants.SecretType | string;
+    /** A UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** Indicates whether the secret payload is available in this secret version. */
+    payload_available: boolean;
+    /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
+     *  is used for version `n-1`.
+     */
+    alias?: CustomCredentialsSecretVersion.Constants.Alias | string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+    /** A UUID identifier. */
+    secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
+     */
+    expiration_date?: string;
+    /** Credentials created by the custom credentials system. */
+    credentials_id?: string;
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
+     *  'integer' and 'boolean'.
+     */
+    credentials_content: JsonObject;
+  }
+  export namespace CustomCredentialsSecretVersion {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
+
+  /**
+   * The version metadata properties for your custom credentials secret.
+   */
+  export interface CustomCredentialsSecretVersionMetadata extends SecretVersionMetadata {
+    /** Indicates whether the version of the secret was created by automatic rotation. */
+    auto_rotated?: boolean;
+    /** The unique identifier that is associated with the entity that created the secret. */
+    created_by: string;
+    /** The date when the resource was created. The date format follows `RFC 3339`. */
+    created_at: string;
+    /** This field indicates whether the secret data that is associated with a secret version was retrieved in a
+     *  call to the service API.
+     */
+    downloaded?: boolean;
+    /** A UUID identifier. */
+    id: string;
+    /** The human-readable name of your secret. */
+    secret_name?: string;
+    /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials,
+     *  service_credentials, kv, and username_password.
+     */
+    secret_type: CustomCredentialsSecretVersionMetadata.Constants.SecretType | string;
+    /** A UUID identifier, or `default` secret group. */
+    secret_group_id: string;
+    /** Indicates whether the secret payload is available in this secret version. */
+    payload_available: boolean;
+    /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous'
+     *  is used for version `n-1`.
+     */
+    alias?: CustomCredentialsSecretVersionMetadata.Constants.Alias | string;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+    /** A UUID identifier. */
+    secret_id: string;
+    /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
+     */
+    expiration_date?: string;
+    /** Credentials created by the custom credentials system. */
+    credentials_id?: string;
+  }
+  export namespace CustomCredentialsSecretVersionMetadata {
+    export namespace Constants {
+      /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
+      export enum SecretType {
+        ARBITRARY = 'arbitrary',
+        IAM_CREDENTIALS = 'iam_credentials',
+        IMPORTED_CERT = 'imported_cert',
+        KV = 'kv',
+        PRIVATE_CERT = 'private_cert',
+        PUBLIC_CERT = 'public_cert',
+        SERVICE_CREDENTIALS = 'service_credentials',
+        USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
+      }
+      /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
+      export enum Alias {
+        CURRENT = 'current',
+        PREVIOUS = 'previous',
+      }
+    }
+  }
+
+  /**
+   * CustomCredentialsSecretVersionPrototype.
+   */
+  export interface CustomCredentialsSecretVersionPrototype extends SecretVersionPrototype {
+    /** The secret metadata that a user can customize. */
+    custom_metadata?: JsonObject;
+    /** The secret version metadata that a user can customize. */
+    version_custom_metadata?: JsonObject;
+  }
+
+  /**
    * Properties that describe a Classic Infrastructure DNS configuration.
    */
   export interface IAMCredentialsConfiguration extends Configuration {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: IAMCredentialsConfiguration.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -4492,7 +5696,7 @@ namespace SecretsManagerV2 {
   }
   export namespace IAMCredentialsConfiguration {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -4501,6 +5705,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -4512,18 +5717,20 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
 
   /**
-   * Your IAMCredentials Configuration metadata properties.
+   * Your IAM credentials configuration metadata properties.
    */
   export interface IAMCredentialsConfigurationMetadata extends ConfigurationMetadata {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: IAMCredentialsConfigurationMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -4543,7 +5750,7 @@ namespace SecretsManagerV2 {
   }
   export namespace IAMCredentialsConfigurationMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -4552,6 +5759,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -4563,6 +5771,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -4597,7 +5806,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: IAMCredentialsConfigurationPrototype.Constants.ConfigType | string;
     /** The API key that is used to set the iam_credentials engine. */
@@ -4611,7 +5821,7 @@ namespace SecretsManagerV2 {
   }
   export namespace IAMCredentialsConfigurationPrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -4620,6 +5830,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
     }
   }
@@ -4678,12 +5889,14 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4721,7 +5934,7 @@ namespace SecretsManagerV2 {
      */
     reuse_api_key: boolean;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The date that the secret is scheduled for automatic rotation.
@@ -4731,7 +5944,8 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The API key that is generated for this secret.
@@ -4754,6 +5968,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -4820,12 +6035,14 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -4863,7 +6080,7 @@ namespace SecretsManagerV2 {
      */
     reuse_api_key: boolean;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The date that the secret is scheduled for automatic rotation.
@@ -4873,7 +6090,8 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
   }
@@ -4889,6 +6107,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -4926,16 +6145,18 @@ namespace SecretsManagerV2 {
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
   }
@@ -4969,12 +6190,14 @@ namespace SecretsManagerV2 {
      */
     labels?: string[];
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl: string;
     /** Access Groups that you can use for an `iam_credentials` secret.
@@ -5004,7 +6227,7 @@ namespace SecretsManagerV2 {
      */
     reuse_api_key: boolean;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
@@ -5024,6 +6247,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -5075,7 +6299,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The ID of the API key that is generated for this secret. */
@@ -5110,6 +6335,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -5154,7 +6380,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The ID of the API key that is generated for this secret. */
@@ -5182,6 +6409,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -5265,7 +6493,8 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
@@ -5309,6 +6538,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -5385,7 +6615,8 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** Indicates whether the certificate was imported with an associated intermediate certificate. */
@@ -5417,6 +6648,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -5514,6 +6746,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -5553,7 +6786,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -5585,6 +6819,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -5629,7 +6864,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -5649,6 +6885,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -5746,6 +6983,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -5824,6 +7062,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -5909,6 +7148,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -5948,7 +7188,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The payload data of a key-value secret. */
@@ -5966,6 +7207,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -6010,7 +7252,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
   }
@@ -6026,6 +7269,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -6115,9 +7359,10 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
     common_name: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer: string;
     /** The identifier for the cryptographic algorithm used to generate the public key that is associated with the
@@ -6131,7 +7376,7 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -6165,6 +7410,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -6838,7 +8084,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationIntermediateCA.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -6860,7 +8107,8 @@ namespace SecretsManagerV2 {
      */
     crl_distribution_points_encoded?: boolean;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
@@ -6947,7 +8195,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationIntermediateCA {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -6956,6 +8204,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -6967,6 +8216,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -7032,7 +8282,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationIntermediateCAMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -7054,7 +8305,8 @@ namespace SecretsManagerV2 {
      */
     crl_distribution_points_encoded?: boolean;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
@@ -7083,7 +8335,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationIntermediateCAMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7092,6 +8344,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7103,6 +8356,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -7169,7 +8423,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationIntermediateCAPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -7277,7 +8532,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationIntermediateCAPrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7286,6 +8541,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The signing method to use with this certificate authority to generate private certificates. You can choose between internal or externally signed options. For more information, see the [docs](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-intermediate-certificate-authorities). */
       export enum SigningMethod {
@@ -7317,7 +8573,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationRootCA.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -7339,7 +8596,8 @@ namespace SecretsManagerV2 {
      */
     crl_distribution_points_encoded?: boolean;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The type of private key to generate. */
@@ -7430,7 +8688,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationRootCA {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7439,6 +8697,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7450,6 +8709,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -7485,7 +8745,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationRootCAMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -7507,7 +8768,8 @@ namespace SecretsManagerV2 {
      */
     crl_distribution_points_encoded?: boolean;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The type of private key to generate. */
@@ -7528,7 +8790,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationRootCAMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7537,6 +8799,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7548,6 +8811,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -7609,7 +8873,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationRootCAPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -7726,7 +8991,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationRootCAPrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7735,6 +9000,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The format of the returned data. */
       export enum Format {
@@ -7761,7 +9027,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationTemplate.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -7927,7 +9194,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationTemplate {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7936,6 +9203,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -7947,6 +9215,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -7963,7 +9232,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationTemplateMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -7983,7 +9253,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationTemplateMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -7992,6 +9262,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -8003,6 +9274,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -8194,7 +9466,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PrivateCertificateConfigurationTemplatePrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -8374,7 +9647,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PrivateCertificateConfigurationTemplatePrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -8383,6 +9656,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The type of private key to generate. */
       export enum KeyType {
@@ -8482,9 +9756,10 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name that is protected by the SSL certificate. */
     common_name: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
-    expiration_date: string;
+    expiration_date?: string;
     /** The distinguished name that identifies the entity that signed and issued the certificate. */
     issuer: string;
     /** The identifier for the cryptographic algorithm used to generate the public key that is associated with the
@@ -8498,7 +9773,7 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -8522,6 +9797,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -8559,7 +9835,7 @@ namespace SecretsManagerV2 {
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
   }
@@ -8631,7 +9907,7 @@ namespace SecretsManagerV2 {
      */
     ttl?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
@@ -8651,6 +9927,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The format of the returned data. */
       export enum Format {
@@ -8700,7 +9977,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -8730,6 +10008,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -8808,7 +10087,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -8828,6 +10108,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -8913,7 +10194,8 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** Issuance information that is associated with your certificate. */
@@ -8933,7 +10215,7 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
@@ -8965,6 +10247,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -9019,7 +10302,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationCALetsEncrypt.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9047,7 +10331,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationCALetsEncrypt {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9056,6 +10340,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9067,6 +10352,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
@@ -9083,7 +10369,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationCALetsEncryptMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9107,7 +10394,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationCALetsEncryptMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9116,6 +10403,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9127,6 +10415,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
@@ -9168,7 +10457,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationCALetsEncryptPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -9189,7 +10479,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationCALetsEncryptPrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9198,6 +10488,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The configuration of the Let's Encrypt CA environment. */
       export enum LetsEncryptEnvironment {
@@ -9214,7 +10505,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSClassicInfrastructure.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9244,7 +10536,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSClassicInfrastructure {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9253,6 +10545,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9264,6 +10557,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -9275,7 +10569,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSClassicInfrastructureMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9293,7 +10588,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSClassicInfrastructureMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9302,6 +10597,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9313,6 +10609,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -9342,7 +10639,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSClassicInfrastructurePrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -9365,7 +10663,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSClassicInfrastructurePrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9374,6 +10672,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
     }
   }
@@ -9385,7 +10684,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSCloudInternetServices.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9423,7 +10723,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSCloudInternetServices {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9432,6 +10732,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9443,6 +10744,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -9454,7 +10756,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSCloudInternetServicesMetadata.Constants.ConfigType | string;
     /** The unique name of your configuration. */
@@ -9472,7 +10775,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSCloudInternetServicesMetadata {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9481,6 +10784,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
       /** The secret type. Supported types are arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials, kv, and username_password. */
       export enum SecretType {
@@ -9492,6 +10796,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -9529,7 +10834,8 @@ namespace SecretsManagerV2 {
     /** The configuration type. Can be one of: iam_credentials_configuration,
      *  public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure,
      *  public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca,
-     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template.
+     *  private_cert_configuration_intermediate_ca, private_cert_configuration_template,
+     *  custom_credentials_configuration.
      */
     config_type: PublicCertificateConfigurationDNSCloudInternetServicesPrototype.Constants.ConfigType | string;
     /** A human-readable unique name to assign to your configuration.
@@ -9560,7 +10866,7 @@ namespace SecretsManagerV2 {
   }
   export namespace PublicCertificateConfigurationDNSCloudInternetServicesPrototype {
     export namespace Constants {
-      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template. */
+      /** The configuration type. Can be one of: iam_credentials_configuration, public_cert_configuration_ca_lets_encrypt, public_cert_configuration_dns_classic_infrastructure, public_cert_configuration_dns_cloud_internet_services, private_cert_configuration_root_ca, private_cert_configuration_intermediate_ca, private_cert_configuration_template, custom_credentials_configuration. */
       export enum ConfigType {
         PUBLIC_CERT_CONFIGURATION_DNS_CLOUD_INTERNET_SERVICES = 'public_cert_configuration_dns_cloud_internet_services',
         PUBLIC_CERT_CONFIGURATION_DNS_CLASSIC_INFRASTRUCTURE = 'public_cert_configuration_dns_classic_infrastructure',
@@ -9569,6 +10875,7 @@ namespace SecretsManagerV2 {
         PRIVATE_CERT_CONFIGURATION_INTERMEDIATE_CA = 'private_cert_configuration_intermediate_ca',
         PRIVATE_CERT_CONFIGURATION_TEMPLATE = 'private_cert_configuration_template',
         IAM_CREDENTIALS_CONFIGURATION = 'iam_credentials_configuration',
+        CUSTOM_CREDENTIALS_CONFIGURATION = 'custom_credentials_configuration',
       }
     }
   }
@@ -9637,7 +10944,8 @@ namespace SecretsManagerV2 {
     /** The Common Name (CN) represents the server name protected by the SSL certificate. */
     common_name?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** Issuance information that is associated with your certificate. */
@@ -9657,7 +10965,7 @@ namespace SecretsManagerV2 {
     /** The date and time that the certificate validity period begins and ends. */
     validity?: CertificateValidity;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation: RotationPolicy;
     /** Indicates whether the issued certificate is bundled with intermediate certificates. */
@@ -9679,6 +10987,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -9716,7 +11025,7 @@ namespace SecretsManagerV2 {
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
   }
@@ -9772,7 +11081,7 @@ namespace SecretsManagerV2 {
      */
     bundle_certs?: boolean;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The secret metadata that a user can customize. */
@@ -9792,6 +11101,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -9853,7 +11163,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -9883,6 +11194,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -9927,7 +11239,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The unique serial number that was assigned to a certificate by the issuing certificate authority. */
@@ -9947,6 +11260,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -9966,6 +11280,58 @@ namespace SecretsManagerV2 {
     custom_metadata?: JsonObject;
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
+  }
+
+  /**
+   * Called by the credentials provider on a successful creation of credentials.
+   */
+  export interface SecretTaskPrototypeUpdateSecretTaskCredentialsCreated extends SecretTaskPrototype {
+    /** Describes the status of a secret's task. */
+    status: SecretTaskPrototypeUpdateSecretTaskCredentialsCreated.Constants.Status | string;
+    /** Newly created credentials provided by the credentials provider. */
+    credentials: CustomCredentialsNewCredentials;
+  }
+  export namespace SecretTaskPrototypeUpdateSecretTaskCredentialsCreated {
+    export namespace Constants {
+      /** Describes the status of a secret's task. */
+      export enum Status {
+        CREDENTIALS_CREATED = 'credentials_created',
+      }
+    }
+  }
+
+  /**
+   * This endpoint is called back by the credentials provider on a successful deletion of credentials.
+   */
+  export interface SecretTaskPrototypeUpdateSecretTaskCredentialsDeleted extends SecretTaskPrototype {
+    /** Describes the status of a secret's task. */
+    status: SecretTaskPrototypeUpdateSecretTaskCredentialsDeleted.Constants.Status | string;
+  }
+  export namespace SecretTaskPrototypeUpdateSecretTaskCredentialsDeleted {
+    export namespace Constants {
+      /** Describes the status of a secret's task. */
+      export enum Status {
+        CREDENTIALS_DELETED = 'credentials_deleted',
+      }
+    }
+  }
+
+  /**
+   * Flag task as failed upon failure to create or delete credentials.
+   */
+  export interface SecretTaskPrototypeUpdateSecretTaskFailed extends SecretTaskPrototype {
+    /** Describes the status of a secret's task. */
+    status: SecretTaskPrototypeUpdateSecretTaskFailed.Constants.Status | string;
+    /** A collection of errors. */
+    errors: SecretTaskError[];
+  }
+  export namespace SecretTaskPrototypeUpdateSecretTaskFailed {
+    export namespace Constants {
+      /** Describes the status of a secret's task. */
+      export enum Status {
+        FAILED = 'failed',
+      }
+    }
   }
 
   /**
@@ -10028,20 +11394,23 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The properties of the resource key that was created for this source service instance. */
@@ -10061,6 +11430,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -10133,20 +11503,23 @@ namespace SecretsManagerV2 {
      */
     next_rotation_date?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl?: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The properties of the resource key that was created for this source service instance. */
@@ -10164,6 +11537,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -10201,16 +11575,18 @@ namespace SecretsManagerV2 {
      */
     name?: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl?: string;
   }
@@ -10240,7 +11616,7 @@ namespace SecretsManagerV2 {
      */
     name: string;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** A UUID identifier, or `default` secret group. */
@@ -10254,12 +11630,14 @@ namespace SecretsManagerV2 {
      */
     source_service: ServiceCredentialsSecretSourceService;
     /** The time-to-live (TTL) or lease duration to assign to credentials that are generated. Supported secret
-     *  types: iam_credentials, service_credentials. The TTL defines how long generated credentials remain valid. The
-     *  value can be either an integer that specifies the number of seconds, or the string  representation of a
-     *  duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is mandatory. The minimum
-     *  duration is 1 minute. The maximum is 90 days. For the service_credentials secret type, the TTL field is
-     *  optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the TTL is set to 0.
-     *  After the TTL is modified, it will be applied only on the next secret rotation.
+     *  types: iam_credentials, service_credentials, custom_credentials. The TTL defines how long generated credentials
+     *  remain valid. The value can be either an integer that specifies the number of seconds, or the string
+     *  representation of a duration, such as `1440m` or `24h`. For the iam_credentials secret type, the TTL field is
+     *  mandatory. The minimum duration is 1 minute. The maximum is 90 days. For the service_credentials secret type,
+     *  the TTL field is optional. If it is set the minimum duration is 1 day. The maximum is 90 days. By default, the
+     *  TTL is set to 0. After the TTL is modified, it will be applied only on the next secret rotation. For the
+     *  custom_credentials secret type, the TTL field is optional. The minimum duration is 1 day. The maximum is 90
+     *  days.
      */
     ttl?: string;
     /** The secret version metadata that a user can customize. */
@@ -10277,6 +11655,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -10316,7 +11695,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The source service resource key data of the generated service credentials. */
@@ -10336,6 +11716,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -10380,7 +11761,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The source service resource key data of the generated service credentials. */
@@ -10398,6 +11780,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -10471,11 +11854,12 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation: RotationPolicy;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The date that the secret is scheduled for automatic rotation.
@@ -10503,6 +11887,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -10569,11 +11954,12 @@ namespace SecretsManagerV2 {
     /** The list of configurations that have a reference to the secret. */
     referenced_by?: string[];
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation: RotationPolicy;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The date that the secret is scheduled for automatic rotation.
@@ -10597,6 +11983,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A text representation of the secret state. */
       export enum StateDescription {
@@ -10634,7 +12021,7 @@ namespace SecretsManagerV2 {
     /** The secret metadata that a user can customize. */
     custom_metadata?: JsonObject;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
@@ -10690,7 +12077,7 @@ namespace SecretsManagerV2 {
     /** The secret version metadata that a user can customize. */
     version_custom_metadata?: JsonObject;
     /** This field indicates whether Secrets Manager rotates your secrets automatically. Supported secret types:
-     *  username_password, private_cert, public_cert, iam_credentials.
+     *  username_password, private_cert, public_cert, iam_credentials, custom_credentials.
      */
     rotation?: RotationPolicy;
     /** Policy for auto-generated passwords. */
@@ -10708,6 +12095,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
     }
   }
@@ -10747,7 +12135,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
     /** The username that is assigned to an `username_password` secret. */
@@ -10767,6 +12156,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
@@ -10811,7 +12201,8 @@ namespace SecretsManagerV2 {
     /** A UUID identifier. */
     secret_id: string;
     /** The date when the secret material expires. The date format follows the `RFC 3339` format. Supported secret
-     *  types: Arbitrary, username_password.
+     *  types: arbitrary, imported_cert, public_cert, private_cert, iam_credentials, service_credentials,
+     *  username_password, and custom_credentials.
      */
     expiration_date?: string;
   }
@@ -10827,6 +12218,7 @@ namespace SecretsManagerV2 {
         PUBLIC_CERT = 'public_cert',
         SERVICE_CREDENTIALS = 'service_credentials',
         USERNAME_PASSWORD = 'username_password',
+        CUSTOM_CREDENTIALS = 'custom_credentials',
       }
       /** A human-readable alias that describes the secret version. 'Current' is used for version `n` and 'previous' is used for version `n-1`. */
       export enum Alias {
