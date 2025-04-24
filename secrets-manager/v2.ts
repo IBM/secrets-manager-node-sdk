@@ -1087,9 +1087,13 @@ class SecretsManagerV2 extends BaseService {
   /**
    * Delete the data of a secret version.
    *
-   * Delete the data of a secret version by specifying the ID of the version.
+   * Delete the data of a secret version by specifying its version ID.
    *
-   * This operation is available for secret type: iam_credentials current version.
+   * This operation is available for the following secret types:
+   *
+   * `iam_credentials`: current version only
+   *
+   * `custom_credentials`: both current and previous versions.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.secretId - The UUID that uniquely identifies your secret.
