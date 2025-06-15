@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/IBM/secrets-manager-node-sdk/compare/v2.0.10...v2.0.11) (2025-06-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ibm-cloud-sdk-core to v5.4.0 ([dbcfc92](https://github.com/IBM/secrets-manager-node-sdk/commit/dbcfc92f2a51a2c4acc651e6a465cbc08bcfbb48))
+
 ## [2.0.10](https://github.com/IBM/secrets-manager-node-sdk/compare/v2.0.9...v2.0.10) (2025-05-05)
 
 ## [2.0.9](https://github.com/IBM/secrets-manager-node-sdk/compare/v2.0.8...v2.0.9) (2025-02-17)
