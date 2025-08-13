@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
+ * IBM OpenAPI SDK Code Generator Version: 3.107.0-b68ebf7a-20250811-145645
  */
 
 /* eslint-disable max-classes-per-file */
@@ -494,7 +494,7 @@ class SecretsManagerV2 extends BaseService {
    * descending order use the `-` character
    *
    *
-   * **Available values:** id | created_at | updated_at | expiration_date | secret_type | name
+   * **Available values:** id | created_at | updated_at | retrieved_at | expiration_date | secret_type | name
    *
    * **Usage:** To sort a list of secrets by their creation date, use
    * `../secrets?sort=created_at`.
@@ -2804,7 +2804,7 @@ namespace SecretsManagerV2 {
      *  `-` character
      *
      *
-     *  **Available values:** id | created_at | updated_at | expiration_date | secret_type | name
+     *  **Available values:** id | created_at | updated_at | retrieved_at | expiration_date | secret_type | name
      *
      *  **Usage:** To sort a list of secrets by their creation date, use
      *  `../secrets?sort=created_at`.
@@ -4564,6 +4564,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -4650,6 +4654,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -4952,6 +4960,18 @@ namespace SecretsManagerV2 {
 
   /**
    * This field indicates whether Secrets Manager rotates your secrets automatically.
+   *
+   * Rotation interval cannot exceed the assiged TTL value.
+   *
+   * Custom Credentials: Minimum 6 hours, Maximum 3 months.
+   *
+   * Service Credentials: Minimum 1 day, Maximum 3 months.
+   *
+   * IAM Credentials: Minimum 1 day, Maximum 3 months.
+   *
+   * Private certificate: Minimum 1 day, Maximum 24 months.
+   *
+   * User credentials: Minimum 1 day, Maximum 24 months.
    */
   export interface CommonRotationPolicy extends RotationPolicy {
     /** This field indicates whether Secrets Manager rotates your secret automatically.
@@ -4971,6 +4991,7 @@ namespace SecretsManagerV2 {
       export enum Unit {
         DAY = 'day',
         MONTH = 'month',
+        HOUR = 'hour',
       }
     }
   }
@@ -5174,6 +5195,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -5253,6 +5278,8 @@ namespace SecretsManagerV2 {
     queued_task_count?: number;
     /** A Secret Manager task identifier. */
     last_failed_task_id?: string;
+    /** Indicates if the last rotation (automatic or manual) for the secret failed. */
+    last_rotation_failed?: boolean;
     /** The name of the custom credentials configuration. */
     configuration: string;
     /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
@@ -5297,6 +5324,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -5376,6 +5407,8 @@ namespace SecretsManagerV2 {
     queued_task_count?: number;
     /** A Secret Manager task identifier. */
     last_failed_task_id?: string;
+    /** Indicates if the last rotation (automatic or manual) for the secret failed. */
+    last_rotation_failed?: boolean;
     /** The name of the custom credentials configuration. */
     configuration: string;
     /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
@@ -5847,6 +5880,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -5993,6 +6030,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -6441,6 +6482,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -6563,6 +6608,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -6927,6 +6976,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -7008,6 +7061,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -7303,6 +7360,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -9700,6 +9761,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -10142,6 +10207,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -10892,6 +10961,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -11346,6 +11419,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -11455,6 +11532,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -11812,6 +11893,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
@@ -11912,6 +11997,10 @@ namespace SecretsManagerV2 {
     created_by: string;
     /** The date when the resource was created. The date format follows `RFC 3339`. */
     created_at: string;
+    /** The date when the data of the secret was last retrieved. The date format follows RFC 3339. Epoch date if
+     *  there is no record of secret data retrieval.
+     */
+    retrieved_at?: string;
     /** A CRN that uniquely identifies an IBM Cloud resource. */
     crn: string;
     /** The secret metadata that a user can customize. */
