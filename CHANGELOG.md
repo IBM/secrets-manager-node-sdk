@@ -1,3 +1,10 @@
+## [2.0.12](https://github.com/IBM/secrets-manager-node-sdk/compare/v2.0.11...v2.0.12) (2025-08-13)
+
+
+### Reverts
+
+* Revert "Add retrieved_at field (#230)" (#231) ([9951e4f](https://github.com/IBM/secrets-manager-node-sdk/commit/9951e4f442009de5ac927655ddc1623d834207e2)), closes [#230](https://github.com/IBM/secrets-manager-node-sdk/issues/230) [#231](https://github.com/IBM/secrets-manager-node-sdk/issues/231)
+
 ## [2.0.11](https://github.com/IBM/secrets-manager-node-sdk/compare/v2.0.10...v2.0.11) (2025-06-15)
 
 
