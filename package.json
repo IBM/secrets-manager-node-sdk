@@ -16,7 +16,7 @@
     "eslint:check": "eslint . --cache",
     "lint": "npm run eslint:check",
     "lint-fix": "npm run eslint:fix",
-    "build": "tsc",
+    "build": "tsc && cp package.json dist/ && cp README.md dist/",
     "prepare-publish": "npx @masterodin/publisher --dry-run --no-checks",
     "postversion": "npm run prepare-publish",
     "dry-publish": "npm run build && npm run prepare-publish",
