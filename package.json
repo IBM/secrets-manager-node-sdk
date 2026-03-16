@@ -16,8 +16,11 @@
     "eslint:check": "eslint . --cache",
     "lint": "npm run eslint:check",
     "lint-fix": "npm run eslint:fix",
-    "build": "tsc && cp package.json dist/ && cp README.md dist/",
-    "postversion": "tsc-publish --no-checks --dry-run",
+    "build": "tsc",
+    "prepare-publish": "npx @masterodin/publisher --dry-run --no-checks",
+    "postversion": "npm run prepare-publish",
+    "dry-publish": "npm run build && npm run prepare-publish",
+    "prepack": "npm run build",
     "publishDist": "npm run build && cd dist && npm publish --access public",
     "jest": "jest",
     "test": "npm run build && jest test/",
@@ -32,7 +35,7 @@
   },
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "extend": "^3.0.2",
@@ -40,6 +43,7 @@
   },
   "devDependencies": {
     "@ibm-cloud/sdk-test-utilities": "^1.0.0",
+    "@masterodin/publisher": "^0.10.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
@@ -66,7 +70,6 @@
     "nock": "^13.2.9",
     "prettier": "^3.6.2",
     "semantic-release": "^24.1.0",
-    "@masterodin/publisher": "^0.10.0",
     "typedoc": "^0.28.14",
     "typescript": "^5.4.5"
   },
