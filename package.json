@@ -20,7 +20,6 @@
     "prepare-publish": "npx @masterodin/publisher --dry-run --no-checks",
     "postversion": "npm run prepare-publish",
     "dry-publish": "npm run build && npm run prepare-publish",
-    "prepack": "npm run build",
     "publishDist": "npm run build && cd dist && npm publish --access public",
     "jest": "jest",
     "test": "npm run build && jest test/",
