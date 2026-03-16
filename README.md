@@ -78,7 +78,6 @@ To learn more about IAM authenticators and how to use them in your Node.js appli
 the [IBM Node.js SDK Core documentation](https://github.com/IBM/node-sdk-core/blob/master/Authentication.md).
 
 ## Using the SDK
-
 ### Basic usage
 
 - All methods return a Promise that either resolves with the response from the service or rejects with an Error. The
