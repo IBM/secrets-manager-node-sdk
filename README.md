@@ -88,7 +88,6 @@ the [IBM Node.js SDK Core documentation](https://github.com/IBM/node-sdk-core/bl
   find your endpoint URL, you can copy it from the **Endpoints** page in the Secrets Manager UI.
 
 #### Examples
-
 Construct a service client and use it to create and retrieve a secret from your Secrets Manager instance.
 
 ```js
