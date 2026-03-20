@@ -16,8 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0
-          token: ${{ secrets.ADMIN_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+          token: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -29,7 +29,7 @@ jobs:
 
       - name: Release using semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
           GIT_AUTHOR_NAME: secrets.automation.dev
           GIT_AUTHOR_EMAIL: secrets.automation.dev@il.ibm.com
           GIT_COMMITTER_NAME: secrets.automation.dev
