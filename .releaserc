@@ -3,12 +3,7 @@
   "branches": [
     "main"
   ],
-  "verifyConditions": [
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
-  "analyzeCommits":[
+  "plugins": [
     ["@semantic-release/commit-analyzer", {
         "preset": "angular",
         "releaseRules": [
@@ -17,24 +12,22 @@
             {"type": "minor","release": "minor"},
             {"type": "patch","release": "patch"}
     ]}],
-  ],
-   "generateNotes": [
-      "@semantic-release/release-notes-generator"
-  ],
-  "prepare": [
-    "@semantic-release/changelog",
+    "@semantic-release/release-notes-generator",
     "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
-  "publish": [
     [
-      "@semantic-release/npm",
+      "@semantic-release/git",
       {
-        "pkgRoot": "dist"
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        "assets": ["package.json", "package-lock.json"]
       }
     ],
-    {
-      "path": "@semantic-release/github"
-    }
+    [
+      "@semantic-release/github",
+      {
+        "successComment": false,
+        "failComment": false,
+        "releasedLabels": false
+      }
+    ]
   ]
 }
