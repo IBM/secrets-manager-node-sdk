@@ -1,9 +1,11 @@
-name: Create new release
+name: Create a new release
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,12 +19,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.ADMIN_TOKEN }}
 
-      - name: setup nodejs
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
 
-      - name: release using semantic-release
+      - name: Install dependencies
+        run: npm install
+
+      - name: Release using semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
           GIT_AUTHOR_NAME: secrets.automation.dev
@@ -30,14 +35,6 @@ jobs:
           GIT_COMMITTER_NAME: secrets.automation.dev
           GIT_COMMITTER_EMAIL: secrets.automation.dev@il.ibm.com
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install python3
-          pip install --user bumpversion
-          npm install @semantic-release/changelog
-          npm install @semantic-release/git
-          npm install @semantic-release/github
-          npm install @semantic-release/npm
-          npm install @semantic-release/release-notes-generator -D
-          npx semantic-release
+        run: npx semantic-release
 
+# Made with Bob
