@@ -61,7 +61,7 @@
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-jsdoc": "^34.6.3",
     "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "installed-check": "^10.0.0",
     "jest": "^30.0.0",
     "nock": "^14.0.0",
