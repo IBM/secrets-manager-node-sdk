@@ -14,7 +14,9 @@
     ]}],
     "@semantic-release/release-notes-generator",
     ["@semantic-release/npm", {
-      "pkgRoot": "dist"
+      "pkgRoot": "dist",
+      "npmPublish": true,
+      "tarballDir": false
     }],
     [
       "@semantic-release/git",

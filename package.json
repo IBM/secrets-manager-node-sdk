@@ -18,7 +18,6 @@
     "lint-fix": "npm run eslint:fix",
     "build": "tsc && cp package.json dist/ && cp README.md dist/",
     "prepare-publish": "npx @masterodin/publisher --dry-run --no-checks",
-    "postversion": "npm run prepare-publish",
     "dry-publish": "npm run build && npm run prepare-publish",
     "publishDist": "npm run build && cd dist && npm publish --access public",
     "jest": "jest",
