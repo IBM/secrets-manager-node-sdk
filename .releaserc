@@ -3,6 +3,7 @@
   "branches": [
     "main"
   ],
+  "pkgRoot": "dist",
   "plugins": [
     ["@semantic-release/commit-analyzer", {
         "preset": "angular",
