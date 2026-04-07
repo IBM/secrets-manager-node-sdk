@@ -93,7 +93,6 @@ Construct a service client and use it to create and retrieve a secret from your 
 const SecretsManager = require('@ibm-cloud/secrets-manager/secrets-manager/v2');
 const { IamAuthenticator } = require('@ibm-cloud/secrets-manager/auth');
 
-
 async function secretsManagerSdkExample() {
   // Authenticate with IAM using your IBM Cloud API key
   const authenticator = new IamAuthenticator({
