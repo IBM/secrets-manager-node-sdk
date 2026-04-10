@@ -23,13 +23,6 @@
         "assets": ["package.json", "package-lock.json"]
       }
     ],
-    [
-      "@semantic-release/github",
-      {
-        "successComment": false,
-        "failComment": false,
-        "releasedLabels": false
-      }
-    ]
+    "@semantic-release/github"
   ]
 }
