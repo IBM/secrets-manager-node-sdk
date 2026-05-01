@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.107.0-b68ebf7a-20250811-145645
+ * IBM OpenAPI SDK Code Generator Version: 3.114.0-a902401e-20260427-192904
  */
 
 /* eslint-disable max-classes-per-file */
@@ -72,8 +72,8 @@ class SecretsManagerV2 extends BaseService {
    */
   static constructServiceUrl(providedUrlVariables: Map<string, string> | null): string {
     return constructServiceUrl(
-      SecretsManagerV2.PARAMETERIZED_SERVICE_URL, 
-      SecretsManagerV2.defaultUrlVariables, 
+      SecretsManagerV2.PARAMETERIZED_SERVICE_URL,
+      SecretsManagerV2.defaultUrlVariables,
       providedUrlVariables
     );
   }
@@ -3570,8 +3570,8 @@ namespace SecretsManagerV2 {
   export interface CustomCredentialsNewCredentials {
     /** An identifier of credentials in the credentials provider that is used by the custom credentials secret type. */
     id: string;
-    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
-     *  'integer' and 'boolean'.
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are string, integer,
+     *  and boolean.
      */
     payload: JsonObject;
   }
@@ -5282,12 +5282,12 @@ namespace SecretsManagerV2 {
     last_rotation_failed?: boolean;
     /** The name of the custom credentials configuration. */
     configuration: string;
-    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
-     *  'integer' and 'boolean'.
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are string, integer,
+     *  and boolean.
      */
     parameters?: JsonObject;
-    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
-     *  'integer' and 'boolean'.
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are string, integer,
+     *  and boolean.
      */
     credentials_content: JsonObject;
   }
@@ -5411,8 +5411,8 @@ namespace SecretsManagerV2 {
     last_rotation_failed?: boolean;
     /** The name of the custom credentials configuration. */
     configuration: string;
-    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
-     *  'integer' and 'boolean'.
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are string, integer,
+     *  and boolean.
      */
     parameters?: JsonObject;
   }
@@ -5480,9 +5480,7 @@ namespace SecretsManagerV2 {
      *  days.
      */
     ttl?: string;
-    /** The parameters that are passed to custom credentials engine. Allowed types are 'string', 'integer' and
-     *  'boolean'.
-     */
+    /** The parameters that are passed to custom credentials engine. Allowed types are string, integer, and boolean. */
     parameters?: JsonObject;
   }
 
@@ -5535,9 +5533,7 @@ namespace SecretsManagerV2 {
     version_custom_metadata?: JsonObject;
     /** The name of the custom credentials configuration. */
     configuration: string;
-    /** The parameters that are passed to custom credentials engine. Allowed types are 'string', 'integer' and
-     *  'boolean'.
-     */
+    /** The parameters that are passed to custom credentials engine. Allowed types are string, integer, and boolean. */
     parameters?: JsonObject;
   }
   export namespace CustomCredentialsSecretPrototype {
@@ -5598,8 +5594,8 @@ namespace SecretsManagerV2 {
     expiration_date?: string;
     /** Credentials created by the custom credentials system. */
     credentials_id?: string;
-    /** The fields that can be passed to and from the custom credentials engine. Allowed types are 'string',
-     *  'integer' and 'boolean'.
+    /** The fields that can be passed to and from the custom credentials engine. Allowed types are string, integer,
+     *  and boolean.
      */
     credentials_content: JsonObject;
   }

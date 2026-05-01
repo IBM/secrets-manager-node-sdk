@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,6 +102,51 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
     secretIdForGetSecretLink = res.result.id;
     secretIdForGetSecretVersionLink = res.result.id;
+  });
+
+  test('listSecrets()', async () => {
+    const params = {
+      offset: 0,
+      limit: 200,
+      sort: 'created_at',
+      search: 'example',
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+      secretTypes: ['arbitrary', 'kv'],
+      matchAllLabels: ['dev', 'us-south'],
+    };
+
+    const res = await secretsManagerService.listSecrets(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('listSecrets() via SecretsPager', async () => {
+    const params = {
+      limit: 10,
+      sort: 'created_at',
+      search: 'example',
+      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
+      secretTypes: ['arbitrary', 'kv'],
+      matchAllLabels: ['dev', 'us-south'],
+    };
+
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
 
   test('updateSecretMetadata()', async () => {
@@ -222,51 +267,6 @@ describe('SecretsManagerV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-  });
-
-  test('listSecrets()', async () => {
-    const params = {
-      offset: 0,
-      limit: 200,
-      sort: 'created_at',
-      search: 'example',
-      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-      secretTypes: ['arbitrary', 'kv'],
-      matchAllLabels: ['dev', 'us-south'],
-    };
-
-    const res = await secretsManagerService.listSecrets(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-  });
-
-  test('listSecrets() via SecretsPager', async () => {
-    const params = {
-      limit: 10,
-      sort: 'created_at',
-      search: 'example',
-      groups: ['default', 'cac40995-c37a-4dcb-9506-472869077634'],
-      secretTypes: ['arbitrary', 'kv'],
-      matchAllLabels: ['dev', 'us-south'],
-    };
-
-    const allResults = [];
-
-    // Test getNext().
-    let pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
-    while (pager.hasNext()) {
-      const nextPage = await pager.getNext();
-      expect(nextPage).not.toBeNull();
-      allResults.push(...nextPage);
-    }
-
-    // Test getAll().
-    pager = new SecretsManagerV2.SecretsPager(secretsManagerService, params);
-    const allItems = await pager.getAll();
-    expect(allItems).not.toBeNull();
-    expect(allItems).toHaveLength(allResults.length);
-    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
 
   test('getSecret()', async () => {
@@ -641,10 +641,6 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  // The integration test for deleteSecretVersionData has been explicitly excluded from generation.
-  // A test for this operation must be developed manually.
-  // test('deleteSecretVersionData()', async () => {});
-
   test('deleteSecretLocksBulk()', async () => {
     const params = {
       id: secretIdForGetSecretLink,
@@ -681,6 +677,10 @@ describe('SecretsManagerV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
+  // The integration test for deleteSecretVersionData has been explicitly excluded from generation.
+  // A test for this operation must be developed manually.
+  // test('deleteSecretVersionData()', async () => {});
 
   // The integration test for deleteSecretTask has been explicitly excluded from generation.
   // A test for this operation must be developed manually.
