@@ -3,14 +3,14 @@ name: Create a new release
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
 
     if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore')"
 
@@ -21,9 +21,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.ADMIN_TOKEN }}
           persist-credentials: true
+          ssh-key: ""
+          ssh-strict: false
 
-      - name: Setup Git
+      - name: Force Git HTTPS auth
         run: |
+          git config --global url."https://${{ secrets.ADMIN_TOKEN }}@github.com/".insteadOf "https://github.com/"
           git config --global user.name "secrets.automation.dev"
           git config --global user.email "secrets.automation.dev@il.ibm.com"
 
@@ -31,6 +34,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm ci
