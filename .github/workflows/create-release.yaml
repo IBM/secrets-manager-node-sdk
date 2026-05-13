@@ -3,38 +3,26 @@ name: Create a new release
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
-
     if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore')"
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.ADMIN_TOKEN }}
-          persist-credentials: true
-          ssh-key: ""
-          ssh-strict: false
-
-      - name: Force Git HTTPS auth
-        run: |
-          git config --global url."https://${{ secrets.ADMIN_TOKEN }}@github.com/".insteadOf "https://github.com/"
-          git config --global user.name "secrets.automation.dev"
-          git config --global user.email "secrets.automation.dev@il.ibm.com"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm ci
@@ -42,12 +30,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Release with semantic-release
+      - name: Release using semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           GIT_AUTHOR_NAME: secrets.automation.dev
           GIT_AUTHOR_EMAIL: secrets.automation.dev@il.ibm.com
           GIT_COMMITTER_NAME: secrets.automation.dev
           GIT_COMMITTER_EMAIL: secrets.automation.dev@il.ibm.com
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: npx semantic-release
