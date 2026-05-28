@@ -16,8 +16,6 @@ jobs:
       (github.event_name == 'push' && 
        github.ref == 'refs/heads/main' && 
        !startsWith(github.event.head_commit.message, 'chore')) 
-      || 
-      github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
