@@ -66,7 +66,7 @@
     "jest": "^30.0.0",
     "nock": "^14.0.0",
     "prettier": "^3.6.2",
-    "semantic-release": "^25.0.0",
+    "semantic-release": "^26.0.0",
     "typedoc": "^0.28.14",
     "typescript": "^5.4.5"
   },
